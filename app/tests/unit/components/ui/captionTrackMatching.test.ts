@@ -15,8 +15,7 @@ describe("findTrackForLocale", () => {
   it("returns null when no track is in the reader's language", () => {
     const tracks = [track({ id: "en", language: "en" })];
 
-    // Deliberately NOT falling back to English: captions in a language the
-    // reader may not know are worse than the player's usual no-captions default.
+    // No English fallback: captions they may not read are worse than none.
     expect(findTrackForLocale(tracks, "hu")).toBeNull();
   });
 
@@ -61,8 +60,7 @@ describe("findTrackForLocale", () => {
     const generic = track({ id: "pt", language: "pt" });
     const brazilian = track({ id: "pt-br", language: "pt-BR" });
 
-    // Generic comes first in manifest order, so this only passes if the exact
-    // tier genuinely wins rather than first-match-wins.
+    // Generic is first in order, so this fails if it were first-match-wins.
     expect(findTrackForLocale([generic, brazilian], "pt-BR")).toBe(brazilian);
   });
 

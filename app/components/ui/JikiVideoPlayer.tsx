@@ -101,10 +101,7 @@ type PlayerBridgeProps = Pick<
 const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(function PlayerBridge(callbacks, ref) {
   const store = Player.usePlayer();
 
-  // Readers whose UI is not in the video's spoken language get captions in their
-  // own language, if the asset carries them. Scoped to the player instance: a
-  // reader who dismisses them is obeyed for this video, and the next video asks
-  // again. Skipped for DEFAULT_LOCALE, whose readers already understand the audio.
+  // Per player instance, so turning captions off applies to this video only.
   const locale = useLocale();
   useCaptionAutoEnable(store, locale, locale !== DEFAULT_LOCALE);
 

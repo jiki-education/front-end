@@ -63,9 +63,7 @@ function createFakeStore() {
   };
 }
 
-// The global next-intl mock in jest.setup.js pins useLocale to "en"; override it
-// here so the caption auto-enable path (which only runs for non-default locales)
-// is reachable. `mockLocale` is a let so individual tests can retarget it.
+// jest.setup.js pins useLocale to "en"; override so non-default-locale paths are reachable.
 let mockLocale = "en";
 jest.mock("next-intl", () => ({
   ...jest.requireActual<Record<string, unknown>>("next-intl"),
@@ -267,7 +265,7 @@ describe("JikiVideoPlayer caption auto-enable", () => {
     mockLocale = "hu";
     render(<JikiVideoPlayer playbackId="abc" />);
 
-    // Today's Mux assets carry English subtitles only — this is the live case.
+    // No fallback to English, which the reader may not know.
     act(() => fakeStore.set({ textTrackList: [EN] }));
     expect(fakeStore.selectSubtitlesTrack).not.toHaveBeenCalled();
   });

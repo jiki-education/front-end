@@ -2,9 +2,7 @@ import { renderHook, act } from "@testing-library/react";
 import { useCaptionAutoEnable, type CaptionStore } from "@/components/ui/useCaptionAutoEnable";
 import type { CaptionTrack } from "@/components/ui/captionTrackMatching";
 
-// Stand-in for the v10 media store, in the same spirit as the JikiVideoPlayer
-// bridge test: the hook reads `state`, subscribes for commits, and calls
-// selectSubtitlesTrack. `set` mutates and notifies the way a store commit does.
+// Stand-in for the v10 media store; `set` mutates and notifies like a store commit.
 function createFakeStore(initialTracks: CaptionTrack[] = []) {
   const state = { textTrackList: initialTracks, subtitlesShowing: false };
   const listeners = new Set<() => void>();
@@ -59,8 +57,7 @@ describe("useCaptionAutoEnable", () => {
     const store = createFakeStore([EN, HU]);
     renderAutoEnable(store);
 
-    // A remount against a warm store gets no further commit, so the hook must
-    // not rely solely on the subscription firing.
+    // A warm store sends no further commit, so mount must not rely on the subscription.
     expect(store.selectSubtitlesTrack).toHaveBeenCalledWith(HU.id);
   });
 
@@ -85,8 +82,7 @@ describe("useCaptionAutoEnable", () => {
     act(() => store.set({ textTrackList: [EN, HU] }));
     expect(store.selectSubtitlesTrack).toHaveBeenCalledTimes(1);
 
-    // Selecting a track re-syncs the feature: ours is showing, everything else
-    // disabled. That is the settled state, not a reason to act again.
+    // The settled state after our own selection, not a reason to act again.
     act(() => store.set({ textTrackList: [EN, { ...HU, mode: "showing" }], subtitlesShowing: true }));
     expect(store.selectSubtitlesTrack).toHaveBeenCalledTimes(1);
   });
@@ -98,8 +94,7 @@ describe("useCaptionAutoEnable", () => {
     act(() => store.set({ textTrackList: [EN, HU] }));
     expect(store.selectSubtitlesTrack).toHaveBeenCalledTimes(1);
 
-    // Mux marks every track AUTOSELECT=YES, so hls.js enables English after our
-    // choice and two tracks end up showing at once — the wrong one paints.
+    // Mux marks every track AUTOSELECT=YES, so hls.js enables English over ours.
     act(() =>
       store.set({
         textTrackList: [
@@ -120,8 +115,7 @@ describe("useCaptionAutoEnable", () => {
     act(() => store.set({ textTrackList: [EN, HU] }));
     expect(store.selectSubtitlesTrack).toHaveBeenCalledTimes(1);
 
-    // Selecting a track disables the others, so after the reader's choice ours is
-    // no longer showing and there is nothing for us to re-assert against.
+    // Their choice disables ours, so there is nothing left to re-assert.
     act(() => store.set({ textTrackList: [{ ...EN, mode: "showing" }, HU], subtitlesShowing: true }));
     expect(store.selectSubtitlesTrack).toHaveBeenCalledTimes(1);
   });
