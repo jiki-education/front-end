@@ -29,7 +29,7 @@ export function HeroVideo() {
   return (
     <div className={styles.container}>
       {playing && (
-        <div className={`${styles.muxOverlay} ${ready ? styles.ready : ""}`}>
+        <div className={`${styles.videoOverlay} ${ready ? styles.ready : ""}`}>
           <VideoPlayerLazy
             playbackId={PLAYBACK_ID}
             poster={VIDEO_POSTER_URL}
