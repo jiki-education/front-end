@@ -10,6 +10,7 @@ import openNextWorker from "./.open-next/worker.js";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { generateCacheKey } from "./lib/cache/cache-key-generator";
 import { isCacheableRoute, shouldCacheResponse } from "./lib/cache/cacheable-routes";
+import { redirectToCorrectLocale } from "./lib/i18n/localeRedirect";
 
 // CRITICAL: Re-export Durable Objects or deployment will fail
 // @ts-expect-error: Will be resolved by wrangler build
@@ -20,6 +21,17 @@ const CACHE_TTL = 86400;
 
 const worker = {
   async fetch(request, env, ctx) {
+    // Locale routing runs before everything else, and in particular before the
+    // cache lookup below: a cache hit returns without ever entering the Next.js
+    // worker, so a redirect decided in middleware would simply not happen for
+    // cached requests. Deciding it here also keeps the cache honest — a request
+    // that moves to another language never reads or writes the entry belonging
+    // to the language it left.
+    const localeRedirect = redirectToCorrectLocale(request);
+    if (localeRedirect) {
+      return localeRedirect;
+    }
+
     // Get deploy ID and environment first
     const deployId = env.DEPLOY_ID;
     const isProduction = env.ENVIRONMENT === "production";

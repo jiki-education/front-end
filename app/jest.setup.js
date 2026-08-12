@@ -5,12 +5,27 @@ import mockEnMessages from "./messages.json";
 
 // Polyfill Web APIs for testing (Request, Response, etc.)
 // These are available in Workers/browsers but not in Node.js Jest environment
+
+// Header names are case-insensitive per the Fetch spec, and real Headers treats
+// them so. Keying on the raw string would let a test pass or fail on the casing
+// its author happened to type ("Cookie" vs "cookie"), which says nothing about
+// whether the code works in a Worker.
+function mockHeaders(init = {}) {
+  const store = new Map(Object.entries(init).map(([name, value]) => [name.toLowerCase(), value]));
+
+  return {
+    get: (name) => store.get(String(name).toLowerCase()) ?? null,
+    set: (name, value) => store.set(String(name).toLowerCase(), value),
+    has: (name) => store.has(String(name).toLowerCase())
+  };
+}
+
 if (typeof global.Request === "undefined") {
   global.Request = class Request {
     constructor(url, init = {}) {
       this.url = url;
       this.method = init.method || "GET";
-      this.headers = new Map(Object.entries(init.headers || {}));
+      this.headers = mockHeaders(init.headers);
       this.body = init.body;
     }
   };
@@ -22,16 +37,8 @@ if (typeof global.Response === "undefined") {
       this.body = body;
       this.status = init.status || 200;
       this.statusText = init.statusText || "OK";
-      this._headers = init.headers || {};
       this.ok = this.status >= 200 && this.status < 300;
-
-      // Create a headers object with get method
-      this.headers = {
-        get: (name) => this._headers[name] || null,
-        set: (name, value) => {
-          this._headers[name] = value;
-        }
-      };
+      this.headers = mockHeaders(init.headers);
     }
   };
 }

@@ -4,12 +4,14 @@
  * Generates normalized cache keys with:
  * - Allowlisted query parameters (page, criteria)
  * - Deploy ID (git SHA) for automatic invalidation on deploy
- * - Locale bucket (offered banner language) so the locale-mismatch banner never
- *   poisons another language's cached HTML
+ * - Locale bucket (the banner language this request would render, or "none") so
+ *   the locale-mismatch banner never poisons another language's cached HTML
  *
  * Note: RSC requests (client-side navigation) are not cached, only HTML requests.
  */
 
+import { readCookie } from "@/lib/cookies";
+import { LOCALE_PREF_COOKIE_NAME } from "@/lib/i18n/config";
 import { localeCacheBucket } from "@/lib/i18n/localeBanner";
 
 const ALLOWED_PARAMS = new Set(["page", "criteria"]);
@@ -66,7 +68,10 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
 export function generateCacheKey(request: Request, deployId: string): string {
   const url = new URL(request.url);
   const normalizedParams = normalizeSearchParams(url.searchParams);
-  const langBucket = localeCacheBucket(request.headers.get("accept-language"));
+  const langBucket = localeCacheBucket(
+    request.headers.get("accept-language"),
+    readCookie(request.headers.get("Cookie"), LOCALE_PREF_COOKIE_NAME)
+  );
 
   return `${url.pathname}${normalizedParams}#${deployId}@${langBucket}`;
 }

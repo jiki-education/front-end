@@ -9,6 +9,8 @@ export interface BannerInput {
   userLocale?: string;
   /** The raw Accept-Language header, or null if absent (crawlers like Googlebot send none). */
   acceptLanguage: string | null;
+  /** The locale the visitor chose (jiki_locale_pref), or null if they never did. */
+  localePref?: string | null;
 }
 
 export interface BannerOffer {
@@ -35,6 +37,11 @@ export function resolveBannerOffer(input: BannerInput): BannerOffer | null {
   let offered: Locale;
   if (input.isAuthed) {
     offered = normalizeLocale(input.userLocale);
+  } else if (isSupportedLocale(input.localePref)) {
+    // The visitor has chosen a language, so there is nothing to offer them: the
+    // redirect has already put them on it, and pitching their browser's language
+    // over their own stated choice is just nagging.
+    offered = input.localePref;
   } else {
     // Anonymous: no Accept-Language means a crawler / non-browser — never show.
     if (input.acceptLanguage == null) {
@@ -68,15 +75,24 @@ export function swapLocaleInPath(pathname: string, locale: Locale): string {
 
 /**
  * The cache-key discriminator for an anonymous request: the language the banner
- * would offer ("en"/"hu"), or "none" when there's no Accept-Language (crawler).
+ * would offer ("en"/"hu"), or "none" when it renders no banner at all (a crawler
+ * sending no Accept-Language, or a visitor who has chosen their locale).
+ *
+ * Keyed on the *outcome* rather than on the inputs that produce it, which is why
+ * a second input can be added here without widening the key: two requests that
+ * render the same bar share an entry however they got there.
  *
  * The anonymous banner depends only on (path locale, this value), and the path
  * is already in the cache key, so appending this gives each banner variant its
  * own cache entry (no cross-language poisoning). Must stay in lock-step with the
  * anonymous branch of resolveBannerOffer.
  */
-export function localeCacheBucket(acceptLanguage: string | null): string {
-  if (acceptLanguage == null) {
+export function localeCacheBucket(acceptLanguage: string | null, localePref?: string | null): string {
+  // No banner at all: a visitor who chose a locale is already on it (the redirect
+  // saw to that), and a client sending no Accept-Language is a crawler. Neither
+  // renders a bar, so both key to the same banner-free HTML rather than minting
+  // an entry each.
+  if (isSupportedLocale(localePref) || acceptLanguage == null) {
     return "none";
   }
   return firstSupportedLanguage(acceptLanguage) ?? DEFAULT_LOCALE;

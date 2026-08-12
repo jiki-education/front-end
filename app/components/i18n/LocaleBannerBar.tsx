@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useLayoutEffect, useState, type ReactNode } from "react";
+import { setLocalePrefCookie } from "@/lib/i18n/localeCookie";
 import styles from "./LocalBanner.module.css";
 
 interface LocaleBannerBarProps {
@@ -50,6 +51,24 @@ export function LocaleBannerBar({ children, offered }: LocaleBannerBarProps) {
     <div className={styles.banner}>
       <DismissContext value={dismiss}>{children}</DismissContext>
     </div>
+  );
+}
+
+/**
+ * The `<link>` chunk of the banner message: the actual "switch to my language"
+ * action, and so an explicit choice.
+ *
+ * A plain anchor rather than <Link>, matching LanguageSwitcher: a client-side
+ * navigation would keep the mounted tree and its old-locale links, and — more to
+ * the point here — the edge decides the locale before its cache, so the cookie
+ * must ride on the document request this click makes. Setting it in the handler
+ * gets it there, because document.cookie is synchronous.
+ */
+export function LocaleBannerLink({ href, offered, children }: { href: string; offered: string; children: ReactNode }) {
+  return (
+    <a href={href} hrefLang={offered} onClick={() => setLocalePrefCookie(offered)}>
+      {children}
+    </a>
   );
 }
 

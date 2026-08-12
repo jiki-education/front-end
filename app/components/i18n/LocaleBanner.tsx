@@ -1,7 +1,6 @@
-import { LocaleBannerBar, LocaleBannerDismiss } from "@/components/i18n/LocaleBannerBar";
-import Link from "next/link";
+import { LocaleBannerBar, LocaleBannerDismiss, LocaleBannerLink } from "@/components/i18n/LocaleBannerBar";
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
-import { LOCALE_COOKIE_NAME, PATHNAME_HEADER } from "@/lib/i18n/config";
+import { LOCALE_COOKIE_NAME, LOCALE_PREF_COOKIE_NAME, PATHNAME_HEADER } from "@/lib/i18n/config";
 import { languageName } from "@/lib/i18n/languageNames";
 import { resolveBannerOffer } from "@/lib/i18n/localeBanner";
 import { getTranslations } from "next-intl/server";
@@ -27,7 +26,8 @@ export async function LocaleBanner() {
     pathname,
     isAuthed: cookieStore.has(AUTHENTICATION_COOKIE_NAME),
     userLocale: cookieStore.get(LOCALE_COOKIE_NAME)?.value,
-    acceptLanguage: headerStore.get("accept-language")
+    acceptLanguage: headerStore.get("accept-language"),
+    localePref: cookieStore.get(LOCALE_PREF_COOKIE_NAME)?.value
   });
 
   if (!offer) {
@@ -41,7 +41,11 @@ export async function LocaleBanner() {
       {t.rich("message", {
         current: languageName(offer.current, offer.offered),
         offered: languageName(offer.offered, offer.offered),
-        link: (chunks) => <Link href={offer.href}>{chunks}</Link>,
+        link: (chunks) => (
+          <LocaleBannerLink href={offer.href} offered={offer.offered}>
+            {chunks}
+          </LocaleBannerLink>
+        ),
         dismiss: (chunks) => <LocaleBannerDismiss>{chunks}</LocaleBannerDismiss>
       })}
     </LocaleBannerBar>
