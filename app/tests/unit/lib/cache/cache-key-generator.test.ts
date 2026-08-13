@@ -88,39 +88,39 @@ describe("cache-key-generator", () => {
     it("generates cache key with pathname and deploy ID", () => {
       const request = new Request("https://jiki.io/blog");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/blog#abc1234@none");
+      expect(result).toBe("https://jiki.io/blog?__deploy=abc1234&__lang=none");
     });
 
     it("includes allowed query params", () => {
       const request = new Request("https://jiki.io/blog?page=2");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/blog?page=2#abc1234@none");
+      expect(result).toBe("https://jiki.io/blog?page=2&__deploy=abc1234&__lang=none");
     });
 
     it("strips disallowed query params", () => {
       const request = new Request("https://jiki.io/blog?page=1&utm_source=google&ref=twitter");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/blog?page=1#abc1234@none");
+      expect(result).toBe("https://jiki.io/blog?page=1&__deploy=abc1234&__lang=none");
     });
 
     it("preserves locale in pathname", () => {
       const request = new Request("https://jiki.io/de/blog?page=1");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/de/blog?page=1#abc1234@none");
+      expect(result).toBe("https://jiki.io/de/blog?page=1&__deploy=abc1234&__lang=none");
     });
 
     it("sorts allowed params", () => {
       const request = new Request("https://jiki.io/blog?page=2&criteria=popular");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/blog?criteria=popular&page=2#abc1234@none");
+      expect(result).toBe("https://jiki.io/blog?criteria=popular&page=2&__deploy=abc1234&__lang=none");
     });
 
     it("buckets by the offered banner language from Accept-Language", () => {
       const en = new Request("https://jiki.io/blog", { headers: { "accept-language": "en-US,en;q=0.9" } });
       const hu = new Request("https://jiki.io/blog", { headers: { "accept-language": "hu-HU,hu;q=0.9,en;q=0.8" } });
 
-      expect(generateCacheKey(en, deployId)).toBe("/blog#abc1234@en");
-      expect(generateCacheKey(hu, deployId)).toBe("/blog#abc1234@hu");
+      expect(generateCacheKey(en, deployId)).toBe("https://jiki.io/blog?__deploy=abc1234&__lang=en");
+      expect(generateCacheKey(hu, deployId)).toBe("https://jiki.io/blog?__deploy=abc1234&__lang=hu");
     });
 
     it("separates crawler (no Accept-Language) from browser buckets on the same path", () => {
@@ -129,15 +129,15 @@ describe("cache-key-generator", () => {
 
       // Crawler gets a banner-free page, an English browser gets the "view in
       // English" banner: distinct HTML, so they must be distinct cache entries.
-      expect(generateCacheKey(crawler, deployId)).toBe("/hu/blog#abc1234@none");
-      expect(generateCacheKey(enBrowser, deployId)).toBe("/hu/blog#abc1234@en");
+      expect(generateCacheKey(crawler, deployId)).toBe("https://jiki.io/hu/blog?__deploy=abc1234&__lang=none");
+      expect(generateCacheKey(enBrowser, deployId)).toBe("https://jiki.io/hu/blog?__deploy=abc1234&__lang=en");
     });
 
     // "xx" rather than a real language tag: this asserts the unsupported path, and a
     // real tag makes it fail the day that language launches. "fr" sat here until fr did.
     it("buckets unsupported languages into the default locale", () => {
       const unsupported = new Request("https://jiki.io/blog", { headers: { "accept-language": "xx-XX,xx;q=0.9" } });
-      expect(generateCacheKey(unsupported, deployId)).toBe("/blog#abc1234@en");
+      expect(generateCacheKey(unsupported, deployId)).toBe("https://jiki.io/blog?__deploy=abc1234&__lang=en");
     });
 
     it("generates same key regardless of disallowed param order", () => {
@@ -155,8 +155,8 @@ describe("cache-key-generator", () => {
       const key1 = generateCacheKey(request, "abc1234");
       const key2 = generateCacheKey(request, "def5678");
 
-      expect(key1).toBe("/blog#abc1234@none");
-      expect(key2).toBe("/blog#def5678@none");
+      expect(key1).toBe("https://jiki.io/blog?__deploy=abc1234&__lang=none");
+      expect(key2).toBe("https://jiki.io/blog?__deploy=def5678&__lang=none");
       expect(key1).not.toBe(key2);
     });
 
@@ -175,13 +175,44 @@ describe("cache-key-generator", () => {
         "https://jiki.io/de/help?criteria=top&page=3&utm_source=google&utm_medium=cpc&ref=home"
       );
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/de/help?criteria=top&page=3#abc1234@none");
+      expect(result).toBe("https://jiki.io/de/help?criteria=top&page=3&__deploy=abc1234&__lang=none");
     });
 
     it("strips _rsc param from cache key", () => {
       const request = new Request("https://jiki.io/blog?_rsc=1mj2u&page=2");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/blog?page=2#abc1234@none");
+      expect(result).toBe("https://jiki.io/blog?page=2&__deploy=abc1234&__lang=none");
+    });
+
+    // The Cache API resolves a string key via `new Request(key)`, which throws on a
+    // relative URL. A key that throws is swallowed by the wrapper's try/catch and
+    // silently disables the edge cache, so this asserts the key is usable as one.
+    it("produces a key the Cache API can resolve", () => {
+      const request = new Request("https://jiki.io/blog?page=2");
+      const key = generateCacheKey(request, deployId);
+
+      expect(() => new Request(key)).not.toThrow();
+      expect(new URL(key).origin).toBe("https://jiki.io");
+    });
+
+    // The dimensions used to sit in a `#deployId@bucket` fragment, which a URL drops:
+    // every deploy and every language bucket collapsed onto one entry.
+    it("keeps the deploy ID and locale bucket in the resolved request URL", () => {
+      const request = new Request("https://jiki.io/blog", { headers: { "accept-language": "hu-HU" } });
+      const key = generateCacheKey(request, deployId);
+
+      const resolved = new URL(new Request(key).url);
+      expect(resolved.searchParams.get("__deploy")).toBe("abc1234");
+      expect(resolved.searchParams.get("__lang")).toBe("hu");
+    });
+
+    // Otherwise a visitor could pin themselves to another bucket's HTML, or to an
+    // entry from a deploy that has been superseded.
+    it("ignores forged __deploy and __lang params from the visitor", () => {
+      const forged = new Request("https://jiki.io/blog?__deploy=evil&__lang=hu");
+      const clean = new Request("https://jiki.io/blog");
+
+      expect(generateCacheKey(forged, deployId)).toBe(generateCacheKey(clean, deployId));
     });
   });
 });

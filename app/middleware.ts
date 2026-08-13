@@ -120,14 +120,29 @@ export function middleware(request: NextRequest) {
   }
 
   //
-  // Set cache headers for unauthenticated external URL requests
-  // Skip for RSC requests (client-side navigation)
+  // Set cache headers for unauthenticated external URL requests.
+  //
+  // RSC requests (client-side navigation) are marked explicitly uncacheable
+  // rather than merely skipped. An RSC response is flight data, not a document,
+  // but it is served from the same URL as the document — the two are told apart
+  // only by the `RSC` request header, and Cloudflare varies on nothing but
+  // Accept-Encoding. So if flight data is ever marked publicly cacheable, one
+  // edge node can store it under the document's key and serve raw flight text to
+  // browsers asking for HTML, until it expires. What normally keeps them apart is
+  // the `_rsc=<hash>` cache-buster Next appends to prefetch URLs, but that is an
+  // implementation detail of the client router, not a guarantee: an RSC request
+  // that reaches the bare URL lands on the document's key. Leaving the header
+  // unset let whatever Next emitted decide, which for a prerendered public route
+  // can be `public`. Setting it here closes that off at the origin, for every
+  // RSC request, with or without the buster.
   //
   const isAuthenticated = request.cookies.has(AUTHENTICATION_COOKIE_NAME);
   const isRscRequest = request.headers.has("rsc");
   if (staging) {
     response.headers.set("Cache-Control", "no-store");
-  } else if (!isAuthenticated && !isRscRequest && isCacheableRoute(path)) {
+  } else if (isRscRequest) {
+    response.headers.set("Cache-Control", "private, no-store");
+  } else if (!isAuthenticated && isCacheableRoute(path)) {
     response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");
     response.headers.set("Vary", "Cookie");
   }
