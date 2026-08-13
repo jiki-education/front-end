@@ -9,8 +9,8 @@ jest.mock("@/lib/env");
 
 const mockIsStaging = isStaging as jest.MockedFunction<typeof isStaging>;
 
-function requestFor(path: string) {
-  return new NextRequest(new URL(`https://staging.jiki.io${path}`));
+function requestFor(path: string, headers?: Record<string, string>) {
+  return new NextRequest(new URL(`https://staging.jiki.io${path}`), { headers });
 }
 
 describe("middleware staging behaviour", () => {
@@ -43,5 +43,51 @@ describe("middleware staging behaviour", () => {
 
     expect(res.headers.get("X-Robots-Tag")).toBeNull();
     expect(res.headers.get("Cache-Control")).toBe("public, max-age=600, s-maxage=600");
+  });
+});
+
+describe("middleware RSC cache headers", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  //
+  // An RSC response is flight data served from the document's own URL, told apart
+  // only by a request header Cloudflare doesn't vary on. If it is ever publicly
+  // cacheable, an edge node can serve raw flight text to a browser asking for HTML.
+  // These assert the header is set explicitly, not merely left unset.
+  //
+  it("marks an RSC response uncacheable on a cacheable public route", () => {
+    mockIsStaging.mockReturnValue(false);
+
+    const res = middleware(requestFor("/", { rsc: "1" }));
+
+    expect(res.headers.get("Cache-Control")).toBe("private, no-store");
+  });
+
+  it("marks an RSC response uncacheable with no `_rsc` cache-buster in the URL", () => {
+    mockIsStaging.mockReturnValue(false);
+
+    // The buster is what normally keeps prefetches off the document's cache key.
+    // Its absence is exactly the case this guard exists for.
+    const res = middleware(requestFor("/blog", { rsc: "1" }));
+
+    expect(res.headers.get("Cache-Control")).toBe("private, no-store");
+  });
+
+  it("still serves the public cache header to a document request on the same route", () => {
+    mockIsStaging.mockReturnValue(false);
+
+    const res = middleware(requestFor("/"));
+
+    expect(res.headers.get("Cache-Control")).toBe("public, max-age=600, s-maxage=600");
+  });
+
+  it("keeps staging's no-store for RSC requests", () => {
+    mockIsStaging.mockReturnValue(true);
+
+    const res = middleware(requestFor("/", { rsc: "1" }));
+
+    expect(res.headers.get("Cache-Control")).toBe("no-store");
   });
 });
