@@ -7,7 +7,7 @@ import { tierIncludes } from "@/lib/pricing";
 import VideoPlayer from "@/components/ui/JikiVideoPlayer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import YouTube from "react-youtube";
+import JikiYouTubePlayer from "@/components/youtube-player/JikiYouTubePlayer";
 import { useEpisodeProgress } from "./lib/useEpisodeProgress";
 import styles from "./EpisodeVideo.module.css";
 
@@ -77,26 +77,19 @@ export default function EpisodeVideo({ uuid, projectPath, videoProvider, videoKe
           onError={() => setIsReady(true)}
         />
       ) : (
-        <YouTube
+        <JikiYouTubePlayer
           videoId={videoKey}
-          className={`${styles.player} ${isReady ? "" : styles.playerHidden}`}
-          iframeClassName={styles.player}
-          opts={{
-            playerVars: {
-              modestbranding: 1,
-              rel: 0
-            }
-          }}
-          onReady={(event) => {
+          onRawReady={(event) => {
             handleYouTubeReady(event);
             setIsReady(true);
           }}
-          onStateChange={handleYouTubeStateChange}
-          onError={() => setIsReady(true)}
+          onRawStateChange={handleYouTubeStateChange}
         />
       )}
 
-      {!isReady && (
+      {/* The YouTube player renders its own facade and spinner, so it's never
+          waiting behind this one. */}
+      {videoProvider === "mux" && !isReady && (
         <div className={styles.spinnerOverlay}>
           <div className={styles.spinner} />
         </div>

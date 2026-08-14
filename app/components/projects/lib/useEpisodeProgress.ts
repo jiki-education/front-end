@@ -9,6 +9,15 @@ interface ProgressPlayer {
   seekTo: (seconds: number) => void;
 }
 
+// The native YouTube player, whose seekTo takes an allowSeekAhead flag. Kept
+// separate from ProgressPlayer (the normalised shape used internally) so the
+// raw player can be passed straight through from JikiYouTubePlayer.
+interface YouTubeProgressTarget {
+  getCurrentTime: () => number;
+  getDuration: () => number;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+}
+
 export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtube") {
   const muxPlayerRef = useRef<JikiVideoPlayerHandle>(null);
   const ytPlayerRef = useRef<ProgressPlayer | null>(null);
@@ -61,7 +70,8 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     updateUserVideoPercentage(uuid, rounded).catch(() => {});
   };
 
-  const reportFromPlayer = (player: ProgressPlayer | null) => {
+  // Only reads the clock, so it accepts either player shape.
+  const reportFromPlayer = (player: Pick<ProgressPlayer, "getCurrentTime" | "getDuration"> | null) => {
     if (!player) {
       return;
     }
@@ -126,7 +136,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
   };
 
   // YouTube handlers
-  const handleYouTubeReady = (event: { target: ProgressPlayer & { seekTo: (s: number, b: boolean) => void } }) => {
+  const handleYouTubeReady = (event: { target: YouTubeProgressTarget }) => {
     const target = event.target;
     ytPlayerRef.current = {
       getCurrentTime: () => target.getCurrentTime(),
@@ -136,7 +146,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     restorePosition(ytPlayerRef.current);
   };
 
-  const handleYouTubeStateChange = (event: { data: number; target: ProgressPlayer }) => {
+  const handleYouTubeStateChange = (event: { data: number; target: YouTubeProgressTarget }) => {
     // YT.PlayerState: ENDED=0, PLAYING=1, BUFFERING=3
     if (event.data === 0) {
       reportProgress(100);
