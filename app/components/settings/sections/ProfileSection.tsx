@@ -3,7 +3,7 @@
 import type { UserSettings } from "@/lib/api/types/settings";
 import { useTranslations } from "next-intl";
 import EditableField from "../ui/EditableField";
-import LanguageField from "../ui/LanguageField";
+import LanguageField from "../ui/language-field/LanguageField";
 import StatusNotification from "../ui/StatusNotification";
 import styles from "../Settings.module.css";
 
