@@ -8,7 +8,7 @@ import styles from "./JikiYouTubePlayer.module.css";
 // The native YouTube iframe player exposes synchronous getters on the event
 // target (react-youtube types them loosely via youtube-player, which ships no
 // TypeScript declarations). We narrow to just the methods we drive.
-interface YTPlayer {
+export interface YTPlayer {
   playVideo: () => void;
   pauseVideo: () => void;
   getCurrentTime: () => number;
@@ -56,6 +56,14 @@ export interface JikiYouTubePlayerProps {
   onProgress?: (progress: JikiYouTubePlayerProgress) => void;
   /** How often (ms) to emit onProgress while playing. */
   progressIntervalMs?: number;
+  /**
+   * Raw react-youtube passthroughs, for consumers driving the underlying player
+   * directly (e.g. useEpisodeProgress, which restores position from the native
+   * target and keys off YT.PlayerState). Fire alongside the friendlier callbacks
+   * above rather than replacing them.
+   */
+  onRawReady?: (event: { target: YTPlayer }) => void;
+  onRawStateChange?: (event: { data: number; target: YTPlayer }) => void;
 }
 
 const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerProps>(function JikiYouTubePlayer(
@@ -70,7 +78,9 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
     onPause,
     onEnded,
     onProgress,
-    progressIntervalMs = 500
+    progressIntervalMs = 500,
+    onRawReady,
+    onRawStateChange
   },
   ref
 ) {
@@ -78,9 +88,12 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const [activated, setActivated] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
 
   const posterSrc = poster ?? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+  // Only meaningful for the default poster; an explicit `poster` gets no fallback.
+  const fallbackPosterSrc = poster ? undefined : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   const stopProgressTimer = useCallback(() => {
     if (progressTimerRef.current) {
@@ -126,11 +139,29 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
     if (muted) {
       event.target.mute();
     }
+    setIsReady(true);
+    // The iframe only mounts after the facade click, so this play() inherits that
+    // user gesture and isn't treated as unattended autoplay.
     event.target.playVideo();
     onReady?.(imperativeHandle());
+    onRawReady?.(event);
+  };
+
+  // Seeking out of the ENDED state doesn't reliably resume on its own, so drive
+  // playback explicitly — otherwise the end overlay stays up and the viewer has
+  // to click twice.
+  const handleReplay = () => {
+    const player = playerRef.current;
+    if (!player) {
+      return;
+    }
+    player.seekTo(0, true);
+    player.playVideo();
   };
 
   const handleStateChange = (event: { data: number; target: YTPlayer }) => {
+    onRawStateChange?.(event);
+
     if (event.data === YT_PLAYING) {
       setPhase("playing");
       startProgressTimer();
@@ -156,7 +187,7 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
         <YouTube
           videoId={videoId}
           title={title}
-          className={styles.iframeWrapper}
+          className={`${styles.iframeWrapper} ${isReady ? "" : styles.iframeWrapperHidden}`}
           iframeClassName={styles.iframe}
           opts={{
             width: "100%",
@@ -177,13 +208,27 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
           }}
           onReady={handleReady}
           onStateChange={handleStateChange}
+          // Clear the loading state on failure too, so a broken/unavailable video
+          // surfaces YouTube's own error rather than spinning forever.
+          onError={() => setIsReady(true)}
         />
       ) : (
-        <StartFacade posterSrc={posterSrc} title={title} onActivate={() => setActivated(true)} />
+        <StartFacade
+          posterSrc={posterSrc}
+          fallbackPosterSrc={fallbackPosterSrc}
+          title={title}
+          onActivate={() => setActivated(true)}
+        />
+      )}
+
+      {activated && !isReady && (
+        <div className={styles.spinnerOverlay}>
+          <div className={styles.spinner} />
+        </div>
       )}
 
       {/* End bookend: covers YouTube's suggested-video grid with our own replay. */}
-      {activated && phase === "ended" && <EndOverlay onReplay={() => playerRef.current?.seekTo(0, true)} />}
+      {activated && phase === "ended" && <EndOverlay onReplay={handleReplay} />}
     </div>
   );
 });
@@ -192,13 +237,36 @@ export default JikiYouTubePlayer;
 
 // Start facade — shown before the iframe mounts, so no request hits YouTube
 // (beyond the poster image) until the viewer chooses to play.
-function StartFacade({ posterSrc, title, onActivate }: { posterSrc: string; title?: string; onActivate: () => void }) {
+function StartFacade({
+  posterSrc,
+  fallbackPosterSrc,
+  title,
+  onActivate
+}: {
+  posterSrc: string;
+  fallbackPosterSrc?: string;
+  title?: string;
+  onActivate: () => void;
+}) {
+  const [src, setSrc] = useState(posterSrc);
+
   return (
     <button type="button" className={styles.facade} onClick={onActivate} aria-label={title ? `Play ${title}` : "Play"}>
       {/* Plain <img>: the poster is an external YouTube thumbnail and images are
           served unoptimized (see next.config), so next/image adds no benefit. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={posterSrc} alt="" className={styles.poster} />
+      <img
+        src={src}
+        alt=""
+        className={styles.poster}
+        // maxresdefault only exists for videos uploaded with a high-res thumbnail;
+        // fall back to hqdefault, which YouTube always generates.
+        onError={() => {
+          if (fallbackPosterSrc && src !== fallbackPosterSrc) {
+            setSrc(fallbackPosterSrc);
+          }
+        }}
+      />
       <span className={styles.facadeScrim} />
       {title && <span className={styles.facadeTitle}>{title}</span>}
       <span className={styles.bigPlayButton}>

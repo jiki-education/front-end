@@ -22,6 +22,41 @@
     border: 0;
 }
 
+/* Matches the Mux player's handoff: hold the frame dark behind a spinner until
+   YouTube is ready, then fade the iframe in rather than popping it. */
+.iframeWrapperHidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.iframeWrapper {
+    transition: opacity 200ms ease;
+}
+
+.spinnerOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: 5px solid rgba(255, 255, 255, 0.25);
+    border-top-color: var(--color-blue-400);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* ---- Start facade ---- */
 
 .facade {
