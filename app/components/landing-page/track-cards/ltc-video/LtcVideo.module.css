@@ -1212,7 +1212,6 @@
     font-weight: 600;
     color: var(--color-blue-600);
     margin-bottom: 10px;
-    text-wrap-style: balance;
 }
 
 .modal p {
@@ -1220,7 +1219,6 @@
     color: var(--color-gray-600);
     line-height: 1.6;
     margin-bottom: 18px;
-    text-wrap-style: balance;
 }
 
 .go {

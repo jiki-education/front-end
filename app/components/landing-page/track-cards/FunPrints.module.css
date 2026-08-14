@@ -25,6 +25,7 @@
 .headingWrap {
     position: relative;
     display: inline-block;
+    max-width: 830px;
 }
 
 .heading {
@@ -33,7 +34,6 @@
     color: var(--color-gray-800);
     line-height: 1.15;
     margin-block-end: 12px;
-    text-wrap: balance;
 }
 
 /* Mirrored so the arrowhead points back in at the start of the heading, and anchored on
@@ -56,7 +56,6 @@
     max-width: 720px;
     margin-inline: auto;
     margin-block-end: 44px;
-    text-wrap: balance;
 
     strong {
         font-weight: 700;
@@ -176,7 +175,6 @@
     color: var(--color-gray-500);
     transform: rotate(1deg);
     margin-block: 42px 18px;
-    text-wrap: balance;
 }
 
 @media (max-width: 900px) {

@@ -11,7 +11,7 @@
 
 .formContainer {
     width: 100%;
-    max-width: 420px;
+    max-width: 480px;
 
     header {
         margin-bottom: 40px;
@@ -34,10 +34,12 @@
 
 .oauthButtons {
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
 
     button {
         flex: 1;
+        min-width: max-content;
     }
 }
 

@@ -44,5 +44,4 @@
     margin-inline: auto;
     /* More air than the shared 24px so the demo below isn't sat right under the copy. */
     margin-block-end: 54px;
-    text-wrap: balance;
 }

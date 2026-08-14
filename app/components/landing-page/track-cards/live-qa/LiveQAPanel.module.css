@@ -1,9 +1,11 @@
 .frame {
-    max-width: 511px;
+    max-width: calc(511px + 2 * var(--overhang));
     margin-inline: auto;
     margin-block-start: 12px;
-    /* Clips the faces and drifting emoji; `clip` leaves the bubbles free to open upwards. */
+    padding-inline: var(--overhang);
     overflow-x: clip;
+
+    --overhang: 30px;
 }
 
 /* The positioning context for the faces: just the photo, nothing else. */
@@ -30,8 +32,9 @@
     max-width: 511px;
     margin-inline: auto;
     /* Clearance for faces overhanging the photo's bottom edge, and for their bubbles,
-       which open upwards from there. */
-    margin-block-start: 16px;
+       which open upwards from there. A face on the bottom rail hangs 18px below the
+       photo, plus its white ring and shadow, so 16px left it sitting on this row. */
+    margin-block-start: 28px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

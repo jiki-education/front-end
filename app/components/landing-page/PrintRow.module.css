@@ -153,7 +153,6 @@
     line-height: 1.2;
     color: var(--color-gray-800);
     margin-block-end: 8px;
-    text-wrap: balance;
 }
 
 .body {

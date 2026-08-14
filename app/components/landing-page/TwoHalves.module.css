@@ -35,7 +35,6 @@
     line-height: 1.15;
     color: var(--color-gray-800);
     margin-block-end: 12px;
-    text-wrap: balance;
 }
 
 .intro {
@@ -44,7 +43,6 @@
     color: var(--color-gray-600);
     max-width: 700px;
     margin-inline: auto;
-    text-wrap: balance;
 }
 
 /* Stated rather than left to the base-layer default, so the emphasis survives
@@ -83,7 +81,6 @@
     font-size: 16px;
     line-height: 1.6;
     color: var(--color-gray-600);
-    text-wrap: balance;
 }
 
 .codeWord {
