@@ -22,8 +22,6 @@
     margin-block-end: 4px;
 }
 
-/* Capped so long translations wrap at roughly the English width instead of stretching to
-   the column, which would drag the arrow anchored to this box out with them. */
 .headingWrap {
     position: relative;
     display: inline-block;
