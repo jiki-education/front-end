@@ -3,7 +3,7 @@
  */
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LanguageField from "@/components/settings/ui/LanguageField";
+import LanguageField from "@/components/settings/ui/language-field/LanguageField";
 
 async function openPicker(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole("button", { name: "Edit" }));
@@ -79,15 +79,101 @@ describe("LanguageField", () => {
     expect(screen.queryByRole("button", { name: /Deutsch/ })).not.toBeInTheDocument();
   });
 
-  it("abandons the change on cancel", async () => {
+  // The disclosure toggle replaces a paired Cancel: an open picker has nothing
+  // pending to discard, since the field commits on click.
+  it("closes the picker from the same button that opened it", async () => {
     const user = userEvent.setup();
     const onSave = jest.fn();
     render(<LanguageField value="en" onSave={onSave} />);
 
     await openPicker(user);
-    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    await user.click(screen.getByRole("button", { name: "Done" }));
 
     expect(onSave).not.toHaveBeenCalled();
     expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+  });
+
+  it("closes the picker on Escape", async () => {
+    const user = userEvent.setup();
+    render(<LanguageField value="en" onSave={jest.fn()} />);
+
+    await openPicker(user);
+    await user.keyboard("{Escape}");
+
+    expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+  });
+
+  it("points at the forum thread for helping translate", async () => {
+    const user = userEvent.setup();
+    render(<LanguageField value="en" onSave={jest.fn()} />);
+
+    await openPicker(user);
+
+    const link = screen.getByRole("link", { name: /Help translate Jiki/i });
+    expect(link).toHaveAttribute("href", expect.stringContaining("forum.jiki.io"));
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  describe("search", () => {
+    it("finds a language by its endonym, English name or code", async () => {
+      const user = userEvent.setup();
+      render(<LanguageField value="en" onSave={jest.fn()} />);
+      await openPicker(user);
+      const search = screen.getByRole("searchbox", { name: "Search languages" });
+
+      for (const term of ["magyar", "Hungarian", "hu"]) {
+        await user.clear(search);
+        await user.type(search, term);
+        expect(screen.getByRole("button", { name: /magyar/i })).toBeInTheDocument();
+      }
+    });
+
+    it("filters out the languages that don't match", async () => {
+      const user = userEvent.setup();
+      render(<LanguageField value="en" onSave={jest.fn()} />);
+      await openPicker(user);
+
+      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "magyar");
+
+      expect(screen.queryByRole("button", { name: /français/i })).not.toBeInTheDocument();
+    });
+
+    // The coming-soon set is 27 of the 33 rows. Searching is the only way to
+    // reach one, so it has to match them too.
+    it("searches the coming-soon languages as well as the live ones", async () => {
+      const user = userEvent.setup();
+      render(<LanguageField value="en" onSave={jest.fn()} />);
+      await openPicker(user);
+
+      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "Deutsch");
+
+      expect(screen.getByText("Deutsch")).toBeInTheDocument();
+      expect(screen.getByText("Coming soon")).toBeInTheDocument();
+    });
+
+    it("says so when nothing matches", async () => {
+      const user = userEvent.setup();
+      render(<LanguageField value="en" onSave={jest.fn()} />);
+      await openPicker(user);
+
+      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "klingon");
+
+      expect(screen.getByText(/No language matches "klingon"/)).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /magyar/i })).not.toBeInTheDocument();
+    });
+
+    it("starts empty each time the picker opens", async () => {
+      const user = userEvent.setup();
+      render(<LanguageField value="en" onSave={jest.fn()} />);
+
+      await openPicker(user);
+      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "magyar");
+      await user.click(screen.getByRole("button", { name: "Done" }));
+      await openPicker(user);
+
+      expect(screen.getByRole("searchbox", { name: "Search languages" })).toHaveValue("");
+      expect(screen.getByRole("button", { name: /français/i })).toBeInTheDocument();
+    });
   });
 });

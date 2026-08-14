@@ -400,7 +400,16 @@
       "label": "Language",
       "comingSoon": "Coming soon",
       "comingSoonBadge": "Soon",
-      "saveFailed": "We couldn't change your language. Please try again."
+      "saveFailed": "We couldn't change your language. Please try again.",
+      "done": "Done",
+      "searchLabel": "Search languages",
+      "searchPlaceholder": "Search languages",
+      "noMatches": "No language matches \"{query}\".",
+      "noMatchesHint": "Try its English name, or its language code.",
+      "selected": "Selected",
+      "saving": "Changing language",
+      "communityNote": "Translations are community-made.",
+      "helpTranslate": "Help translate Jiki"
     },
     "subscriptionSection": {
       "loadingCardTitle": "Subscription",
