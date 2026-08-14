@@ -28,7 +28,7 @@ jest.mock("@/components/ui/JikiVideoPlayer", () => ({
   __esModule: true,
   default: (props: { playbackId: string }) => <div data-testid="mux-player" data-playback-id={props.playbackId} />
 }));
-jest.mock("react-youtube", () => ({
+jest.mock("@/components/youtube-player/JikiYouTubePlayer", () => ({
   __esModule: true,
   default: (props: { videoId: string }) => <div data-testid="youtube-player" data-video-id={props.videoId} />
 }));
