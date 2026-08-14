@@ -78,8 +78,9 @@
 .scroll::-webkit-scrollbar-thumb {
     background: var(--color-gray-300);
     border-radius: var(--radius-100);
-    /* Border rather than margin: insets the thumb without a track. */
-    border: 3px solid white;
+    /* Border rather than margin: insets the thumb without a track, so it has to
+       match the panel's ground rather than name a colour of its own. */
+    border: 3px solid var(--color-bg-primary);
 }
 
 .scroll::-webkit-scrollbar-track {

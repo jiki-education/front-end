@@ -34,8 +34,10 @@ export default function LanguageOption({
       onClick={onSelect}
     >
       <LanguageLabel language={language} englishNames={englishNames} />
+      {/* The spinner is the only sign the click landed, and every row disables
+          while it spins, so it has to announce itself rather than just spin. */}
       {isSaving && (
-        <span className={styles.trailing}>
+        <span className={styles.trailing} role="status" aria-label={t("saving")}>
           <LoadingSpinner size="sm" />
         </span>
       )}
