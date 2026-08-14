@@ -1,17 +1,10 @@
-/* Padded wider than the photo so the faces straddling its edge have somewhere to go.
-   The overhang has to live INSIDE this box: nothing between here and the page clips
-   horizontally, so anything painted past it widens the document and gets cut at the
-   viewport instead. That is why there is no `overflow-clip-margin` here. */
 .frame {
     max-width: calc(511px + 2 * var(--overhang));
     margin-inline: auto;
     margin-block-start: 12px;
     padding-inline: var(--overhang);
-    /* Clips the faces and drifting emoji; `clip` leaves the bubbles free to open upwards. */
     overflow-x: clip;
 
-    /* What a face on an edge needs: centred 8px inside the photo and 52px wide, it
-       reaches 18px out, and its emoji drift ~27px further. */
     --overhang: 30px;
 }
 
