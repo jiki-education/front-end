@@ -47,7 +47,7 @@
   "hints": {
     "gettingStarted": {
       "question": "I don't know how to get started",
-      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then use `displayTime(hour, minutes, \"am\")` with their values to see what happens. Then work out how to set the correct meridiem and the correct hour display."
+      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then call `displayTime` with those values and `\"am\"` as the third input (e.g. `displayTime(hour, minutes, \"am\")`) to see what happens. Then work out how to set the correct meridiem and the correct hour display."
     },
     "meridiem": {
       "question": "How does the meridiem work?",
