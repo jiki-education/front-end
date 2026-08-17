@@ -12,7 +12,7 @@ The final wall should look like this:
 Things you need to know:
 
 - **Every** brick is 10 high and 20 wide.
-- Bricks **CAN** go partially go off the edge if needed.
+- Bricks can start or end **outside** the canvas if needed, but must not be **fully** outside the canvas.
 - The rows alternate between starting at the left edge (5 bricks), and starting off-screen to the left (6 bricks). (Bottom row is 5, top row is 6)
 - The <define>`rectangle`</define> function can only appear once in your code!
 
