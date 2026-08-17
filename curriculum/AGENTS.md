@@ -77,7 +77,7 @@ After completing work:
 
 ```bash
 # Make changes
-git add .
+git add src/exercises/[name]/  # name your files explicitly, never `git add -A` or `git add .`
 git commit -m "Add new exercise: [name]"
 git push -u origin branch-name
 gh pr create --title "Add new exercise: [name]" --body "Description of the exercise"
@@ -87,7 +87,11 @@ gh pr create --title "Add new exercise: [name]" --body "Description of the exerc
 
 Also, when creating branches do NOT use slashes in the branch names (e.g. use username-xxx not username/xxx).
 
-**Never use `git add -A` (or `git add .`) unless you are certain the only changes present are your own.** The monorepo often contains untracked generated artifacts (e.g. `app/public/static/hashed/`) that are unrelated to your task. Stage files explicitly by path, and check `git status` before committing.
+**Never use `git add -A` or `git add .`.** There are no exceptions. Always name every file you are staging explicitly by path. The monorepo often contains changes that are not yours: untracked generated artifacts (e.g. `app/public/static/hashed/`), in-flight translation work, and edits the human is making in parallel while you work. `git add -A` sweeps all of it into your commit.
+
+Check `git status` immediately before committing, and stage only the files you yourself changed. If prettier or a hook reformats and stages files you did not touch, unstage those before committing.
+
+**If your own change spans more than 20 files, stop and tell the human** — list the files and ask how to proceed, rather than reaching for `git add -A` to avoid the typing. A change that large is usually worth a sanity check anyway.
 
 ## Project Structure
 
