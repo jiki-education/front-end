@@ -1,6 +1,7 @@
 {
   "checks": {
-    "moreThanOneLine": "You used more than one line of code within the function."
+    "moreThanOneLine": "You used more than one line of code within the function.",
+    "moreThanOneFunction": "Can you solve this with just one function?"
   },
   "tasks": {
     "determineLeapYear": {

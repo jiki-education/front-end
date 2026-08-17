@@ -121,6 +121,30 @@ describe("JavaScript assertors", () => {
     });
   });
 
+  describe("countFunctionDefinitions", () => {
+    test("counts zero functions", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+
+    test("counts one function", () => {
+      const result = interpret("function isLeapYear(year) {\n  return year % 4 === 0;\n}");
+      expect(result.assertors.countFunctionDefinitions()).toBe(1);
+    });
+
+    test("counts multiple functions", () => {
+      const result = interpret(
+        "function isDivisibleBy(x, y) {\n  return x % y === 0;\n}\nfunction isLeapYear(year) {\n  return isDivisibleBy(year, 4);\n}"
+      );
+      expect(result.assertors.countFunctionDefinitions()).toBe(2);
+    });
+
+    test("returns zero on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+  });
+
   describe("assertMethodCalled", () => {
     test("returns true when method is called", () => {
       const result = interpret("let arr = [];\narr.push(1);");
