@@ -11,7 +11,7 @@ Your job is to write a function called `acronym(phrase)` that takes a phrase and
 
 ## The rules
 
-A new word begins after a **space** or a **hyphen** (`-`). Every other character — commas, apostrophes, underscores, exclamation marks, and so on — is **not** a separator and never becomes part of the acronym. Only letters count.
+A new word begins after a **space** or a **hyphen** (`-`). Other characters (commas, apostrophes, underscores, exclamation marks, etc.) are **not** considered to be separators and never become part of the acronym. Only letters count.
 
 | Phrase                    | Acronym |
 | ------------------------- | ------- |
