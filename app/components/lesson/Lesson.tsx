@@ -107,9 +107,11 @@ export default function Lesson({ slug }: LessonProps) {
 
   const showModal = loading || !lesson || !innerReady;
 
-  // One lookup serves both: a video lesson IS its video, an exercise lesson may
-  // have a walkthrough of the same slug. Which of the two it becomes is the
-  // lesson's type, so only the applicable prop is filled below.
+  // One lookup serves every case: a lesson's video is the video its slug names.
+  // What differs is the ROLE it plays, which is the lesson's type. A video
+  // lesson plays it and so does a choose_language lesson (the course opens with
+  // welcome-to-coding-fundamentals, which is both a video and the language
+  // picker); an exercise offers it as a walkthrough of the solve.
   const lessonVideo = videos ? (videoFor(videos, slug) ?? undefined) : undefined;
 
   // LessonContent must mount *underneath* the modal (not behind an early return) so its
@@ -122,7 +124,7 @@ export default function Lesson({ slug }: LessonProps) {
         <LessonContent
           lesson={lesson}
           lessonTitle={copy?.title ?? ""}
-          video={lesson.type === "video" ? lessonVideo : undefined}
+          video={lesson.type === "exercise" ? undefined : lessonVideo}
           walkthroughVideo={lesson.type === "exercise" ? lessonVideo : undefined}
           userCourse={userCourse}
           isCompleted={isCompleted}
