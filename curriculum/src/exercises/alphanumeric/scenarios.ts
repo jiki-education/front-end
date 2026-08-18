@@ -54,6 +54,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["alphanumeric-uses-continue"],
     bonus: false
+  },
+  {
+    id: "solve-tightly" as const,
+    name: "tasks.solveTightly.name",
+    description: "tasks.solveTightly.description",
+    hints: [],
+    requiredScenarios: ["alphanumeric-bonus-line-count"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -102,7 +110,7 @@ export const scenarios: IOScenario[] = [
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],
     expected: "Unknown",
-    codeChecks: [...helpersCheck, ...locCheck]
+    codeChecks: helpersCheck
   },
   {
     slug: "alphanumeric-uses-continue",
@@ -113,5 +121,15 @@ export const scenarios: IOScenario[] = [
     args: ["Duck42"],
     expected: "Alphanumeric",
     codeChecks: continueCheck
+  },
+  {
+    slug: "alphanumeric-bonus-line-count",
+    name: "scenarios.alphanumericBonusLineCount.name",
+    description: "scenarios.alphanumericBonusLineCount.description",
+    taskId: "solve-tightly",
+    functionName: "what_am_i",
+    args: ["42 Rubber Duck!"],
+    expected: "Unknown",
+    codeChecks: locCheck
   }
 ];
