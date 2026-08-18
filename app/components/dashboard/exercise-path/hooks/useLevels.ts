@@ -71,7 +71,10 @@ export function buildLevelSections(
         completed: lesson.status === "completed",
         locked: lesson.status === "locked",
         route: `/lesson/${lesson.slug}`,
-        walkthroughVideo: videoFor(videos, lesson.slug) ?? undefined,
+        // Only exercises have walkthroughs. Every video lesson's own slug also
+        // resolves in the index, so an ungated lookup would offer each video
+        // lesson its own recording as a "walkthrough".
+        walkthroughVideo: lesson.type === "exercise" ? (videoFor(videos, lesson.slug) ?? undefined) : undefined,
         walkthroughVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
       };
     });

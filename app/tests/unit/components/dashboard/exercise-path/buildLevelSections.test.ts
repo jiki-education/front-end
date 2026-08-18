@@ -198,4 +198,34 @@ describe("buildLevelSections", () => {
       expect(result[0].lessons[0].lesson.description).toBe("");
     });
   });
+
+  // Every video lesson's own slug also resolves in the video index (a video
+  // lesson's slug IS its video slug), so this gate is the only thing standing
+  // between video lessons and a spurious "walkthrough" card offering each one
+  // its own recording.
+  describe("walkthrough videos", () => {
+    const source = {
+      provider: "mux" as const,
+      id: "walkthrough-playback-id",
+      durationSeconds: 60,
+      uploadDate: "2026-01-01"
+    };
+    const videoIndex = (slug: string) => ({ sources: { [slug]: source }, refs: {} });
+
+    it("resolves a walkthrough for an exercise lesson", () => {
+      const levels = [createLevel({ lessons: [createLesson({ slug: "maze-solve-basic", type: "exercise" })] })];
+      const result = buildLevelSections(levels, {}, undefined, videoIndex("maze-solve-basic"));
+      expect(result[0].lessons[0].walkthroughVideo).toEqual(source);
+    });
+
+    it.each(["video", "choose_language"] as const)(
+      "gives a %s lesson no walkthrough even though its slug resolves",
+      (type) => {
+        const slug = "welcome-to-coding-fundamentals";
+        const levels = [createLevel({ lessons: [createLesson({ slug, type })] })];
+        const result = buildLevelSections(levels, {}, undefined, videoIndex(slug));
+        expect(result[0].lessons[0].walkthroughVideo).toBeUndefined();
+      }
+    );
+  });
 });
