@@ -63,5 +63,15 @@
     "useIsAlpha": "This exercise wants you to write an `isAlpha()` helper and use it to classify the string.",
     "useIsNumeric": "This exercise wants you to write an `isNumeric()` helper and use it to classify the string.",
     "useIsAlphanumeric": "This exercise wants you to write an `isAlphanumeric()` helper and use it to classify the string."
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Return a lowercase copy of a string (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "includes": {
+      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "category": "String Operations"
+    }
   }
 }
