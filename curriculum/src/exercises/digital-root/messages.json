@@ -9,8 +9,8 @@
       "description": "Sometimes summing the digits once still leaves more than one digit (for example 942 sums to 15). Keep summing the digits of the result until a single digit remains."
     },
     "keepItTight": {
-      "name": "Bonus: keep it short",
-      "description": "Your solution already works. For this bonus, tidy it up so the whole function fits in a small number of lines, without any extra clutter."
+      "name": "Solve it in 10 lines",
+      "description": "Your solution already works. For this bonus, try and solve this in 10 lines of code or fewer."
     }
   },
   "scenarios": {
@@ -48,7 +48,7 @@
     },
     "drBonusTight": {
       "name": "A tidy, short solution",
-      "description": "12345 collapses down to 6 (1 + 2 + 3 + 4 + 5 = 15, then 1 + 5 = 6)."
+      "description": "Try and solve this in 10 lines of code or fewer. 12345 collapses down to 6 (1 + 2 + 3 + 4 + 5 = 15, then 1 + 5 = 6)."
     }
   },
   "hints": {
@@ -75,7 +75,7 @@
   },
   "checks": {
     "mustUseWhile": "Almost! For this exercise we want you to use a `while` loop to keep collapsing until a single digit remains.",
-    "tooManyLines": "So close! Your solution works, but it's a little long. See if you can tighten it up."
+    "tooManyLines": "Keep going! See if you can get down to 10 lines of code."
   },
   "functions": {
     "number": {

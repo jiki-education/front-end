@@ -7,6 +7,10 @@
     "useContinue": {
       "name": "Use continue",
       "description": "In your isAlphanumeric check, once a character is a letter or a digit you're happy with it. Use continue to move straight on to the next character instead of nesting more conditions."
+    },
+    "solveTightly": {
+      "name": "Solve it in 42 lines",
+      "description": "Try and solve this in 42 lines of code or fewer. That target isn't the most production-quality solution, and there are shorter ones too, but it's a good goal to push towards."
     }
   },
   "scenarios": {
@@ -33,6 +37,10 @@
     "alphanumericUsesContinue": {
       "name": "Used continue",
       "description": "Your solution works and uses continue to move past characters that are already accounted for."
+    },
+    "alphanumericBonusLineCount": {
+      "name": "Neat and tidy",
+      "description": "Try and solve this in 42 lines of code or fewer."
     }
   },
   "hints": {
@@ -59,7 +67,7 @@
   },
   "checks": {
     "mustUseContinue": "So close! Use `continue` to skip on to the next character.",
-    "tooManyLines": "So close! Your solution works, but it's a little long.",
+    "tooManyLines": "So close! Your solution works, but it's more than 42 lines of code.",
     "useIsAlpha": "This exercise wants you to write an `isAlpha()` helper and use it to classify the string.",
     "useIsNumeric": "This exercise wants you to write an `isNumeric()` helper and use it to classify the string.",
     "useIsAlphanumeric": "This exercise wants you to write an `isAlphanumeric()` helper and use it to classify the string."

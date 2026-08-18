@@ -24,6 +24,6 @@ Then, write a <define>`whatAmI(string)`</define> function that uses those helper
 
 Although there are many valid ways to solve this exercise, the solution we want you to come up with uses a `continue` statement and the three functions above.
 
-This exercise also challenges you to solve the whole thing in 42 lines of code or fewer. That target isn't necessarily the most production-quality solution. A couple of extra lines probably give a nicer one, and there are shorter solutions too. But it's a good goal to push your capabilities towards.
+There's also a bonus task that challenges you to solve the whole thing in 42 lines of code or fewer. That target isn't necessarily the most production-quality solution. A couple of extra lines probably give a nicer one, and there are shorter solutions too. But it's a good goal to push your capabilities towards.
 
 Have fun!

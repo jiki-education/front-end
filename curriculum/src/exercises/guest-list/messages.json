@@ -5,8 +5,8 @@
       "description": "Write a function that takes the queue and the guest list, and returns how many of the people queueing are not on the guest list."
     },
     "solveTightly": {
-      "name": "Solve it tightly",
-      "description": "Bonus: this can be written far more compactly than you might expect. Can you get the whole solution down to just a handful of lines?"
+      "name": "Solve it in 9 lines",
+      "description": "Bonus: this can be written far more compactly than you might expect. Try and solve this in 9 lines of code or fewer."
     }
   },
   "scenarios": {
@@ -36,11 +36,11 @@
     },
     "guestListBonusLineCount": {
       "name": "Neat and tidy: a mixed queue",
-      "description": "The same mixed queue as before, but this time your solution has to fit into a much smaller number of lines."
+      "description": "The same mixed queue as before, but this time try and solve this in 9 lines of code or fewer."
     }
   },
   "checks": {
-    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+    "tooManyLines": "Keep going! See if you can get down to 9 lines of code."
   },
   "hints": {
     "keepingTrack": {

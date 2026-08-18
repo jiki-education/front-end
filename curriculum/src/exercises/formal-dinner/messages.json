@@ -5,8 +5,8 @@
       "description": "Write a function that takes the list of guests' full names, the matching list of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `\"No table found\"` if they aren't on the seating plan."
     },
     "solveTightly": {
-      "name": "Solve it tightly",
-      "description": "Bonus: this can be written far more compactly than you might expect. Can you get the whole solution down to just a handful of lines?"
+      "name": "Solve it in 9 lines",
+      "description": "Bonus: this can be written far more compactly than you might expect. Try and solve this in 9 lines of code or fewer."
     }
   },
   "scenarios": {
@@ -48,7 +48,7 @@
     },
     "formalDinnerBonusLineCount": {
       "name": "Neat and tidy: Lord Doyle",
-      "description": "The same seating plan as before, but this time your solution has to fit into a much smaller number of lines."
+      "description": "The same seating plan as before, but this time try and solve this in 9 lines of code or fewer."
     }
   },
   "hints": {
@@ -70,7 +70,7 @@
     }
   },
   "checks": {
-    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+    "tooManyLines": "Keep going! See if you can get down to 9 lines of code."
   },
   "functions": {
     "length": {
