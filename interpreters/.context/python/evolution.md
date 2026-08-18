@@ -2,6 +2,12 @@
 
 This document tracks the historical development and changes specific to the Python interpreter.
 
+## 2026-08-18: IO-exercise error locations only remap when the error came from the synthetic call
+
+`evaluateSingleExpression` runs a student's function via a **synthetic** call statement on line 1, and its catch block rewrites an error's location to the student's statement so the frame doesn't extract garbage source from that synthetic line. Neither the `FunctionNotFound` nor the `InvalidNumberOfArguments` branch checked that the error had actually come from line 1, so both mislocated errors raised anywhere in the student's own code.
+
+The guard is now hoisted to wrap the whole block: only `error.location.line === 1` remaps, everything else keeps its real location. Python needs no type reclassification (it raises `FunctionNotFound` directly, where JavaScript surfaces it as an undeclared variable), so the branch is otherwise identical to the JavaScript one — see `.context/javascript/evolution.md` (2026-08-18) for the forum-reported bug that surfaced this. The block also now constructs a replacement `RuntimeError` rather than passing the original through with an overriding `location` argument; the frame's line came from that argument so the display was right, but `error.location` stayed stale on the object handed downstream.
+
 ## 2026-06-27: No-arg `repeat` raises MaxIterationsReached at the cap
 
 `executeRepeatStatement` (the no-argument `repeat:` form) looped `while (iteration < count)` with `count = maxTotalLoopIterations`, so a never-finishing loop ran exactly `max` times and exited cleanly with no error frame, instead of triggering the infinite-loop guard. It now loops `while (true)` and relies on `guardInfiniteLoop` to stop it, so hitting `maxTotalLoopIterations` raises a `MaxIterationsReached` error frame. This mirrors the identical fix in the JavaScript interpreter; see `.context/javascript/evolution.md` (2026-06-27). The English `MaxIterationsReached` copy was reworded to "...The maximum number of times the loops are allowed to run in this exercise is {{max}}."

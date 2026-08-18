@@ -77,6 +77,19 @@ describe("evaluateFunction", () => {
     expect(error).toBeNull();
   });
 
+  test("incorrect number of arguments inside the function reports the real line", () => {
+    const code = `function isPangram(sentence) {
+  sentence = sentence.toLowerCase(sentence);
+  return sentence;
+}`;
+    const { frames, error } = evaluateFunction(code, {}, "isPangram", "abc");
+
+    const errorFrame = frames.find(f => f.status === "ERROR");
+    expect(errorFrame!.error!.type).toBe("InvalidNumberOfArguments");
+    expect(errorFrame!.line).toBe(2);
+    expect(error).toBeNull();
+  });
+
   test("continue is caught", () => {
     const code = `
       function move() {

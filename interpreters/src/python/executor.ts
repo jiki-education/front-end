@@ -668,11 +668,12 @@ export class Executor {
       };
     } catch (error) {
       if (error instanceof RuntimeError) {
-        // Handle specific error types for better error messages in IO exercises
-        if (error.type === "FunctionNotFound") {
-          this.addErrorFrame(statement.location, error, statement);
-        } else if (error.type === "InvalidNumberOfArguments") {
-          this.addErrorFrame(statement.location, error, statement);
+        // Only errors raised by the synthetic calling code (which lives on line 1)
+        // get remapped. Errors from the student's own code keep their real location.
+        if (error.location.line === 1) {
+          // Remap to the statement location to avoid garbage code extraction.
+          const newError = new RuntimeError(error.message, statement.location, error.type, error.context);
+          this.addErrorFrame(statement.location, newError, statement);
         } else {
           this.addErrorFrame(error.location, error, statement);
         }

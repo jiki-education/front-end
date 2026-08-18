@@ -79,6 +79,18 @@ def move(foo):
     expect(error).toBeNull();
   });
 
+  test("incorrect number of arguments inside the function reports the real line", () => {
+    const code = `def normalize(sentence):
+    sentence = sentence.upper(sentence)
+    return sentence`;
+    const { frames, error } = evaluateFunction(code, {}, "normalize", "abc");
+
+    const errorFrame = frames.find(f => f.status === "ERROR");
+    expect(errorFrame!.error!.type).toBe("InvalidNumberOfArguments");
+    expect(errorFrame!.line).toBe(2);
+    expect(error).toBeNull();
+  });
+
   test("function without arguments returning a value", () => {
     const { value, frames } = evaluateFunction(
       `

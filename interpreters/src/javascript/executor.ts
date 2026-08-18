@@ -966,23 +966,17 @@ export class Executor {
       };
     } catch (error) {
       if (error instanceof RuntimeError) {
-        // Handle specific error types for better error messages in IO exercises
-        if (error.location.line === 1 && error.type === "VariableNotDeclared") {
-          const newError = new RuntimeError(error.message, statement.location, "FunctionNotFound", error.context);
-          this.addErrorFrame(statement.location, newError, statement);
-        } else if (error.type === "InvalidNumberOfArguments") {
-          const newError = new RuntimeError(
-            error.message,
-            statement.location,
-            "InvalidNumberOfArguments",
-            error.context
-          );
+        // Only errors raised by the synthetic calling code (which lives on line 1)
+        // get remapped. Errors from the student's own code keep their real location.
+        if (error.location.line === 1) {
+          // An undeclared variable in the synthetic call means the student never
+          // defined the function we're trying to call.
+          const type = error.type === "VariableNotDeclared" ? "FunctionNotFound" : error.type;
+          // Remap to the statement location to avoid garbage code extraction.
+          const newError = new RuntimeError(error.message, statement.location, type, error.context);
           this.addErrorFrame(statement.location, newError, statement);
         } else {
-          // If the error is from the synthetic calling code (line 1), remap to
-          // the statement location to avoid garbage code extraction
-          const location = error.location.line === 1 ? statement.location : error.location;
-          this.addErrorFrame(location, error, statement);
+          this.addErrorFrame(error.location, error, statement);
         }
 
         return {
