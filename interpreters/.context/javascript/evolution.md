@@ -1,5 +1,13 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-18: IO-exercise error locations only remap when the error came from the synthetic call
+
+`evaluateSingleExpression` runs a student's function via a **synthetic** call statement that lives on line 1. Its catch block rewrites an error's location to the student's statement so the frame doesn't extract garbage source from that synthetic line. Two of its three branches guarded that rewrite on `error.location.line === 1`; the `InvalidNumberOfArguments` branch did not, so it clobbered the location of _every_ arity error, wherever it was raised.
+
+A forum-reported Pangram submission surfaced it: `sentence.toLowerCase(sentence)` on line 2 passes an argument to a 0-arity stdlib method. The message was correct ("This function has no input slots but you provided an input…") but the frame pointed at line 1, the function signature.
+
+The guard is now hoisted to wrap the whole block, making the real invariant explicit: **the only reason to touch a location is that the error originated in code we synthesised.** The `InvalidNumberOfArguments` branch collapsed into the fallback and is gone; the `VariableNotDeclared` → `FunctionNotFound` reclassification survives inside, since "undeclared variable in the synthetic call" only means "the student never defined this function" _because_ we wrote that call. Python's copy of this block was fixed to the same shape (see `python/evolution.md`), so the two are diffable.
+
 ## 2026-08-02: Iteration ordinals are i18next ordinal plurals, and the injected dict names its locale
 
 `addOrdinalSuffix()` built "1st"/"2nd"/"3rd"/"4th" in TypeScript and passed the finished string into the catalog as `{{ordinal}}`, so every translated sentence rendered an English ordinal inside it ("Ta linia rozpoczęła **3rd** iterację…"). The five affected keys (`forInStatement.result_iteration`, `forOfStatement.result_iteration`, `repeatStatement.foreverResult` / `foreverStep` / `repeatResult`) are now i18next ordinal plural families (`…_ordinal_one`, `…_ordinal_few`, `…_ordinal_other`, …), and the describers pass `{ count, ordinal: true }`. Each locale spells the categories its own CLDR ordinal rules select, so the orthography is the translator's decision, not TypeScript's. `addOrdinalSuffix` is gone from `javascript/describers/helpers.ts`; JikiScript and Python keep their own copies, because their describers are still hardcoded English and are not translated.
