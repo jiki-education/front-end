@@ -117,6 +117,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         countLinesOfCode: () => 0,
         assertMaxLinesOfCode: () => true,
         assertFunctionDefined: () => true,
+        countFunctionDefinitions: () => 0,
         assertMethodCalled: () => true,
         countMethodCalls: () => 0,
         countArrayLiterals: () => 0,

@@ -121,7 +121,17 @@ export const scenarios: IOScenario[] = [
     expected: true,
     codeChecks: [
       {
+        pass: (result) => result.assertors.countFunctionDefinitions() <= 1,
+        errorKey: "checks.moreThanOneFunction"
+      },
+      {
+        // The line limit counts the whole submission, so it only makes sense once
+        // we know there's a single function. With several, the check above reports
+        // the real problem and this one would double up with a misleading message.
         pass: (result, language) => {
+          if (result.assertors.countFunctionDefinitions() > 1) {
+            return true;
+          }
           const limit = language === "python" ? 2 : 3;
           return result.assertors.assertMaxLinesOfCode(limit);
         },

@@ -77,7 +77,7 @@ After completing work:
 
 ```bash
 # Make changes
-git add .
+git add src/exercises/[name]/  # name your files explicitly, never `git add -A` or `git add .`
 git commit -m "Add new exercise: [name]"
 git push -u origin branch-name
 gh pr create --title "Add new exercise: [name]" --body "Description of the exercise"
@@ -87,7 +87,11 @@ gh pr create --title "Add new exercise: [name]" --body "Description of the exerc
 
 Also, when creating branches do NOT use slashes in the branch names (e.g. use username-xxx not username/xxx).
 
-**Never use `git add -A` (or `git add .`) unless you are certain the only changes present are your own.** The monorepo often contains untracked generated artifacts (e.g. `app/public/static/hashed/`) that are unrelated to your task. Stage files explicitly by path, and check `git status` before committing.
+**Never use `git add -A` or `git add .`.** There are no exceptions. Always name every file you are staging explicitly by path. The monorepo often contains changes that are not yours: untracked generated artifacts (e.g. `app/public/static/hashed/`), in-flight translation work, and edits the human is making in parallel while you work. `git add -A` sweeps all of it into your commit.
+
+Check `git status` immediately before committing, and stage only the files you yourself changed. If prettier or a hook reformats and stages files you did not touch, unstage those before committing.
+
+**If your own change spans more than 20 files, stop and tell the human** — list the files and ask how to proceed, rather than reaching for `git add -A` to avoid the typing. A change that large is usually worth a sanity check anyway.
 
 ## Project Structure
 
@@ -402,11 +406,13 @@ A `VisualScenario` can declare `isolatedChecks: IsolatedCheck[]` — hidden re-r
 
 ### Continuation Stubs (Carry Forward the Previous Exercise's Code)
 
-Some exercises are a direct continuation of an earlier one — the student's job is to _refactor_ or _extend_ code they already wrote, not start from a blank canvas. In these cases the stub should be the student's finished code from the previous exercise, so they open the editor already looking at their working solution and only have to make the new change.
+Some exercises are a direct continuation of an earlier one — the student's job is to _refactor_ or _extend_ code they already wrote, not start from a blank canvas. In these cases the stub should be **the student's own finished code** from the previous exercise, so they open the editor already looking at their working solution and only have to make the new change.
 
-**Pattern:** copy the previous exercise's `solution.*` files verbatim into this exercise's `stub.*` files (all three languages). Keep them in sync if the previous exercise's solution changes.
+**Pattern:** make the stub a `{{LESSON:<previous-exercise-slug>}}` placeholder, in all three languages. The app resolves it at load time (`app/components/coding-exercise/lib/stubInterpolation.ts`) by fetching that lesson's latest submission for the current language and splicing the student's real code in. Never copy the previous exercise's `solution.*` files into the stub — that hands every student the canonical answer instead of their own work, and it silently drifts when the solution changes.
 
-**Canonical example:** `src/exercises/maze-turn-around/stub.javascript` is the previous maze-solving exercise's solution; the student extracts a `turnAround()` function from it. `src/exercises/battle-procedures/stub.javascript` is the `scroll-and-shoot` solution; the student extracts a `shootIfAlienAbove()` function from it. Read `maze-turn-around/stub.javascript` before authoring a continuation stub.
+The placeholder resolves to an empty string when the student has no prior submission, so anything the stub needs regardless (a guiding comment, a scaffold) must live in the stub file around the placeholder — see `src/exercises/look-around/stub.javascript`, which keeps a `// Add your functions here` line above it.
+
+**Canonical example:** `src/exercises/maze-turn-around/stub.javascript` is `{{LESSON:maze-automated-solve}}`; the student extracts a `turnAround()` function from their own maze solution. Read that file before authoring a continuation stub.
 
 **⚠️ Carry the `interpreterOptions` cap forward too.** A continuation stub also carries the previous exercise's _runtime cost_. If the source exercise raised `interpreterOptions.maxTotalLoopIterations` (because its solutions are loop-heavy), the continuation exercise must set an **equal-or-higher** cap — otherwise the student opens the editor on carried-forward code that instantly trips the lower cap with a scary "your code loops too many times / infinite loop" error, before they've made any change. This applies even when the continuation's _intended_ solution is cheap (e.g. `methodic-pangram` teaches built-in `.toLowerCase()`/`.includes()` at ~26 iterations, but its `{{LESSON:pangram}}` starting code runs ~2200). The whole pangram series (`lower-pangram`, `pangram`, `methodic-pangram`) shares one cap for this reason. When you raise a cap on any exercise, check every exercise whose stub is `{{LESSON:<that-slug>}}` and match it.
 

@@ -109,6 +109,30 @@ describe("Python assertors", () => {
     });
   });
 
+  describe("countFunctionDefinitions", () => {
+    test("counts zero functions", () => {
+      const result = interpret("x = 5");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+
+    test("counts one function", () => {
+      const result = interpret("def is_leap_year(year):\n    return year % 4 == 0");
+      expect(result.assertors.countFunctionDefinitions()).toBe(1);
+    });
+
+    test("counts multiple functions", () => {
+      const result = interpret(
+        "def is_divisible_by(x, y):\n    return x % y == 0\ndef is_leap_year(year):\n    return is_divisible_by(year, 4)"
+      );
+      expect(result.assertors.countFunctionDefinitions()).toBe(2);
+    });
+
+    test("returns zero on parse error", () => {
+      const result = interpret("def def def");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+  });
+
   describe("assertMethodCalled", () => {
     test("returns true when method is called", () => {
       const result = interpret("arr = []\narr.append(1)");

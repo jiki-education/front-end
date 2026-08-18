@@ -125,6 +125,30 @@ describe("JikiScript assertors", () => {
     });
   });
 
+  describe("countFunctionDefinitions", () => {
+    test("counts zero functions", () => {
+      const result = interpret("set x to 5");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+
+    test("counts one function", () => {
+      const result = interpret('function turn_around do\n  return "done"\nend');
+      expect(result.assertors.countFunctionDefinitions()).toBe(1);
+    });
+
+    test("counts multiple functions", () => {
+      const result = interpret(
+        'function turn_around do\n  return "done"\nend\nfunction turn_back do\n  return "back"\nend'
+      );
+      expect(result.assertors.countFunctionDefinitions()).toBe(2);
+    });
+
+    test("returns zero on parse error", () => {
+      const result = interpret("set set set");
+      expect(result.assertors.countFunctionDefinitions()).toBe(0);
+    });
+  });
+
   describe("assertMethodCalled", () => {
     test("returns true when method is called", () => {
       const result = interpret("set arr to []\narr.add(1)");

@@ -359,6 +359,7 @@ export class Executor {
           const formatted = formatIdentifier(name);
           return extractFunctionStatements(statements).some(fs => fs.name.lexeme === formatted);
         },
+        countFunctionDefinitions: () => extractFunctionStatements(statements).length,
         assertMethodCalled: (methodName: string) => {
           const formatted = formatIdentifier(methodName);
           return extractMethodCallExpressions(statements).some(mc => mc.methodName.lexeme === formatted);
