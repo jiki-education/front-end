@@ -10,6 +10,8 @@ import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { fetchCurriculumCopy, resolveCopy, type CurriculumCopy } from "@/lib/api/curriculum-copy";
+import { fetchVideoIndex } from "@/lib/api/videos";
+import { videoFor, type VideoIndex } from "@/lib/videos/select";
 import LessonContent from "./LessonContent";
 import LessonError from "./LessonError";
 
@@ -22,6 +24,7 @@ export default function Lesson({ slug }: LessonProps) {
   const locale = useLocale();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [copy, setCopy] = useState<CurriculumCopy | null>(null);
+  const [videos, setVideos] = useState<VideoIndex | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [serverSubmission, setServerSubmission] = useState<LastSubmissionData | null>(null);
@@ -50,11 +53,12 @@ export default function Lesson({ slug }: LessonProps) {
         // or existing), so a single request guarantees the row exists for every
         // entry path into the page (direct link, bookmark, new tab, dashboard)
         // and gives us its status — no read-404-start-reread dance.
-        const [lessonData, userCourseData, userLesson, catalog] = await Promise.all([
+        const [lessonData, userCourseData, userLesson, catalog, videoIndex] = await Promise.all([
           fetchLesson(slug),
           fetchUserCourse(),
           startLesson(slug),
-          fetchCurriculumCopy(locale)
+          fetchCurriculumCopy(locale),
+          fetchVideoIndex(locale)
         ]);
         if (cancelled) {
           return;
@@ -62,6 +66,7 @@ export default function Lesson({ slug }: LessonProps) {
 
         setLesson(lessonData);
         setCopy(resolveCopy(catalog, slug));
+        setVideos(videoIndex);
         setUserCourse(userCourseData);
         setIsCompleted(userLesson.status === "completed");
         setServerSubmission(userLesson.data?.last_submission ?? null);
@@ -102,6 +107,11 @@ export default function Lesson({ slug }: LessonProps) {
 
   const showModal = loading || !lesson || !innerReady;
 
+  // One lookup serves both: a video lesson IS its video, an exercise lesson may
+  // have a walkthrough of the same slug. Which of the two it becomes is the
+  // lesson's type, so only the applicable prop is filled below.
+  const lessonVideo = videos ? (videoFor(videos, slug) ?? undefined) : undefined;
+
   // LessonContent must mount *underneath* the modal (not behind an early return) so its
   // dynamic chunk and exercise loader can run in the background. The child fires onReady
   // when truly ready, which flips innerReady and unmounts the modal in a single render —
@@ -112,8 +122,8 @@ export default function Lesson({ slug }: LessonProps) {
         <LessonContent
           lesson={lesson}
           lessonTitle={copy?.title ?? ""}
-          video={copy?.video}
-          walkthroughVideo={copy?.walkthroughVideo}
+          video={lesson.type === "video" ? lessonVideo : undefined}
+          walkthroughVideo={lesson.type === "exercise" ? lessonVideo : undefined}
           userCourse={userCourse}
           isCompleted={isCompleted}
           serverSubmission={serverSubmission}

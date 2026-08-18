@@ -174,6 +174,19 @@ Exercise content is served as static files, separate from the exercise modules i
 - **Dev/build commands**: `exercise-cache:generate` and `exercise-cache:watch` (wired into `dev` and `build`)
 - **Generated files are gitignored**: `public/static/exercises/` and `lib/generated/`
 
+### Video Cache
+
+Every video is authored once in `curriculum/src/videos/videos.json`, keyed by video slug as a map of locale to source plus a required `fallback`. It is resolved per locale at build time and published as a **front-end-owned artifact, never as part of a copy catalog**: the `i18n` repo republishes those per locale as closed literals, so a video field folded in there works in English and silently disappears in every locale that repo publishes. See `.context/i18n.md` § "The Video Cache".
+
+- **Build script**: `scripts/generate-video-cache.js` produces:
+  - `public/static/videos/{locale}/index-{hash}.json` — `{ sources: { videoSlug -> VideoSource }, refs: { conceptSlug|exerciseSlug -> videoSlug } }`
+  - `lib/generated/video-hashes.ts` — locale -> hash manifest, **compiled in with no pointer**, because videos change only when this repo deploys
+- **Resolution**: `lib/videos/select.ts` — `videoIndexTargetFor()` picks which locale's index to read, `videoFor()` follows a ref or treats the slug as a video slug (a video lesson's slug IS its video slug)
+- **Clients**: `lib/api/videos.ts` (browser) and `lib/videos/server-videos.ts` (SSR); both join an existing `Promise.all`, so no extra round trip of depth
+- **Only locales with their own recording are emitted**; everything else reads the default locale's index
+- **Dev/build commands**: `video-cache:generate` and `video-cache:watch` (wired into `dev` and `build`)
+- **Generated files are gitignored**: `public/static/videos/`
+
 ### Translated Content in Development
 
 Translations live in the separate `i18n` repo and reach production via R2, not via this repo's build. To see them locally, clone `i18n` beside the front-end (or set `JIKI_I18N_REPO`); `pnpm dev` then runs `i18n-content:generate` and watches `../../i18n/locales/**`. The watcher republishes only the locale whose file changed (the first segment under `locales/`), falling back to a full publish for anything it cannot place: one locale is ~0.4s and ~550 files against ~2.2s and ~7,800 for all of them, which matters when every save during a translation pass triggers it. Per-locale is as narrow as it can safely go, since a locale's indexes are assembled from its whole corpus and embed the content hashes of the files they point at.

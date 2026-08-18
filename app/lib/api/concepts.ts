@@ -2,6 +2,7 @@ import { conceptCopyHashes, conceptStructureHash } from "@/lib/generated/concept
 import { assetsUrl } from "@/lib/assets";
 import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
 import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "@/lib/concepts/assemble";
+import { fetchVideoIndex } from "@/lib/api/videos";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import {
   selectTopLevelConcepts,
@@ -42,7 +43,9 @@ async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
     return cached;
   }
 
-  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  // Structure, copy and videos in parallel: three artifacts, one round trip of
+  // depth. The video index is a third request on an already-open connection, not
+  // a third level of waiting.
   const promise = Promise.all([
     fetch(assetsUrl(conceptStructurePath(conceptStructureHash))).then((res) => {
       if (!res.ok) {
@@ -55,8 +58,9 @@ async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
         throw new Error("Failed to fetch concept copy");
       }
       return res.json() as Promise<ConceptCopyCatalog>;
-    })
-  ]).then(([structure, copy]) => assembleConcepts(structure, copy));
+    }),
+    fetchVideoIndex(locale)
+  ]).then(([structure, copy, videos]) => assembleConcepts(structure, copy, videos));
   conceptIndexCache.set(key, promise);
   return promise;
 }

@@ -52,7 +52,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { resolveVideo } from "./lib/videos.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
@@ -88,11 +87,6 @@ function readExerciseCopy() {
       continue;
     }
 
-    // An exercise may name a walkthrough video (a recorded solve) in its
-    // metadata; the source is resolved for the locale this catalog carries.
-    const metadata = JSON.parse(fs.readFileSync(path.join(EXERCISES_DIR, slug, "metadata.json"), "utf-8"));
-    const walkthroughVideoSlug = metadata.walkthroughVideo || null;
-
     const filePath = path.join(EXERCISES_DIR, slug, "instructions.md");
     if (!fs.existsSync(filePath)) {
       continue;
@@ -107,8 +101,7 @@ function readExerciseCopy() {
     byLocale[DEFAULT_LOCALE] ??= {};
     byLocale[DEFAULT_LOCALE][slug] = {
       title: data.title,
-      description: data.description || "",
-      ...(walkthroughVideoSlug ? { walkthroughVideo: resolveVideo(walkthroughVideoSlug, DEFAULT_LOCALE) } : {})
+      description: data.description || ""
     };
   }
 
@@ -190,12 +183,10 @@ function buildCatalogs(exerciseCopy, videoCopy) {
     }
 
     // Sorted for deterministic output, so the content hash only changes when the
-    // copy actually changes. Video lessons additionally carry the source to play,
-    // resolved for this locale — a video lesson with no video is a broken lesson,
-    // so resolveVideo throws rather than emitting an unplayable entry.
+    // copy actually changes.
     const merged = {};
     for (const slug of [...Object.keys(exercises), ...Object.keys(videos)].sort()) {
-      merged[slug] = slug in videos ? { ...videos[slug], video: resolveVideo(slug, locale) } : exercises[slug];
+      merged[slug] = slug in videos ? videos[slug] : exercises[slug];
     }
 
     catalogs[locale] = merged;

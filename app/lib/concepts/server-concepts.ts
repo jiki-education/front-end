@@ -12,6 +12,7 @@ import { assetsUrl } from "@/lib/server/origin";
 import { readArtifact, readArtifactJson } from "@/lib/server/artifacts";
 import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
 import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "./assemble";
+import { getVideoIndexServer } from "@/lib/videos/server-videos";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import { fetchStaticContent } from "@/lib/content/fetchStaticContent";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
@@ -47,11 +48,13 @@ const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> =
     return [];
   }
 
-  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  // Structure, copy and videos in parallel: three artifacts, one round trip of
+  // depth.
   const structurePath = conceptStructurePath(conceptStructureHash);
-  const [structureRes, copyRes] = await Promise.all([
+  const [structureRes, copyRes, videos] = await Promise.all([
     readArtifact(structurePath),
-    readArtifact(conceptCopyPath(locale, hash))
+    readArtifact(conceptCopyPath(locale, hash)),
+    getVideoIndexServer(locale)
   ]);
   if (!structureRes.ok) {
     throw new Error(`Failed to read concept structure: ${structurePath} (${structureRes.status})`);
@@ -59,7 +62,11 @@ const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> =
   if (!copyRes.ok) {
     return [];
   }
-  return assembleConcepts(await structureRes.json<ConceptStructure[]>(), await copyRes.json<ConceptCopyCatalog>());
+  return assembleConcepts(
+    await structureRes.json<ConceptStructure[]>(),
+    await copyRes.json<ConceptCopyCatalog>(),
+    videos
+  );
 });
 
 /** Every concept in a locale's index. The sitemap enumerates slugs from this. */

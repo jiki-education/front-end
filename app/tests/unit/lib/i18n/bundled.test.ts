@@ -83,7 +83,11 @@ describe("nothing locale-varying is bundled", () => {
       // locale-invariant: fingerprints for images, icons and CSS
       "asset-hashes.ts",
       "concept-icon-hashes.ts",
-      "css-asset-hashes.json"
+      "css-asset-hashes.json",
+      // locale-varying, but published by this repo alone and so pointer-free.
+      // See the resolver test below for why that is not the binding this file
+      // exists to prevent.
+      "video-hashes.ts"
     ]);
 
     const actual = fs.existsSync(GENERATED_DIR) ? fs.readdirSync(GENERATED_DIR).sort() : [];
@@ -100,15 +104,31 @@ describe("nothing locale-varying is bundled", () => {
    * So: every module importing a hash manifest must also import the resolver.
    * A module that reads a manifest without one is indexing it by locale directly,
    * which is exactly the build-time binding being removed.
+   *
+   * The exemption is for manifests whose artifacts THIS REPO is the only
+   * publisher of. A pointer decouples a locale's content from the front-end
+   * release cycle, and that is worth having precisely when someone else
+   * publishes the content: the i18n repo pushes a translation to R2 and it goes
+   * live with no deploy here. Videos are the opposite case. They are authored in
+   * `curriculum/src/videos/videos.json`, in this repo, so a new recording is a
+   * commit here and cannot appear without a deploy anyway. A pointer would add a
+   * round trip and a failure mode to buy a decoupling from ourselves.
+   *
+   * The distinction to hold on to is that this is about the PUBLISHER, not about
+   * whether the artifact varies by locale. The video index does vary by locale,
+   * and a locale with its own recording gets its own artifact; what it never
+   * needs is for anyone but this build to say which one.
    */
   it("reads every hash manifest through the pointer resolver", () => {
     const HASH_MANIFEST = /from\s+["'][^"']*generated\/[\w-]*(hashes)["']/;
     const LOCALE_INVARIANT = /generated\/(asset-hashes|concept-icon-hashes|css-asset-hashes)/;
+    const FRONT_END_PUBLISHED = /generated\/video-hashes/;
 
     const offenders = sourceFiles().filter((file) => {
       const src = fs.readFileSync(file, "utf8");
       if (!HASH_MANIFEST.test(src)) return false;
       if (LOCALE_INVARIANT.test(src)) return false;
+      if (FRONT_END_PUBLISHED.test(src)) return false;
       return !src.includes("catalogPointer");
     });
 
