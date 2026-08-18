@@ -63,6 +63,10 @@ jobs:
         working-directory: app
         run: pnpm run concept-cache:generate
 
+      - name: Generate video cache
+        working-directory: app
+        run: pnpm run video-cache:generate
+
       - name: Generate level i18n cache
         working-directory: app
         run: pnpm run levels-i18n:generate
@@ -182,6 +186,10 @@ jobs:
         working-directory: app
         run: pnpm run concept-cache:generate
 
+      - name: Generate video cache
+        working-directory: app
+        run: pnpm run video-cache:generate
+
       - name: Generate level i18n cache
         working-directory: app
         run: pnpm run levels-i18n:generate
@@ -244,6 +252,10 @@ jobs:
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
+
+      - name: Generate video cache
+        working-directory: app
+        run: pnpm run video-cache:generate
 
       - name: Generate level i18n cache
         working-directory: app
