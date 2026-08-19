@@ -18,9 +18,11 @@ import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isSupportedLocale, type Locale } fr
 //
 // These three strings are the one place Jiki's copy is not translated by the
 // normal pass, so they do not reach a reviewer the way catalog copy does. Each
-// follows its language's guide on formality (all four of el/fr/it/uk are
+// follows its language's guide on formality (all five of el/es-419/fr/it/uk are
 // informal singular; uk uses the plain imperative its guide allows for a
 // discrete action, since its usual inclusive "ми" cannot address a button).
+// es-419 reuses the wording its reviewed catalog already uses for the same three
+// strings (misc.errorPage.*), so the crash page and the normal error page match.
 // They are worth a native speaker's eye on the next review pass.
 interface GlobalErrorCopy {
   title: string;
@@ -43,6 +45,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "Κάτι πήγε στραβά",
     message: "Παρουσιάστηκε ένα απροσδόκητο σφάλμα. Λυπόμαστε!",
     actionLabel: "Δοκίμασε ξανά"
+  },
+  "es-419": {
+    title: "Algo salió mal",
+    message: "Encontramos un error inesperado. ¡Lo sentimos!",
+    actionLabel: "Inténtalo de nuevo"
   },
   fr: {
     title: "Une erreur s'est produite",
