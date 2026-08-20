@@ -30,7 +30,7 @@ export interface CompletionResponseData {
 // The slug identifies both the thing the student opened (routes, progress) and
 // the curriculum exercise it runs — they're the same slug.
 export type ExerciseContext =
-  | { type: "lesson"; slug: ExerciseLessonSlug; walkthroughVideoData?: VideoSource[] | null }
+  | { type: "lesson"; slug: ExerciseLessonSlug; walkthroughVideo?: VideoSource }
   | { type: "challenge"; slug: ChallengeSlug };
 
 // CodeMirror editor types

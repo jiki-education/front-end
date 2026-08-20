@@ -2,7 +2,6 @@ import { isChallengeSlug } from "@jiki/curriculum";
 import { fetchChallenges, type ChallengeData, type ChallengeStatus } from "@/lib/api/challenges";
 import { expandUnlocked, fetchUnlockedConceptSlugs, isUnlocked } from "@/lib/api/concept-unlocks";
 import {
-  fetchConceptVideoData,
   getAncestors,
   getConcept,
   getConceptContent,
@@ -14,7 +13,6 @@ import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptAncestor, ConceptMeta, ExerciseInfo, ChallengeInfo } from "@/types/concepts";
-import type { VideoSource } from "@/types/lesson";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -26,7 +24,6 @@ export interface ConceptDetailSeed {
   content: string | null;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
-  videoData: VideoSource[] | null;
 }
 
 interface ConceptDetailData {
@@ -37,7 +34,6 @@ interface ConceptDetailData {
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
   relatedChallenges: ChallengeInfo[];
-  videoData: VideoSource[] | null;
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
@@ -60,15 +56,13 @@ interface ConceptSetupContext {
   setUnlockedConceptSlugs: (value: Set<string>) => void;
   setExerciseStatuses: (value: Record<string, LessonStatus>) => void;
   setChallengeStatuses: (value: Record<string, ChallengeStatus>) => void;
-  setVideoData: (value: VideoSource[] | null) => void;
 }
 
 async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
-  const [rawUnlockedSlugs, allConcepts, challengesResponse, video] = await Promise.all([
+  const [rawUnlockedSlugs, allConcepts, challengesResponse] = await Promise.all([
     fetchUnlockedConceptSlugs(),
     getConcepts(ctx.locale),
-    fetchChallenges({ per: 100 }).catch(() => ({ results: [] as ChallengeData[] })),
-    fetchConceptVideoData(ctx.slug)
+    fetchChallenges({ per: 100 }).catch(() => ({ results: [] as ChallengeData[] }))
   ]);
   if (ctx.isCancelled()) {
     return;
@@ -112,21 +106,14 @@ async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetup
   ctx.setUnlockedConceptSlugs(unlockedSlugs);
   ctx.setExerciseStatuses(lessonStatuses);
   ctx.setChallengeStatuses(projStatuses);
-  ctx.setVideoData(video);
 
   if (!unlockedSlugs.has(ctx.slug)) {
     ctx.router.push(ctx.conceptsPath);
   }
 }
 
-async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
+function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
   ctx.setRelatedExercises(exercises);
-
-  const video = await fetchConceptVideoData(ctx.slug);
-  if (ctx.isCancelled()) {
-    return;
-  }
-  ctx.setVideoData(video);
 }
 
 export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
@@ -146,7 +133,6 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
   const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>(seeded ? initialData.relatedConcepts : []);
   const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>(seeded ? initialData.relatedExercises : []);
   const [relatedChallenges, setRelatedChallenges] = useState<ChallengeInfo[]>([]);
-  const [videoData, setVideoData] = useState<VideoSource[] | null>(seeded ? initialData.videoData : null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
   const [challengeStatuses, setChallengeStatuses] = useState<Record<string, ChallengeStatus>>({});
@@ -171,15 +157,13 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
       setRelatedChallenges,
       setUnlockedConceptSlugs,
       setExerciseStatuses,
-      setChallengeStatuses,
-      setVideoData
+      setChallengeStatuses
     };
 
     const load = async () => {
       try {
         setError(null);
         setContent(null);
-        setVideoData(null);
         setIsContentLoading(false);
 
         // Phase 1: resolve concept + ancestors (fast — served from in-memory cache).
@@ -238,7 +222,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         if (isAuthenticated) {
           await setupForLoggedInUser(exercises, ctx);
         } else {
-          await setupForExternalUser(exercises, ctx);
+          setupForExternalUser(exercises, ctx);
         }
       } catch {
         if (cancelled) {
@@ -281,7 +265,6 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
     relatedConcepts,
     relatedExercises,
     relatedChallenges,
-    videoData,
     isLoading,
     error,
     isAuthenticated,

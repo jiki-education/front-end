@@ -17,7 +17,6 @@ import styles from "./ChooseLanguage.module.css";
 type ChooseLanguageLesson = Lesson & {
   type: "choose_language";
   data: {
-    sources: VideoSource[];
     language_options: ProgrammingLanguage[];
   };
 };
@@ -27,10 +26,12 @@ type LanguageOption = ProgrammingLanguage | "random";
 
 interface ChooseLanguageProps {
   lessonData: ChooseLanguageLesson;
+  // Resolved for the active locale by the parent; absent if none is authored.
+  video?: VideoSource;
   onReady: () => void;
 }
 
-export default function ChooseLanguage({ lessonData, onReady }: ChooseLanguageProps) {
+export default function ChooseLanguage({ lessonData, video, onReady }: ChooseLanguageProps) {
   const router = useRouter();
   const [step, setStep] = useState<Step>("video");
   const [isInitializing, setIsInitializing] = useState(true);
@@ -104,7 +105,7 @@ export default function ChooseLanguage({ lessonData, onReady }: ChooseLanguagePr
 
       {step === "video" && (
         <VideoStep
-          lessonData={lessonData}
+          video={video}
           onReady={handleReady}
           onProceedToSelector={handleProceedToSelector}
           hasVisitedSelector={hasVisitedSelector}

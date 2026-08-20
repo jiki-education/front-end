@@ -1,5 +1,6 @@
 {
   "parent": "arrays-group",
   "order": 1,
-  "category": false
+  "category": false,
+  "video": "building-arrays"
 }

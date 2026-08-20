@@ -1,5 +1,5 @@
 import type { LessonSlug } from "@jiki/curriculum";
-import type { LessonSummary, LessonType, VideoSource } from "./lesson";
+import type { LessonSummary, LessonType } from "./lesson";
 
 // Re-export for convenience
 export type { LessonSummary, LessonType };
@@ -8,7 +8,6 @@ export interface LessonWithProgress {
   slug: LessonSlug;
   type: LessonType;
   status: "not_started" | "started" | "completed" | "locked";
-  walkthrough_video_data: VideoSource[] | null;
   walkthrough_video_watched_percentage: number;
 }
 

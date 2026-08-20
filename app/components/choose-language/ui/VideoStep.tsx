@@ -1,31 +1,21 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import type { Lesson, VideoSource } from "@/types/lesson";
-import type { ProgrammingLanguage } from "@/types/course";
+import type { VideoSource } from "@/types/lesson";
 import VideoPlayer, { type JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
-type ChooseLanguageLesson = Lesson & {
-  type: "choose_language";
-  data: {
-    sources: VideoSource[];
-    language_options: ProgrammingLanguage[];
-  };
-};
-
 interface VideoStepProps {
-  lessonData: ChooseLanguageLesson;
+  video?: VideoSource;
   onReady: () => void;
   onProceedToSelector: () => void;
   hasVisitedSelector: boolean;
 }
 
-export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisitedSelector }: VideoStepProps) {
+export function VideoStep({ video, onReady, onProceedToSelector, hasVisitedSelector }: VideoStepProps) {
   const t = useTranslations("misc.chooseLanguage");
-  const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
-  const playbackId = videoSource?.id ?? "";
+  const playbackId = video?.id ?? "";
 
   const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const [isVideoVisible, setIsVideoVisible] = useState(false);

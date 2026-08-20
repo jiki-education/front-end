@@ -11,14 +11,12 @@ const sampleHints = [
   { question: "Hint", answer: "Consider using the <code>modulo</code> operator to check for even/odd numbers." }
 ];
 
-const walkthroughVideoData: VideoSource[] = [
-  {
-    provider: "mux",
-    id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
-    durationSeconds: 120,
-    uploadDate: "2026-01-01"
-  }
-];
+const walkthroughVideo: VideoSource = {
+  provider: "mux",
+  id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
+  durationSeconds: 120,
+  uploadDate: "2026-01-01"
+};
 
 export default function HintsWalkthroughPage() {
   return (
@@ -29,11 +27,11 @@ export default function HintsWalkthroughPage() {
 
         <div className={styles.sections}>
           <Section label="Hints + Walkthrough Video">
-            <HintsPanel hints={sampleHints} walkthroughVideoData={walkthroughVideoData} lessonSlug="maze-solve-basic" />
+            <HintsPanel hints={sampleHints} walkthroughVideo={walkthroughVideo} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Walkthrough Video Only (no hints)">
-            <HintsPanel hints={[]} walkthroughVideoData={walkthroughVideoData} lessonSlug="maze-solve-basic" />
+            <HintsPanel hints={[]} walkthroughVideo={walkthroughVideo} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Hints Only (no walkthrough)">
