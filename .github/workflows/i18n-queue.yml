@@ -112,7 +112,13 @@ jobs:
             echo "packages=${PACKAGES}"
             echo "count=${COUNT}"
             echo "files<<FILES_EOF"
-            printf '%s\n' "$ENGLISH" | grep . | head -50
+            # `|| true` is load-bearing: with no English, `grep .` exits 1 and
+            # pipefail aborts the whole block BEFORE the closing FILES_EOF is
+            # written, so the step dies on "Matching delimiter not found" having
+            # already printed a correct "Found 0". Every PR that touches
+            # curriculum/src without changing English goes red on a job that is
+            # meant to be silent.
+            printf '%s\n' "$ENGLISH" | grep . | head -50 || true
             # Said out loud, because a silently truncated list reads as the
             # whole scope and the rest of the work never gets done. A single
             # front-end PR touching every exercise catalog is a real shape.
