@@ -20,6 +20,6 @@ describe("stripLocalePrefix", () => {
     expect(stripLocalePrefix("/de/blog")).toBe("/de/blog");
     expect(stripLocalePrefix("/xx")).toBe("/xx");
     // Region subtags only strip once supported; pt-BR isn't yet, so it's left as-is.
-    expect(stripLocalePrefix("/pt-BR/blog")).toBe("/pt-BR/blog");
+    expect(stripLocalePrefix("/xx-YY/blog")).toBe("/xx-YY/blog");
   });
 });

@@ -71,6 +71,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "Encontrámos um erro inesperado. Lamentamos!",
     actionLabel: "Tenta novamente"
   },
+  "pt-BR": {
+    title: "Algo deu errado",
+    message: "Encontramos um erro inesperado. Sentimos muito!",
+    actionLabel: "Tente novamente"
+  },
   uk: {
     title: "Щось пішло не так",
     message: "Сталася неочікувана помилка. Перепрошуємо!",
