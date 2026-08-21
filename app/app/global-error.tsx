@@ -18,13 +18,14 @@ import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isSupportedLocale, type Locale } fr
 //
 // These three strings are the one place Jiki's copy is not translated by the
 // normal pass, so they do not reach a reviewer the way catalog copy does. Each
-// follows its language's guide on formality (all six of el/es-419/es-ES/fr/it/uk are
-// informal singular; uk uses the plain imperative its guide allows for a
-// discrete action, since its usual inclusive "ми" cannot address a button).
-// es-419 and es-ES each reuse the wording their own reviewed catalog already uses
-// for the same three strings (misc.errorPage.*), so the crash page and the normal
-// error page match. The two variants' reviewed copy is identical here, which is
-// the catalogs' own call, not a shortcut taken in this file.
+// follows its language's guide on formality (all seven of el/es-419/es-ES/fr/it/
+// pt-PT/uk are informal singular; uk uses the plain imperative its guide allows
+// for a discrete action, since its usual inclusive "ми" cannot address a button).
+// es-419, es-ES and pt-PT each reuse the wording their own reviewed catalog
+// already uses for the same three strings (misc.errorPage.*), so the crash page
+// and the normal error page match. The two es variants' reviewed copy is
+// identical here, which is the catalogs' own call, not a shortcut taken in this
+// file.
 // They are worth a native speaker's eye on the next review pass.
 interface GlobalErrorCopy {
   title: string;
@@ -67,6 +68,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "Qualcosa è andato storto",
     message: "Si è verificato un errore imprevisto. Ci dispiace!",
     actionLabel: "Riprova"
+  },
+  "pt-PT": {
+    title: "Algo correu mal",
+    message: "Encontrámos um erro inesperado. Lamentamos!",
+    actionLabel: "Tenta novamente"
   },
   uk: {
     title: "Щось пішло не так",

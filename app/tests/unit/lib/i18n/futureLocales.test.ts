@@ -1,13 +1,14 @@
 /**
- * The pt content locales (pt-PT, pt-BR) aren't served yet, but the locale
+ * es-419, es-ES and pt-PT are live; pt-BR isn't served yet, but the locale
  * machinery (routing, hreflang, Accept-Language negotiation) must already be
- * correct for them so going live is just adding the locale + its catalog. These
- * tests run that machinery against the future set by mocking the locale config.
+ * correct for it so going live is just adding the locale + its catalog. These
+ * tests run that machinery against the full es/pt variant set by mocking the
+ * locale config.
  *
- * The mock is a SUPERSET, not a set of unshipped locales: es-419 and es-ES are
- * live in lib/locales.ts and stay here because the es/pt variant behaviour is one
- * table (LANGUAGE_VARIANTS) and asserting half of it would be asserting none of
- * it. A locale going live is therefore not a reason to remove it from the mock.
+ * The mock is a SUPERSET, not a set of unshipped locales: the live variants stay
+ * here because the es/pt variant behaviour is one table (LANGUAGE_VARIANTS) and
+ * asserting half of it would be asserting none of it. A locale going live is
+ * therefore not a reason to remove it from the mock.
  *
  * The negotiation cases mirror the API's User::DetermineLocale acceptance oracle
  * (jiki-education/api test/commands/user/determine_locale_test.rb) — keep them in
@@ -52,7 +53,7 @@ describe("hreflang emission", () => {
 
   it("passes ISO-valid ids through untouched", () => {
     expect(hreflangLocale("es-ES")).toBe("es-ES");
-    expect(hreflangLocale("pt-PT" as never)).toBe("pt-PT");
+    expect(hreflangLocale("pt-PT")).toBe("pt-PT");
     expect(hreflangLocale("pt-BR" as never)).toBe("pt-BR");
     expect(hreflangLocale("en")).toBe("en");
   });
