@@ -46,3 +46,5 @@ We can also use the `length` property on arrays, just like we learned about on s
 And we can use `includes` exactly the same on arrays, too. We can say `mentors.includes("DJ")`, and it'll return `true`. But if we say `mentors.includes("Frank")`, it'll return `false`.
 
 Everything works exactly the same as strings. It's just that we're working with the elements of an array, not the letters of a string.
+
+Second smoke test line.
