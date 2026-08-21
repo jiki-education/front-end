@@ -172,10 +172,14 @@ jobs:
 
           Close this when the translations are pushed. Only the locales in this repo's
           \`locales.json\` \`productionTargets\` are in scope for that: every other locale
-          picks the change up on its next pass. New English with no counterpart makes
-          each SERVED locale incomplete at the next publish, and
-          \`verify-locale-completeness\` gates the front-end's production deploy on that,
-          so this is worth doing before the next front-end release rather than at leisure.
+          picks the change up on its next pass.
+
+          Nothing downstream will chase this. An English EDIT leaves the translation
+          stale, which \`validate\` calls an error but completeness does not, so
+          \`completeness.json\` keeps calling the locale complete and the front-end
+          deploy gate stays green over outdated text. A NEW prose page is the one that
+          bites: it makes each served locale incomplete at the next publish, and
+          \`verify-locale-completeness\` gates the front-end's production DEPLOY on that.
           BODY_EOF
           )
           # The heredoc is indented so this file stays readable; strip that off.
