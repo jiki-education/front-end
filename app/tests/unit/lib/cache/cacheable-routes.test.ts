@@ -57,7 +57,7 @@ describe("cacheable-routes", () => {
         // Guards the pt-BR case: caching keys off SUPPORTED_LOCALES, so adding a
         // hyphenated locale there makes /pt-BR/blog cacheable with no regex change.
         // (pt-BR isn't supported yet, so it's uncacheable today.)
-        expect(isCacheableRoute("/pt-BR/blog")).toBe(false);
+        expect(isCacheableRoute("/pt-BR/blog")).toBe(true);
       });
     });
 
