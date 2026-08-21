@@ -1,0 +1,199 @@
+# Tell the i18n repo that a PR changes English.
+#
+# This is the whole outbound integration with translation: one issue, opened in
+# `jiki-education/i18n` when a PR that changes English is open for review. There
+# is no `repository_dispatch` contract, no callback receiver, and no translation
+# credential anywhere in this repo.
+#
+# It is an issue rather than a workflow that translates, because translation does
+# not run in CI and cannot. Engines are chosen per language in the `translator`
+# repo, and the default is a `fable` subagent fan-out, meaning Claude Code on a
+# machine. Only some engines are script-backed, so a CI translator could only
+# ever have done a minority of the work.
+#
+# ## The loop
+#
+#   1. a PR here is open for review (opened ready, or a draft marked ready), and
+#      changes English
+#   2. this opens an issue in `jiki-education/i18n` carrying the SHA
+#   3. the orchestrator in `translator` picks it up, checks the front-end out at
+#      that SHA, runs the passes, pushes the translations, and closes the issue
+#   4. the `i18n` check on this PR goes green when it is re-run
+#
+# ## One issue per PR, updated rather than duplicated
+#
+# The issue is found again by its title prefix, `Translate front-end#<n>:`, and
+# rewritten in place on every later push. A stale SHA is the dangerous state, not
+# a duplicate one: it translates the wrong English and produces a result that
+# looks entirely healthy. A second issue would only be noise.
+#
+# A draft PR opens nothing. Draft means the English is still moving, and an issue
+# whose SHA is superseded before anyone reads it is worse than no issue.
+#
+# ## Nothing here blocks a merge
+#
+# This job is not a required check and never fails a PR. Translation lands after
+# English does, always: this repo ships English with its own deploy, and a locale
+# is served only once `i18n` publishes it. A merge that outruns the translation
+# is the normal case, and the issue is what makes it visible.
+
+name: i18n queue
+
+on:
+  pull_request:
+    # `opened` as well as `ready_for_review`, because they are mutually
+    # exclusive: a PR opened non-draft fires only `opened` and would otherwise
+    # wait for an unrelated later push to be queued at all. Drafts fire `opened`
+    # too and are filtered by the job's `if` below, same as every other trigger.
+    types: [opened, ready_for_review, synchronize, reopened]
+    branches: [main]
+    # A coarse pre-filter only. What actually counts as English is the regex in
+    # the first step, which is the list to keep in step with
+    # `i18n`'s scripts/lib/content-types.mjs.
+    paths:
+      - "app/messages.json"
+      - "curriculum/src/**"
+      - "interpreters/src/**"
+      - "content/src/**"
+
+# One run per PR. A rapid series of pushes should leave one issue holding the
+# newest SHA, not a queue of runs racing to write older ones.
+concurrency:
+  group: i18n-queue-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  queue:
+    # Drafts are excluded here rather than by the trigger, because `synchronize`
+    # fires on a draft too.
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Enough history to diff the head against the merge base.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      # Which English this PR touches, as a three-dot diff against the merge
+      # base. Against `main` directly, a long-lived branch would claim every
+      # English change that landed next door as its own work.
+      - name: Which English changed
+        id: changed
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          # Only the files that ARE English. A PR that edits an exercise's
+          # TypeScript touches curriculum/src without changing a word anyone has
+          # to translate, and queueing that would train everyone to ignore the
+          # queue.
+          #
+          # These four shapes are every English file `i18n` reads, and they are
+          # the `sourceRepoPath` values in its scripts/lib/content-types.mjs:
+          # the app catalog, every `messages.json` catalog and prose `source.md`
+          # or exercise `instructions.md` under curriculum/content, and the
+          # interpreters' own `locales/en/translation.json`. That file is the
+          # authority; if a content type is added there, add its shape here.
+          # Being too narrow fails silently, which is the whole risk: the job
+          # goes green, opens nothing, and the change is never translated.
+          ENGLISH=$(git diff --name-only "$BASE_SHA...$HEAD_SHA" \
+            | grep -E '^(app/messages\.json|(curriculum|content)/src/.+/(messages\.json|source\.md|instructions\.md)|interpreters/src/[^/]+/locales/en/translation\.json)$' \
+            || true)
+
+          COUNT=$(printf '%s' "$ENGLISH" | grep -c . || true)
+          PACKAGES=$(printf '%s\n' "$ENGLISH" | grep . | cut -d/ -f1 | sort -u | paste -sd, - || true)
+
+          echo "Found $COUNT English file(s) in: ${PACKAGES:-none}"
+
+          {
+            echo "packages=${PACKAGES}"
+            echo "count=${COUNT}"
+            echo "files<<FILES_EOF"
+            printf '%s\n' "$ENGLISH" | grep . | head -50
+            # Said out loud, because a silently truncated list reads as the
+            # whole scope and the rest of the work never gets done. A single
+            # front-end PR touching every exercise catalog is a real shape.
+            if [ "$COUNT" -gt 50 ]; then
+              echo "... and $((COUNT - 50)) more (see the full diff linked below)"
+            fi
+            echo "FILES_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the i18n issue
+        if: steps.changed.outputs.packages != ''
+        env:
+          # A token with `issues: write` on jiki-education/i18n. The default
+          # GITHUB_TOKEN is scoped to this repo and cannot open an issue in
+          # another one.
+          GH_TOKEN: ${{ secrets.I18N_ISSUES_PAT }}
+          I18N_REPO: jiki-education/i18n
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PACKAGES: ${{ steps.changed.outputs.packages }}
+          COUNT: ${{ steps.changed.outputs.count }}
+          FILES: ${{ steps.changed.outputs.files }}
+        run: |
+          set -euo pipefail
+
+          TITLE="Translate front-end#${PR_NUMBER}: ${PR_TITLE}"
+
+          BODY=$(cat <<BODY_EOF
+          English changed in [#${PR_NUMBER}: ${PR_TITLE}](${PR_URL}), by @${PR_AUTHOR}.
+
+          | | |
+          |---|---|
+          | Repo | jiki-education/front-end |
+          | Translate at | ${HEAD_SHA} |
+          | Merge base | ${BASE_SHA} |
+          | Packages | ${PACKAGES} |
+          | English files changed | ${COUNT} |
+
+          **Read English at ${HEAD_SHA}, not at main.** That commit is what this work is
+          scoped to, and what the translations must validate against. This issue is
+          rewritten in place on every later push to the PR, so the SHA above is always
+          the current one.
+
+          What changed, as a three-dot diff against the merge base:
+
+          \`\`\`
+          ${FILES}
+          \`\`\`
+
+          [Compare the English](${PR_URL}/files) - [full diff](https://github.com/jiki-education/front-end/compare/${BASE_SHA}...${HEAD_SHA})
+
+          ---
+
+          Close this when the translations are pushed. Only the locales in this repo's
+          \`locales.json\` \`productionTargets\` are in scope for that: every other locale
+          picks the change up on its next pass.
+
+          Nothing downstream will chase this. An English EDIT leaves the translation
+          stale, which \`validate\` calls an error but completeness does not, so
+          \`completeness.json\` keeps calling the locale complete and the front-end
+          deploy gate stays green over outdated text. A NEW prose page is the one that
+          bites: it makes each served locale incomplete at the next publish, and
+          \`verify-locale-completeness\` gates the front-end's production DEPLOY on that.
+          BODY_EOF
+          )
+          # The heredoc is indented so this file stays readable; strip that off.
+          BODY=$(printf '%s\n' "$BODY" | sed 's/^          //')
+
+          EXISTING=$(gh issue list --repo "$I18N_REPO" --state open --limit 200 \
+            --json number,title \
+            --jq "first(.[] | select(.title | startswith(\"Translate front-end#${PR_NUMBER}:\")) | .number)")
+
+          if [ -n "${EXISTING:-}" ]; then
+            gh issue edit "$EXISTING" --repo "$I18N_REPO" --title "$TITLE" --body "$BODY"
+            gh issue comment "$EXISTING" --repo "$I18N_REPO" \
+              --body "Superseded by a new push. Translate at ${HEAD_SHA}."
+            echo "Updated ${I18N_REPO}#${EXISTING} to ${HEAD_SHA}."
+          else
+            gh issue create --repo "$I18N_REPO" --title "$TITLE" --body "$BODY" --label translation
+          fi
