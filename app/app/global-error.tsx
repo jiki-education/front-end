@@ -36,6 +36,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "We encountered an unexpected error. Sorry about that!",
     actionLabel: "Try again"
   },
+  bn: {
+    title: "কিছু একটা গোলমাল হয়েছে",
+    message: "একটি অপ্রত্যাশিত সমস্যা হয়েছে। দুঃখিত!",
+    actionLabel: "আবার চেষ্টা করুন"
+  },
   hu: {
     title: "Valami hiba történt",
     message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
