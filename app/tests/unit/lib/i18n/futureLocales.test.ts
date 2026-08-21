@@ -1,14 +1,14 @@
 /**
- * es-419, es-ES and pt-PT are live; pt-BR isn't served yet, but the locale
- * machinery (routing, hreflang, Accept-Language negotiation) must already be
- * correct for it so going live is just adding the locale + its catalog. These
- * tests run that machinery against the full es/pt variant set by mocking the
- * locale config.
+ * The locale machinery (routing, hreflang, Accept-Language negotiation) has to be
+ * correct for a content variant BEFORE that variant is served, so bringing one
+ * live is just adding the locale + its catalog. These tests run that machinery
+ * against the whole variant set by mocking the locale config, independently of
+ * what lib/locales.ts actually ships.
  *
- * The mock is a SUPERSET, not a set of unshipped locales: the live variants stay
- * here because the es/pt variant behaviour is one table (LANGUAGE_VARIANTS) and
- * asserting half of it would be asserting none of it. A locale going live is
- * therefore not a reason to remove it from the mock.
+ * The mock is deliberately a SUPERSET rather than a list of unshipped locales:
+ * variant behaviour is one table (LANGUAGE_VARIANTS) and asserting half of it
+ * would be asserting none of it. A locale going live is therefore not a reason to
+ * drop it from the mock, and this file needs no edit to track the live roster.
  *
  * The negotiation cases mirror the API's User::DetermineLocale acceptance oracle
  * (jiki-education/api test/commands/user/determine_locale_test.rb) — keep them in

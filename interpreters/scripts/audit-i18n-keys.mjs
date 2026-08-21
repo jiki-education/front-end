@@ -31,7 +31,7 @@
  *     app fetches it at runtime through the locale's pointer and injects it as
  *     `EvaluationContext.localeMessages` (`app/lib/api/exercise-meta.ts`,
  *     `fetchInterpreterMessages`). See the publisher table in
- *     `app/.context/i18n.md`.
+ *     `.context/i18n.md` (at the repo root).
  *
  * So adding `hu` to PRODUCTION_LOCALES turned this red for a reason that had
  * nothing to do with Hungarian: the audit was looking on a disk that structurally

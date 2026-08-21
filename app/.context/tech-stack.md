@@ -30,7 +30,7 @@ The compiler is configured in `next.config.ts` with `experimental.reactCompiler:
 - **State Management**: Zustand 5.0.8
 - **Markdown**: marked 17
 - **Curriculum prose rendering**: `@jiki.io/content-renderer` (workspace package, also published to
-  npm; shared with the `i18n` repo so both render byte-identical HTML — see `.context/i18n.md`)
+  npm; shared with the `i18n` repo so both render byte-identical HTML — see the repo root's `.context/i18n.md`)
 - **Interpreters**: Custom workspace package for code execution
 - **Utilities**: lodash, diff
 - **Syntax Highlighting**: highlight.js with custom JikiScript support
