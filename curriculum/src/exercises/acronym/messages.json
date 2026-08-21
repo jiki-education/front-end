@@ -1,7 +1,7 @@
 {
   "tasks": {
     "createAcronymFunction": {
-      "name": "Create acronym function",
+      "name": "Create acronym function (smoke test)",
       "description": "Write a function that takes a phrase and returns its acronym: the first letter of each word, in uppercase. Words are separated by spaces and hyphens, and any other punctuation is ignored."
     },
     "solveTightly": {

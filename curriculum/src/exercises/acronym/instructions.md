@@ -24,3 +24,5 @@ A new word begins after a **space** or a **hyphen** (`-`). Other characters (com
 We've not given you any of the more advanced JavaScript methods you see later in the course (nothing to magically uppercase a letter or tell you whether a character is a letter in the first place). You'll need to build all those helper functions yourself before you can put the whole thing together.
 
 This one is trickier than it sounds. Have fun!
+
+Smoke test line, do not merge.
