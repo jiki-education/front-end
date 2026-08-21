@@ -238,7 +238,7 @@ Implications for the sweep:
 - `cd front-end && pnpm test:app` → green.
 - Manual: load key pages on the dev server; flip `NEXT_LOCALE` cookie to `hu` and confirm the
   page still renders (it shows English until `hu` values are translated — expected).
-- Update `.context/i18n.md` to document the UI-string system (currently only documents content
+- Update the repo root's `.context/i18n.md` to document the UI-string system (currently only documents content
   localization).
 
 ---

@@ -4,7 +4,7 @@
 // test-runner scenario modules build DOM/HTML strings outside any React or
 // async context, so they cannot call next-intl's `useTranslations`/
 // `getTranslations`. This is the "pass-a-key" indirection from
-// `.context/i18n.md`: these modules resolve keys through this registry, which a
+// the repo root's `.context/i18n.md`: these modules resolve keys through this registry, which a
 // React component (with `useTranslations("codingExercise")`) seeds on every
 // render via `setEditorMessages`.
 //

@@ -4,7 +4,7 @@
  * The unit-test suite mocks next-intl, so a syntactically invalid ICU message
  * (unclosed brace, malformed plural, bad tag) would only surface at runtime.
  * This test runs every catalog string through the real ICU parser, and also
- * enforces the catalog invariants documented in .context/i18n.md.
+ * enforces the catalog invariants documented in the repo root's .context/i18n.md.
  *
  * There is one catalog, `messages.json`. Only English is authored in this repo;
  * every other locale's catalog is authored in the i18n repo and published

@@ -16,7 +16,7 @@ import {
 //      deterministic per URL.
 //   2. Otherwise, if the auth-presence cookie exists (a possibly-logged-in user),
 //      the NEXT_LOCALE cookie. This is the optimistic seed; the client corrects it
-//      from /internal/me. See ClientLocaleProvider and .context/i18n.md.
+//      from /internal/me. See ClientLocaleProvider and the repo root's .context/i18n.md.
 //   3. Otherwise (anon, naked URL) the default locale. The NEXT_LOCALE cookie is
 //      intentionally ignored here so anon cacheable pages stay deterministic.
 export async function resolveLocale(): Promise<Locale> {

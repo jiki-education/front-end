@@ -160,7 +160,7 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 
 ### Exercise Content Cache
 
-Exercise content is served as static files, separate from the exercise modules in `@jiki/curriculum`. **Prose and code are separate artifacts**, split along the axis each actually varies on: instructions are translated (they vary by locale), while stubs and solutions are code (they vary by programming language and never by locale). Sharing one artifact made translated instructions impossible to publish from the `i18n` repo, which holds no code. See `.context/i18n.md` § "The Exercise Cache".
+Exercise content is served as static files, separate from the exercise modules in `@jiki/curriculum`. **Prose and code are separate artifacts**, split along the axis each actually varies on: instructions are translated (they vary by locale), while stubs and solutions are code (they vary by programming language and never by locale). Sharing one artifact made translated instructions impossible to publish from the `i18n` repo, which holds no code. See the repo root's `.context/i18n.md` § "The Exercise Cache".
 
 - **Build script**: `scripts/generate-exercise-cache.js` reads curriculum source files and produces:
   - `public/static/exercises/{locale}/index-{hash}.json` — prose index (slug/title/description/proseHash)
@@ -213,7 +213,7 @@ See `.context/images.md` for detailed icon usage guidelines.
 
 ## Internationalization (i18n)
 
-See `.context/i18n.md` for the full model and the **Adding a New Locale** checklist.
+See the repo root's `.context/i18n.md` for the full model and the **Adding a New Locale** checklist.
 
 **RTL languages:** when adding a right-to-left locale (Arabic `ar`, Hebrew `he`, Persian `fa`, Urdu `ur`, etc.), you MUST also add its code to `RTL_LOCALES` in `lib/locales.ts`. That set drives `dir` on `<html>` via `getLocaleDirection()`, so omitting it leaves the whole UI stuck left-to-right for that locale. (LTR-only locales need no direction change - the default is `ltr`.)
 
