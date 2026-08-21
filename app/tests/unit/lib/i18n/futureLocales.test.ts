@@ -52,7 +52,7 @@ describe("hreflang emission", () => {
 
   it("passes ISO-valid ids through untouched", () => {
     expect(hreflangLocale("es-ES")).toBe("es-ES");
-    expect(hreflangLocale("pt-PT" as never)).toBe("pt-PT");
+    expect(hreflangLocale("pt-PT")).toBe("pt-PT");
     expect(hreflangLocale("pt-BR" as never)).toBe("pt-BR");
     expect(hreflangLocale("en")).toBe("en");
   });
