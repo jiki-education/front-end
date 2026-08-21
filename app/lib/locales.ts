@@ -5,7 +5,7 @@
 import { BUILD_DEPLOY_ENV } from "./env";
 import productionLocales from "./production-locales.json";
 
-export const ALL_LOCALES = ["en", "el", "es-419", "es-ES", "fr", "hu", "it", "pt-PT", "pt-BR", "uk"] as const;
+export const ALL_LOCALES = ["en", "bn", "el", "es-419", "es-ES", "fr", "hu", "it", "pt-PT", "pt-BR", "uk"] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
