@@ -1,5 +1,6 @@
 {
   "parent": "loops-group",
   "order": 3,
-  "category": false
+  "category": false,
+  "video": "repeat-without-count"
 }

@@ -4,6 +4,8 @@ import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { fetchCurriculumCopy, resolveCopy, type CurriculumCopyCatalog } from "@/lib/api/curriculum-copy";
 import { LAST_PUBLISHED_LEVEL_SLUG } from "@/lib/constants/course";
 import { fetchLevelMessages, resolveLevelTitle, type LevelMessageCatalog } from "@/lib/api/level-meta";
+import { fetchVideoIndex } from "@/lib/api/videos";
+import { EMPTY_VIDEO_INDEX, videoFor, type VideoIndex } from "@/lib/videos/select";
 import type { LevelWithProgress } from "@/types/levels";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 
@@ -44,14 +46,15 @@ export function filterToPublishedLevels(
   return levels.slice(0, cutoffIndex + 1);
 }
 
-// Both catalogs are loaded alongside the levels themselves, so every section and
+// Every catalog is loaded alongside the levels themselves, so every section and
 // node has its real text on first paint. They default to empty/slug so non-React
 // callers and tests don't have to thread them through; an entry missing from a
-// catalog renders its slug.
+// catalog renders its slug, and a lesson with no walkthrough simply has none.
 export function buildLevelSections(
   levels: LevelWithProgress[],
   copy: CurriculumCopyCatalog = {},
-  levelTitle: (slug: string) => string = (slug) => slug
+  levelTitle: (slug: string) => string = (slug) => slug,
+  videos: VideoIndex = EMPTY_VIDEO_INDEX
 ): LevelSectionData[] {
   return levels.map((level, levelIndex): LevelSectionData => {
     // Lock state is driven by the API: a lesson is locked when the user hasn't
@@ -63,12 +66,15 @@ export function buildLevelSections(
           slug: lesson.slug,
           type: lesson.type,
           title: lessonCopy.title,
-          description: lessonCopy.description,
-          walkthrough_video_data: lesson.walkthrough_video_data
+          description: lessonCopy.description
         },
         completed: lesson.status === "completed",
         locked: lesson.status === "locked",
         route: `/lesson/${lesson.slug}`,
+        // Only exercises have walkthroughs. Every video lesson's own slug also
+        // resolves in the index, so an ungated lookup would offer each video
+        // lesson its own recording as a "walkthrough".
+        walkthroughVideo: lesson.type === "exercise" ? (videoFor(videos, lesson.slug) ?? undefined) : undefined,
         walkthroughVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
       };
     });
@@ -93,6 +99,7 @@ export function useLevels() {
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
   const [copy, setCopy] = useState<CurriculumCopyCatalog>({});
   const [levelMessages, setLevelMessages] = useState<LevelMessageCatalog>({});
+  const [videos, setVideos] = useState<VideoIndex>(EMPTY_VIDEO_INDEX);
   const [levelsLoading, setLevelsLoading] = useState(true);
 
   useEffect(() => {
@@ -102,14 +109,16 @@ export function useLevels() {
         // Both catalogs are part of the dashboard's load, not a later top-up:
         // holding the skeleton until all three land means every section heading
         // and lesson node paints with its real text instead of flashing a slug.
-        const [data, catalog, levelCatalog] = await Promise.all([
+        const [data, catalog, levelCatalog, videoIndex] = await Promise.all([
           fetchLevelsWithProgress(),
           fetchCurriculumCopy(locale),
-          fetchLevelMessages(locale)
+          fetchLevelMessages(locale),
+          fetchVideoIndex(locale)
         ]);
         setLevels(data);
         setCopy(catalog);
         setLevelMessages(levelCatalog);
+        setVideos(videoIndex);
       } finally {
         setLevelsLoading(false);
       }
@@ -124,8 +133,8 @@ export function useLevels() {
 
   const levelSections = useMemo(() => {
     const visibleLevels = reachedEndOfPublishedLevels ? filterToPublishedLevels(levels) : levels;
-    return buildLevelSections(visibleLevels, copy, (slug) => resolveLevelTitle(levelMessages, slug));
-  }, [levels, copy, levelMessages, reachedEndOfPublishedLevels]);
+    return buildLevelSections(visibleLevels, copy, (slug) => resolveLevelTitle(levelMessages, slug), videos);
+  }, [levels, copy, levelMessages, videos, reachedEndOfPublishedLevels]);
 
   return {
     levels,

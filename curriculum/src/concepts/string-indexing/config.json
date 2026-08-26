@@ -1,5 +1,6 @@
 {
   "parent": "strings-group",
   "order": 3,
-  "category": false
+  "category": false,
+  "video": "string-indexing"
 }

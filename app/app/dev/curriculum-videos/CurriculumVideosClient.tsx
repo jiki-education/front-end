@@ -6,115 +6,66 @@ import styles from "./page.module.css";
 interface VideoSource {
   provider: string;
   id: string;
-  language?: string;
+  durationSeconds: number;
+  uploadDate: string;
 }
 
-interface CurriculumLesson {
-  slug: string;
-  title: string;
-  type: string;
-  data?: { sources?: VideoSource[] } | Record<string, unknown>;
-  walkthrough_video_data?: VideoSource[] | null;
-}
-
-export interface CurriculumLevel {
-  slug: string;
-  title: string;
-  lessons: CurriculumLesson[];
-}
+/** The authored catalog: video slug -> locale (or "fallback") -> source. */
+export type VideoCatalog = Record<string, Record<string, VideoSource>>;
 
 interface VideoEntry {
-  levelTitle: string;
-  levelSlug: string;
-  lessonTitle: string;
-  lessonSlug: string;
+  slug: string;
+  locale: string;
   source: VideoSource;
-  kind: "video" | "walkthrough";
 }
 
-function collectVideos(levels: CurriculumLevel[]): VideoEntry[] {
+function collectVideos(catalog: VideoCatalog): VideoEntry[] {
   const entries: VideoEntry[] = [];
-  for (const level of levels) {
-    for (const lesson of level.lessons) {
-      if (lesson.type === "video" && lesson.data && "sources" in lesson.data) {
-        const sources = (lesson.data as { sources?: VideoSource[] }).sources ?? [];
-        for (const source of sources) {
-          entries.push({
-            levelTitle: level.title,
-            levelSlug: level.slug,
-            lessonTitle: lesson.title,
-            lessonSlug: lesson.slug,
-            source,
-            kind: "video"
-          });
-        }
-      }
-      if (lesson.walkthrough_video_data) {
-        for (const source of lesson.walkthrough_video_data) {
-          entries.push({
-            levelTitle: level.title,
-            levelSlug: level.slug,
-            lessonTitle: lesson.title,
-            lessonSlug: lesson.slug,
-            source,
-            kind: "walkthrough"
-          });
-        }
-      }
+  for (const [slug, localeMap] of Object.entries(catalog)) {
+    for (const [locale, source] of Object.entries(localeMap)) {
+      entries.push({ slug, locale, source });
     }
   }
   return entries;
 }
 
-export default function CurriculumVideosClient({ levels }: { levels: CurriculumLevel[] }) {
-  const videos = collectVideos(levels);
-
-  const grouped = videos.reduce<Record<string, VideoEntry[]>>((acc, entry) => {
-    const key = `${entry.levelSlug}::${entry.levelTitle}`;
-    (acc[key] ??= []).push(entry);
-    return acc;
-  }, {});
+export default function CurriculumVideosClient({ catalog }: { catalog: VideoCatalog }) {
+  const videos = collectVideos(catalog);
 
   return (
     <div className={styles.page}>
       <div className={styles.container}>
         <h1 className={styles.title}>Curriculum Videos</h1>
         <p className={styles.intro}>
-          {videos.length} videos across {Object.keys(grouped).length} levels, sourced from{" "}
-          <code className={styles.inlineCode}>api/db/seeds/curriculum.json</code>.
+          {videos.length} recordings across {Object.keys(catalog).length} videos, sourced from{" "}
+          <code className={styles.inlineCode}>curriculum/src/videos/videos.json</code>.
         </p>
 
-        {Object.entries(grouped).map(([key, entries]) => {
-          const [, levelTitle] = key.split("::");
-          return (
-            <section key={key} className={styles.level}>
-              <h2 className={styles.levelTitle}>{levelTitle}</h2>
-              <div className={styles.grid}>
-                {entries.map((entry, idx) => (
-                  <div key={`${entry.lessonSlug}-${entry.source.id}-${idx}`} className={styles.card}>
-                    <div className={styles.cardHeader}>
-                      <div>
-                        <h3 className={styles.lessonTitle}>{entry.lessonTitle}</h3>
-                        <p className={styles.lessonSlug}>{entry.lessonSlug}</p>
-                      </div>
-                      {entry.kind === "walkthrough" && <span className={styles.walkthroughTag}>walkthrough</span>}
-                    </div>
-                    <div className={styles.videoWrapper}>
-                      {entry.source.provider === "mux" ? (
-                        <JikiVideoPlayer playbackId={entry.source.id} autoPlay={false} />
-                      ) : (
-                        <div className={styles.unsupported}>Unsupported provider: {entry.source.provider}</div>
-                      )}
-                    </div>
-                    <p className={styles.sourceMeta}>
-                      {entry.source.provider}:{entry.source.id}
-                    </p>
-                  </div>
-                ))}
+        <div className={styles.grid}>
+          {videos.map((entry) => (
+            <div key={`${entry.slug}-${entry.locale}`} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div>
+                  <h3 className={styles.lessonTitle}>{entry.slug}</h3>
+                  <p className={styles.lessonSlug}>
+                    {entry.source.uploadDate} · {entry.source.durationSeconds}s
+                  </p>
+                </div>
+                <span className={styles.walkthroughTag}>{entry.locale}</span>
               </div>
-            </section>
-          );
-        })}
+              <div className={styles.videoWrapper}>
+                {entry.source.provider === "mux" ? (
+                  <JikiVideoPlayer playbackId={entry.source.id} autoPlay={false} />
+                ) : (
+                  <div className={styles.unsupported}>Unsupported provider: {entry.source.provider}</div>
+                )}
+              </div>
+              <p className={styles.sourceMeta}>
+                {entry.source.provider}:{entry.source.id}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

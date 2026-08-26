@@ -1,5 +1,6 @@
 {
   "parent": "loops-group",
   "order": 2,
-  "category": false
+  "category": false,
+  "video": "nested-loops"
 }

@@ -1,8 +1,8 @@
-import { api } from "./client";
 import { conceptCopyHashes, conceptStructureHash } from "@/lib/generated/concept-hashes";
 import { assetsUrl } from "@/lib/assets";
 import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
 import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "@/lib/concepts/assemble";
+import { fetchVideoIndex } from "@/lib/api/videos";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import {
   selectTopLevelConcepts,
@@ -12,7 +12,6 @@ import {
   selectRelatedConcepts
 } from "@/lib/concepts/select";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
-import type { VideoSource } from "@/types/lesson";
 
 // English's hash is compiled in; every other locale's is read at runtime from
 // its pointer, so a concept index published by the i18n repo goes live with no
@@ -44,7 +43,9 @@ async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
     return cached;
   }
 
-  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  // Structure, copy and videos in parallel: three artifacts, one round trip of
+  // depth. The video index is a third request on an already-open connection, not
+  // a third level of waiting.
   const promise = Promise.all([
     fetch(assetsUrl(conceptStructurePath(conceptStructureHash))).then((res) => {
       if (!res.ok) {
@@ -57,8 +58,9 @@ async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
         throw new Error("Failed to fetch concept copy");
       }
       return res.json() as Promise<ConceptCopyCatalog>;
-    })
-  ]).then(([structure, copy]) => assembleConcepts(structure, copy));
+    }),
+    fetchVideoIndex(locale)
+  ]).then(([structure, copy, videos]) => assembleConcepts(structure, copy, videos));
   conceptIndexCache.set(key, promise);
   return promise;
 }
@@ -129,13 +131,4 @@ export async function getConceptContent(slug: string, locale: string): Promise<s
     throw new Error("Failed to fetch concept content");
   }
   return res.text();
-}
-
-export async function fetchConceptVideoData(slug: string): Promise<VideoSource[] | null> {
-  try {
-    const response = await api.get<{ concept: { video_data: VideoSource[] | null } }>(`/external/concepts/${slug}`);
-    return response.data.concept.video_data;
-  } catch {
-    return null;
-  }
 }

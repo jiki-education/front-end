@@ -1,5 +1,6 @@
 {
   "parent": "conditionals-group",
   "order": 4,
-  "category": false
+  "category": false,
+  "video": "logic-gates"
 }

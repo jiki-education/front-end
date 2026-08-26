@@ -5,12 +5,12 @@ import styles from "./VideoRecapCard.module.css";
 
 interface VideoRecapCardProps {
   conceptSlug: string;
-  videoData: VideoSource[];
+  video: VideoSource;
   isAuthenticated: boolean;
 }
 
-export function VideoRecapCard({ conceptSlug, videoData, isAuthenticated }: VideoRecapCardProps) {
-  const playbackId = videoData[0].id;
+export function VideoRecapCard({ conceptSlug, video, isAuthenticated }: VideoRecapCardProps) {
+  const playbackId = video.id;
 
   if (isAuthenticated) {
     return <LoggedInVideoRecapCard conceptSlug={conceptSlug} playbackId={playbackId} />;

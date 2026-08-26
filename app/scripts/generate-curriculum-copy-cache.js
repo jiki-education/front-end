@@ -186,7 +186,7 @@ function buildCatalogs(exerciseCopy, videoCopy) {
     // copy actually changes.
     const merged = {};
     for (const slug of [...Object.keys(exercises), ...Object.keys(videos)].sort()) {
-      merged[slug] = exercises[slug] || videos[slug];
+      merged[slug] = slug in videos ? videos[slug] : exercises[slug];
     }
 
     catalogs[locale] = merged;

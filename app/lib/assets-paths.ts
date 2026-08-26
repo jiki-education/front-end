@@ -114,6 +114,20 @@ export function conceptContentPath(slug: string, locale: string, hash: string): 
   return `/static/concepts/${slug}/${locale}/content-${hash}.html`;
 }
 
+/**
+ * A locale's resolved videos: { sources: { [videoSlug]: VideoSource }, refs }.
+ *
+ * Per-locale like the translated catalogs, but front-end-owned like the exercise
+ * code index, so it has a compiled hash and NO pointer. Videos are authored in
+ * this repo and change only when it deploys, including when a locale gets its
+ * own recording, so there is nothing for a pointer to decouple. Publishing them
+ * through a copy catalog instead would hand video data to a publisher that does
+ * not produce it and would drop it for every locale that publisher writes.
+ */
+export function videoIndexPath(locale: string, hash: string): string {
+  return `/static/videos/${locale}/index-${hash}.json`;
+}
+
 export function contentBodyPath(type: ContentType, slug: string, locale: string, hash: string): string {
   return `/static/content/${type}/${slug}/${locale}/content-${hash}.html`;
 }

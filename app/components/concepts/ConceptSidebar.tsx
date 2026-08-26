@@ -14,7 +14,7 @@ interface ConceptSidebarProps {
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
   relatedChallenges: ChallengeInfo[];
-  videoData: VideoSource[] | null;
+  video: VideoSource | null;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus;
   getChallengeStatus: (slug: string) => ChallengeStatus | "locked";
@@ -26,7 +26,7 @@ export function ConceptSidebar({
   relatedConcepts,
   relatedExercises,
   relatedChallenges,
-  videoData,
+  video,
   isConceptUnlocked,
   getExerciseStatus,
   getChallengeStatus,
@@ -39,9 +39,7 @@ export function ConceptSidebar({
           <UpgradeCard />
         </div>
       )}
-      {videoData && videoData.length > 0 && (
-        <VideoRecapCard conceptSlug={conceptSlug} videoData={videoData} isAuthenticated={isAuthenticated} />
-      )}
+      {video && <VideoRecapCard conceptSlug={conceptSlug} video={video} isAuthenticated={isAuthenticated} />}
       <RelatedConceptsPills concepts={relatedConcepts} isUnlocked={isConceptUnlocked} />
       <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} isAuthenticated={isAuthenticated} />
       <RelatedChallenges challenges={relatedChallenges} getStatus={getChallengeStatus} />

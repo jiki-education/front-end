@@ -30,7 +30,6 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
     relatedConcepts,
     relatedExercises,
     relatedChallenges,
-    videoData,
     isConceptUnlocked,
     getExerciseStatus,
     getChallengeStatus,
@@ -58,7 +57,7 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
               relatedConcepts={relatedConcepts}
               relatedExercises={relatedExercises}
               relatedChallenges={relatedChallenges}
-              videoData={videoData}
+              video={concept.video}
               isConceptUnlocked={isConceptUnlocked}
               getExerciseStatus={getExerciseStatus}
               getChallengeStatus={getChallengeStatus}
