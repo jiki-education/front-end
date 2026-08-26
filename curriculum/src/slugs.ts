@@ -92,7 +92,6 @@ export const exerciseLessonSlugs = [
   "stars",
   "meal-prep",
   "wordle-process-guess",
-  "extract-words",
   "chop-shop",
   "wordle-process-game",
   "lookup-time",
