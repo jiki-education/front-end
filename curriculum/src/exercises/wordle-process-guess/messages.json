@@ -47,10 +47,6 @@
       "question": "How do I build up the array of states?",
       "answer": "Start with an empty array, then use `states.push(value)` inside the loop to add each state onto the end in order."
     },
-    "checkPresence": {
-      "question": "How can I check if a letter appears anywhere in the target word?",
-      "answer": "Write a small helper that loops through the target's letters and returns `true` if it finds a match. It keeps your main code clean."
-    },
     "finishedList": {
       "question": "Where does the finished array go?",
       "answer": "Pass it to `colorRow(1, states)` to colour the first row of the board with your computed states."
@@ -64,6 +60,10 @@
     "push": {
       "description": "Adds an element onto the end of an array, changing the array in place.",
       "category": "Arrays"
+    },
+    "includes": {
+      "description": "Checks whether a string contains another string, returning true or false.",
+      "category": "Strings"
     }
   },
   "describers": {

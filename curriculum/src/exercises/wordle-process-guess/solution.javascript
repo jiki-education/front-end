@@ -1,23 +1,16 @@
-function contains(haystack, needle) {
-  for (const thing of haystack) {
-    if (needle === thing) {
-      return true
-    }
+function processLetter(letter, idx, target) {
+  if (target[idx] === letter) {
+    return "correct"
+  } else if (target.includes(letter)) {
+    return "present"
+  } else {
+    return "absent"
   }
-  return false
 }
-
-function processGuess(word, guess) {
+function processGuess(target, guess) {
   let states = []
   for (let idx = 0; idx < guess.length; idx++) {
-    let letter = guess[idx]
-    if (word[idx] === letter) {
-      states.push("correct")
-    } else if (contains(word, letter)) {
-      states.push("present")
-    } else {
-      states.push("absent")
-    }
+    states.push(processLetter(guess[idx], idx, target))
   }
   colorRow(1, states)
 }

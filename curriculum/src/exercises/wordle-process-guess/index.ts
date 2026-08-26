@@ -13,6 +13,13 @@ const functions: FunctionInfo[] = [
     category: "functions.colorRow.category"
   },
   {
+    name: "includes",
+    signature: '"...".includes(substring)',
+    description: "functions.includes.description",
+    examples: ['"hello".includes("ell") → true', '"hello".includes("xyz") → false'],
+    category: "functions.includes.category"
+  },
+  {
     name: "push",
     signature: "[...].push(element)",
     description: "functions.push.description",
