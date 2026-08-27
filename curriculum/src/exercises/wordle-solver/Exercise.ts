@@ -8,14 +8,9 @@ export default class WordleSolverExercise extends WordleExercise {
 
   public availableFunctions = [
     {
-      name: "add_word",
-      func: this.addWord.bind(this),
-      descriptionKey: "describers.addWord"
-    },
-    {
-      name: "get_target_word",
-      func: this.getTargetWord.bind(this),
-      descriptionKey: "describers.getTargetWord"
+      name: "guess",
+      func: this.guessWord.bind(this),
+      descriptionKey: "describers.guess"
     },
     {
       name: "common_words",

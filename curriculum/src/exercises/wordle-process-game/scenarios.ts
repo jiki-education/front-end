@@ -9,6 +9,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["hole-in-one", "two-guesses", "three-guesses", "phew"],
     bonus: false
+  },
+  {
+    id: "duplicate-letters" as const,
+    name: "tasks.duplicateLetters.name",
+    description: "tasks.duplicateLetters.description",
+    hints: [],
+    requiredScenarios: ["bonus-1", "bonus-2"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -139,6 +147,96 @@ export const scenarios: VisualScenario[] = [
             JSON.stringify(ex.statesForRow(5)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
           errorHtml: exercise.t("checks.phew.sixthRow")
+        }
+      ];
+    }
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "duplicate-letters",
+    functionCall: { name: "process_game", args: ["clamp", ["which", "colly", "class", "clamp"]] },
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["which", "colly", "class", "clamp"]);
+    },
+    expectations(exercise) {
+      const ex = exercise as ProcessGameExercise;
+      return [
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "present", "absent"]),
+          errorHtml: exercise.t("checks.bonus1.firstRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "absent", "present", "absent", "absent"]),
+          errorHtml: exercise.t("checks.bonus1.secondRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(2)) ===
+            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
+          errorHtml: exercise.t("checks.bonus1.thirdRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(3)) ===
+            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
+          errorHtml: exercise.t("checks.bonus1.fourthRow")
+        }
+      ];
+    }
+  },
+  {
+    slug: "bonus-2",
+    name: "scenarios.bonus2.name",
+    description: "scenarios.bonus2.description",
+    taskId: "duplicate-letters",
+    functionCall: {
+      name: "process_game",
+      args: ["swims", ["which", "swift", "swine", "swiss", "swigs", "swims"]]
+    },
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["which", "swift", "swine", "swiss", "swigs", "swims"]);
+    },
+    expectations(exercise) {
+      const ex = exercise as ProcessGameExercise;
+      return [
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "correct", "absent", "absent"]),
+          errorHtml: exercise.t("checks.bonus2.firstRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(1)) ===
+            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
+          errorHtml: exercise.t("checks.bonus2.secondRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(2)) ===
+            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
+          errorHtml: exercise.t("checks.bonus2.thirdRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(3)) ===
+            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
+          errorHtml: exercise.t("checks.bonus2.fourthRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(4)) ===
+            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
+          errorHtml: exercise.t("checks.bonus2.fifthRow")
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(5)) ===
+            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
+          errorHtml: exercise.t("checks.bonus2.sixthRow")
         }
       ];
     }

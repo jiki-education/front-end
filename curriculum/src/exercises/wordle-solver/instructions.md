@@ -1,22 +1,23 @@
 ---
 title: "Wordle: Solver"
-description: ""
+description: "Build a solver that plays a whole game of Wordle by itself."
 ---
 
-Time to build a Wordle solver! You need to create a <define>`processGame`</define> function that takes no inputs and automatically solves the game.
+In the last Wordle exercise, you processed a game where the guesses were handed to you. This time, you're sitting on the other side and being the one that actually words out the guesses.
 
-You have three functions available:
+Your job is to create a new function called `solveWordle()`, where you keep guessing words until you get the correct word. You have to solve the game as efficiently as possible (using the fewest words you can).
 
-- <define>`getTargetWord()`</define>: Returns the secret target word.
-- <define>`commonWords()`</define>: Returns a list of 100+ possible words.
-- <define>`addWord(row, word, states)`</define>: Adds a word to the board at the given row (1-6) with its states.
+You have a new <define>`commonWords()`</define> function, which returns an array of the 100+ words that you can use in the game. These are the words that you should work through. You should always start by reading the first word from that array and guessing that, then working through, finding the next possible valid word and guessing that next etc.
 
-For each guess, compare it to the target word to determine the states (correct/present/absent), then add it to the board. Keep guessing until you find the right word or use all 6 slots.
+You have a <define>`guess(word)`</define> function that returns an array of `"correct"`, `"present"`, `"absent"` for each letter.
 
-The best guess is the **first word** in the `commonWords` list that matches your knowledge so far:
+The key to this exercise is thinking through how to remember the previous words and the results of calling `guess`, and use knowledge to continuously find the most efficient path to victory.
 
-- Has all 'correct' letters in the right places
-- Has all 'present' letters somewhere (but not in positions you know are wrong)
-- Has no 'absent' letters
+### An example
 
-**Important:** Don't use `getTargetWord()` to cheat - only use it for checking your guess to generate states.
+1. You read the first word from the array, which is `"which"`
+2. You use `guess("which")`, which returns `["correct", "present", "absent", "absent", "absent"]`.
+3. You choose the next word in the common words array that starts with `"w"` and has an `"h"` in the third, fourth or fifth spots.
+4. Go to (2)...
+
+Good luck and have fun!

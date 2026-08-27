@@ -7,8 +7,8 @@
       "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "hints.generateStates.question",
-      "answer": "hints.generateStates.answer"
+      "question": "hints.readStates.question",
+      "answer": "hints.readStates.answer"
     },
     {
       "question": "hints.rememberLearned.question",

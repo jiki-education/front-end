@@ -6,18 +6,11 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "addWord",
-    signature: "addWord(row, word, states)",
-    description: "functions.addWord.description",
-    examples: ['addWord(1, "hello", ["correct", "present", "absent", "absent", "correct"])'],
-    category: "functions.addWord.category"
-  },
-  {
-    name: "getTargetWord",
-    signature: "getTargetWord()",
-    description: "functions.getTargetWord.description",
-    examples: ["let target = getTargetWord()"],
-    category: "functions.getTargetWord.category"
+    name: "guess",
+    signature: "guess(word)",
+    description: "functions.guess.description",
+    examples: ['let states = guess("which")'],
+    category: "functions.guess.category"
   },
   {
     name: "commonWords",
@@ -27,10 +20,24 @@ const functions: FunctionInfo[] = [
     category: "functions.commonWords.category"
   },
   {
+    name: "includes",
+    signature: "[...].includes(item)",
+    description: "functions.includes.description",
+    examples: ['["a", "b"].includes("b") → true', '"hello".includes("ell") → true'],
+    category: "functions.includes.category"
+  },
+  {
+    name: "length",
+    signature: "[...].length",
+    description: "functions.length.description",
+    examples: ['["a", "b", "c"].length → 3', '"hello".length → 5'],
+    category: "functions.length.category"
+  },
+  {
     name: "push",
-    signature: "push(list, element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['push(["a", "b"], "c") // returns ["a", "b", "c"]'],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   }
 ];

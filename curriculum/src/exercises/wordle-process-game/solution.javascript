@@ -1,10 +1,11 @@
-function contains(haystack, needle) {
-  for (const thing of haystack) {
-    if (needle === thing) {
-      return true
+function countLetter(letters, target) {
+  let count = 0
+  for (const letter of letters) {
+    if (letter === target) {
+      count = count + 1
     }
   }
-  return false
+  return count
 }
 
 function processGame(word, guesses) {
@@ -13,21 +14,29 @@ function processGame(word, guesses) {
   }
 }
 
-function processFirstGuess(word, guess) {
-  processGame(word, [guess])
-}
-
 function processGuess(word, guess) {
   let states = []
+  let claimed = []
+
   for (let idx = 0; idx < guess.length; idx++) {
-    let letter = guess[idx]
-    if (word[idx] === letter) {
+    if (word[idx] === guess[idx]) {
       states.push("correct")
-    } else if (contains(word, letter)) {
-      states.push("present")
+      claimed.push(guess[idx])
     } else {
       states.push("absent")
     }
   }
+
+  for (let idx = 0; idx < guess.length; idx++) {
+    if (states[idx] === "correct") {
+      continue
+    }
+    let letter = guess[idx]
+    if (countLetter(word, letter) > countLetter(claimed, letter)) {
+      states[idx] = "present"
+      claimed.push(letter)
+    }
+  }
+
   return states
 }

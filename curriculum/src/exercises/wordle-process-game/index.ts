@@ -14,9 +14,9 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "push",
-    signature: "push(list, element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['push(["a", "b"], "c") // returns ["a", "b", "c"]'],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   }
 ];

@@ -155,7 +155,8 @@ export const challengeSlugs = [
   "matching-socks",
   "tic-tac-toe",
   "sieve",
-  "cityscape-skyline"
+  "cityscape-skyline",
+  "wordle-solver"
 ] as const;
 
 export type ExerciseLessonSlug = (typeof exerciseLessonSlugs)[number];

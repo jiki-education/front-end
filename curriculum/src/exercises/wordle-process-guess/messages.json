@@ -49,7 +49,7 @@
     },
     "finishedList": {
       "question": "Where does the finished array go?",
-      "answer": "Pass it to `colorRow(1, states)` to colour the first row of the board with your computed states."
+      "answer": "Pass it to `colorRow(1, states)` to color the first row of the board with your computed states."
     }
   },
   "functions": {

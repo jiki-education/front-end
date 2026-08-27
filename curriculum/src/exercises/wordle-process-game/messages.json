@@ -19,12 +19,30 @@
       "fourthRow": "We expected the first to be present and the rest absent.",
       "fifthRow": "We expected the second to be present and the rest absent",
       "sixthRow": "We expected all the letters to be green"
+    },
+    "bonus1": {
+      "firstRow": "We expected only the fourth letter of the first row to be present.",
+      "secondRow": "The second row isn't right. This is the tricky one: only one of the repeated letters should be colored.",
+      "thirdRow": "The third row isn't right.",
+      "fourthRow": "We expected all the letters in the fourth row to be green."
+    },
+    "bonus2": {
+      "firstRow": "The first row isn't right.",
+      "secondRow": "The second row isn't right.",
+      "thirdRow": "The third row isn't right.",
+      "fourthRow": "The fourth row isn't right. This is the tricky one: `swiss` has more `s`s than the target does.",
+      "fifthRow": "The fifth row isn't right.",
+      "sixthRow": "We expected all the letters in the sixth row to be green."
     }
   },
   "tasks": {
     "processGame": {
       "name": "Process a full game",
-      "description": "Create a function called processGame that takes a target word and a list of guesses, and calls colorRow for each guess with the correct states."
+      "description": "Create a function called processGame that takes a target word and an array of guesses, and calls colorRow for each guess with the correct states."
+    },
+    "duplicateLetters": {
+      "name": "Bonus: Handle duplicate letters",
+      "description": "There's one Wordle rule we've skipped over. If a letter appears twice in your guess but only once in the target word, then if either one is in the right place, that one goes green and the other goes gray. Otherwise the first goes yellow and the second goes gray. The same idea scales up: three in a guess and two in the word means two get colored and the third goes gray. Start with the first bonus scenario, then fully solve it for the second. It's a bonus, so you don't have to complete it!"
     }
   },
   "scenarios": {
@@ -43,24 +61,32 @@
     "phew": {
       "name": "Phew!",
       "description": "Phew! That was close!"
+    },
+    "bonus1": {
+      "name": "Only one yellow",
+      "description": "If there are multiple present letters for only one actual letter, only one should be yellow."
+    },
+    "bonus2": {
+      "name": "Swiss Cheese",
+      "description": "The swiss in this shows why it's important!"
     }
   },
   "hints": {
     "reuseWork": {
       "question": "How do I reuse my work from `processGuess`?",
-      "answer": "The logic that turns one guess into a list of states is the same. Pull it into a helper function (or copy it) and call it for each guess in the list."
+      "answer": "The logic that turns one guess into an array of states is the same. Pull it into a helper function (or copy it) and call it for each guess in the array."
     },
     "trackRow": {
       "question": "How do I track which row each guess belongs to?",
       "answer": "Loop through the guesses with an index. The row number is the index plus `1` (since `colorRow` expects rows numbered `1-6`)."
     },
-    "colourRow": {
-      "question": "How do I actually colour each row?",
-      "answer": "Once you have the `states` list for a guess, call `colorRow(rowNumber, states)`."
+    "colorRow": {
+      "question": "How do I actually color each row?",
+      "answer": "Once you have the `states` array for a guess, call `colorRow(rowNumber, states)`."
     },
     "fewerGuesses": {
       "question": "What if the player has made fewer than 6 guesses?",
-      "answer": "Only colour rows for the guesses that exist. The list length tells you how many to process, so you naturally stop at the right point."
+      "answer": "Only color rows for the guesses that exist. The array length tells you how many to process, so you naturally stop at the right point."
     }
   },
   "functions": {
@@ -69,8 +95,8 @@
       "category": "Wordle"
     },
     "push": {
-      "description": "Adds an element to a list and returns the new list. Does not change the original list.",
-      "category": "Lists"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
     }
   },
   "describers": {

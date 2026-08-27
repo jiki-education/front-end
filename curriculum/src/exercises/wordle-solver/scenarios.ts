@@ -1,4 +1,4 @@
-import type { Task, VisualScenario } from "../types";
+import type { Task, VisualScenario, VisualTestExpect } from "../types";
 import type WordleSolverExercise from "./Exercise";
 
 export const tasks = [
@@ -33,16 +33,15 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["present-1", "present-2", "present-3", "present-4"],
     bonus: false
-  },
-  {
-    id: "bonus" as const,
-    name: "tasks.bonus.name",
-    description: "tasks.bonus.description",
-    hints: [],
-    requiredScenarios: ["bonus-1", "bonus-2"],
-    bonus: true
   }
 ] as const satisfies readonly Task[];
+
+function noRepeatedGuesses(exercise: WordleSolverExercise): VisualTestExpect {
+  return {
+    pass: !exercise.hasRepeatedGuess(),
+    errorHtml: exercise.t("checks.repeatedGuess")
+  };
+}
 
 export const scenarios: VisualScenario[] = [
   {
@@ -50,13 +49,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.holeInOne.name",
     description: "scenarios.holeInOne.description",
     taskId: "first-word",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("which");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
@@ -71,13 +71,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.entirelyWrong.name",
     description: "scenarios.entirelyWrong.description",
     taskId: "handle-wrong",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("about");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
@@ -97,13 +98,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.twoNeeded.name",
     description: "scenarios.twoNeeded.description",
     taskId: "handle-partial",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("would");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
@@ -123,13 +125,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.threeNeeded.name",
     description: "scenarios.threeNeeded.description",
     taskId: "handle-partial",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("world");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
@@ -155,13 +158,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.fourNeeded.name",
     description: "scenarios.fourNeeded.description",
     taskId: "handle-partial",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("women");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
@@ -192,13 +196,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.present1.name",
     description: "scenarios.present1.description",
     taskId: "handle-present",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("twice");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
@@ -219,13 +224,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.present2.name",
     description: "scenarios.present2.description",
     taskId: "handle-present",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("power");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
@@ -251,13 +257,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.present3.name",
     description: "scenarios.present3.description",
     taskId: "handle-present",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("magic");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "present", "present", "absent"]),
@@ -288,13 +295,14 @@ export const scenarios: VisualScenario[] = [
     name: "scenarios.present4.name",
     description: "scenarios.present4.description",
     taskId: "handle-present",
-    functionCall: { name: "process_game", args: [] },
+    functionCall: { name: "solve_wordle", args: [] },
     setup(exercise) {
       (exercise as WordleSolverExercise).setTargetWord("sense");
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
       return [
+        noRepeatedGuesses(ex),
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
@@ -321,93 +329,6 @@ export const scenarios: VisualScenario[] = [
             JSON.stringify(ex.statesForRow(4)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
           errorHtml: exercise.t("checks.present4.fifthRow")
-        }
-      ];
-    }
-  },
-  {
-    slug: "bonus-1",
-    name: "scenarios.bonus1.name",
-    description: "scenarios.bonus1.description",
-    taskId: "bonus",
-    functionCall: { name: "process_game", args: [] },
-    setup(exercise) {
-      (exercise as WordleSolverExercise).setTargetWord("clamp");
-    },
-    expectations(exercise) {
-      const ex = exercise as WordleSolverExercise;
-      return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "present", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "absent", "present", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.bonus1.fourthRow")
-        }
-      ];
-    }
-  },
-  {
-    slug: "bonus-2",
-    name: "scenarios.bonus2.name",
-    description: "scenarios.bonus2.description",
-    taskId: "bonus",
-    functionCall: { name: "process_game", args: [] },
-    setup(exercise) {
-      (exercise as WordleSolverExercise).setTargetWord("swims");
-    },
-    expectations(exercise) {
-      const ex = exercise as WordleSolverExercise;
-      return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.fourthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(4)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.fifthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(5)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.sixthRow")
         }
       ];
     }

@@ -12,7 +12,7 @@ The game works like this:
 - For each guess there are 5 boxes, one for each letter:
   - If a letter is correct, the box goes green.
   - If a letter is in the secret word but in the wrong place, the box goes yellow.
-  - If a letter is not in the secret word, the box goes grey.
+  - If a letter is not in the secret word, the box goes gray.
 
 In a few exercises, you'll implement the whole Wordle game, but for **this exercise**, you're just going to get things working for the first row.
 
