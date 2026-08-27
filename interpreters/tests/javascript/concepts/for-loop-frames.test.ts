@@ -3,6 +3,10 @@ import type { TestAugmentedFrame } from "@shared/frames";
 
 const NO_INFO = "There is no information available for this line";
 
+function steps(description: string): string[] {
+  return description.match(/<li>[\s\S]*?<\/li>/g) ?? [];
+}
+
 function descriptions(code: string) {
   const { frames, error } = interpret(code);
   expect(error).toBeNull();
@@ -40,17 +44,30 @@ for (let i = 0; i < 3; i++) {
     expect(frames[3].description).toContain("The condition evaluated to <code>false</code> so the loop stopped.");
   });
 
-  test("describes the previous iteration's update at the top of the next frame", () => {
+  test("merges the previous iteration's update into the condition step", () => {
     const frames = descriptions(`for (let i = 0; i < 2; i++) {
 }
 `);
 
     // The first iteration has no preceding update
     expect(frames[1].description).not.toContain("Jiki increased");
-    expect(frames[2].description).toContain("Jiki increased");
-    expect(frames[2].description).toMatch(
-      /Jiki increased <code[^>]*>i<\/code> from <code[^>]*>0<\/code> to <code[^>]*>1<\/code>/
+    expect(steps(frames[1].description)).toHaveLength(2);
+
+    expect(steps(frames[2].description)).toHaveLength(2);
+    expect(steps(frames[2].description)[0]).toMatch(
+      /Jiki increased <code[^>]*>i<\/code> from <code[^>]*>0<\/code> to <code[^>]*>1<\/code>, then evaluated <code[^>]*>1 < 2<\/code> and determined it was <code[^>]*>true<\/code>/
     );
+  });
+
+  test("drops the condition's operand lookups", () => {
+    const frames = descriptions(`let guess = "abcdef";
+for (let idx = 0; idx < guess.length; idx++) {
+}
+`);
+
+    const headerFrames = frames.filter(f => f.line === 2).slice(1);
+    expect(headerFrames.every(f => !f.description.includes("off the shelves"))).toBe(true);
+    expect(headerFrames.every(f => steps(f.description).length === 2)).toBe(true);
   });
 
   test("describes a decrementing update", () => {
@@ -59,6 +76,19 @@ for (let i = 0; i < 3; i++) {
 `);
 
     expect(frames[2].description).toContain("Jiki decreased");
+  });
+
+  test("a non-comparison condition keeps its own top-level step", () => {
+    const frames = descriptions(`let go = true;
+for (let i = 0; go; i++) {
+  go = false;
+}
+`);
+
+    const secondCheck = frames.filter(f => f.line === 2)[2];
+    expect(steps(secondCheck.description)).toHaveLength(3);
+    expect(steps(secondCheck.description)[0]).toContain("Jiki increased");
+    expect(steps(secondCheck.description)[1]).toContain("off the shelves");
   });
 
   test("describes an assignment update", () => {

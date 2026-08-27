@@ -1,5 +1,24 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-27: `for` header steps collapse to one, and `.prop` is no longer described as an index read
+
+The single-frame `for` header (below) still listed every sub-step of its condition, which read badly once the update was in the same frame:
+
+```
+Jiki increased `idx` from `5` to `6`.
+Jiki got the box called `idx` off the shelves and took `6` out of it.
+Jiki got the character at index length in the string and determined it was `6`.
+Jiki evaluated `6 < 6` and determined it was `false`.
+```
+
+Line 2 restates line 1, and line 3 is wrong (see below). The operand lookups also repeat verbatim on every iteration while saying nothing the comparison does not already show.
+
+The header now collapses to a single step: the update and the condition check merge into one sentence (`step_increased_evaluated` / `step_decreased_evaluated`), and the condition's sub-steps are dropped. `describeForStatement` inlines the comparison only when the condition is a `BinaryExpression` and the update is an `UpdateExpression` — the shape essentially every real `for` loop has, and the only one short enough to read as one sentence. Anything else (`for (; flag; )`, `i = i + 1`) falls back to the update's own describer plus the _last_ step of the condition's describer, since an expression describer always ends with the sentence summarising the whole expression and the earlier steps are the lookups being dropped. This collapsing is confined to the `for` line; statements in the body keep their full steps.
+
+`summariseBinaryExpression` was extracted from `describeBinaryExpression` so both describers render `6 < 6` the same way.
+
+Separately, `describeMemberExpression` had only index-flavoured strings (`"the item at index {{index}} in the array"` / `"the character at index {{index}} in the string"`), so `guess.length` was described as _"Jiki got the character at index length in the string"_. It now branches on `expression.computed` and uses property strings for `obj.prop`, giving _"Jiki got the `length` of the string"_. This affected every `.length` read, not just loop conditions.
+
 ## 2026-08-27: C-style `for` emits one frame per iteration
 
 `executeForStatement` used to wrap each part of the loop header in its own `executeFrame`: one for the init, then a condition frame and an update frame on every trip round the loop. That put `1 + 2N` frames on the `for` line, and all but the init said _"There is no information available for this line"_ — `BinaryExpression` and `UpdateExpression` are both in `frameDescribers`' explicit "these types don't generate frames with descriptions" list, so `describeFrame` fell through to the default message.

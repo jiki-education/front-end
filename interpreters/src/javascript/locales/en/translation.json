@@ -221,8 +221,10 @@
       "result_no_condition": "This loop has no condition, so the loop body ran again.",
       "result_true": "The condition evaluated to <code>true</code> so the loop body ran.",
       "step_decreased": "Jiki decreased {{name}} from {{oldValue}} to {{newValue}}.",
+      "step_decreased_evaluated": "Jiki decreased {{name}} from {{oldValue}} to {{newValue}}, then evaluated {{expr}} and determined it was {{value}}.",
       "step_false": "The result was <code>false</code> so Jiki decided to stop the loop.",
       "step_increased": "Jiki increased {{name}} from {{oldValue}} to {{newValue}}.",
+      "step_increased_evaluated": "Jiki increased {{name}} from {{oldValue}} to {{newValue}}, then evaluated {{expr}} and determined it was {{value}}.",
       "step_no_condition": "There was no condition to check, so Jiki decided to run the loop body.",
       "step_true": "The result was <code>true</code> so Jiki decided to run the loop body."
     },
@@ -254,6 +256,9 @@
     },
     "memberExpression": {
       "array": "Jiki got the item at index {{index}} in the array and determined it was {{value}}.",
+      "property": "Jiki got the {{name}} property and determined it was {{value}}.",
+      "property_array": "Jiki got the {{name}} of the array and determined it was {{value}}.",
+      "property_string": "Jiki got the {{name}} of the string and determined it was {{value}}.",
       "string": "Jiki got the character at index {{index}} in the string and determined it was {{value}}."
     },
     "repeatStatement": {
