@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-27: C-style `for` emits one frame per iteration
+
+`executeForStatement` used to wrap each part of the loop header in its own `executeFrame`: one for the init, then a condition frame and an update frame on every trip round the loop. That put `1 + 2N` frames on the `for` line, and all but the init said _"There is no information available for this line"_ — `BinaryExpression` and `UpdateExpression` are both in `frameDescribers`' explicit "these types don't generate frames with descriptions" list, so `describeFrame` fell through to the default message.
+
+The `for` loop now matches `while` and `for...of`: a single `executeFrame(statement, …)` per iteration, carrying an `EvaluationResultForStatement`. The condition is evaluated inside that frame, and the update — which physically runs at the _end_ of an iteration — is stashed and described at the _top_ of the next iteration's frame. Describing the update on the following frame (rather than the preceding one) keeps the body's frames showing the pre-update value of the loop variable, which is what a student stepping through the scrubber expects to see. The init keeps its own frame: it genuinely happens once, and as a `VariableDeclaration` it already described itself well.
+
+`describeForStatement` renders the update step itself rather than delegating, because `i++` has no describer of its own (it never used to generate a frame). To make that possible, `EvaluationResultUpdateExpression` gained `oldValue`/`newValue`: its `jikiObject` is the value the _expression_ evaluates to (old for postfix, new for prefix), which is not enough to say what happened to the variable. Anything else in the update slot (e.g. `i = i + 1`) goes through the normal expression describers.
+
+A `for` with no condition (`for (;;)`) gets its own result/step strings rather than an empty condition description.
+
+`executeForStatement` also now calls `guardInfiniteLoop`, which it alone among the loops was missing. Before this, `for (;;) {}` with a frame-less body had nothing to stop it.
+
 ## 2026-08-27: LOC counting is insensitive to `else` brace style
 
 `countLinesOfCode` counts raw non-blank, non-comment text lines, so `} else {` cost one line while a `}` / `else {` split across two lines cost two. Exercises with an `assertMaxLinesOfCode` bonus (`lunchbox`, `guest-list`, `formal-dinner`, `acronym`, …) therefore scored brace style, not structure: a student could reach the limit by joining the brace to the keyword rather than by finding a tighter solution, and one writing the split form was penalised for identical code.
