@@ -11,7 +11,7 @@ As it gets towards the end of the day, you need a way of knowing if you have tim
 
 Write a function called <define>`canFitIn`</define> which takes three inputs:
 
-- The first is the haircuts that you have in the queue already (list of strings)
+- The first is the haircuts that you have in the queue already (array of strings)
 - The second is the haircut that the new person wants (string)
 - The third is the amount of minutes left in the day (number)
 
@@ -34,7 +34,7 @@ Take a look at the <define>`cuts`</define> array. It contains other arrays, one 
 
 It's easiest with this to think of the inner arrays - the pairs of names and durations, and then think of them all being grouped together in another array.
 
-Indexing works the same as it does everywhere else, but you can change indexes together like this...
+Indexing works the same as it does everywhere else, but you can chain indexes together like this...
 
 ```javascript
 const cuts = [

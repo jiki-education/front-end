@@ -63,8 +63,8 @@
       "category": "Movement"
     },
     "push": {
-      "description": "Adds an element to a list and returns the new list.",
-      "category": "Lists"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
     }
   }
 }

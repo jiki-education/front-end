@@ -46,8 +46,8 @@
       "category": "API"
     },
     "push": {
-      "description": "Add an element to a list and return the new list",
-      "category": "List Operations"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Array Operations"
     },
     "hasKey": {
       "description": "Check if a key exists in a dictionary, returns true or false",
