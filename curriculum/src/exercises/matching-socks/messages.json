@@ -3,6 +3,10 @@
     "findMatchingSocks": {
       "name": "Find Matching Socks",
       "description": "Write a function that takes two baskets of clothes (as lists of strings) and returns a list of all the pairs of socks found across both baskets. Items that are socks end with ' sock' and always start with 'left ' or 'right '."
+    },
+    "solveTightly": {
+      "name": "Solve it in 29 lines",
+      "description": "Try and solve this in 29 lines of code or fewer. That's not the shortest possible answer, but it's a good target to push towards once you have it working."
     }
   },
   "scenarios": {
@@ -33,6 +37,10 @@
     "someAddedPain": {
       "name": "Odds and ends",
       "description": "A few oddities snuck in."
+    },
+    "bonusLineCount": {
+      "name": "A tight solution",
+      "description": "The same job, done in fewer lines."
     }
   },
   "hints": {
@@ -56,6 +64,9 @@
       "question": "What's a good overall plan?",
       "answer": "Both baskets can be treated as one big pile. Go through it one item at a time, and for each item decide whether it belongs in your answer."
     }
+  },
+  "checks": {
+    "tooManyLines": "So close! Your solution works, but it's more than 29 lines of code."
   },
   "functions": {
     "startsWith": {

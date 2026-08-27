@@ -26,3 +26,5 @@ The descriptions follow these rules:
 ### Methods
 
 This exercise has lots of string and array methods you can use to make your life a little easier. Check out all the descriptions below to see what's in your toolkit for this Challenge.
+
+### Bonus

@@ -1,4 +1,15 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+// Require a tight solution. Each language's limit matches its canonical solution.
+const locCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 67 : language === "jikiscript" ? 92 : 29;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -16,6 +27,14 @@ export const tasks = [
       "some-added-pain"
     ],
     bonus: false
+  },
+  {
+    id: "solve-tightly" as const,
+    name: "tasks.solveTightly.name",
+    description: "tasks.solveTightly.description",
+    hints: [],
+    requiredScenarios: ["bonus-line-count"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -102,5 +121,19 @@ export const scenarios: IOScenario[] = [
     ],
     expected: ["red socks", "blue socks", "spotty socks"],
     matcher: "toEqual"
+  },
+  {
+    slug: "bonus-line-count",
+    name: "scenarios.bonusLineCount.name",
+    description: "scenarios.bonusLineCount.description",
+    taskId: "solve-tightly",
+    functionName: "matching_socks",
+    args: [
+      ["left red sock", "right pink sock", "leftover fabric", "right blue sock", "left blue sock"],
+      ["right red sock", "left green sock", "sweater"]
+    ],
+    expected: ["red socks", "blue socks"],
+    matcher: "toEqual",
+    codeChecks: locCheck
   }
 ];

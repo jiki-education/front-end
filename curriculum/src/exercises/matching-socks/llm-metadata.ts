@@ -33,6 +33,15 @@ export const llmMetadata: LLMMetadata = {
           but a student who processes the baskets separately or reverses them will fail
           on ordering alone despite otherwise-correct logic.
       `
+    },
+    "solve-tightly": {
+      description: `
+        A bonus task, only meaningful once the main task passes. It reruns the same logic
+        against a smaller basket and adds a line-count check: 29 lines or fewer in JavaScript.
+        The route to it is extracting the repeated work into small named helpers rather than
+        golfing statements onto one line, since the count ignores blank lines and comments but
+        counts closing braces.
+      `
     }
   }
 };
