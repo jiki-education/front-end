@@ -265,12 +265,15 @@ jobs:
             translations to i18n, and closes the issue. Re-run this check once it has,
             and it goes green with no change to this branch.
 
-            If the blocking item is an exercise that is NOT LIVE (it sits past the last
-            shipped level, so no learner can reach it), translating it is the wrong fix.
-            It belongs in i18n's corpus.json instead, with the "not-yet-live exercise"
-            reason: the instructions with "scope": "body" so its title and description
-            are still translated, and the message catalog whole. Delete those lines again
-            in the change that makes the exercise live. The script's output says which of
-            the two cases each file looks like.
+            The one alternative is an exercise that is NOT LIVE: one sitting past the last
+            shipped level, which no learner can reach. Its teaching content is deferred
+            rather than translated, so it belongs in i18n's corpus.json with the
+            "not-yet-live exercise" reason, and those lines come out again in the change
+            that makes it live.
+
+            Whether an exercise is live is a fact to look up in the translator repo's
+            Stage 3 queue, never one to read off this output. A brand-new exercise with no
+            translations anywhere looks exactly the same whether it is past the cutoff or
+            is live and being translated as you read this.
           GUIDANCE
           exit 1
