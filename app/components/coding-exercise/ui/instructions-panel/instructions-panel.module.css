@@ -240,6 +240,14 @@
         margin-top: -8px;
     }
 
+    ul ul {
+        margin-top: 6px;
+
+        li {
+            margin-bottom: 4px;
+        }
+    }
+
     & > :last-child {
         margin-bottom: 0;
     }
@@ -256,6 +264,10 @@
            examples where multiple spaces are meaningful). Inline <code> collapses
            whitespace by default; pre-wrap keeps it while still allowing wrapping. */
         white-space: pre-wrap;
+    }
+
+    :not(pre) > code {
+        white-space: nowrap;
     }
 
     pre {

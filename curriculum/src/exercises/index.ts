@@ -86,6 +86,7 @@ export const exercises = {
   "tile-rack": () => import("./tile-rack"),
   "tile-search": () => import("./tile-search"),
   "sign-price": () => import("./sign-price"),
+  "sign-words": () => import("./sign-words"),
   "niche-named-party": () => import("./niche-named-party"),
   "lower-pangram": () => import("./lower-pangram"),
   "caesar-cipher": () => import("./caesar-cipher"),

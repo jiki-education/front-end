@@ -38,33 +38,49 @@
   "hints": {
     "whereToStart": {
       "question": "Where should I start when there are lots of moving parts?",
-      "answer": "Start by writing small helper functions, like `length()`, `startsWith()`, and `endsWith()`, that you'll need everywhere. Get those working first before touching the main logic."
+      "answer": "Don't try to write the whole thing in one go. Break the problem into small functions that each answer one tiny question, get each one working on its own, then combine them."
     },
     "isItASock": {
       "question": "How do I tell if something in the basket is actually a sock?",
-      "answer": "Socks have the form `\"left X\"` or `\"right X\"`. A small helper that returns true only when the item starts with one of those prefixes will save you from re-checking everywhere."
+      "answer": "Not everything that mentions a side is a sock, and not everything that looks sock-ish is one. Look carefully at the rules for how items are described, and check both ends of the description rather than just the start."
     },
     "compareSockPair": {
       "question": "How do I compare a left sock to its right pair?",
-      "answer": "Two helpers make this easier. One to strip off the `\"left \"` or `\"right \"` prefix (so you can compare just the colour or pattern), and another to flip `\"left\"` and `\"right\"` so you can build the partner of any sock."
+      "answer": "Rather than comparing two socks directly, work out what the partner of a sock would be called, then go looking for that. Strings have a built-in method for swapping one piece of text for another, which can also strip a piece off by swapping it for nothing."
     },
     "avoidDuplicates": {
       "question": "How do I avoid counting the same pair twice?",
-      "answer": "A helper that adds an item to a list only if it's not already there will keep duplicates out of your result."
+      "answer": "Every pair gets discovered twice, once from each side. Before adding a name to your results, check whether it's already in there."
     },
     "overallPlan": {
       "question": "What's a good overall plan?",
-      "answer": "Extract all socks from both baskets into one combined list, then for each sock, build what its partner would look like and check whether that partner is also in the list."
+      "answer": "Both baskets can be treated as one big pile. Go through it one item at a time, and for each item decide whether it belongs in your answer."
     }
   },
   "functions": {
-    "push": {
-      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
-      "category": "List Operations"
+    "startsWith": {
+      "description": "Check whether a string begins with a smaller string",
+      "category": "String Operations"
+    },
+    "endsWith": {
+      "description": "Check whether a string ends with a smaller string",
+      "category": "String Operations"
+    },
+    "replace": {
+      "description": "Return a new string with the first occurrence of some text swapped for other text",
+      "category": "String Operations"
     },
     "concat": {
-      "description": "Takes two lists, joins them together into one list, then returns the result (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Join two arrays together into one new array",
+      "category": "Array Operations"
+    },
+    "includes": {
+      "description": "Check whether an array already contains an element",
+      "category": "Array Operations"
+    },
+    "push": {
+      "description": "Add an element onto the end of an array",
+      "category": "Array Operations"
     }
   }
 }

@@ -7,7 +7,9 @@ As a kid, I'd pack my lunchbox every day for school. My mother would leave items
 
 In this exercise, your job is to create an algorithm that works out what I can fit in the lunchbox and what I have to put in my rucksack.
 
-You're going to get an array of items. Each item is an array with two elements - the name of the item and its size. The items are always biggest to smallest. For example the array of items might be:
+Your job is to write a function called <define>`packLunch(items, capacity)`</define> that takes two inputs: the array of items (largest first), and the lunchbox's size <define>`capacity`</define> (a number).
+
+The items array is a nested array - each item is also an array with two elements - the name of the item and its size. The items are always biggest to smallest. For example the array of items might be:
 
 ```javascript
 [
@@ -21,9 +23,7 @@ You're going to get an array of items. Each item is an array with two elements -
 
 The lunchbox has a maximum capacity. You need to work out which items can go into the lunchbox. Fit in as many items as you possibly can. Everything else should go into the rucksack.
 
-Write a function called <define>`packLunch(items, capacity)`</define> that takes two inputs: the array of items (largest first), and the lunchbox's size <define>`capacity`</define> (a number).
-
-It should return an array that contains two elements. The first element is an array of the items for the lunchbox, and the second is the items for the rucksack. Both arrays should be ordered smallest to largest.
+Your function should return an array that contains two elements. The first element is an array of the items for the lunchbox, and the second is the items for the rucksack. Both arrays should be ordered smallest to largest.
 
 For example, for the array above, with a capacity of 20, you'd be expected to:
 

@@ -47,7 +47,7 @@
   },
   "functions": {
     "indexOf": {
-      "description": "Find the position of a smaller string within a string, or -1 if it isn't found (provided by level stdlib)",
+      "description": "Find the position of a smaller string within a string, or -1 if it isn't found",
       "category": "String Operations"
     }
   }

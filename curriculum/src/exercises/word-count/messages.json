@@ -79,15 +79,15 @@
   },
   "functions": {
     "toLowerCase": {
-      "description": "Convert a string to lowercase (provided by level stdlib)",
+      "description": "Convert a string to lowercase",
       "category": "String Operations"
     },
     "push": {
-      "description": "Add an element to a list and return the new list (provided by level stdlib)",
+      "description": "Add an element to a list and return the new list",
       "category": "List Operations"
     },
     "hasKey": {
-      "description": "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+      "description": "Check if a key exists in a dictionary, returns true or false",
       "category": "Dictionary Operations"
     }
   }

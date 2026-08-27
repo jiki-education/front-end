@@ -92,6 +92,7 @@ import { llmMetadata as threeLetterAcronymLLM } from "./exercises/three-letter-a
 import { llmMetadata as tileRackLLM } from "./exercises/tile-rack/llm-metadata";
 import { llmMetadata as tileSearchLLM } from "./exercises/tile-search/llm-metadata";
 import { llmMetadata as signPriceLLM } from "./exercises/sign-price/llm-metadata";
+import { llmMetadata as signWordsLLM } from "./exercises/sign-words/llm-metadata";
 import { llmMetadata as nicheNamedPartyLLM } from "./exercises/niche-named-party/llm-metadata";
 import { llmMetadata as lowerPangramLLM } from "./exercises/lower-pangram/llm-metadata";
 import { llmMetadata as caesarCipherLLM } from "./exercises/caesar-cipher/llm-metadata";
@@ -207,6 +208,7 @@ const llmMetadataRegistry = {
   "tile-rack": tileRackLLM,
   "tile-search": tileSearchLLM,
   "sign-price": signPriceLLM,
+  "sign-words": signWordsLLM,
   "niche-named-party": nicheNamedPartyLLM,
   "lower-pangram": lowerPangramLLM,
   "caesar-cipher": caesarCipherLLM,

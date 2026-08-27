@@ -58,7 +58,7 @@
   },
   "functions": {
     "includes": {
-      "description": "Check whether a list contains a specific item (provided by level stdlib)",
+      "description": "Check whether a list contains a specific item",
       "category": "List Operations"
     }
   }

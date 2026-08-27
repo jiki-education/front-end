@@ -67,11 +67,11 @@
   },
   "functions": {
     "length": {
-      "description": "The number of items in a list - the same length property you've used on strings (provided by level stdlib)",
+      "description": "The number of items in a list - the same length property you've used on strings",
       "category": "List Operations"
     },
     "startsWith": {
-      "description": "Check whether a string begins with a smaller string (provided by level stdlib)",
+      "description": "Check whether a string begins with a smaller string",
       "category": "String Operations"
     }
   }

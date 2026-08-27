@@ -71,11 +71,11 @@
   },
   "functions": {
     "toLowerCase": {
-      "description": "Return a lowercase copy of a string (provided by level stdlib)",
+      "description": "Return a lowercase copy of a string",
       "category": "String Operations"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "description": "Check whether a string contains a smaller string",
       "category": "String Operations"
     }
   }

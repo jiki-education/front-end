@@ -5,11 +5,11 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "toReversed",
-    signature: "[...].toReversed()",
-    description: "functions.toReversed.description",
-    examples: ['["a", "b", "c"].toReversed() → ["c", "b", "a"]', "[1, 2, 3].toReversed() → [3, 2, 1]"],
-    category: "functions.toReversed.category"
+    name: "split",
+    signature: '"...".split(separator)',
+    description: "functions.split.description",
+    examples: ['"a-b-c".split("-") → ["a", "b", "c"]', '"one".split("-") → ["one"]'],
+    category: "functions.split.category"
   },
   {
     name: "push",
@@ -17,13 +17,6 @@ const functions: FunctionInfo[] = [
     description: "functions.push.description",
     examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
-  },
-  {
-    name: "includes",
-    signature: "[...].includes(item)",
-    description: "functions.includes.description",
-    examples: ['["a", "b", "c"].includes("b") → true', '["a", "b", "c"].includes("z") → false'],
-    category: "functions.includes.category"
   }
 ];
 
@@ -34,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "building-arrays", "if", "arithmetic", "methods"]
+  conceptSlugs: ["arrays", "building-arrays", "string-iteration", "methods", "if"]
 };
 
 export default exerciseDefinition;

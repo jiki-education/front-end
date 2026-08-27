@@ -58,12 +58,16 @@
   },
   "functions": {
     "toReversed": {
-      "description": "Returns a copy of the array with the elements in reverse order, without changing the original (provided by level stdlib)",
-      "category": "Array Operations"
+      "description": "Returns a copy of the array with the elements in reverse order, without changing the original.",
+      "category": "Arrays"
     },
     "push": {
-      "description": "Returns a new array with the element added to the end (provided by level stdlib)",
-      "category": "Array Operations"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
+    },
+    "includes": {
+      "description": "Checks whether an array contains a specific item.",
+      "category": "Arrays"
     }
   }
 }

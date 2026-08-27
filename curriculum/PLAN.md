@@ -123,6 +123,7 @@ None.
 - `guest-list` - Guest List: count how many people in the queue are not on the guest list (Lists level)
 - `after-party` - After Party: look up a celebrity's plus-ones allowance using two parallel lists (Lists level)
 - `formal-dinner` - Formal Dinner: look up a guest's table from two parallel lists, matching on honorific and surname (Lists level)
+- `sign-words` - Sign Words: break a business name into an array of words, splitting on spaces (Lists level)
 - `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)

@@ -25,3 +25,27 @@ The styles you offer are:
 - Shave and Polish: 15 minutes
 - Afro Trim: 45 minutes
 - Up-do: 30 minutes
+
+### Nested Arrays
+
+This is the first exercise where you're dealing with an array that contains other arrays as elements. We call these "nested arrays". Nested arrays are the same as any other array, but rather than the array containing strings or numbers, they contain other arrays.
+
+Take a look at the <define>`cuts`</define> array. It contains other arrays, one for each hair cut, and each of these arrays has two elements - a name and a duration.
+
+It's easiest with this to think of the inner arrays - the pairs of names and durations, and then think of them all being grouped together in another array.
+
+Indexing works the same as it does everywhere else, but you can change indexes together like this...
+
+```javascript
+const cuts = [
+  ["Mohawk", 20],
+  ["Slicked-Back Pixie", 15],
+  ["Bob", 25],
+  //...
+]
+
+cuts[0] // ["Mohawk", 20]
+cuts[0][0] // "Mohawk"
+cuts[0][1] // 20
+cuts[2][0] // "Bob"
+```

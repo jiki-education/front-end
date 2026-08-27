@@ -22,3 +22,7 @@ The descriptions follow these rules:
 - They are always lower case.
 - They are always one or more words separated by spaces.
 - For things that can be pairs, they will always start with `"left "` or `"right "`
+
+### Methods
+
+This exercise has lots of string and array methods you can use to make your life a little easier. Check out all the descriptions below to see what's in your toolkit for this Challenge.

@@ -131,11 +131,11 @@
       "category": "Type Conversion"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "description": "Check whether a string contains a smaller string",
       "category": "String Operations"
     },
     "indexOf": {
-      "description": "Find the position of a smaller string within a string, or -1 if it isn't found (provided by level stdlib)",
+      "description": "Find the position of a smaller string within a string, or -1 if it isn't found",
       "category": "String Operations"
     }
   }

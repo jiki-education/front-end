@@ -1,0 +1,22 @@
+{
+  "slug": "sign-words",
+  "levelId": "building-arrays",
+  "hints": [
+    {
+      "question": "hints.gettingStarted.question",
+      "answer": "hints.gettingStarted.answer"
+    },
+    {
+      "question": "hints.buildingUpArray.question",
+      "answer": "hints.buildingUpArray.answer"
+    },
+    {
+      "question": "hints.doubleSpaces.question",
+      "answer": "hints.doubleSpaces.answer"
+    },
+    {
+      "question": "hints.missingLastWord.question",
+      "answer": "hints.missingLastWord.answer"
+    }
+  ]
+}
