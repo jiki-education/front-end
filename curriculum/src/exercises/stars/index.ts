@@ -6,9 +6,9 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "push",
-    signature: "array.push(element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['let letters = ["a", "b"]', 'letters.push("c") // letters is now ["a", "b", "c"]'],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   },
   {

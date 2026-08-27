@@ -137,13 +137,21 @@
       "description": "Adds an element onto the end of an array, changing the array in place.",
       "category": "Arrays"
     },
-    "includes": {
-      "description": "Check whether an array contains an item, or a string contains a substring.",
+    "arrayIncludes": {
+      "description": "Check whether an array contains an item.",
       "category": "Arrays"
     },
-    "length": {
-      "description": "The number of items in an array, or characters in a string.",
+    "stringIncludes": {
+      "description": "Check whether a string contains a substring.",
+      "category": "Strings"
+    },
+    "arrayLength": {
+      "description": "The number of items in an array.",
       "category": "Arrays"
+    },
+    "stringLength": {
+      "description": "The number of characters in a string.",
+      "category": "Strings"
     }
   },
   "describers": {

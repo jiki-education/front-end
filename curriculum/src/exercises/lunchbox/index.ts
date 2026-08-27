@@ -17,13 +17,6 @@ const functions: FunctionInfo[] = [
     description: "functions.push.description",
     examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
-  },
-  {
-    name: "includes",
-    signature: "[...].includes(item)",
-    description: "functions.includes.description",
-    examples: ['["a", "b", "c"].includes("b") → true', '["a", "b", "c"].includes("z") → false'],
-    category: "functions.includes.category"
   }
 ];
 

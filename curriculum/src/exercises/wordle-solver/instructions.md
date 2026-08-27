@@ -3,7 +3,7 @@ title: "Wordle: Solver"
 description: "Build a solver that plays a whole game of Wordle by itself."
 ---
 
-In the last Wordle exercise, you processed a game where the guesses were handed to you. This time, you're sitting on the other side and being the one that actually words out the guesses.
+In the last Wordle exercise, you processed a game where the guesses were handed to you. This time, you're sitting on the other side and being the one that actually works out the guesses.
 
 Your job is to create a new function called `solveWordle()`, where you keep guessing words until you get the correct word. You have to solve the game as efficiently as possible (using the fewest words you can).
 

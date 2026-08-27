@@ -22,16 +22,30 @@ const functions: FunctionInfo[] = [
   {
     name: "includes",
     signature: "[...].includes(item)",
-    description: "functions.includes.description",
-    examples: ['["a", "b"].includes("b") → true', '"hello".includes("ell") → true'],
-    category: "functions.includes.category"
+    description: "functions.arrayIncludes.description",
+    examples: ['["a", "b"].includes("b") → true', '["a", "b"].includes("z") → false'],
+    category: "functions.arrayIncludes.category"
+  },
+  {
+    name: "includes",
+    signature: '"...".includes(substring)',
+    description: "functions.stringIncludes.description",
+    examples: ['"hello".includes("ell") → true', '"hello".includes("xyz") → false'],
+    category: "functions.stringIncludes.category"
   },
   {
     name: "length",
     signature: "[...].length",
-    description: "functions.length.description",
-    examples: ['["a", "b", "c"].length → 3', '"hello".length → 5'],
-    category: "functions.length.category"
+    description: "functions.arrayLength.description",
+    examples: ['["a", "b", "c"].length → 3', "[].length → 0"],
+    category: "functions.arrayLength.category"
+  },
+  {
+    name: "length",
+    signature: '"...".length',
+    description: "functions.stringLength.description",
+    examples: ['"hello".length → 5', '"".length → 0'],
+    category: "functions.stringLength.category"
   },
   {
     name: "push",
@@ -49,6 +63,16 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  conceptSlugs: [
+    "arrays",
+    "building-arrays",
+    "dictionaries",
+    "string-indexing",
+    "if",
+    "while-loops",
+    "logical-not",
+    "creating-functions-with-return-values"
+  ],
   interpreterOptions: { maxTotalLoopIterations: 5000 }
 };
 
