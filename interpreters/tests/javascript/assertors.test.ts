@@ -80,6 +80,38 @@ describe("JavaScript assertors", () => {
       const result = interpret("let let let");
       expect(result.assertors.countLinesOfCode()).toBe(0);
     });
+
+    // The `else` joint costs one line however it is braced, so the LOC bonuses
+    // measure structure rather than brace style.
+    test("counts `} else {` as one line", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n} else {\n  let y = 2;\n}");
+      expect(result.assertors.countLinesOfCode()).toBe(5);
+    });
+
+    test("counts a split `}` / `else {` as one line", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n}\nelse {\n  let y = 2;\n}");
+      expect(result.assertors.countLinesOfCode()).toBe(5);
+    });
+
+    test("counts a split `}` / `else if {` as one line", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n}\nelse if (false) {\n  let y = 2;\n}");
+      expect(result.assertors.countLinesOfCode()).toBe(5);
+    });
+
+    test("does not merge a `}` followed by an unrelated statement", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n}\nlet y = 2;");
+      expect(result.assertors.countLinesOfCode()).toBe(4);
+    });
+
+    test("does not merge a `}` followed by a while loop", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n}\nwhile (false) {\n  let y = 2;\n}");
+      expect(result.assertors.countLinesOfCode()).toBe(6);
+    });
+
+    test("does not merge a trailing `}` at the end of the code", () => {
+      const result = interpret("if (true) {\n  let x = 1;\n}");
+      expect(result.assertors.countLinesOfCode()).toBe(3);
+    });
   });
 
   describe("assertMaxLinesOfCode", () => {

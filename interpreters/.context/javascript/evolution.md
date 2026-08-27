@@ -1,5 +1,15 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-27: LOC counting is insensitive to `else` brace style
+
+`countLinesOfCode` counts raw non-blank, non-comment text lines, so `} else {` cost one line while a `}` / `else {` split across two lines cost two. Exercises with an `assertMaxLinesOfCode` bonus (`lunchbox`, `guest-list`, `formal-dinner`, `acronym`, …) therefore scored brace style, not structure: a student could reach the limit by joining the brace to the keyword rather than by finding a tighter solution, and one writing the split form was penalised for identical code.
+
+The counter now collapses a line that is exactly `}` into the following line when that line begins with `else`, `catch`, or `finally` — keywords that can only continue a preceding block, never start a statement. Both forms of the joint cost one line, so neither style is rewarded and `} else {` stays legal and idiomatic. Existing per-exercise limits were tuned against canonical solutions using `} else {`, which already counted as one, so none needed retuning.
+
+`while` is deliberately excluded despite `do { … } while (…)` having the same shape: unlike the others, `while` can start a statement, so merging would silently undercount a `while` loop that happens to follow a block. Splitting a `do`/`while` tail across lines is rare enough not to justify that.
+
+This also aligns JavaScript with Python, whose `else:` has no closing brace and so has always cost exactly one line. JikiScript keeps its own `countLinesOfCode` and is unchanged.
+
 ## 2026-08-18: IO-exercise error locations only remap when the error came from the synthetic call
 
 `evaluateSingleExpression` runs a student's function via a **synthetic** call statement that lives on line 1. Its catch block rewrites an error's location to the student's statement so the frame doesn't extract garbage source from that synthetic line. Two of its three branches guarded that rewrite on `error.location.line === 1`; the `InvalidNumberOfArguments` branch did not, so it clobbered the location of _every_ arity error, wherever it was raised.
