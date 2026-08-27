@@ -48,7 +48,7 @@
       "answer": "The answer is a single number, and you don't know it until you've seen everyone. So ask yourself two things: what should that number be before you've looked at anybody at all, and what needs to happen to it when someone turns out **not** to be invited?"
     },
     "whichList": {
-      "question": "There are two lists here. Which one am I working through?",
+      "question": "There are two arrays here. Which one am I working through?",
       "answer": "Think about what the answer is counting. It's a number of people **in the queue**, so it's the queue you need to visit one person at a time. The guest list isn't something you walk through, it's the thing you check each person against."
     },
     "realLifeBouncer": {
@@ -58,8 +58,8 @@
   },
   "functions": {
     "includes": {
-      "description": "Check whether a list contains a specific item",
-      "category": "List Operations"
+      "description": "Check whether an array contains a specific item",
+      "category": "Array Operations"
     }
   }
 }

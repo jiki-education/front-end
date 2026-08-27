@@ -49,8 +49,8 @@
       "answer": "Picture yourself actually doing it on the door. Someone says a name, and you read down the clipboard until you spot them. It's worth noticing that the answer you have to give them isn't written next to their name on the list you're reading."
     },
     "twoLists": {
-      "question": "There are two lists. How do they relate to each other?",
-      "answer": "Whatever you learn about *where* someone is in one list is just as true in the other. A position is a more useful thing to hold onto than a name."
+      "question": "There are two arrays. How do they relate to each other?",
+      "answer": "Whatever you learn about *where* someone is in one array is just as true in the other. A position is a more useful thing to hold onto than a name."
     },
     "whatCountsAsAMatch": {
       "question": "When does a first name actually count as a match?",
@@ -58,7 +58,7 @@
     },
     "noSurname": {
       "question": "Cher hasn't got a surname. Does that break anything?",
-      "answer": "Have another look at what your match test assumes about a list entry. If it assumes there's always something after the first name, an entry that's *only* a first name won't get past it. And going the other way, a longer name shouldn't be able to claim a shorter entry."
+      "answer": "Have another look at what your match test assumes about an array entry. If it assumes there's always something after the first name, an entry that's *only* a first name won't get past it. And going the other way, a longer name shouldn't be able to claim a shorter entry."
     },
     "notOnTheList": {
       "question": "What do I do when they're not on the list?",
@@ -67,8 +67,8 @@
   },
   "functions": {
     "length": {
-      "description": "The number of items in a list - the same length property you've used on strings",
-      "category": "List Operations"
+      "description": "The number of items in an array - the same length property you've used on strings",
+      "category": "Array Operations"
     },
     "startsWith": {
       "description": "Check whether a string begins with a smaller string",

@@ -2,7 +2,7 @@
   "tasks": {
     "findGuestTable": {
       "name": "Find the Guest's Table",
-      "description": "Write a function that takes the list of guests' full names, the matching list of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `\"No table found\"` if they aren't on the seating plan."
+      "description": "Write a function that takes the array of guests' full names, the matching array of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `\"No table found\"` if they aren't on the seating plan."
     },
     "solveTightly": {
       "name": "Solve it in 9 lines",
@@ -53,7 +53,7 @@
   },
   "hints": {
     "twoLists": {
-      "question": "How do the two lists relate to each other?",
+      "question": "How do the two arrays relate to each other?",
       "answer": "They're a pair. The first guest sits at the first table, the second guest at the second table, and so on. So it's not enough to know *that* a guest is on the plan - you need to know *where* on the plan they are."
     },
     "comparingNames": {
@@ -74,20 +74,20 @@
   },
   "functions": {
     "length": {
-      "description": "The number of items in a list - the same length property you've used on strings",
-      "category": "List Operations"
+      "description": "The number of items in an array - the same length property you've used on strings",
+      "category": "Array Operations"
     },
     "split": {
-      "description": "Split a string into a list of pieces, breaking at each separator",
+      "description": "Split a string into an array of pieces, breaking at each separator",
       "category": "String Operations"
     },
     "slice": {
-      "description": "Make a new list from part of a list, starting at a position",
-      "category": "List Operations"
+      "description": "Make a new array from part of an array, starting at a position",
+      "category": "Array Operations"
     },
     "join": {
-      "description": "Join the items of a list into one string, with a separator between them",
-      "category": "List Operations"
+      "description": "Join the items of an array into one string, with a separator between them",
+      "category": "Array Operations"
     },
     "endsWith": {
       "description": "Check whether a string ends with a smaller string",
