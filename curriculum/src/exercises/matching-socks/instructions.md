@@ -28,3 +28,7 @@ The descriptions follow these rules:
 This exercise has lots of string and array methods you can use to make your life a little easier. Check out all the descriptions below to see what's in your toolkit for this Challenge.
 
 ### Bonus
+
+There are lots of ways to solve this. However, there's a pretty neat solution at 29 lines of code, so we've set the target as that. You can get lower, but the code tends to become less readable as that happens, so we think around 29 is the best level.
+
+Have fun!
