@@ -3,27 +3,18 @@ title: "Stars"
 description: "Build and draw a pyramid of stars."
 ---
 
-You're building a visual pattern generator to make rows of stars in a pyramid. For example, three rows would look like this:
+In this exercise you're going to build a visual pattern generator that draws rows of stars.
 
-```
-   *
-  * *
- * * *
-```
-
-Your job is to create a function called <define>`layoutStars`</define> that takes one input, `numRows`, and calculates, then draws, the various rows of stars.
+Your job is to create a function called <define>`layoutStars`</define> that takes one input, `numRows`, which specifies how many rows are needed, and then draws the various rows of stars.
 
 The function should:
 
-1. Build an array of strings where each string is a row of stars, one shorter than the row before it. For the pyramid above where `numRows` is `3`, that array would be `["***", "**", "*"]`.
-2. Pass that array to <literal>drawStars</literal> to draw it. For example:
+1. Build an array of strings - one string per row. Start from the bottom with the longest row first. For example, where `numRows` is `3`, that array would be `["***", "**", "*"]`.
+2. Use the <literal>`drawStars(rows)`</literal> function, passing in your rows, which will draw the stars.
 
-```javascript
-let rows = ... // ["***", "**", "*"]
-drawStars(rows)
-```
+If `numRows` is 0, the array should be empty (`[]`) and nothing is drawn.
 
-If `numRows` is 0, the array is empty (`[]`) and nothing is drawn.
+If you want to see things in action, you can run `drawStars(["***", "**", "*"])` to see the stars draw.
 
 ### The push method
 
