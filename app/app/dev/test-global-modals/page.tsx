@@ -192,11 +192,7 @@ export default function TestGlobalModals() {
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "challenge-unlocked",
-                  unlockedChallenge: {
-                    name: "Space Invaders",
-                    description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
-                    slug: "space-invaders"
-                  }
+                  unlockedChallenge: { slug: "matching-socks" }
                 })
               }
               className={styles.modalButton}

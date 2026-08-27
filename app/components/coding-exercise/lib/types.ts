@@ -11,10 +11,10 @@ export interface UnlockedConcept {
   content_html: string;
 }
 
+// Identity only: a challenge's display copy comes from the locale's curriculum
+// copy catalog, keyed by slug, never from the API.
 export interface UnlockedChallenge {
   slug: string;
-  title: string;
-  description: string;
 }
 
 export interface CompletionResponseData {

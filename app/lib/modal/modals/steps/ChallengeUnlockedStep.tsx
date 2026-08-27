@@ -6,18 +6,18 @@ import type { CompletionResponseData } from "@/components/coding-exercise/lib/ty
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import UnlockedIcon from "@/icons/unlocked.svg";
 import { cleanupCanvas, launchConfetti } from "@/lib/confetti";
+import { fetchCurriculumCopy, resolveCopy } from "@/lib/api/curriculum-copy";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
-import { useTranslations } from "next-intl";
+import { reportError } from "@/lib/reportError";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const FLIP_DURATION_MS = 1500;
 
 interface ChallengeUnlockedStepProps {
   completionResponse: CompletionResponseData[];
   unlockedChallenge: {
-    name: string;
-    description: string;
     slug: string;
   };
   onContinue: () => void;
@@ -31,15 +31,27 @@ export function ChallengeUnlockedStep({
   const t = useTranslations("modals.exerciseCompletion.challengeUnlocked");
   const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
-  const unlockedChallengeData = completionResponse.find((item) => item.type === "challenge_unlocked")?.data.challenge;
+  const locale = useLocale();
+  const slug =
+    completionResponse.find((item) => item.type === "challenge_unlocked")?.data.challenge?.slug ??
+    unlockedChallenge.slug;
+  const [copy, setCopy] = useState<{ title: string; description: string } | null>(null);
 
-  const challengeToShow = unlockedChallengeData
-    ? {
-        name: unlockedChallengeData.title,
-        description: unlockedChallengeData.description,
-        slug: unlockedChallengeData.slug
-      }
-    : unlockedChallenge;
+  // Title and description are curriculum copy, resolved by slug from the locale's
+  // catalog like everywhere else challenges are rendered. The API sends identity only.
+  useEffect(() => {
+    let cancelled = false;
+    fetchCurriculumCopy(locale)
+      .then((catalog) => {
+        if (!cancelled) {
+          setCopy(resolveCopy(catalog, slug));
+        }
+      })
+      .catch(reportError);
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, slug]);
 
   useEffect(() => {
     const timer = setTimeout(launchConfetti, FLIP_DURATION_MS);
@@ -61,10 +73,10 @@ export function ChallengeUnlockedStep({
         <div className={challengeStyles.challengeCardSimpleFront}>
           <div className={challengeStyles.challengeCardSimpleNewLabel}>{t("newLabel")}</div>
           <div className={challengeStyles.challengeCardSimpleIcon}>
-            <ChallengeIcon slug={challengeToShow.slug} />
+            <ChallengeIcon slug={slug} />
           </div>
-          <div className={challengeStyles.challengeCardSimpleName}>{challengeToShow.name}</div>
-          <div className={challengeStyles.challengeCardSimpleDescription}>{challengeToShow.description}</div>
+          <div className={challengeStyles.challengeCardSimpleName}>{copy?.title ?? ""}</div>
+          <div className={challengeStyles.challengeCardSimpleDescription}>{copy?.description ?? ""}</div>
         </div>
       </div>
       <div className={styles.premiumInfoBox}>

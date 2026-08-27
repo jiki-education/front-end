@@ -3,23 +3,9 @@
 import { showModal } from "@/lib/modal";
 import styles from "./page.module.css";
 
-const SAMPLE_CHALLENGES = [
-  {
-    name: "Space Invaders",
-    description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
-    slug: "space-invaders"
-  },
-  {
-    name: "Todo App",
-    description: "Create a full-featured task manager with filtering, priorities, and persistence.",
-    slug: "todo-app"
-  },
-  {
-    name: "Weather Dashboard",
-    description: "Fetch and display live weather data with charts and forecasts.",
-    slug: "weather-dashboard"
-  }
-];
+// Copy is resolved from the locale's curriculum copy catalog by slug, so these
+// are slugs only.
+const SAMPLE_CHALLENGES = [{ slug: "matching-socks" }, { slug: "structured-house" }, { slug: "space-invaders" }];
 
 export default function ChallengeUnlockedModalDevPage() {
   const trigger = (challenge: (typeof SAMPLE_CHALLENGES)[number]) => {
@@ -40,8 +26,7 @@ export default function ChallengeUnlockedModalDevPage() {
         {SAMPLE_CHALLENGES.map((challenge) => (
           <div key={challenge.slug} className={styles.row}>
             <div>
-              <div className={styles.name}>{challenge.name}</div>
-              <div className={styles.description}>{challenge.description}</div>
+              <div className={styles.name}>{challenge.slug}</div>
             </div>
             <button onClick={() => trigger(challenge)} className={styles.triggerButton}>
               Trigger modal
