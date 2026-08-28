@@ -56,7 +56,7 @@ The curriculum repository:
 
 For detailed information about specific aspects of the curriculum:
 
-- **[README.md](README.md)** - Canonical curriculum structure (levels, videos, exercises in order)
+- **[README.md](README.md)** - Repo overview, and where to find the canonical curriculum structure (which the API owns, not this repo)
 - **[PLAN.md](PLAN.md)** - Work-in-progress plan for completing the curriculum (status tracking, API alignment issues)
 - **[Exercises](.context/exercises.md)** - Creating and structuring exercises
 - **[Levels](.context/levels.md)** - Language features and AST node restrictions per level
@@ -64,7 +64,7 @@ For detailed information about specific aspects of the curriculum:
 
 ### Integration with Jiki Ecosystem
 
-- **API**: The `@jiki/api` manages syllabus structure (levels, lessons, ordering) in `curriculum.json`
+- **API**: The `@jiki/api` manages syllabus structure (levels, lessons, ordering) in `../../api/db/seeds/curriculum.json`
 - **Frontend Consumer**: The `@jiki/fe` package imports and renders exercises from this curriculum
 - **Type Bridge**: Provides `Animation` and `Exercise` types that frontend converts to anime.js
 - **Interpreter Integration**: Uses `@jiki/interpreters` for execution context and timing control
