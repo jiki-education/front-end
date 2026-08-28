@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "endOfPath": "The poet has walked off the end of the path. Something should have stopped the walk before now.",
+    "isEmojiString": "You can only check whether a piece of text is an emoji.",
+    "reciteString": "You can only recite a piece of text."
+  },
+  "checks": {
+    "notRecited": "The poet never recited anything. Make sure you call <code>recite()</code> once the walk is over.",
+    "wrongPoem": "The poet recited \"{{got}}\" but the poem should be \"{{expected}}\".",
+    "noLogicalOperators": "This exercise is about a different way of making decisions, so <code>&&</code> and <code>||</code> are not allowed here.",
+    "noFunctions": "Write your solution as one walk, without defining any functions of your own.",
+    "needsContinue": "Your solution needs to use <code>continue</code>.",
+    "needsBreak": "Your solution needs to use <code>break</code>.",
+    "reciteOnce": "The poet should recite the poem once, after the walk has finished."
+  },
+  "tasks": {
+    "collectThePoem": {
+      "name": "Collect the poem and recite it",
+      "description": "Walk along the path, gather the words of the poem, stop in the right place, and recite what you gathered."
+    }
+  },
+  "scenarios": {
+    "hope": {
+      "name": "A path with gaps",
+      "description": "Six words with bare grass between them, and a checkered flag at the end."
+    },
+    "wandered": {
+      "name": "Scenery on the path",
+      "description": "The same idea, but now there are plants and creatures growing between the words."
+    },
+    "mists": {
+      "name": "Scenery next to the flag",
+      "description": "A leaf sits on the square just before the checkered flag."
+    },
+    "cammin": {
+      "name": "Exactly seven words",
+      "description": "A line of Dante with seven words on it."
+    },
+    "hopeContinued": {
+      "name": "A poem that is too long",
+      "description": "This path holds more than seven words, so the poet stops part way through the line."
+    },
+    "highlands": {
+      "name": "An apostrophe",
+      "description": "A line of Burns, with an apostrophe sitting on its own square."
+    },
+    "tyger": {
+      "name": "A comma",
+      "description": "A line of Blake, with a comma sitting on its own square."
+    },
+    "pleure": {
+      "name": "Bare grass to begin",
+      "description": "A line of Verlaine, with a few empty squares before the poem starts."
+    }
+  },
+  "hints": {
+    "scenery": {
+      "question": "The plants and creatures are ending up in my poem.",
+      "answer": "Only words belong in the poem. Everything else on the path needs to be left behind, which means your loop has to get to the next square without adding anything."
+    },
+    "flagSkipped": {
+      "question": "My poet never stops walking.",
+      "answer": "The checkered flag is an emoji too. If you deal with scenery before you deal with the flag, the flag gets treated as scenery and the walk never ends. Order matters."
+    },
+    "spacing": {
+      "question": "My words are all squashed together, or there is a space at the start.",
+      "answer": "Think about when a space is needed. It is needed **between** two words, not before the first one, so something has to remember whether anything has been written yet."
+    },
+    "apostrophe": {
+      "question": "I am getting `heart ' s` instead of `heart's`.",
+      "answer": "An apostrophe joins the words on either side of it, so no space belongs before it or after it. A comma is the opposite way round, with no space before it but a space after."
+    },
+    "reciteOnce": {
+      "question": "Why can I only call `recite()` once?",
+      "answer": "The poet recites the finished poem, so there is only one moment where that can happen. There is more than one way for the walk to end, and all of them need to reach that same moment."
+    }
+  },
+  "describers": {
+    "move": "walked forward and found ${return}",
+    "isEmoji": "checked whether ${arg1} was an emoji",
+    "recite": "recited \"${arg1}\""
+  },
+  "functions": {
+    "move": {
+      "description": "Walks the poet forward onto the next square and **gives back** whatever was on it.",
+      "category": "Movement"
+    },
+    "isEmoji": {
+      "description": "**Gives back** `true` if the thing you pass it is an emoji.",
+      "category": "Checks"
+    },
+    "recite": {
+      "description": "Makes the poet recite a poem out loud.",
+      "category": "Action"
+    }
+  }
+}
