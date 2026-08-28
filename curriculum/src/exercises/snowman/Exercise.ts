@@ -2,6 +2,8 @@ import { DrawExercise } from "../../exercise-categories/draw";
 import metadata from "./metadata.json";
 
 export class SnowmanExercise extends DrawExercise {
+  protected coordinateGrid = 5;
+
   protected get slug() {
     return metadata.slug;
   }

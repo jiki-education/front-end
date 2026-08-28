@@ -13,10 +13,16 @@ The <define>`ellipse`</define> function takes 5 inputs: the center position (<de
 
 ### The Penguin
 
-Your task is to draw the right hand side of the penguin, and to try and do so **WITHOUT** hovering over the coordinates or guessing at them. The finished drawing should look like this:
+We've drawn half the image for you. Your task is to draw the right hand side of the penguin. The finished drawing should look like this:
 
 <img src="/static/images/exercise-assets/penguin/penguin-finished.webp" alt="Penguin" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-We've drawn half the image for you. By reading the code that's there, you should be able to work out the other details to make it symmetrical. Remember, the top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle. For the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.
+### Working out the correct coordinates
+
+Unlike previous exercises, the aim is to solve this **WITHOUT** hovering over the coordinates or guessing at them.
+
+By reading the code that's there, you should be able to work out the other details to make it symmetrical. Remember, the top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle.
+
+For the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.
 
 **Start by pressing _"Run Code"_** to see what the starting image looks like. Have fun!

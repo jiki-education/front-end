@@ -3,6 +3,7 @@ import metadata from "./metadata.json";
 
 export class FixWallExercise extends DrawExercise {
   protected fixedColor = "brick";
+  protected coordinateGrid = 10;
 
   protected get slug() {
     return metadata.slug;

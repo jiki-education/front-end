@@ -50,6 +50,20 @@ export abstract class DrawExercise extends VisualExercise {
   protected fixedColor: string | null = null;
   protected drawDelayMs = 0;
 
+  // Exercises where every number the student types sits on a grid (all coordinates
+  // divisible by 5, say) set `coordinateGrid`. Individual drawing functions can opt
+  // out via `gridExemptFunctions` for a shape that deliberately breaks the grid.
+  protected coordinateGrid: number | null = null;
+  protected gridExemptFunctions: string[] = [];
+
+  // Exercises that want the student to reason coordinates out rather than read them
+  // off the canvas override this to false. A getter rather than a field because
+  // `populateView` runs from this constructor, and getters live on the prototype
+  // whereas subclass field initialisers haven't run yet (same reason `slug` is one).
+  protected get coordinateTooltip() {
+    return true;
+  }
+
   public setDrawDelayMs(ms: number) {
     this.drawDelayMs = ms;
   }
@@ -92,8 +106,10 @@ export abstract class DrawExercise extends VisualExercise {
     });
     this.view.appendChild(this.tooltip);
 
-    this.canvas.addEventListener("mousemove", this.showTooltip.bind(this));
-    this.canvas.addEventListener("mouseleave", this.hideTooltip.bind(this));
+    if (this.coordinateTooltip) {
+      this.canvas.addEventListener("mousemove", this.showTooltip.bind(this));
+      this.canvas.addEventListener("mouseleave", this.hideTooltip.bind(this));
+    }
     this.setBackgroundImage = this.setBackgroundImage.bind(this);
   }
 
@@ -319,6 +335,7 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
       return executionCtx.logicError(this.t("errors.rectInputsNumbers"));
     }
+    this.checkGrid(executionCtx, "rectangle", [x.value, y.value, width.value, height.value]);
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     if (width.value <= 0) {
@@ -348,6 +365,7 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
       return executionCtx.logicError(this.t("errors.lineInputsNumbers"));
     }
+    this.checkGrid(executionCtx, "line", [x1.value, y1.value, x2.value, y2.value]);
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     const [absX1, absY1, absX2, absY2] = [x1.value, y1.value, x2.value, y2.value].map((val) => rToA(val));
@@ -371,6 +389,7 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
       return executionCtx.logicError(this.t("errors.circleInputsNumbers"));
     }
+    this.checkGrid(executionCtx, "circle", [x.value, y.value, radius.value]);
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     const [absX, absY, absRadius] = [x.value, y.value, radius.value].map((val) => rToA(val));
@@ -395,6 +414,7 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
       return executionCtx.logicError(this.t("errors.ellipseInputsNumbers"));
     }
+    this.checkGrid(executionCtx, "ellipse", [x.value, y.value, rx.value, ry.value]);
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     const [absX, absY, absRx, absRy] = [x.value, y.value, rx.value, ry.value].map((val) => rToA(val));
@@ -421,6 +441,7 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
       return executionCtx.logicError(this.t("errors.triangleInputsNumbers"));
     }
+    this.checkGrid(executionCtx, "triangle", [x1.value, y1.value, x2.value, y2.value, x3.value, y3.value]);
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     const [absX1, absY1, absX2, absY2, absX3, absY3] = [x1.value, y1.value, x2.value, y2.value, x3.value, y3.value].map(
@@ -454,6 +475,28 @@ export abstract class DrawExercise extends VisualExercise {
     this.shapes.push(t);
     this.visibleShapes.push(t);
     this.animateShapeIntoView(executionCtx, elem);
+  }
+
+  // Throws a logic error naming the first number that isn't on the grid, and the two
+  // nearest values that are. Does nothing unless the exercise opts in.
+  private checkGrid(executionCtx: ExecutionContext, fnName: string, values: number[]) {
+    const grid = this.coordinateGrid;
+    if (grid === null || this.gridExemptFunctions.includes(fnName)) {
+      return;
+    }
+    for (const value of values) {
+      if (value % grid === 0) {
+        continue;
+      }
+      executionCtx.logicError(
+        this.t("errors.notOnGrid", {
+          value,
+          grid,
+          lower: Math.floor(value / grid) * grid,
+          upper: Math.ceil(value / grid) * grid
+        })
+      );
+    }
   }
 
   private resolveColor(executionCtx: ExecutionContext, color?: Shared.JikiObject): string | null {

@@ -2,6 +2,10 @@ import { DrawExercise } from "../../exercise-categories/draw";
 import metadata from "./metadata.json";
 
 export class CloudRainSunExercise extends DrawExercise {
+  protected coordinateGrid = 5;
+  // The raindrops deliberately use a horizontal radius of 3.
+  protected gridExemptFunctions = ["ellipse"];
+
   protected get slug() {
     return metadata.slug;
   }
