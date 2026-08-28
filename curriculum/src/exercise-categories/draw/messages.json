@@ -12,6 +12,7 @@
     "hueRange": "Hue must be between 0 and 360",
     "lightnessRange": "Lightness must be between 0 and 100",
     "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "notOnGrid": "All numbers should be divisible by {{grid}}, but you used {{value}}. Maybe try {{lower}} or {{upper}}?",
     "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
     "redRange": "Red must be between 0 and 255",
     "saturationRange": "Saturation must be between 0 and 100",

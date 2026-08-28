@@ -3,6 +3,7 @@ import { DrawExercise } from "../../src/exercise-categories/draw";
 import type { ExecutionContext } from "@jiki/interpreters";
 import type { Shared } from "@jiki/interpreters";
 import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../src/exercise-categories/draw/shapes";
+import drawMessages from "../../src/exercise-categories/draw/messages.json";
 
 // Concrete test implementation of DrawExercise
 class TestDrawExercise extends DrawExercise {
@@ -884,6 +885,101 @@ describe("DrawExercise", () => {
       Object.values(funcs).forEach((fn: any) => {
         expect(typeof fn.description === "string" || fn.description === undefined).toBe(true);
       });
+    });
+  });
+
+  describe("1.16 Coordinate tooltip", () => {
+    class NoTooltipExercise extends TestDrawExercise {
+      protected get coordinateTooltip() {
+        return false;
+      }
+    }
+
+    function hover(target: TestDrawExercise) {
+      target.getCanvas().dispatchEvent(new MouseEvent("mousemove", { clientX: 10, clientY: 10 }));
+    }
+
+    it("shows the coordinates on hover by default", () => {
+      hover(exercise);
+      expect(exercise.getTooltip().style.display).toBe("block");
+    });
+
+    it("stays hidden on hover when the exercise opts out", () => {
+      const noTooltip = new NoTooltipExercise();
+      hover(noTooltip);
+      expect(noTooltip.getTooltip().style.display).toBe("none");
+      expect(noTooltip.getTooltip().textContent).toBe("");
+    });
+  });
+
+  describe("1.17 Coordinate grid", () => {
+    class GriddedExercise extends TestDrawExercise {
+      protected coordinateGrid = 5;
+    }
+
+    class GriddedExemptExercise extends GriddedExercise {
+      protected gridExemptFunctions = ["ellipse"];
+    }
+
+    function createGridded<T extends TestDrawExercise>(Klass: new () => T): T {
+      const gridded = new Klass();
+      gridded.setMessages(drawMessages);
+      return gridded;
+    }
+
+    it("allows numbers on the grid", () => {
+      const gridded = createGridded(GriddedExercise);
+      gridded.circle(ctx, createNumber(50), createNumber(70), createNumber(20), defaultColor);
+      expect(ctx.logicError).not.toHaveBeenCalled();
+      expect(gridded.getShapes()).toHaveLength(1);
+    });
+
+    it("rejects a number off the grid, naming it and the two nearest values", () => {
+      const gridded = createGridded(GriddedExercise);
+      gridded.circle(ctx, createNumber(50), createNumber(72), createNumber(20), defaultColor);
+      expect(ctx.logicError).toHaveBeenCalledWith(
+        "All numbers should be divisible by 5, but you used 72. Maybe try 70 or 75?"
+      );
+    });
+
+    it("rejects non-integers", () => {
+      const gridded = createGridded(GriddedExercise);
+      gridded.circle(ctx, createNumber(50), createNumber(7.5), createNumber(20), defaultColor);
+      expect(ctx.logicError).toHaveBeenCalledWith(
+        "All numbers should be divisible by 5, but you used 7.5. Maybe try 5 or 10?"
+      );
+    });
+
+    it("checks every numeric argument, not just coordinates", () => {
+      const gridded = createGridded(GriddedExercise);
+      gridded.rectangle(ctx, createNumber(10), createNumber(10), createNumber(20), createNumber(13), defaultColor);
+      expect(ctx.logicError).toHaveBeenCalledWith(
+        "All numbers should be divisible by 5, but you used 13. Maybe try 10 or 15?"
+      );
+    });
+
+    it("reports before complaining about the color", () => {
+      const gridded = createGridded(GriddedExercise);
+      gridded.circle(ctx, createNumber(50), createNumber(72), createNumber(20), createString("not-a-color"));
+      expect(ctx.logicError).toHaveBeenCalledWith(
+        "All numbers should be divisible by 5, but you used 72. Maybe try 70 or 75?"
+      );
+    });
+
+    it("skips exempt functions but still checks the others", () => {
+      const gridded = createGridded(GriddedExemptExercise);
+      gridded.ellipse(ctx, createNumber(30), createNumber(70), createNumber(3), createNumber(5), defaultColor);
+      expect(ctx.logicError).not.toHaveBeenCalled();
+
+      gridded.circle(ctx, createNumber(30), createNumber(72), createNumber(5), defaultColor);
+      expect(ctx.logicError).toHaveBeenCalledWith(
+        "All numbers should be divisible by 5, but you used 72. Maybe try 70 or 75?"
+      );
+    });
+
+    it("does nothing when the exercise has not opted in", () => {
+      exercise.circle(ctx, createNumber(50), createNumber(72), createNumber(23), defaultColor);
+      expect(ctx.logicError).not.toHaveBeenCalled();
     });
   });
 });

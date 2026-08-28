@@ -12,3 +12,9 @@ You need to define the correct <define>variables</define> to solve the exercise.
 We've got you started by defining the variables for the base, but given them the wrong values. You need to fix those then add equivalent variables for the body and the head.
 
 Press "Run Code" to see the starting circle that's being drawn. You'll also get an error because you have missing variables that you need to define using `let`.
+
+### Working out the correct coordinates
+
+As in most of the drawing exericses, you can **hover over the drawing space** to find co-ordinates, and **all the numbers used are divisible by 5**.
+
+Good luck!

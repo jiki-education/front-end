@@ -11,6 +11,8 @@ We've drawn a template for you. Your shapes should sit just inside the lines. We
 
 You'll need the <define>`circle`</define> and <define>`ellipse`</define> functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
 
-Nearly all the numbers you need are divisible by 5 (e.g. 5, 10, 15, etc). The only exception is the horizontal radius of the raindrops, which is `3`.
+### Working out the correct coordinates
+
+In this exercise you **can** hover over the drawing space to find co-ordinates. And again, all the numbers used are **divisible by 5, with one exception**. The horizontal radius of the raindrops is `3`. Every other number, including the raindrops' vertical radius, is divisible by 5.
 
 Have fun!

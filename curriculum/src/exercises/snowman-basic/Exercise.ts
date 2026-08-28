@@ -3,6 +3,7 @@ import metadata from "./metadata.json";
 
 export class SnowmanBasicExercise extends DrawExercise {
   protected fixedColor = "white";
+  protected coordinateGrid = 5;
 
   protected get slug() {
     return metadata.slug;

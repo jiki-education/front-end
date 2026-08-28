@@ -14,10 +14,14 @@ To draw rectangles we need to know the top and left positions, and the width and
 
 <img src="/static/images/exercise-assets/fix-wall/intro-rectangle.webp" alt="Fix Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-You're always drawing on a canvas that's 100 width and 100 high. So the top-left of the canvas is `0,0` and the bottom right is `100,100`. **You can hover over the canvas** to check where something needs to go.
+You're always drawing on a canvas that's 100 width and 100 high. So the top-left of the canvas is `0,0` and the bottom right is `100,100`.
 
 ### Fixing the wall
 
 Your job is to use three rectangles to fill the holes in the wall.
 
-To make your life easier, the top, left, height and widths are all divisible by 10.
+### Working out the correct coordinates
+
+You can **hover over the drawing space** to find co-ordinates.
+
+To make your life easier, **all the numbers used are divisible by 10** (e.g. `10`, `20`, `30`, etc are valid but `5`, `12`, `25`, etc are not).
