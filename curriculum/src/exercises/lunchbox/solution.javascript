@@ -1,6 +1,6 @@
 function packLunch(items, capacity) {
   let lunchbox = []
-  let rucksack = []
+  let backpack = []
   let total = 0
   for (const item of items.toReversed()) {
     const name = item[0]
@@ -9,8 +9,8 @@ function packLunch(items, capacity) {
       lunchbox.push(name)
       total = total + size
     } else {
-      rucksack.push(name)
+      backpack.push(name)
     }
   }
-  return [lunchbox, rucksack]
+  return [lunchbox, backpack]
 }

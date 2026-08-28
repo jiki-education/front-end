@@ -5,15 +5,15 @@ function pack_lunch with items, capacity do
   end
 
   set lunchbox to []
-  set rucksack to []
+  set backpack to []
   set total to 0
   for each item in smallest_first do
     if total + item[2] <= capacity do
       change lunchbox to push(lunchbox, item[1])
       change total to total + item[2]
     else do
-      change rucksack to push(rucksack, item[1])
+      change backpack to push(backpack, item[1])
     end
   end
-  return [lunchbox, rucksack]
+  return [lunchbox, backpack]
 end

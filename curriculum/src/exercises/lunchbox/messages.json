@@ -5,7 +5,7 @@
   "tasks": {
     "packLunchbox": {
       "name": "Pack the Lunchbox",
-      "description": "Split the items into a lunchbox and a rucksack: fit as many as you can into the lunchbox without going over its capacity, and put everything else in the rucksack."
+      "description": "Split the items into a lunchbox and a backpack: fit as many as you can into the lunchbox without going over its capacity, and put everything else in the backpack."
     },
     "solveInSixteenLines": {
       "name": "Solve in 16 lines of code",
@@ -15,23 +15,23 @@
   "scenarios": {
     "everythingFits": {
       "name": "Everything fits",
-      "description": "A roomy lunchbox where every item fits, so the rucksack stays empty."
+      "description": "A roomy lunchbox where every item fits, so the backpack stays empty."
     },
     "packTheMost": {
       "name": "Fit the most",
-      "description": "Space is tight, so the small items go in the lunchbox and the big ones are left for the rucksack."
+      "description": "Space is tight, so the small items go in the lunchbox and the big ones are left for the backpack."
     },
     "justTheSnack": {
       "name": "Just the snack",
-      "description": "Only the very smallest item fits; the rest go in the rucksack."
+      "description": "Only the very smallest item fits; the rest go in the backpack."
     },
     "nothingFits": {
       "name": "Nothing fits",
-      "description": "Even the smallest item is too big, so everything ends up in the rucksack."
+      "description": "Even the smallest item is too big, so everything ends up in the backpack."
     },
     "emptyLunchbox": {
       "name": "Empty lunchbox",
-      "description": "There are no items at all, so both the lunchbox and the rucksack come back empty."
+      "description": "There are no items at all, so both the lunchbox and the backpack come back empty."
     },
     "bonus1": {
       "name": "16 lines of code",
@@ -53,7 +53,7 @@
     },
     "knowWhenFull": {
       "question": "How do I decide where each item goes?",
-      "answer": "Keep a running total of the sizes you've added. Before adding an item, check whether the total plus its size would still fit within the capacity. If it does, it goes in the lunchbox, otherwise it goes in the rucksack."
+      "answer": "Keep a running total of the sizes you've added. Before adding an item, check whether the total plus its size would still fit within the capacity. If it does, it goes in the lunchbox, otherwise it goes in the backpack."
     }
   },
   "functions": {

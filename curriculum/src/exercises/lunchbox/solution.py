@@ -1,6 +1,6 @@
 def pack_lunch(items, capacity):
     lunchbox = []
-    rucksack = []
+    backpack = []
     total = 0
     for item in reversed(items):
         name = item[0]
@@ -9,5 +9,5 @@ def pack_lunch(items, capacity):
             lunchbox.append(name)
             total = total + size
         else:
-            rucksack.append(name)
-    return [lunchbox, rucksack]
+            backpack.append(name)
+    return [lunchbox, backpack]

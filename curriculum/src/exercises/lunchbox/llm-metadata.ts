@@ -10,7 +10,7 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     Greedy "fit as many as possible under a size budget" over an array of [name, size] pairs,
-    partitioning every item into either the lunchbox or the rucksack.
+    partitioning every item into either the lunchbox or the backpack.
 
     Non-obvious context: the input arrives largest-first, and the expected outputs are the
     MAX-COUNT packing with BOTH result arrays ordered smallest-to-largest. So a student who
@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
     and fit fewer. The intended insight is to go smallest-first (reverse the array), which both
     maximises the count AND produces the required smallest-to-largest ordering for free in both
     arrays. Because iteration is smallest-first, once an item is rejected every later item is
-    bigger and also rejected, so the rucksack naturally comes out sorted too.
+    bigger and also rejected, so the backpack naturally comes out sorted too.
   `,
 
   tasks: {
@@ -28,8 +28,8 @@ export const llmMetadata: LLMMetadata = {
         1. Read each pair: item[0] is the name, item[1] is the size.
         2. Turn the largest-first array into smallest-first (toReversed(), or otherwise).
         3. Loop smallest-first with a running total; if total + size stays within capacity, push
-           the name onto the lunchbox and add the size, else push the name onto the rucksack.
-        4. Return [lunchbox, rucksack] — an array of the two arrays, names only (not the pairs).
+           the name onto the lunchbox and add the size, else push the name onto the backpack.
+        4. Return [lunchbox, backpack] — an array of the two arrays, names only (not the pairs).
 
         Traps worth watching:
         - Forgetting to reverse: passes edge cases but fails "pack-the-most", and yields the
