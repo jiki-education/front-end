@@ -1,0 +1,274 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "fallback": {
+      "provider": "mux",
+      "id": "IpNiHV5Pfz3QpaSbGmtdhUqo519FBcDDyGfb57tF902w",
+      "durationSeconds": 191,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "using-functions": {
+    "fallback": {
+      "provider": "mux",
+      "id": "CO5Cn701GibUya1wuoK01kUU01rw02taIYZEdmvFHZgIjRc",
+      "durationSeconds": 276,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "function-inputs": {
+    "fallback": {
+      "provider": "mux",
+      "id": "mHahztg02TYzAve4qxUDkHYLnIrpLP948XMSuqYPqw8A",
+      "durationSeconds": 248,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "strings": {
+    "fallback": {
+      "provider": "mux",
+      "id": "saWa7N5mKY02ZwIjBcP5102bAGABwRJCaA7VacK543xuQ",
+      "durationSeconds": 237,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "repeat-loop": {
+    "fallback": {
+      "provider": "mux",
+      "id": "wD902h8Md3cYuXUoh00P0201ZKDl1p02Lm7GHaMlDsJIoa00U",
+      "durationSeconds": 267,
+      "uploadDate": "2026-07-10"
+    }
+  },
+  "creating-variables": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Y1yaGd5ht6qerPuy58TKkc8ZvF1pToLPkvvI9N5AI1c",
+      "durationSeconds": 352,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "variables-together": {
+    "fallback": {
+      "provider": "mux",
+      "id": "x01ttw78cvyX005yob02zuyUCQDTF86gXYjWi6Tz8GVcEk",
+      "durationSeconds": 273,
+      "uploadDate": "2026-06-06"
+    }
+  },
+  "updating-variables": {
+    "fallback": {
+      "provider": "mux",
+      "id": "iGgimCTqArVVXR7bYkQKL5Nv00c2S2FMpmWuIxtMBNnE",
+      "durationSeconds": 290,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "functions-that-return-things": {
+    "fallback": {
+      "provider": "mux",
+      "id": "HqCtx5KALIqtL02wSgOCy83zuqzycMR8oy01BdHCmVSGM",
+      "durationSeconds": 187,
+      "uploadDate": "2026-07-10"
+    }
+  },
+  "colors": {
+    "fallback": {
+      "provider": "mux",
+      "id": "5X47O7800XWzyMa9ZUcjKtGzp19obzi5GLvUNS6cElwI",
+      "durationSeconds": 402,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "animation": {
+    "fallback": {
+      "provider": "mux",
+      "id": "jrj3bpJNuNQ1tQkcHYduxbtSPSNK5D8jpDuahU00xWQ8",
+      "durationSeconds": 194,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "random-numbers": {
+    "fallback": {
+      "provider": "mux",
+      "id": "ExAsqyg2trGCVVEy4FQ9GaFRWXuJdlqhv4Om7K2027y8",
+      "durationSeconds": 142,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "scope": {
+    "fallback": {
+      "provider": "mux",
+      "id": "wKaRbHv02BFW700ExsghQ00vvD9DQrg01444YZsb6fSwvAs",
+      "durationSeconds": 257,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "scenarios": {
+    "fallback": {
+      "provider": "mux",
+      "id": "CJLyjszp2rtBJl8L3kntt602yNA3iVtrITEDF4ivd7ME",
+      "durationSeconds": 158,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "nested-loops": {
+    "fallback": {
+      "provider": "mux",
+      "id": "01fZExWLXQgcl4nFP1XShPBxtK00idlA00fnDxBzIm9Y02o",
+      "durationSeconds": 263,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "if-statements": {
+    "fallback": {
+      "provider": "mux",
+      "id": "zcmxSxOKn9opIz1a5T00b8LRBIAoAZ8kxOBBZrxQS6uU",
+      "durationSeconds": 256,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "else-statements": {
+    "fallback": {
+      "provider": "mux",
+      "id": "YtnDfhkfV7CstaiFhLMIaeYknAbWqIJ9FTn9FlMn700c",
+      "durationSeconds": 256,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "logic-gates": {
+    "fallback": {
+      "provider": "mux",
+      "id": "yjZUdaMolP7AvvLBWuyilzEDPwf5UcJVour0122tTWoM",
+      "durationSeconds": 201,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "remainder": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Px02iBHwKLMDkhRrMiwgdcjM00fVo6JVY5MgfwT4kU0000k",
+      "durationSeconds": 312,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "repeat-without-count": {
+    "fallback": {
+      "provider": "mux",
+      "id": "00CEptHgeayPLnkov5z7DJven01CbfGcEwAh8s02MLazjU",
+      "durationSeconds": 123,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "state": {
+    "fallback": {
+      "provider": "mux",
+      "id": "GprQMNbd7vE1AITiSyEFAcmiMMD6h200iy4fodZjD1zQ",
+      "durationSeconds": 156,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "making-functions": {
+    "fallback": {
+      "provider": "mux",
+      "id": "wAAkHJrzrZc97iirqkuhy3IGBftP6nMhSd8gyjqF3SA",
+      "durationSeconds": 219,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "making-functions-with-inputs": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Iwn2PLYrpnbXeU5hNXebvbci2WOtuD9w1FhVs8wzgFo",
+      "durationSeconds": 213,
+      "uploadDate": "2026-07-10"
+    }
+  },
+  "making-functions-with-return-values": {
+    "fallback": {
+      "provider": "mux",
+      "id": "HQ8t4J78TeM3BGzTMTm5CHiefqTUlv006hzXNg85AlMU",
+      "durationSeconds": 187,
+      "uploadDate": "2026-07-10"
+    }
+  },
+  "string-concatenation": {
+    "fallback": {
+      "provider": "mux",
+      "id": "k895BIVPNi601prsiwe1Md2zaI01pxKlvD01DueWKdH7zA",
+      "durationSeconds": 213,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "string-indexing": {
+    "fallback": {
+      "provider": "mux",
+      "id": "f3GSAOXHJJ02yElfCKo2cHG00X6h6G5h1PUpNdwEphfi00",
+      "durationSeconds": 146,
+      "uploadDate": "2026-07-25"
+    }
+  },
+  "string-iteration": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Sukf8Q003FG2KGq3WgQEhMqnNlieA9N02urIdqcZ8NTx00",
+      "durationSeconds": 208,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "using-multiple-functions-together": {
+    "fallback": {
+      "provider": "mux",
+      "id": "HqGxmSUhkGy5zF8nkKvCd3itMLgtOpV02CimiwgdCWDE",
+      "durationSeconds": 174,
+      "uploadDate": "2026-07-28"
+    }
+  },
+  "methods-and-strings": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Wa4uUXliDcAAz9pvRrXje4MckgGJyTbAwisH3O7V0200Q",
+      "durationSeconds": 214,
+      "uploadDate": "2026-06-11"
+    }
+  },
+  "for-while-loops": {
+    "fallback": {
+      "provider": "mux",
+      "id": "ghCnw2FiEgPSf34NKSMYzH00UODStmO8jYEveiPpvX02Y",
+      "durationSeconds": 314,
+      "uploadDate": "2026-07-28"
+    }
+  },
+  "arrays": {
+    "fallback": {
+      "provider": "mux",
+      "id": "crld00MTVkFCyPjeLB1oK4iz00BbUSyZLcWTKzCD01Mejs",
+      "durationSeconds": 275,
+      "uploadDate": "2026-07-13"
+    }
+  },
+  "building-arrays": {
+    "fallback": {
+      "provider": "mux",
+      "id": "NauVD1prYbb01N9N02LCAHbrSkV8ziUs1AGST02dVM4IZU",
+      "durationSeconds": 92,
+      "uploadDate": "2026-07-12"
+    }
+  },
+  "dictionaries": {
+    "fallback": {
+      "provider": "mux",
+      "id": "CkkTxQwQH8LwilAQjWaYhJysSL02u3gRa8Ce01BrXGaFI",
+      "durationSeconds": 238,
+      "uploadDate": "2026-07-12"
+    }
+  },
+  "updating-dictionaries": {
+    "fallback": {
+      "provider": "mux",
+      "id": "nneymd6yNj2Sjop1xvhQsIUq7RigZoDyr02OVJxF4lqQ",
+      "durationSeconds": 170,
+      "uploadDate": "2026-07-13"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import type { UserCourse } from "@/types/course";
-import type { Lesson } from "@/types/lesson";
+import type { Lesson, VideoSource } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./LessonContent.module.css";
@@ -16,8 +16,11 @@ const ChooseLanguage = dynamic(() => import("@/components/choose-language/Choose
 
 interface LessonContentProps {
   lesson: Lesson;
-  // Curriculum copy resolved by the parent during the page load phase.
+  // Curriculum copy resolved by the parent during the page load phase. The
+  // video is already resolved for the active locale; absent for non-video lessons.
   lessonTitle: string;
+  video?: VideoSource;
+  walkthroughVideo?: VideoSource;
   userCourse: UserCourse | null;
   isCompleted: boolean;
   serverSubmission: LastSubmissionData | null;
@@ -27,20 +30,22 @@ interface LessonContentProps {
 export default function LessonContent({
   lesson,
   lessonTitle,
+  video,
+  walkthroughVideo,
   userCourse,
   isCompleted,
   serverSubmission,
   onReady
 }: LessonContentProps) {
   if (lesson.type === "video") {
-    return <VideoExercise lessonData={lesson} lessonTitle={lessonTitle} onReady={onReady} />;
+    return <VideoExercise lessonData={lesson} lessonTitle={lessonTitle} video={video} onReady={onReady} />;
   }
 
   if (lesson.type === "exercise") {
     return (
       <CodingExercise
         language={userCourse?.language || "javascript"}
-        context={{ type: "lesson", slug: lesson.slug, walkthroughVideoData: lesson.walkthrough_video_data }}
+        context={{ type: "lesson", slug: lesson.slug, walkthroughVideo }}
         isCompleted={isCompleted}
         serverSubmission={serverSubmission}
         onReady={onReady}
@@ -49,7 +54,7 @@ export default function LessonContent({
   }
 
   if (lesson.type === "choose_language") {
-    return <ChooseLanguage lessonData={lesson} onReady={onReady} />;
+    return <ChooseLanguage lessonData={lesson} video={video} onReady={onReady} />;
   }
 
   // Quiz type - not yet implemented

@@ -1,5 +1,6 @@
 {
   "parent": "strings-group",
   "order": 4,
-  "category": false
+  "category": false,
+  "video": "string-iteration"
 }

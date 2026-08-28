@@ -3,6 +3,14 @@ import { assetsUrl } from "@/lib/assets";
 import { curriculumCopyPath, curriculumCopyPointerPath, badgeCopyPath, badgeCopyPointerPath } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 
+/**
+ * Display copy for one curriculum item.
+ *
+ * No video, deliberately. The i18n repo republishes this catalog for every
+ * non-English locale and builds each entry as a closed literal, so a video field
+ * here would be present in English and silently absent everywhere else. Videos
+ * come from the front-end-owned index in `lib/api/videos.ts`.
+ */
 export interface CurriculumCopy {
   title: string;
   description: string;
