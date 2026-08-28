@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-28: `countNestingDepth` assertor
+
+`assertMaxLoopNestingDepth` counts loops alone and treats `if` as transparent, so `for → if → if → if` reports depth 1 and passes a limit of 1. That is the right measure for "how many loops deep is this", but it cannot express "this code is too deeply indented", which is what an exercise wants when it asks a student to flatten their logic.
+
+`maxNestingDepth` (in `assertion-helpers.ts`, alongside `maxLoopNestingDepth`) counts loops **and** `if` as levels, exposed on the assertors as `countNestingDepth(): number`. Three decisions shape it:
+
+- **Blocks are transparent.** A `BlockStatement` is already the body of the construct that opened it, so counting it would double every level.
+- **An `else if` chain counts once**, however many branches it has. The parser nests `else if` as an `IfStatement` in the parent's `elseBranch`, but it reads as a continuation of one decision, not a deeper level — counting it literally would make an ordinary three-branch chain report depth 3 and fail every student. `chainedIfBodies` flattens the chain so all its branches are measured at the parent's depth. An `if` inside a braced `else { … }` is a `BlockStatement` and so stays genuinely nested.
+- **Each function body is measured from zero.** Nested function declarations are a parse error in this language (`NestedFunctionDeclaration`, `parser.ts`), so a function body can only ever be a measurement root; the result is the deepest of them.
+
+Exposed as a raw count rather than an `assertMaxNestingDepth` wrapper, so scenarios write the comparison themselves (`countNestingDepth() <= 2`) and can also use the number in a hint. `assertMaxLoopNestingDepth` is unchanged — different semantics, and `lower-pangram` depends on it. Python and JikiScript get the usual `() => 0` stub.
+
 ## 2026-08-27: `for` header steps collapse to one, and `.prop` is no longer described as an index read
 
 The single-frame `for` header (below) still listed every sub-step of its condition, which read badly once the update was in the same frame:
