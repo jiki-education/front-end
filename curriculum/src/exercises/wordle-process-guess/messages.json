@@ -44,16 +44,12 @@
       "answer": "If `guess[i]` equals `target[i]`, it's `\"correct\"`. Otherwise, if the letter exists somewhere in `target`, it's `\"present\"`. If not, it's `\"absent\"`."
     },
     "buildList": {
-      "question": "How do I build up the list of states?",
-      "answer": "Start with an empty list, then use `push(states, value)` inside the loop to append each state in order."
-    },
-    "checkPresence": {
-      "question": "How can I check if a letter appears anywhere in the target word?",
-      "answer": "Write a small helper that loops through the target's letters and returns `true` if it finds a match. It keeps your main code clean."
+      "question": "How do I build up the array of states?",
+      "answer": "Start with an empty array, then use `states.push(value)` inside the loop to add each state onto the end in order."
     },
     "finishedList": {
-      "question": "Where does the finished list go?",
-      "answer": "Pass it to `colorRow(1, states)` to colour the first row of the board with your computed states."
+      "question": "Where does the finished array go?",
+      "answer": "Pass it to `colorRow(1, states)` to color the first row of the board with your computed states."
     }
   },
   "functions": {
@@ -62,8 +58,12 @@
       "category": "Wordle"
     },
     "push": {
-      "description": "Adds an element to a list and returns the new list. Does not change the original list.",
-      "category": "Lists"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
+    },
+    "includes": {
+      "description": "Checks whether a string contains another string, returning true or false.",
+      "category": "Strings"
     }
   },
   "describers": {

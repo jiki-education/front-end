@@ -83,8 +83,8 @@
   },
   "functions": {
     "push": {
-      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Array Operations"
     }
   }
 }

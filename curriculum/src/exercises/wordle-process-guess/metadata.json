@@ -15,10 +15,6 @@
       "answer": "hints.buildList.answer"
     },
     {
-      "question": "hints.checkPresence.question",
-      "answer": "hints.checkPresence.answer"
-    },
-    {
       "question": "hints.finishedList.question",
       "answer": "hints.finishedList.answer"
     }

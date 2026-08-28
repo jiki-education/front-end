@@ -61,7 +61,7 @@
       "category": "API"
     },
     "hasKey": {
-      "description": "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+      "description": "Check if a key exists in a dictionary, returns true or false",
       "category": "Dictionary Operations"
     }
   }

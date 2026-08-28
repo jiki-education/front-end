@@ -53,11 +53,11 @@
       "category": "API"
     },
     "stringToNumber": {
-      "description": "Convert a string to a number (provided by level stdlib)",
+      "description": "Convert a string to a number",
       "category": "Type Conversion"
     },
     "numberToString": {
-      "description": "Convert a number to a string (provided by level stdlib)",
+      "description": "Convert a number to a string",
       "category": "Type Conversion"
     }
   }

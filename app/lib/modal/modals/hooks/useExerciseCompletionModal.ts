@@ -18,8 +18,6 @@ interface UseExerciseCompletionModalProps {
   exerciseSlug: string;
   isChallenge: boolean;
   unlockedChallenge: {
-    name: string;
-    description: string;
     slug: string;
   };
   initialStep: ModalStep;

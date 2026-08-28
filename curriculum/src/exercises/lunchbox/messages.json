@@ -1,54 +1,69 @@
 {
   "checks": {
-    "oneListOnly": "You should only create one list. Make sure you only use <code>[]</code> once.",
-    "usePush": "You should use <code>push()</code> to add items to your list."
+    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
   },
   "tasks": {
-    "packALunch": {
-      "name": "Pack a Lunch",
-      "description": "Write a function that packs a lunchbox with a sandwich, drink, and snack. If the drink is a milkshake, leave it out of the lunchbox because it's too big."
+    "packLunchbox": {
+      "name": "Pack the Lunchbox",
+      "description": "Split the items into a lunchbox and a rucksack: fit as many as you can into the lunchbox without going over its capacity, and put everything else in the rucksack."
+    },
+    "solveInSixteenLines": {
+      "name": "Solve in 16 lines of code",
+      "description": "Can you solve this exercise with only 16 lines of code?"
     }
   },
   "scenarios": {
-    "regularLunch": {
-      "name": "Regular lunch",
-      "description": "A normal lunch with water - everything fits in the lunchbox."
+    "everythingFits": {
+      "name": "Everything fits",
+      "description": "A roomy lunchbox where every item fits, so the rucksack stays empty."
     },
-    "milkshakeLunch": {
-      "name": "Milkshake lunch",
-      "description": "The milkshake is too big for the lunchbox, so it gets left out."
+    "packTheMost": {
+      "name": "Fit the most",
+      "description": "Space is tight, so the small items go in the lunchbox and the big ones are left for the rucksack."
     },
-    "anotherRegular": {
-      "name": "Another regular lunch",
-      "description": "Another normal lunch where everything fits."
+    "justTheSnack": {
+      "name": "Just the snack",
+      "description": "Only the very smallest item fits; the rest go in the rucksack."
     },
-    "anotherMilkshake": {
-      "name": "Another milkshake lunch",
-      "description": "Another lunch with a milkshake that doesn't fit."
+    "nothingFits": {
+      "name": "Nothing fits",
+      "description": "Even the smallest item is too big, so everything ends up in the rucksack."
+    },
+    "emptyLunchbox": {
+      "name": "Empty lunchbox",
+      "description": "There are no items at all, so both the lunchbox and the rucksack come back empty."
+    },
+    "bonus1": {
+      "name": "16 lines of code",
+      "description": "Solve the exercise with only 16 lines of code."
     }
   },
   "hints": {
-    "basicShape": {
-      "question": "What's the basic shape of my answer?",
-      "answer": "A list. Start with an empty list and add the allowed items to it one at a time."
+    "readEachItem": {
+      "question": "How do I get each item's name and size?",
+      "answer": "Each item is a pair. The first part is the name and the second is the size, so you can read them out of the item one at a time."
     },
-    "addItems": {
-      "question": "How do I add items to a list?",
-      "answer": "Use `push()`. It takes the list and the item, and gives back the new (longer) list."
+    "fitTheMost": {
+      "question": "How do I fit in as many items as possible?",
+      "answer": "Think about which items to add first. Smaller items leave more room for others, so it pays to deal with them before the big ones."
     },
-    "leaveMilkshakeOut": {
-      "question": "How do I leave the milkshake out?",
-      "answer": "Use an if-statement. Only push the drink if it's not equal to `\"milkshake\"`."
+    "goSmallestFirst": {
+      "question": "The items are listed largest first — how do I go through them smallest first?",
+      "answer": "There's an array method that gives you back a reversed copy of an array. Reverse the items first, then work through them in that new order."
     },
-    "listNotGrowing": {
-      "question": "Why isn't my list growing?",
-      "answer": "`push()` doesn't modify the list in place. It returns the new list. You need to reassign, for example `lunchbox = lunchbox.push(item)` (or the equivalent in your language)."
+    "knowWhenFull": {
+      "question": "How do I decide where each item goes?",
+      "answer": "Keep a running total of the sizes you've added. Before adding an item, check whether the total plus its size would still fit within the capacity. If it does, it goes in the lunchbox, otherwise it goes in the rucksack."
     }
   },
   "functions": {
+    "toReversed": {
+      "description": "Returns a copy of the array with the elements in reverse order, without changing the original.",
+      "category": "Arrays"
+    },
     "push": {
-      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
     }
   }
 }

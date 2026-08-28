@@ -47,7 +47,7 @@
   },
   "functions": {
     "keys": {
-      "description": "Returns a list of all keys in the dictionary (provided by level stdlib)",
+      "description": "Returns a list of all keys in the dictionary",
       "category": "Dictionary Operations"
     }
   }

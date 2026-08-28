@@ -138,6 +138,39 @@ describe("Array methods cross-validation", () => {
     });
   });
 
+  describe("toReversed() cross-validation", () => {
+    test("returns reversed copy matching native behavior", () => {
+      const code = `
+        let arr = [1, 2, 3, 4, 5];
+        arr.toReversed();
+      `;
+
+      const nativeArr = [1, 2, 3, 4, 5];
+      const nativeReversed = [...nativeArr].reverse();
+
+      const result = interpret(code);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+
+      expect(lastFrame.result?.jikiObject?.value.map((v: { value: number }) => v.value)).toEqual(nativeReversed);
+      // toReversed must not mutate the source array
+      expect(nativeArr).toEqual([1, 2, 3, 4, 5]);
+    });
+
+    test("does not mutate the original, matching native behavior", () => {
+      const code = `
+        let arr = [1, 2, 3, 4, 5];
+        let reversed = arr.toReversed();
+      `;
+
+      const nativeArr = [1, 2, 3, 4, 5];
+
+      const result = interpret(code);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+
+      expect(lastFrame.variables?.arr.value.map((v: { value: number }) => v.value)).toEqual(nativeArr);
+    });
+  });
+
   describe("fill() cross-validation", () => {
     test("filling entire array matches native behavior", () => {
       const code = `

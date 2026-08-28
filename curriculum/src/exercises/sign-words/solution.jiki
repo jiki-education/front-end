@@ -1,14 +1,12 @@
-function extract_words with sentence do
+function sign_words with business_name do
   set words to []
   set word to ""
-  for each letter in sentence do
+  for each letter in business_name do
     if letter == " " do
       if word != "" do
         change words to push(words, word)
       end
       change word to ""
-    else if letter == "." do
-      // skip periods
     else do
       change word to concatenate(word, letter)
     end

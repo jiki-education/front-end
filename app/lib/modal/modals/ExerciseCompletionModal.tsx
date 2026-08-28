@@ -19,8 +19,6 @@ interface ExerciseCompletionModalProps {
   exerciseSlug?: string;
   isChallenge?: boolean;
   unlockedChallenge?: {
-    name: string;
-    description: string;
     slug: string;
   };
   initialStep?: "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "challenge-unlocked";
@@ -36,11 +34,7 @@ export function ExerciseCompletionModal({
   exerciseTitle = "Navigate the Maze",
   exerciseSlug = "maze-instructions",
   isChallenge = false,
-  unlockedChallenge = {
-    name: "Space Invaders",
-    description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
-    slug: "space-invaders"
-  },
+  unlockedChallenge = { slug: "space-invaders" },
   initialStep = "success",
   completionResponse = []
 }: ExerciseCompletionModalProps) {

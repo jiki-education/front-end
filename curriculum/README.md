@@ -193,6 +193,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "lists",
     "lessons": [
+      { "type": "exercise", "slug": "sign-words" },
       { "type": "exercise", "slug": "guest-list" },
       { "type": "exercise", "slug": "lunchbox" },
       { "type": "exercise", "slug": "meal-prep" },
@@ -200,7 +201,6 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "stars" },
       { "type": "exercise", "slug": "weather-symbols" },
       { "type": "exercise", "slug": "alien-detector" },
-      { "type": "project", "slug": "extract-words" },
       { "type": "project", "slug": "tic-tac-toe" }
     ]
   },

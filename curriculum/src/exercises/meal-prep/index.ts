@@ -5,10 +5,17 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
+    name: "includes",
+    signature: "[...].includes(item)",
+    description: "functions.includes.description",
+    examples: ['["a", "b", "c"].includes("b") → true', '["a", "b", "c"].includes("z") → false'],
+    category: "functions.includes.category"
+  },
+  {
     name: "push",
-    signature: "push(list, element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]', "push([1, 2], 3) -> [1, 2, 3]"],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   }
 ];
@@ -20,8 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "building-arrays", "if", "methods"],
-  interpreterOptions: { maxTotalLoopIterations: 10000 }
+  conceptSlugs: ["arrays", "building-arrays", "if", "methods"]
 };
 
 export default exerciseDefinition;

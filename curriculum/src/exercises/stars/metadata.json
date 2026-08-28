@@ -7,12 +7,12 @@
       "answer": "hints.shapeOfAnswer.answer"
     },
     {
-      "question": "hints.loopCount.question",
-      "answer": "hints.loopCount.answer"
+      "question": "hints.countingDown.question",
+      "answer": "hints.countingDown.answer"
     },
     {
-      "question": "hints.insideLoop.question",
-      "answer": "hints.insideLoop.answer"
+      "question": "hints.buildingEachRow.question",
+      "answer": "hints.buildingEachRow.answer"
     }
   ]
 }

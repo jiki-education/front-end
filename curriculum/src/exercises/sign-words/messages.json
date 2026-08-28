@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "signWords": {
+      "name": "Break the name into words",
+      "description": "Write a signWords function that takes a business name and returns an array of the words in it. Words are separated by spaces, and a customer may leave extra spaces in by accident."
+    }
+  },
+  "scenarios": {
+    "singleWord": {
+      "name": "One word",
+      "description": "A business name that's a single word."
+    },
+    "twoWords": {
+      "name": "Two words",
+      "description": "A business name made of two words."
+    },
+    "longerName": {
+      "name": "A longer name",
+      "description": "A business name with four words to print."
+    },
+    "doubleSpace": {
+      "name": "A heavy hand on the space bar",
+      "description": "A customer who typed two spaces between their words."
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "How do I get the words out of the name?",
+      "answer": "There are two routes and neither is better. You can walk the name one character at a time, building each word up as you go, or you can ask the string to split itself apart at the spaces. Pick whichever you find clearer."
+    },
+    "buildingUpArray": {
+      "question": "How do I collect the words up?",
+      "answer": "Start with an empty array before you begin, then push each finished word onto the end of it as you work out what it is. The array is what you return at the end."
+    },
+    "doubleSpaces": {
+      "question": "Why have I got an empty string in my array?",
+      "answer": "Two spaces in a row means there's nothing at all between them, so that gap counts as a word unless you say otherwise. Check a word isn't empty before you push it."
+    },
+    "missingLastWord": {
+      "question": "Why am I missing the last word?",
+      "answer": "If you're building words up character by character, the final word is still in progress when the loop ends, because there's no space after it to tell you it's finished. It needs pushing once the loop is done."
+    }
+  },
+  "functions": {
+    "split": {
+      "description": "Breaks a string apart wherever it finds the separator, returning an array of the pieces.",
+      "category": "Strings"
+    },
+    "push": {
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
+    }
+  }
+}

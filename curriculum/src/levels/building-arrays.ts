@@ -15,7 +15,7 @@ const buildingArrays: Level = {
       languageFeatures: {
         allowedStdlib: {
           array: {
-            methods: ["push", "pop", "shift", "unshift", "splice", "sort", "reverse", "fill"]
+            methods: ["push", "pop", "shift", "unshift", "splice", "sort", "reverse", "toReversed", "fill"]
           }
         }
       }

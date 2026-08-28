@@ -16,6 +16,7 @@ import { join } from "./join";
 import { splice } from "./splice";
 import { sort } from "./sort";
 import { reverse } from "./reverse";
+import { toReversed } from "./toReversed";
 import { fill } from "./fill";
 import { lastIndexOf } from "./lastIndexOf";
 import { toString } from "./toString";
@@ -72,6 +73,7 @@ export const arrayMethods: Record<string, Method> = {
   splice,
   sort,
   reverse,
+  toReversed,
   fill,
   lastIndexOf,
   toString,

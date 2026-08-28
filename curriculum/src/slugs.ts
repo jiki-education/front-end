@@ -88,12 +88,12 @@ export const exerciseLessonSlugs = [
   "guest-list",
   "after-party",
   "formal-dinner",
-  "lunchbox",
-  "stars",
   "meal-prep",
+  "sign-words",
+  "stars",
   "wordle-process-guess",
-  "extract-words",
   "chop-shop",
+  "lunchbox",
   "wordle-process-game",
   "lookup-time",
   "scrabble-score",
@@ -156,7 +156,8 @@ export const challengeSlugs = [
   "matching-socks",
   "tic-tac-toe",
   "sieve",
-  "cityscape-skyline"
+  "cityscape-skyline",
+  "wordle-solver"
 ] as const;
 
 export type ExerciseLessonSlug = (typeof exerciseLessonSlugs)[number];

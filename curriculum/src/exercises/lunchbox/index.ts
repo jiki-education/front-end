@@ -5,10 +5,17 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
+    name: "toReversed",
+    signature: "[...].toReversed()",
+    description: "functions.toReversed.description",
+    examples: ['["a", "b", "c"].toReversed() → ["c", "b", "a"]', "[1, 2, 3].toReversed() → [3, 2, 1]"],
+    category: "functions.toReversed.category"
+  },
+  {
     name: "push",
-    signature: "push(list, element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]', "push([1, 2], 3) -> [1, 2, 3]"],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   }
 ];
@@ -20,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "building-arrays", "if", "using-functions-with-return-values"]
+  conceptSlugs: ["arrays", "building-arrays", "if", "arithmetic", "methods"]
 };
 
 export default exerciseDefinition;

@@ -1,71 +1,132 @@
 import type { Task, IOScenario, CodeCheck } from "../types";
 
-const codeChecks: CodeCheck[] = [
-  {
-    pass: (result) => result.assertors.countArrayLiterals() === 1,
-    errorKey: "checks.oneListOnly"
-  },
+const sixteenLinesCheck: CodeCheck[] = [
   {
     pass: (result, language) => {
-      // Jikiscript uses push() as a standalone function, not a method call
-      if (language === "jikiscript") return true;
-      const methodName = language === "python" ? "append" : "push";
-      return result.assertors.assertMethodCalled(methodName);
+      const limit = language === "python" ? 13 : 16;
+      return result.assertors.assertMaxLinesOfCode(limit);
     },
-    errorKey: "checks.usePush"
+    errorKey: "checks.tooManyLines"
   }
 ];
 
 export const tasks = [
   {
-    id: "pack-a-lunch" as const,
-    name: "tasks.packALunch.name",
-    description: "tasks.packALunch.description",
+    id: "pack-lunchbox" as const,
+    name: "tasks.packLunchbox.name",
+    description: "tasks.packLunchbox.description",
     hints: [],
-    requiredScenarios: ["regular-lunch", "milkshake-lunch", "another-regular", "another-milkshake"],
+    requiredScenarios: ["empty-lunchbox", "everything-fits", "pack-the-most", "just-the-snack", "nothing-fits"],
     bonus: false
+  },
+  {
+    id: "solve-in-sixteen-lines" as const,
+    name: "tasks.solveInSixteenLines.name",
+    description: "tasks.solveInSixteenLines.description",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
 export const scenarios: IOScenario[] = [
   {
-    slug: "regular-lunch",
-    name: "scenarios.regularLunch.name",
-    description: "scenarios.regularLunch.description",
-    taskId: "pack-a-lunch",
-    functionName: "pack_a_lunch",
-    args: ["ham sandwich", "water", "cookies"],
-    expected: ["ham sandwich", "water", "cookies"],
-    codeChecks
+    slug: "empty-lunchbox",
+    name: "scenarios.emptyLunchbox.name",
+    description: "scenarios.emptyLunchbox.description",
+    taskId: "pack-lunchbox",
+    functionName: "pack_lunch",
+    args: [[], 10],
+    expected: [[], []]
   },
   {
-    slug: "milkshake-lunch",
-    name: "scenarios.milkshakeLunch.name",
-    description: "scenarios.milkshakeLunch.description",
-    taskId: "pack-a-lunch",
-    functionName: "pack_a_lunch",
-    args: ["PBJ", "milkshake", "grapes"],
-    expected: ["PBJ", "grapes"],
-    codeChecks
+    slug: "everything-fits",
+    name: "scenarios.everythingFits.name",
+    description: "scenarios.everythingFits.description",
+    taskId: "pack-lunchbox",
+    functionName: "pack_lunch",
+    args: [
+      [
+        ["Sandwich", 4],
+        ["Cookies", 2],
+        ["Grapes", 1]
+      ],
+      10
+    ],
+    expected: [["Grapes", "Cookies", "Sandwich"], []]
   },
   {
-    slug: "another-regular",
-    name: "scenarios.anotherRegular.name",
-    description: "scenarios.anotherRegular.description",
-    taskId: "pack-a-lunch",
-    functionName: "pack_a_lunch",
-    args: ["turkey wrap", "juice", "chips"],
-    expected: ["turkey wrap", "juice", "chips"],
-    codeChecks
+    slug: "pack-the-most",
+    name: "scenarios.packTheMost.name",
+    description: "scenarios.packTheMost.description",
+    taskId: "pack-lunchbox",
+    functionName: "pack_lunch",
+    args: [
+      [
+        ["Water bottle", 6],
+        ["Papaya", 5],
+        ["Sandwich", 3],
+        ["Cookies", 2],
+        ["Grapes", 1]
+      ],
+      6
+    ],
+    expected: [
+      ["Grapes", "Cookies", "Sandwich"],
+      ["Papaya", "Water bottle"]
+    ]
   },
   {
-    slug: "another-milkshake",
-    name: "scenarios.anotherMilkshake.name",
-    description: "scenarios.anotherMilkshake.description",
-    taskId: "pack-a-lunch",
-    functionName: "pack_a_lunch",
-    args: ["BLT", "milkshake", "apple"],
-    expected: ["BLT", "apple"],
-    codeChecks
+    slug: "just-the-snack",
+    name: "scenarios.justTheSnack.name",
+    description: "scenarios.justTheSnack.description",
+    taskId: "pack-lunchbox",
+    functionName: "pack_lunch",
+    args: [
+      [
+        ["Sandwich", 4],
+        ["Cookies", 2],
+        ["Grapes", 1]
+      ],
+      1
+    ],
+    expected: [["Grapes"], ["Cookies", "Sandwich"]]
+  },
+  {
+    slug: "nothing-fits",
+    name: "scenarios.nothingFits.name",
+    description: "scenarios.nothingFits.description",
+    taskId: "pack-lunchbox",
+    functionName: "pack_lunch",
+    args: [
+      [
+        ["Water bottle", 5],
+        ["Sandwich", 4]
+      ],
+      3
+    ],
+    expected: [[], ["Sandwich", "Water bottle"]]
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "solve-in-sixteen-lines",
+    functionName: "pack_lunch",
+    args: [
+      [
+        ["Water bottle", 6],
+        ["Papaya", 5],
+        ["Sandwich", 3],
+        ["Cookies", 2],
+        ["Grapes", 1]
+      ],
+      6
+    ],
+    expected: [
+      ["Grapes", "Cookies", "Sandwich"],
+      ["Papaya", "Water bottle"]
+    ],
+    codeChecks: sixteenLinesCheck
   }
 ];

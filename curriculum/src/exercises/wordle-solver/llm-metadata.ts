@@ -9,42 +9,49 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise builds a Wordle solver. Students must create a processGame function that
-    automatically guesses words using knowledge accumulated from previous guesses. It combines
-    string comparison, dictionary/knowledge tracking, and list filtering.
+    The target word never reaches the student's code. guess(word) scores a word internally, draws it,
+    and returns only the array of states, so every deduction has to come from those states.
+    That is the whole difficulty: accumulating knowledge across guesses and filtering commonWords()
+    down with it. The scenarios chunk that progression, and the student is graded on the exact rows
+    they produce, so an inefficient-but-correct solver still fails.
+
+    Solution shape:
+    1. Knowledge held outside the guessing loop: absent letters, present letters, and per-position
+       (known letter, ruled-out letters).
+    2. chooseWord() walks commonWords() in order and returns the first word consistent with that knowledge.
+    3. After each guess, record what the returned states taught you.
+    4. Stop when every state is "correct", or after 6 rows.
+
+    Non-obvious trap: because guess() applies the duplicate-letter rule, a letter can come back "absent"
+    while still being in the target (a second "s" in "swiss" against "swims"). Recording that letter as
+    globally absent excludes a letter that is actually in the word and the solver stops converging.
   `,
 
   tasks: {
     "first-word": {
       description: `
-        Students start by guessing the first word from commonWords() and checking it against
-        the target. This establishes the basic loop: guess, check, add to board.
+        Step 1 only, and deliberately trivial: guess commonWords()[0] ("which") and stop.
+        The target is "which", so the loop and the stop condition are all that is being tested.
       `
     },
     "handle-wrong": {
       description: `
-        When a guess is entirely wrong, students need to track absent letters and filter the
-        word list to exclude words containing those letters.
+        Adds step 2 in its simplest form. The first guess is entirely absent, so the student needs
+        to move to the next candidate. Filtering on absent letters alone is enough here.
       `
     },
     "handle-partial": {
       description: `
-        Students need to track correct letter positions and ensure future guesses have those
-        letters in the right places. This narrows down possibilities quickly.
+        Steps 2 and 3 for "correct" and "absent" letters. The student must pin correct letters to their
+        positions and exclude absent ones. Common mistake: excluding a letter from the whole word when
+        it was only wrong in one position.
       `
     },
     "handle-present": {
       description: `
-        Present (yellow) letters must appear somewhere in the word but NOT at the position
-        where they were found. Students need to track both where letters must be and where
-        they can't be. This requires a more sophisticated knowledge representation.
-      `
-    },
-    bonus: {
-      description: `
-        The bonus handles duplicate letters: if a letter appears twice in a guess but only
-        once in the target, only one should be marked present. Students need to count letter
-        frequencies and track how many have been accounted for. This is the hardest part.
+        The hardest task. "present" carries two facts at once: the letter IS in the word, and it is NOT
+        at that position. Students routinely record only the first and then re-guess the letter in the
+        same slot, so the solver stalls and overruns 6 rows.
       `
     }
   }

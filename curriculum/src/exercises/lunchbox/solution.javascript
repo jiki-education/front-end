@@ -1,9 +1,16 @@
-function packALunch(sandwich, drink, snack) {
+function packLunch(items, capacity) {
   let lunchbox = []
-  lunchbox.push(sandwich)
-  if (drink !== "milkshake") {
-    lunchbox.push(drink)
+  let rucksack = []
+  let total = 0
+  for (const item of items.toReversed()) {
+    const name = item[0]
+    const size = item[1]
+    if (total + size <= capacity) {
+      lunchbox.push(name)
+      total = total + size
+    } else {
+      rucksack.push(name)
+    }
   }
-  lunchbox.push(snack)
-  return lunchbox
+  return [lunchbox, rucksack]
 }

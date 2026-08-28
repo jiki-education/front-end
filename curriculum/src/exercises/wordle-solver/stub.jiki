@@ -1,7 +1,5 @@
-// Create a process_game function that takes no inputs.
-// It should repeatedly guess words until it finds the target.
-//
-// Available functions:
-// - get_target_word(): Returns the secret target word
-// - common_words(): Returns a list of possible words
-// - add_word(row, word, states): Adds a word to the board
+// Create the solve_wordle function. It takes no inputs.
+// Keep guessing words from common_words() until you get
+// the target word, using as few guesses as you can.
+
+{{LESSON:wordle-process-game}}

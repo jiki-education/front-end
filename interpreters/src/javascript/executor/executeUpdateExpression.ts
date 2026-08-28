@@ -27,6 +27,8 @@ export function executeUpdateExpression(
   if (executor.isSecretConstantBinding(expression.operand.name.lexeme)) {
     return {
       type: "UpdateExpression",
+      oldValue: currentValue.clone(),
+      newValue: currentValue.clone(),
       jikiObject: currentValue,
       immutableJikiObject: currentValue.clone(),
     };
@@ -46,6 +48,8 @@ export function executeUpdateExpression(
     // Prefix: return the new value
     return {
       type: "UpdateExpression",
+      oldValue: currentValue.clone(),
+      newValue: newValue.clone(),
       jikiObject: newValue,
       immutableJikiObject: newValue.clone(),
     };
@@ -53,6 +57,8 @@ export function executeUpdateExpression(
   // Postfix: return the old value
   return {
     type: "UpdateExpression",
+    oldValue: currentValue.clone(),
+    newValue: newValue.clone(),
     jikiObject: currentValue,
     immutableJikiObject: currentValue.clone(),
   };

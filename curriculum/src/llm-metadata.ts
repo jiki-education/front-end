@@ -87,12 +87,12 @@ import { llmMetadata as digitalRootLLM } from "./exercises/digital-root/llm-meta
 import { llmMetadata as lunchboxLLM } from "./exercises/lunchbox/llm-metadata";
 import { llmMetadata as starsLLM } from "./exercises/stars/llm-metadata";
 import { llmMetadata as wordCountLLM } from "./exercises/word-count/llm-metadata";
-import { llmMetadata as extractWordsLLM } from "./exercises/extract-words/llm-metadata";
 import { llmMetadata as helloLLM } from "./exercises/hello/llm-metadata";
 import { llmMetadata as threeLetterAcronymLLM } from "./exercises/three-letter-acronym/llm-metadata";
 import { llmMetadata as tileRackLLM } from "./exercises/tile-rack/llm-metadata";
 import { llmMetadata as tileSearchLLM } from "./exercises/tile-search/llm-metadata";
 import { llmMetadata as signPriceLLM } from "./exercises/sign-price/llm-metadata";
+import { llmMetadata as signWordsLLM } from "./exercises/sign-words/llm-metadata";
 import { llmMetadata as nicheNamedPartyLLM } from "./exercises/niche-named-party/llm-metadata";
 import { llmMetadata as lowerPangramLLM } from "./exercises/lower-pangram/llm-metadata";
 import { llmMetadata as caesarCipherLLM } from "./exercises/caesar-cipher/llm-metadata";
@@ -203,12 +203,12 @@ const llmMetadataRegistry = {
   lunchbox: lunchboxLLM,
   stars: starsLLM,
   "word-count": wordCountLLM,
-  "extract-words": extractWordsLLM,
   hello: helloLLM,
   "three-letter-acronym": threeLetterAcronymLLM,
   "tile-rack": tileRackLLM,
   "tile-search": tileSearchLLM,
   "sign-price": signPriceLLM,
+  "sign-words": signWordsLLM,
   "niche-named-party": nicheNamedPartyLLM,
   "lower-pangram": lowerPangramLLM,
   "caesar-cipher": caesarCipherLLM,

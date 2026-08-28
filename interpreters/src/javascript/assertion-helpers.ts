@@ -206,14 +206,20 @@ export function findMatchingStatements(statements: Statement[], type: string, ar
   });
 }
 
+// Keywords that can only ever continue a preceding block, never start a
+// statement of their own. A line beginning with one of these attaches to the
+// `}` above it.
+const BRACE_CONTINUATION_KEYWORDS = /^(?:else|catch|finally)\b/;
+
 export function countLinesOfCode(sourceCode: string): number {
   const lines = sourceCode.split("\n");
   let inMultiLineComment = false;
 
-  return lines.filter(line => {
+  const countedLines: string[] = [];
+  for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed === "") {
-      return false;
+      continue;
     }
 
     if (trimmed.includes("/*")) {
@@ -223,13 +229,28 @@ export function countLinesOfCode(sourceCode: string): number {
       if (trimmed.includes("*/")) {
         inMultiLineComment = false;
       }
-      return false;
+      continue;
     }
 
     if (trimmed.startsWith("//")) {
-      return false;
+      continue;
     }
-    return true;
+    countedLines.push(trimmed);
+  }
+
+  // `} else {` and a `}` / `else {` split across two lines express the same
+  // structure, so the joint costs one line either way. Without this, the LOC
+  // bonuses would quietly reward brace style over structure, and a student
+  // writing either form would be scored on how they hit return rather than on
+  // what they wrote.
+  return countedLines.filter((trimmed, i) => {
+    if (trimmed !== "}") {
+      return true;
+    }
+    if (i + 1 >= countedLines.length) {
+      return true;
+    }
+    return !BRACE_CONTINUATION_KEYWORDS.test(countedLines[i + 1]);
   }).length;
 }
 

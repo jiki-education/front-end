@@ -1,7 +1,7 @@
 import { IOExercise } from "../../IOExercise";
 import metadata from "./metadata.json";
 
-export default class ExtractWordsExercise extends IOExercise {
+export default class SignWordsExercise extends IOExercise {
   protected get slug() {
     return metadata.slug;
   }

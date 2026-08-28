@@ -80,6 +80,19 @@ export interface EvaluationResultForInStatement {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultForStatement {
+  type: "ForStatement";
+  // null when the for loop omits its condition (`for (;;)`)
+  condition: EvaluationResultExpression | null;
+  // The update that ran at the end of the *previous* iteration. It is described
+  // on this frame (rather than getting a frame of its own) so that each trip
+  // round the loop is a single frame on the `for` line.
+  update: EvaluationResultExpression | null;
+  iteration: number;
+  jikiObject?: undefined;
+  immutableJikiObject?: undefined;
+}
+
 export interface EvaluationResultWhileStatement {
   type: "WhileStatement";
   condition: EvaluationResultExpression;
@@ -189,6 +202,11 @@ export interface EvaluationResultTemplateLiteralExpression {
 
 export interface EvaluationResultUpdateExpression {
   type: "UpdateExpression";
+  // The operand's value before and after the update. `jikiObject` is the value
+  // the *expression* evaluates to (old for postfix, new for prefix), which is
+  // not enough to describe what happened to the variable.
+  oldValue: JikiObject;
+  newValue: JikiObject;
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
@@ -212,6 +230,7 @@ export type EvaluationResultStatement =
   | EvaluationResultContinueStatement
   | EvaluationResultForOfStatement
   | EvaluationResultForInStatement
+  | EvaluationResultForStatement
   | EvaluationResultRepeatStatement
   | EvaluationResultWhileStatement;
 

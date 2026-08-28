@@ -180,12 +180,15 @@ jobs:
           \`locales.json\` \`productionTargets\` are in scope for that: every other locale
           picks the change up on its next pass.
 
-          Nothing downstream will chase this. An English EDIT leaves the translation
-          stale, which \`validate\` calls an error but completeness does not, so
-          \`completeness.json\` keeps calling the locale complete and the front-end
-          deploy gate stays green over outdated text. A NEW prose page is the one that
-          bites: it makes each served locale incomplete at the next publish, and
-          \`verify-locale-completeness\` gates the front-end's production DEPLOY on that.
+          The front-end PR's \`locale-completeness\` check runs this repo's publisher
+          against the PR's own tree, so a NEW prose page or catalog key holds that PR
+          red until the translations are on \`main\` here. Closing this issue re-runs
+          that check. Add and update only, never delete: front-end \`main\` still
+          defines the old keys until the PR merges, and the deploy is gated on them.
+
+          An English EDIT is the case nothing chases. It leaves the translation stale,
+          which \`validate\` calls an error but completeness does not, so the check
+          stays green over outdated text. This issue is the only record of it.
           BODY_EOF
           )
           # The heredoc is indented so this file stays readable; strip that off.

@@ -87,7 +87,7 @@
   },
   "functions": {
     "toUpperCase": {
-      "description": "Convert a string to uppercase (provided by level stdlib)",
+      "description": "Convert a string to uppercase",
       "category": "String Operations"
     }
   }

@@ -1,5 +1,6 @@
 import type { Executor } from "../executor";
 import type { ForStatement } from "../statement";
+import type { EvaluationResultExpression, EvaluationResultForStatement } from "../evaluation-result";
 import { Environment } from "../environment";
 import { VariableDeclaration } from "../statement";
 import { TIME_SCALE_FACTOR } from "../../entry-shared";
@@ -27,19 +28,39 @@ export function executeForStatement(executor: Executor, statement: ForStatement)
 
     // Execute the loop with break handling
     executor.executeLoop(() => {
-      while (true) {
-        // Check condition (if present) - this should generate a frame
-        if (statement.condition) {
-          const conditionResult = executor.executeFrame(statement.condition, () => {
-            const result = executor.evaluate(statement.condition!);
-            executor.verifyBoolean(result.jikiObject, statement.condition!.location);
-            return result;
-          });
+      let iteration = 0;
+      // The update runs at the end of an iteration but is described at the top of
+      // the next one, so that each trip round the loop is a single frame on the
+      // `for` line and the body's frames still see the pre-update value.
+      let update: EvaluationResultExpression | null = null;
 
-          // If condition is false, break the loop
-          if (!conditionResult.jikiObject.value) {
-            break;
+      while (true) {
+        // Guard against infinite loops
+        executor.guardInfiniteLoop(statement.location);
+
+        iteration++;
+
+        // One frame per iteration on the `for` line, carrying the previous
+        // iteration's update and this iteration's condition check (mirrors
+        // while/for-of: separate frames per header part had no describers).
+        const frameResult = executor.executeFrame<EvaluationResultForStatement>(statement, () => {
+          let condition: EvaluationResultExpression | null = null;
+          if (statement.condition) {
+            condition = executor.evaluate(statement.condition);
+            executor.verifyBoolean(condition.jikiObject, statement.condition.location);
           }
+
+          return {
+            type: "ForStatement" as const,
+            condition,
+            update,
+            iteration,
+          };
+        });
+
+        // If condition is false, break the loop
+        if (frameResult.condition && !frameResult.condition.jikiObject.value) {
+          break;
         }
 
         // Execute body with continue handling - this generates its own frames
@@ -55,12 +76,10 @@ export function executeForStatement(executor: Executor, statement: ForStatement)
         // Delay repeat for things like animations
         executor.time += (executor.languageFeatures.repeatDelay ?? 0) * TIME_SCALE_FACTOR;
 
-        // Execute update (if present) - this should generate a frame
+        // Execute update (if present). No frame of its own - it is described on
+        // the next iteration's frame.
         if (statement.update) {
-          executor.executeFrame(statement.update, () => {
-            const result = executor.evaluate(statement.update!);
-            return result;
-          });
+          update = executor.evaluate(statement.update);
         }
       }
     });

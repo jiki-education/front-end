@@ -1,7 +1,8 @@
-def stars(count):
+def layout_stars(num_rows):
     result = []
-    star = ""
-    for i in range(count):
-        star = star + "*"
+    for i in range(num_rows, 0, -1):
+        star = ""
+        for j in range(i):
+            star = star + "*"
         result.append(star)
-    return result
+    draw_stars(result)

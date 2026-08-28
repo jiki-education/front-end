@@ -12,16 +12,17 @@ name: i18n
 # the header of interpreters/scripts/audit-i18n-keys.mjs. Each package has its own
 # audit script under <pkg>/scripts/audit-i18n-keys.mjs.
 #
-# The division of labour between the three jobs is therefore: audit-keys guards
-# the ENGLISH catalogs this repo authors, locale-completeness guards every other
-# locale on MAIN by asking the repo that owns them, and english-has-translations
-# guards the English this PR is ADDING, which neither of the other two can see.
+# The division of labour is therefore: audit-keys guards the ENGLISH catalogs
+# this repo authors, and locale-completeness guards every other locale by asking
+# the repo that owns them, about THIS tree's English.
 #
-# locale-completeness verifies that each of those locales is one the i18n repo
-# reports as fully translated. That repo publishes whatever is on its main so
-# work in progress can be reviewed on staging, which means R2 is not evidence a
-# locale is finished. Without this check, adding a locale to PRODUCTION_LOCALES
-# is a judgement call that ships; with it, it is a claim CI can refuse.
+# locale-completeness runs the i18n repo's publisher against this checkout and
+# fails if any production locale comes out incomplete. Main is always deployed,
+# and the deploy runs the same script (`pnpm run deploy` -> `locales:verify`), so
+# this is the deploy gate asked early: nothing may merge that the deploy would
+# refuse. It is computed rather than read from the record i18n publishes to R2
+# because that record is made against main, and a PR is not main: see the header
+# of app/scripts/verify-locale-completeness.js.
 
 on:
   push:
@@ -40,21 +41,27 @@ on:
       - ".github/workflows/i18n.yml"
 
 jobs:
-  # Nothing may enter PRODUCTION_LOCALES that the i18n repo has not finished.
-  # This reads the completeness record it publishes, so the gate is the other
-  # repo's own account of its state rather than anyone's reading of R2.
+  # Would every production locale be complete if this tree were main? Clones
+  # the (public) i18n repo and runs its publisher with this checkout as the
+  # English, so on a PR the English is the merge ref's, which is what main would
+  # become. pnpm is for the i18n repo's install; the script does the rest.
   locale-completeness:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
 
-      - name: Verify every production locale is complete
+      - name: Verify every production locale is complete for this tree
         working-directory: app
         run: node scripts/verify-locale-completeness.js
 
@@ -97,183 +104,3 @@ jobs:
             echo "::error::i18n audit found translation keys missing from a production locale. See the grouped output above for the specific keys."
           fi
           exit $status
-
-  # Refuse to merge English that no production locale can render.
-  #
-  # ## The hole this closes
-  #
-  # `locale-completeness` above reads `completeness.json`, which the i18n repo
-  # generates against front-end MAIN. That record is therefore structurally
-  # incapable of seeing a file that exists only on this branch: a PR adding a
-  # hundred untranslated English files passes it cleanly, and the failure lands
-  # later, on somebody else's production deploy, attached to a change that did
-  # not cause it. `i18n-queue.yml` notices the same English and deliberately does
-  # not block, because its job is to open the translation issue rather than to
-  # hold the PR.
-  #
-  # So this asks the question about THIS BRANCH's files instead. The i18n repo is
-  # cloned and its own `scripts/have-translations.mjs` is pointed at this
-  # checkout as the English source, so every rule it applies (which paths are
-  # translated content, which items corpus.json puts out of scope, how a catalog
-  # is compared against English key by key) is that repo's, read from that repo,
-  # rather than a second opinion maintained here.
-  #
-  # ## What it blocks on, and what it only warns about
-  #
-  # BLOCKING is a hole THIS CHANGE makes: the locale holds no file for the item
-  # at all, or the change adds a key the locale does not hold. A learner in that
-  # locale sees raw key names or an English page, and this PR is why.
-  #
-  # Everything else warns. A translation made against older English is one shape
-  # of that; a gap the locale ALREADY had in a file this PR happens to touch is
-  # the other, and it is the more important of the two to get right. A gate that
-  # collected pre-existing debt would turn PRs red for absences their authors did
-  # not create, and a check like that gets routed around once and then ignored.
-  # That is what `--base` below buys: the blocking set is the keys the head adds
-  # to the base, and nothing else.
-  #
-  # ## Why all ten production locales
-  #
-  # A blocking item blocks on every locale in `app/lib/production-locales.json`,
-  # not a subset. Production SERVES those ten, and a gap in the tenth is as
-  # visible to the learner reading it as a gap in the first.
-  english-has-translations:
-    # A PR only. On a push to main there is no merge base to diff against, and
-    # the question has already been asked and answered on the PR that produced
-    # the push.
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          # Enough history to diff the head against the merge base.
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      # Which English this PR touches, as a three-dot diff against the merge
-      # base. Against `main` directly, a long-lived branch would claim every
-      # English change that landed next door as its own work and block on gaps
-      # it did not create.
-      #
-      # `--name-status` rather than `--name-only`, because added, modified and
-      # removed are three different questions downstream: an added file with no
-      # translation is a hole, a modified one whose translation still covers it
-      # is at worst stale, and a removed one can only leave orphans behind.
-      #
-      # The merge base is resolved to a real SHA and carried to the next step.
-      # `github.event.pull_request.base.sha` is the base BRANCH's tip rather than
-      # the merge base, and on a branch that has not been rebased for a while
-      # those differ: the script would then read base English from a commit this
-      # branch never had, and call a key somebody else added "new here".
-      #
-      # The regex is the same one `i18n-queue.yml` uses, deliberately, and for
-      # the same reason: it is the shape of every `sourceRepoPath` in i18n's
-      # scripts/lib/content-types.mjs, which is the authority. Keep the two in
-      # step. Being too narrow fails SILENTLY here as it does there, so a content
-      # type added over there needs its shape added in both places.
-      #
-      # Nothing is lost by being slightly too broad: a path this matches that
-      # i18n does not recognise is reported as out of scope by the script rather
-      # than guessed at, because the script inverts that same registry.
-      - name: Which English changed
-        id: changed
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -euo pipefail
-
-          git diff --name-status "$BASE_SHA...$HEAD_SHA" \
-            | grep -E '(app/messages\.json|(curriculum|content)/src/.+/(messages\.json|source\.md|instructions\.md)|interpreters/src/[^/]+/locales/en/translation\.json)$' \
-            > english-changes.tsv || true
-
-          COUNT=$(grep -c . english-changes.tsv || true)
-          echo "Found $COUNT changed English file(s)."
-          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
-          # Falls back to the base tip rather than aborting the job. A merge base
-          # is only unavailable when the history is not fully there, and the
-          # fallback errs the safe way: the base tip holds a SUPERSET of the keys
-          # the merge base holds, so a key it already had cannot be mistaken for
-          # one this branch adds. The worst case is a real new key going
-          # unnoticed, which is the state this whole job improves on, never a PR
-          # blocked for somebody else's gap.
-          MERGE_BASE=$(git merge-base "$BASE_SHA" "$HEAD_SHA" || echo "$BASE_SHA")
-          echo "merge_base=${MERGE_BASE}" >> "$GITHUB_OUTPUT"
-
-      # A shallow clone of main, with no token. jiki-education/i18n is PUBLIC, so
-      # an anonymous HTTPS clone is enough and no PAT is involved. `main` rather
-      # than a pinned commit because the question is whether the translations
-      # exist NOW: pinning would answer it against a snapshot and go red over
-      # work that has already landed.
-      - name: Clone the i18n repo
-        if: steps.changed.outputs.count != '0'
-        run: git clone --depth 1 https://github.com/jiki-education/i18n.git ../i18n
-
-      # The locale list is `app/lib/production-locales.json` minus `en`, read
-      # here rather than passed as a literal so the two can never drift. English
-      # is not a target locale in the i18n repo at all: it is authored here and
-      # published with this repo's own deploy.
-      #
-      # `JIKI_SOURCE_REPO` is the i18n repo's own documented way of saying "read
-      # English from this checkout" (see its scripts/lib/english.mjs), so this
-      # branch's files are what every comparison is made against.
-      #
-      # `--base` is what narrows blocking to the keys this change ADDS. The
-      # script reads base English with `git show <base>:<path>` out of this same
-      # checkout, which is why `fetch-depth: 0` above is load-bearing twice: once
-      # for the diff, once for the blobs behind it.
-      - name: Verify the English this PR adds is translated
-        if: steps.changed.outputs.count != '0'
-        env:
-          JIKI_SOURCE_REPO: ${{ github.workspace }}
-          MERGE_BASE: ${{ steps.changed.outputs.merge_base }}
-        run: |
-          set -euo pipefail
-
-          LOCALES=$(node -e 'console.log(require("./app/lib/production-locales.json").filter((l) => l !== "en").join(","))')
-          echo "Checking against: $LOCALES"
-
-          if node ../i18n/scripts/have-translations.mjs \
-            --changes="$GITHUB_WORKSPACE/english-changes.tsv" \
-            --base="$MERGE_BASE" \
-            --locales="$LOCALES"; then
-            exit 0
-          fi
-
-          # The script has already printed which files, which locales, and both
-          # remedies. This adds the one thing it cannot know: where in THIS
-          # repo's workflow the reader is standing, and that the issue they need
-          # has already been opened for them.
-          echo "::error::English this PR ADDS has no translation in one or more production locales. See the output above for which files and which locales."
-          cat <<'GUIDANCE'
-
-          Only keys this PR adds can block. A gap the locale already had in a file this
-          PR touches is printed above as a warning and is somebody else's outstanding
-          work, not yours.
-
-          What happens next, and who does it:
-
-            i18n-queue.yml has already opened an issue in jiki-education/i18n for this
-            PR, carrying this branch's head SHA. The translator repo's orchestrator picks
-            that issue up, checks this repo out at that SHA, runs the passes, pushes the
-            translations to i18n, and closes the issue. Re-run this check once it has,
-            and it goes green with no change to this branch.
-
-            The one alternative is an exercise that is NOT LIVE: one sitting past the last
-            shipped level, which no learner can reach. Its teaching content is deferred
-            rather than translated, so it belongs in i18n's corpus.json with the
-            "not-yet-live exercise" reason, and those lines come out again in the change
-            that makes it live.
-
-            Whether an exercise is live is a fact to look up in the translator repo's
-            Stage 3 queue, never one to read off this output. A brand-new exercise with no
-            translations anywhere looks exactly the same whether it is past the cutoff or
-            is live and being translated as you read this.
-          GUIDANCE
-          exit 1

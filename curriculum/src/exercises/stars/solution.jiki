@@ -1,9 +1,13 @@
-function stars with count do
+function layout_stars with num_rows do
   set result to []
-  set star to ""
-  repeat count times do
-    change star to concatenate(star, "*")
+  set length to num_rows
+  repeat num_rows times do
+    set star to ""
+    repeat length times do
+      change star to concatenate(star, "*")
+    end
     change result to push(result, star)
+    change length to length - 1
   end
-  return result
+  draw_stars(result)
 end

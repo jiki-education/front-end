@@ -1,5 +1,46 @@
 # JavaScript Interpreter Evolution
 
+## 2026-08-27: `for` header steps collapse to one, and `.prop` is no longer described as an index read
+
+The single-frame `for` header (below) still listed every sub-step of its condition, which read badly once the update was in the same frame:
+
+```
+Jiki increased `idx` from `5` to `6`.
+Jiki got the box called `idx` off the shelves and took `6` out of it.
+Jiki got the character at index length in the string and determined it was `6`.
+Jiki evaluated `6 < 6` and determined it was `false`.
+```
+
+Line 2 restates line 1, and line 3 is wrong (see below). The operand lookups also repeat verbatim on every iteration while saying nothing the comparison does not already show.
+
+The header now collapses to a single step: the update and the condition check merge into one sentence (`step_increased_evaluated` / `step_decreased_evaluated`), and the condition's sub-steps are dropped. `describeForStatement` inlines the comparison only when the condition is a `BinaryExpression` and the update is an `UpdateExpression` — the shape essentially every real `for` loop has, and the only one short enough to read as one sentence. Anything else (`for (; flag; )`, `i = i + 1`) falls back to the update's own describer plus the _last_ step of the condition's describer, since an expression describer always ends with the sentence summarising the whole expression and the earlier steps are the lookups being dropped. This collapsing is confined to the `for` line; statements in the body keep their full steps.
+
+`summariseBinaryExpression` was extracted from `describeBinaryExpression` so both describers render `6 < 6` the same way.
+
+Separately, `describeMemberExpression` had only index-flavoured strings (`"the item at index {{index}} in the array"` / `"the character at index {{index}} in the string"`), so `guess.length` was described as _"Jiki got the character at index length in the string"_. It now branches on `expression.computed` and uses property strings for `obj.prop`, giving _"Jiki got the `length` of the string"_. This affected every `.length` read, not just loop conditions.
+
+## 2026-08-27: C-style `for` emits one frame per iteration
+
+`executeForStatement` used to wrap each part of the loop header in its own `executeFrame`: one for the init, then a condition frame and an update frame on every trip round the loop. That put `1 + 2N` frames on the `for` line, and all but the init said _"There is no information available for this line"_ — `BinaryExpression` and `UpdateExpression` are both in `frameDescribers`' explicit "these types don't generate frames with descriptions" list, so `describeFrame` fell through to the default message.
+
+The `for` loop now matches `while` and `for...of`: a single `executeFrame(statement, …)` per iteration, carrying an `EvaluationResultForStatement`. The condition is evaluated inside that frame, and the update — which physically runs at the _end_ of an iteration — is stashed and described at the _top_ of the next iteration's frame. Describing the update on the following frame (rather than the preceding one) keeps the body's frames showing the pre-update value of the loop variable, which is what a student stepping through the scrubber expects to see. The init keeps its own frame: it genuinely happens once, and as a `VariableDeclaration` it already described itself well.
+
+`describeForStatement` renders the update step itself rather than delegating, because `i++` has no describer of its own (it never used to generate a frame). To make that possible, `EvaluationResultUpdateExpression` gained `oldValue`/`newValue`: its `jikiObject` is the value the _expression_ evaluates to (old for postfix, new for prefix), which is not enough to say what happened to the variable. Anything else in the update slot (e.g. `i = i + 1`) goes through the normal expression describers.
+
+A `for` with no condition (`for (;;)`) gets its own result/step strings rather than an empty condition description.
+
+`executeForStatement` also now calls `guardInfiniteLoop`, which it alone among the loops was missing. Before this, `for (;;) {}` with a frame-less body had nothing to stop it.
+
+## 2026-08-27: LOC counting is insensitive to `else` brace style
+
+`countLinesOfCode` counts raw non-blank, non-comment text lines, so `} else {` cost one line while a `}` / `else {` split across two lines cost two. Exercises with an `assertMaxLinesOfCode` bonus (`lunchbox`, `guest-list`, `formal-dinner`, `acronym`, …) therefore scored brace style, not structure: a student could reach the limit by joining the brace to the keyword rather than by finding a tighter solution, and one writing the split form was penalised for identical code.
+
+The counter now collapses a line that is exactly `}` into the following line when that line begins with `else`, `catch`, or `finally` — keywords that can only continue a preceding block, never start a statement. Both forms of the joint cost one line, so neither style is rewarded and `} else {` stays legal and idiomatic. Existing per-exercise limits were tuned against canonical solutions using `} else {`, which already counted as one, so none needed retuning.
+
+`while` is deliberately excluded despite `do { … } while (…)` having the same shape: unlike the others, `while` can start a statement, so merging would silently undercount a `while` loop that happens to follow a block. Splitting a `do`/`while` tail across lines is rare enough not to justify that.
+
+This also aligns JavaScript with Python, whose `else:` has no closing brace and so has always cost exactly one line. JikiScript keeps its own `countLinesOfCode` and is unchanged.
+
 ## 2026-08-18: IO-exercise error locations only remap when the error came from the synthetic call
 
 `evaluateSingleExpression` runs a student's function via a **synthetic** call statement that lives on line 1. Its catch block rewrites an error's location to the student's statement so the frame doesn't extract garbage source from that synthetic line. Two of its three branches guarded that rewrite on `error.location.line === 1`; the `InvalidNumberOfArguments` branch did not, so it clobbered the location of _every_ arity error, wherever it was raised.

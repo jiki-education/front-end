@@ -202,6 +202,14 @@ const COMMON_WORDS = [
   "magic"
 ];
 
+function countOccurrences(items: string | string[], target: string): number {
+  let count = 0;
+  for (const item of items) {
+    if (item === target) count += 1;
+  }
+  return count;
+}
+
 export default class WordleExercise extends VisualExercise {
   protected get slug() {
     return "wordle";
@@ -209,6 +217,8 @@ export default class WordleExercise extends VisualExercise {
 
   rowStates: LetterState[][] = [];
   private targetWord: string = "";
+  private nextRow = 0;
+  private guessedWords: string[] = [];
   private guessRows: HTMLElement[] = [];
 
   constructor() {
@@ -247,6 +257,13 @@ export default class WordleExercise extends VisualExercise {
 
   public setTargetWord(word: string) {
     this.targetWord = word;
+  }
+
+  // A solver that guesses the same word twice has stopped learning from its
+  // results (or never stops), so scenarios treat it as a failure however the
+  // board happens to look.
+  public hasRepeatedGuess(): boolean {
+    return new Set(this.guessedWords).size !== this.guessedWords.length;
   }
 
   public statesForRow(idx: number): LetterState[] {
@@ -305,6 +322,56 @@ export default class WordleExercise extends VisualExercise {
 
   protected getTargetWord(_executionCtx: ExecutionContext): string {
     return this.targetWord;
+  }
+
+  // Plays one guess: scores it against the hidden target, draws it on the next
+  // free row, and hands the states back to the student's code. The target word
+  // never leaves the exercise, so a solver can only reason from what it returns.
+  protected guessWord(executionCtx: ExecutionContext, word: Shared.JikiObject): string[] {
+    if (!isString(word)) return [];
+
+    const guess = word.value.toLowerCase();
+    this.guessedWords.push(guess);
+    const states = this.scoreGuess(this.targetWord, guess);
+    const idx = this.nextRow;
+    this.nextRow += 1;
+
+    if (idx < NUM_ROWS) {
+      this.rowStates[idx] = states;
+      this.animateDrawGuess(executionCtx, idx, guess);
+      this.animateColorRow(executionCtx, idx, states);
+    }
+
+    return states;
+  }
+
+  // A letter is only coloured as many times as it actually occurs in the target:
+  // correct letters claim their occurrence first, then leftover letters are marked
+  // present left to right until the target's supply of that letter runs out.
+  private scoreGuess(target: string, guess: string): LetterState[] {
+    const states: LetterState[] = [];
+    const claimed: string[] = [];
+
+    for (let idx = 0; idx < guess.length; idx++) {
+      if (target[idx] === guess[idx]) {
+        states.push("correct");
+        claimed.push(guess[idx]);
+      } else {
+        states.push("absent");
+      }
+    }
+
+    for (let idx = 0; idx < guess.length; idx++) {
+      if (states[idx] === "correct") continue;
+      const letter = guess[idx];
+      const inTarget = countOccurrences(target, letter);
+      if (inTarget > countOccurrences(claimed, letter)) {
+        states[idx] = "present";
+        claimed.push(letter);
+      }
+    }
+
+    return states;
   }
 
   protected getCommonWords(_executionCtx: ExecutionContext): string[] {

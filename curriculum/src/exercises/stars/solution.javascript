@@ -1,9 +1,11 @@
-function stars(count) {
+function layoutStars(numRows) {
   let result = []
-  let star = ""
-  repeat(count) {
-    star = star + "*"
+  for (let i = numRows; i >= 1; i--) {
+    let star = ""
+    repeat(i) {
+      star = star + "*"
+    }
     result.push(star)
   }
-  return result
+  drawStars(result)
 }

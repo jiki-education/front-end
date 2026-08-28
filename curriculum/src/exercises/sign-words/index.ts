@@ -5,10 +5,17 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
+    name: "split",
+    signature: '"...".split(separator)',
+    description: "functions.split.description",
+    examples: ['"a-b-c".split("-") → ["a", "b", "c"]', '"one".split("-") → ["one"]'],
+    category: "functions.split.category"
+  },
+  {
     name: "push",
-    signature: "push(list, element)",
+    signature: "[...].push(element)",
     description: "functions.push.description",
-    examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]'],
+    examples: ['["a", "b"].push("c") → ["a", "b", "c"]', "[1, 2].push(3) → [1, 2, 3]"],
     category: "functions.push.category"
   }
 ];
@@ -20,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["string-iteration", "arrays", "building-arrays", "string-concatenation"]
+  conceptSlugs: ["arrays", "building-arrays", "string-iteration", "methods", "if"]
 };
 
 export default exerciseDefinition;

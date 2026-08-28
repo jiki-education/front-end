@@ -1,5 +1,6 @@
 {
   "checks": {
+    "repeatedGuess": "You guessed the same word more than once. Each guess should use what you learnt from the previous ones, and you should stop as soon as you've won.",
     "holeInOne": {
       "firstRow": "We expected all the letters to be green"
     },
@@ -43,42 +44,24 @@
       "thirdRow": "We expected the third row to be present, absent, present, absent, absent",
       "fourthRow": "We expected the fourth row to be correct, correct, correct, present, present",
       "fifthRow": "We expected the fifth row to be correct"
-    },
-    "bonus1": {
-      "firstRow": "We expected only the fourth letter of the first row to be present.",
-      "secondRow": "We expected the second row to be correct, absent, present, absent, absent (This is the tricky one!)",
-      "thirdRow": "We expected the third row to be correct, correct, correct, absent, absent",
-      "fourthRow": "We expected the fourth row to be correct"
-    },
-    "bonus2": {
-      "firstRow": "We expected only the first row to be present, absent, correct, absent, absent.",
-      "secondRow": "We expected the second row to be correct, correct, correct, absent, absent",
-      "thirdRow": "We expected the third row to be correct, correct, correct, absent, absent.",
-      "fourthRow": "We expected the fourth row to be correct, correct, correct, absent, correct (this is the tricky one!)",
-      "fifthRow": "We expected the fifth row to be correct, correct, correct, absent, correct.",
-      "sixthRow": "We expected the sixth row to be correct."
     }
   },
   "tasks": {
     "firstWord": {
       "name": "Get a correct word displaying",
-      "description": "Start by guessing the first word from commonWords(). If it matches, add it with all correct states."
+      "description": "The first scenario just expects you to choose the first word from `commonWords()`. That word is `which`. To pass this scenario, you need to guess that word and stop. You can check your wiring is correct before moving onto more complex situations."
     },
     "handleWrong": {
       "name": "Handle entirely wrong",
-      "description": "When a guess is entirely wrong, filter it out and try the next word."
+      "description": "Nice work on getting that first bit wired up! For this second scenario, you're expected to use two guesses. The first will again be the first word from the array (that's always the case!). That will be totally wrong, so you then need to move onto the next word in the array, which will be right!"
     },
     "handlePartial": {
       "name": "Handle partially right",
-      "description": "Use correct letter positions to narrow down guesses."
+      "description": "OK, we've got some momentum. This is where things get more fun. The next few scenarios come back as a mixture of `correct` and `absent` letters. Choose the next best word from the array based on your knowledge of the `correct` and `absent` letters you've found so far."
     },
     "handlePresent": {
       "name": "Handle present letters",
-      "description": "Use present (yellow) letters to narrow down guesses further."
-    },
-    "bonus": {
-      "name": "Bonus: Handle duplicate letters",
-      "description": "If a letter appears twice in a guess but only once in the target, only one should be yellow."
+      "description": "Fantastic! Now the final tricky bit. You need to incorporate `present` letters. Good luck, you've got this!"
     }
   },
   "scenarios": {
@@ -117,28 +100,20 @@
     "present4": {
       "name": "Another close one",
       "description": "Its fun how they diverge at the end!"
-    },
-    "bonus1": {
-      "name": "Only one yellow",
-      "description": "If there are multiple present letters for only one actual letter, only one should be yellow."
-    },
-    "bonus2": {
-      "name": "Swiss Cheese",
-      "description": "The swiss in this shows why it's important!"
     }
   },
   "hints": {
     "whereToStart": {
       "question": "Where do I even start?",
-      "answer": "Begin by always guessing the first word from `commonWords()`. Get the loop that adds a guess and checks the target working before worrying about being smart."
+      "answer": "Begin by guessing the first word from `commonWords()`. Get the loop that guesses a word and checks the result working before worrying about being smart."
     },
-    "generateStates": {
-      "question": "How do I generate the states for each guess?",
-      "answer": "Compare the guess letter-by-letter to `getTargetWord()`, exactly like in the previous Wordle exercises: `\"correct\"`, `\"present\"`, or `\"absent\"`."
+    "readStates": {
+      "question": "How do I know how my guess did?",
+      "answer": "`guess(word)` hands you back an array with one state per letter: `\"correct\"`, `\"present\"`, or `\"absent\"`. That array is the only thing you learn from a guess, so everything you know has to come from it."
     },
     "rememberLearned": {
       "question": "How do I remember what I've learned across guesses?",
-      "answer": "Keep a knowledge structure outside the loop: a list of letters known to be absent, a list of `(letter, position)` pairs that were correct, and per-position lists of letters known NOT to be there."
+      "answer": "Keep a knowledge structure outside the loop: the letters known to be absent, the letters known to be in the word somewhere, and per-position the letters you know are NOT there."
     },
     "pickNextGuess": {
       "question": "How do I pick the next guess?",
@@ -146,30 +121,41 @@
     },
     "whenToStop": {
       "question": "When do I stop?",
-      "answer": "Stop as soon as the guess equals the target word, or after `6` guesses. Otherwise you'll keep guessing past the end of the board."
+      "answer": "Stop as soon as every state comes back `\"correct\"`, or after `6` guesses. Otherwise you'll keep guessing past the end of the board."
     }
   },
   "functions": {
-    "addWord": {
-      "description": "Adds a word to the Wordle board at the given row (1-6) with its letter states.",
-      "category": "Wordle"
-    },
-    "getTargetWord": {
-      "description": "Returns the secret target word. Use this to check your guess, not to cheat!",
+    "guess": {
+      "description": "Guesses a word. It draws the word on the next row of the board, colors it in, and returns an array with the state of each letter.",
       "category": "Wordle"
     },
     "commonWords": {
-      "description": "Returns a list of 100+ common five-letter words to use as guesses.",
+      "description": "Returns an array of 100+ common five-letter words to use as guesses.",
       "category": "Wordle"
     },
     "push": {
-      "description": "Adds an element to a list and returns the new list. Does not change the original list.",
-      "category": "Lists"
+      "description": "Adds an element onto the end of an array, changing the array in place.",
+      "category": "Arrays"
+    },
+    "arrayIncludes": {
+      "description": "Check whether an array contains an item.",
+      "category": "Arrays"
+    },
+    "stringIncludes": {
+      "description": "Check whether a string contains a substring.",
+      "category": "Strings"
+    },
+    "arrayLength": {
+      "description": "The number of items in an array.",
+      "category": "Arrays"
+    },
+    "stringLength": {
+      "description": "The number of characters in a string.",
+      "category": "Strings"
     }
   },
   "describers": {
-    "addWord": "added a word to the wordle board",
-    "getTargetWord": "retrieved the target word",
-    "commonWords": "retrieved the list of common words"
+    "guess": "guessed a word",
+    "commonWords": "retrieved the array of common words"
   }
 }
