@@ -87,10 +87,12 @@ jobs:
 
           echo "✅ All required environment variables are set"
 
-      # `deploy` runs the locale completeness gate before it builds anything: a
-      # locale in PRODUCTION_LOCALES that the i18n repo no longer calls complete
-      # blocks the deploy. That can happen with no front-end commit at all, which
-      # is why the PR check is not sufficient on its own.
+      # `deploy` runs the locale completeness gate before it builds anything
+      # (`locales:verify`): the i18n repo's publisher is run against THIS tree and
+      # a production locale that comes out incomplete blocks the deploy. The PR
+      # check ran the same script on the merge ref, so this normally agrees with
+      # it; it can differ only if i18n changed between the PR going green and
+      # the merge, and that is exactly what it is here to catch.
       #
       # BYPASS_LOCALE_GUARD is a repository VARIABLE rather than a secret, so it
       # is visible in the settings UI and prints in the log. Setting it makes the
