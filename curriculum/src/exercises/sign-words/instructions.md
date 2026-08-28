@@ -9,7 +9,7 @@ They need you to make the first step of the program for them - taking the name o
 
 Write a function called <define>`signWords(businessName)`</define> that takes the business's name and returns an array of the words in it. For example, `signWords("Frank's Hotdogs")` should return `["Frank's", "Hotdogs"]`.
 
-Words are things separated by spaces. But one thing to be aware of... Sometimes customers send their business name over with multiple sequential spaces in the name by accident. If that happens, you need to ignore them, so <code>"Frank's&nbsp;&nbsp;&nbsp;Hotdogs"</code> should still return `["Frank's", "Hotdogs"]`
+Words are things separated by spaces. But one thing to be aware of... Sometimes customers send their business name over with multiple sequential spaces in the name by accident. If that happens, you need to ignore them, so `"Frank's   Hotdogs"` should still return `["Frank's", "Hotdogs"]`
 
 ### Push and Split
 

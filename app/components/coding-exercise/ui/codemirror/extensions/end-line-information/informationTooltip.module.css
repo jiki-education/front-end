@@ -67,7 +67,9 @@
 .informationTooltip :not(pre) > code {
     padding: 1px 6px;
     border-radius: 5px;
-    white-space: nowrap;
+    /* `pre` rather than `nowrap`: both keep the pill on one line, but `pre`
+       also preserves runs of spaces, which `nowrap` collapses. */
+    white-space: pre;
 }
 
 /* Code styling for description/normal tooltips */
@@ -89,6 +91,11 @@
 
 .informationTooltip pre {
     margin-top: 8px; /* mt-2 = 2 * 4px */
+}
+
+.informationTooltip pre code {
+    /* Block code wraps rather than running off the side. */
+    white-space: pre-wrap;
 }
 
 .informationTooltip p:not(:last-child) {

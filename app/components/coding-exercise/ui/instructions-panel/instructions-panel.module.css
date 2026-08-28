@@ -260,14 +260,13 @@
         font-family: "Source Code Pro", monospace;
         font-size: 16px;
         font-weight: 500;
-        /* Preserve significant whitespace inside inline code (e.g. run-length-encoding
-           examples where multiple spaces are meaningful). Inline <code> collapses
-           whitespace by default; pre-wrap keeps it while still allowing wrapping. */
-        white-space: pre-wrap;
     }
 
     :not(pre) > code {
-        white-space: nowrap;
+        /* Preserve significant whitespace inside inline code (e.g. run-length-encoding
+           examples where multiple spaces are meaningful). Inline <code> collapses
+           whitespace by default, and `nowrap` collapses it too; `pre` keeps it. */
+        white-space: pre;
     }
 
     pre {
@@ -282,6 +281,8 @@
             padding: 0;
             color: var(--color-gray-800);
             font-size: 16px;
+            /* Block code wraps rather than running off the side. */
+            white-space: pre-wrap;
         }
     }
 
