@@ -31,7 +31,7 @@
     "curriculum-copy:generate": "node scripts/generate-curriculum-copy-cache.js",
     "curriculum-copy:watch": "onchange '../curriculum/src/video-lessons/messages.json' '../curriculum/src/badges/messages.json' '../curriculum/src/exercises/**/instructions.md' -- node scripts/generate-curriculum-copy-cache.js",
     "i18n-content:generate": "node scripts/generate-i18n-content.js",
-    "i18n-content:watch": "onchange --delay 400 '../../i18n/locales/**' -- node scripts/generate-i18n-content.js {{changed}}",
+    "i18n-content:watch": "onchange '../../i18n/locales/**' -- node scripts/generate-i18n-content.js {{changed}}",
     "locales:verify": "node scripts/verify-locale-completeness.js",
     "verify:locale": "npm-run-all --parallel content:generate exercise-cache:generate interpreter-i18n:generate messages-cache:generate concept-cache:generate levels-i18n:generate curriculum-copy:generate && node scripts/verify-locale.js",
     "seed-language": "node scripts/seed-language.js",
