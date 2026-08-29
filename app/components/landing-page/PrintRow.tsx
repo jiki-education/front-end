@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { staticAsset } from "@/lib/static-asset";
 import { JoinDoodle } from "./print-row/JoinDoodle";
 import styles from "./PrintRow.module.css";
 import { useInView } from "./hooks/useInView";
@@ -36,7 +37,7 @@ export function PrintRow() {
               <video
                 className={pixel ? styles.pixel : undefined}
                 aria-label={t(key)}
-                src={`/static/images/landing-page/${file}`}
+                src={staticAsset(`images/landing-page/${file}`)}
                 autoPlay
                 loop
                 muted

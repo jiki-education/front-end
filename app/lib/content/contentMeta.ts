@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { contentIndexHashes, contentStructureHash } from "@/lib/generated/content-hashes";
 import { assetsUrl } from "@/lib/server/origin";
+import { assetsUrl as publicAssetUrl } from "@/lib/assets";
 import { readArtifactJson } from "@/lib/server/artifacts";
 import {
   contentStructurePath,
@@ -108,6 +109,44 @@ function assemble(structure: Structural, copy: Copy, type: string, locale: strin
   return Object.keys(translated)
     .filter((slug) => Object.prototype.hasOwnProperty.call(structural, slug))
     .map((slug) => ({ slug, locale, ...structural[slug], ...translated[slug] }));
+}
+
+/**
+ * Point a published `/static/...` path at the host that actually serves it.
+ *
+ * The content cache stores cover images and author avatars as root-relative
+ * paths, because the path is what both publishers agree on (see
+ * `postImageUrl` in the renderer package). Left as-is they resolve against the
+ * app origin, so the Worker serves a file that is sitting on R2 already,
+ * fingerprinted and immutable. Resolving it here — once, where the artifact is
+ * read — keeps every render site free of asset-host knowledge.
+ *
+ * `publicAssetUrl` is the SYNC client-side resolver, not the async server one:
+ * this URL lands in HTML rather than being fetched, and in development the
+ * relative path it returns is exactly what an `<img src>` wants.
+ */
+function onAssetHost(path: string): string {
+  return path.startsWith("/static/") ? publicAssetUrl(path) : path;
+}
+
+/**
+ * An assembled entry with its asset paths resolved to the asset host.
+ *
+ * Every field is checked rather than assumed: these come off a FETCHED
+ * artifact, possibly written by a different publisher or an older deploy, so an
+ * entry with no cover image, or an author with no avatar, is an ordinary
+ * runtime state. A field that is absent stays absent rather than becoming
+ * undefined.
+ */
+function withAssetHost<T extends { coverImage?: string; author?: { name: string; avatar: string } }>(entry: T): T {
+  const coverImage = typeof entry.coverImage === "string" ? onAssetHost(entry.coverImage) : undefined;
+  const avatar = typeof entry.author?.avatar === "string" ? onAssetHost(entry.author.avatar) : undefined;
+
+  return {
+    ...entry,
+    ...(coverImage === undefined ? {} : { coverImage }),
+    ...(avatar === undefined ? {} : { author: { ...entry.author, avatar } })
+  };
 }
 
 /**
@@ -341,9 +380,9 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
     return { ...EMPTY, projects, testimonials };
   }
 
-  const blog = assemble(structure, copy, "blog", locale) as BlogPostMeta[];
-  const articles = assemble(structure, copy, "articles", locale) as ArticleMeta[];
-  const guides = assemble(structure, copy, "guides", locale) as GuideMeta[];
+  const blog = (assemble(structure, copy, "blog", locale) as BlogPostMeta[]).map(withAssetHost);
+  const articles = (assemble(structure, copy, "articles", locale) as ArticleMeta[]).map(withAssetHost);
+  const guides = (assemble(structure, copy, "guides", locale) as GuideMeta[]).map(withAssetHost);
 
   return {
     blog,

@@ -1,10 +1,11 @@
 import { useTranslations } from "next-intl";
+import { staticAsset } from "@/lib/static-asset";
 import { ChatIcon, InfoIcon, LinesIcon, LogIcon, SendIcon } from "./icons";
 import type { VideoState } from "./state";
 import styles from "./LtcVideo.module.css";
 
-const JIKI_AVATAR = "/static/images/chat-jiki-avatar.png";
-const LEARNER_AVATAR = "/static/images/ltc-learner-avatar.jpg";
+const JIKI_AVATAR = staticAsset("images/chat-jiki-avatar.png");
+const LEARNER_AVATAR = staticAsset("images/ltc-learner-avatar.jpg");
 
 /** The thread, in order. `n` is the beat that reveals each message. */
 const MESSAGES = [
