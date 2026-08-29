@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { contentIndexHashes, contentStructureHash } from "@/lib/generated/content-hashes";
 import { assetsUrl } from "@/lib/server/origin";
+import { assetsUrl as publicAssetUrl } from "@/lib/assets";
 import { readArtifactJson } from "@/lib/server/artifacts";
 import {
   contentStructurePath,
@@ -107,7 +108,53 @@ function assemble(structure: Structural, copy: Copy, type: string, locale: strin
   const translated = copy[type] ?? {};
   return Object.keys(translated)
     .filter((slug) => Object.prototype.hasOwnProperty.call(structural, slug))
-    .map((slug) => ({ slug, locale, ...structural[slug], ...translated[slug] }));
+    .map((slug) => withAssetHost({ slug, locale, ...structural[slug], ...translated[slug] }));
+}
+
+/**
+ * Point a published `/static/...` path at the host that actually serves it.
+ *
+ * The content cache stores cover images and author avatars as root-relative
+ * paths, because the path is what both publishers agree on (see
+ * `postImageUrl` in the renderer package). Left as-is they resolve against the
+ * app origin, so the Worker serves a file that is sitting on R2 already,
+ * fingerprinted and immutable. Resolving it here — once, where the artifact is
+ * read — keeps every render site free of asset-host knowledge.
+ *
+ * `publicAssetUrl` is the SYNC client-side resolver, not the async server one:
+ * this URL lands in HTML rather than being fetched, and in development the
+ * relative path it returns is exactly what an `<img src>` wants.
+ */
+function onAssetHost(path: string): string {
+  return path.startsWith("/static/") ? publicAssetUrl(path) : path;
+}
+
+/**
+ * An assembled entry with its asset paths resolved to the asset host.
+ *
+ * Applied INSIDE the assemblers rather than to their results, so no entry can
+ * reach a caller with an unresolved path. Bolted onto the results it would have
+ * to be repeated per content type, and the one type assembled by its own
+ * function rather than by `assemble` - episodes, which carry an author and so
+ * an avatar - is exactly the one that would be forgotten.
+ *
+ * Every field is read defensively: these come off a FETCHED artifact, possibly
+ * written by a different publisher or an older deploy, so an entry with no
+ * cover image, or an author with no avatar, is an ordinary runtime state. A
+ * field that is absent stays absent rather than becoming undefined, and
+ * anything that is not a `/static/` path is left exactly as authored (a
+ * project's cover is a bare filename, resolved by `staticAsset` where it is
+ * rendered).
+ */
+function withAssetHost(entry: Entry): Entry {
+  const author = entry.author as { avatar?: string } | undefined;
+  const avatar = typeof author?.avatar === "string" ? onAssetHost(author.avatar) : undefined;
+
+  return {
+    ...entry,
+    ...(typeof entry.coverImage === "string" ? { coverImage: onAssetHost(entry.coverImage) } : {}),
+    ...(avatar === undefined ? {} : { author: { ...author, avatar } })
+  };
 }
 
 /**
@@ -197,14 +244,16 @@ function assembleEpisodes(structure: Structural, copy: Copy, locale: string): Ep
   // may carry none of them, and a listing is not the place to throw.
   const episodes = Object.keys(translated)
     .filter((key) => Object.prototype.hasOwnProperty.call(structural, key))
-    .map((key) => ({
-      locale,
-      summary: null,
-      tags: [],
-      readingTime: 0,
-      ...structural[key],
-      ...translated[key]
-    })) as unknown as EpisodeMeta[];
+    .map((key) =>
+      withAssetHost({
+        locale,
+        summary: null,
+        tags: [],
+        readingTime: 0,
+        ...structural[key],
+        ...translated[key]
+      })
+    ) as unknown as EpisodeMeta[];
 
   return episodes.sort((a, b) => a.order - b.order);
 }

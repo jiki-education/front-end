@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import headingArrow from "../assets/heading-arrow-loop.png";
 import styles from "./FunPrints.module.css";
 
@@ -36,7 +37,7 @@ export function FunPrints() {
               <video
                 className={pixel ? styles.pixel : undefined}
                 aria-label={t(key)}
-                src={`/static/images/landing-page/${file}`}
+                src={staticAsset(`images/landing-page/${file}`)}
                 autoPlay
                 loop
                 muted
