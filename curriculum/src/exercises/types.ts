@@ -163,7 +163,7 @@ export interface IOScenario {
   functionName: string; // The function to call
   args: Array<IOValue>; // Arguments to pass to the function (supports arrays, null, undefined)
   expected: IOExpectedValue; // Expected return value (must be defined, supports arrays but not null/undefined)
-  matcher?: "toBe" | "toEqual" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
+  matcher?: "toBe" | "toEqual" | "toEqualUnordered" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
   codeChecks?: CodeCheck[]; // Optional code quality checks
 }
 
