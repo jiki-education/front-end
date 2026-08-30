@@ -95,7 +95,7 @@ export const scenarios: IOScenario[] = [
       ["right blue sock", "right red sock", "left spotty sock", "right spotty sock"]
     ],
     expected: ["red socks", "blue socks", "spotty socks"],
-    matcher: "toEqual"
+    matcher: "toEqualUnordered"
   },
   {
     slug: "some-added-pain",
@@ -120,7 +120,7 @@ export const scenarios: IOScenario[] = [
       ["left blue sock", "right red sock", "right green trainer", "right brown shoe", "left green sock"]
     ],
     expected: ["red socks", "blue socks", "spotty socks"],
-    matcher: "toEqual"
+    matcher: "toEqualUnordered"
   },
   {
     slug: "bonus-line-count",
@@ -133,7 +133,7 @@ export const scenarios: IOScenario[] = [
       ["right red sock", "left green sock", "sweater"]
     ],
     expected: ["red socks", "blue socks"],
-    matcher: "toEqual",
+    matcher: "toEqualUnordered",
     codeChecks: locCheck
   }
 ];

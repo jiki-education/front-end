@@ -242,6 +242,9 @@ export function runIOScenarioTest(
         // Deep equality comparison
         pass = JSON.stringify(evaluationResult.value) === JSON.stringify(scenario.expected);
         break;
+      case "toEqualUnordered":
+        pass = equalsIgnoringOrder(evaluationResult.value, scenario.expected);
+        break;
       case "toBeGreaterThan":
         pass = evaluationResult.value > scenario.expected;
         break;
@@ -361,4 +364,21 @@ export function runExerciseTests(
     language,
     exercise.interpreterOptions
   );
+}
+
+// Compare two arrays as multisets - same elements, any order. Mirrors the app's
+// "toEqualUnordered" matcher in runIOScenario.ts.
+function equalsIgnoringOrder(actual: unknown, expected: unknown): boolean {
+  if (!Array.isArray(actual) || !Array.isArray(expected)) {
+    return JSON.stringify(actual) === JSON.stringify(expected);
+  }
+  if (actual.length !== expected.length) return false;
+
+  const remaining = [...expected];
+  for (const item of actual) {
+    const index = remaining.findIndex((candidate) => JSON.stringify(candidate) === JSON.stringify(item));
+    if (index === -1) return false;
+    remaining.splice(index, 1);
+  }
+  return true;
 }

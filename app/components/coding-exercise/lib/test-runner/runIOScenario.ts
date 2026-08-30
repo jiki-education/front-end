@@ -23,10 +23,33 @@ function compareValues(actual: any, expected: any, matcher: string): boolean {
       return actual === expected;
     case "toEqual":
       return isEqual(actual, expected);
+    case "toEqualUnordered":
+      return equalsIgnoringOrder(actual, expected);
     // Add more matchers as needed
     default:
       return isEqual(actual, expected); // Default to deep equality
   }
+}
+
+// Compare two arrays as multisets - same elements, any order. Used by the
+// "toEqualUnordered" matcher for exercises where the order of the returned
+// array is not part of the contract.
+function equalsIgnoringOrder(actual: any, expected: any): boolean {
+  if (!Array.isArray(actual) || !Array.isArray(expected)) {
+    return isEqual(actual, expected);
+  }
+  if (actual.length !== expected.length) {
+    return false;
+  }
+  const remaining = [...expected];
+  for (const item of actual) {
+    const index = remaining.findIndex((candidate) => isEqual(candidate, item));
+    if (index === -1) {
+      return false;
+    }
+    remaining.splice(index, 1);
+  }
+  return true;
 }
 
 // Generate diff for displaying expected vs actual values

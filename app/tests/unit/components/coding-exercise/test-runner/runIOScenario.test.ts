@@ -109,6 +109,69 @@ describe("runIOScenario", () => {
     });
   });
 
+  describe("toEqualUnordered matcher", () => {
+    function runWithReturn(value: unknown, expected: unknown) {
+      (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value,
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "function pairs() {}" }
+      });
+
+      const scenario: IOScenario = {
+        slug: "unordered",
+        name: "Unordered",
+        description: "Order of the returned array is not part of the contract",
+        taskId: "task-1",
+        functionName: "pairs",
+        args: [[], []],
+        expected: expected as IOScenario["expected"],
+        matcher: "toEqualUnordered"
+      };
+
+      return runIOScenario(
+        scenario,
+        "function pairs() {}",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
+    }
+
+    it("passes when the same elements are returned in a different order", () => {
+      const result = runWithReturn(
+        ["blue socks", "spotty socks", "red socks"],
+        ["red socks", "blue socks", "spotty socks"]
+      );
+
+      expect(result.status).toBe("pass");
+      expect(result.expects[0].pass).toBe(true);
+    });
+
+    it("fails when an element is missing", () => {
+      const result = runWithReturn(["blue socks", "red socks"], ["red socks", "blue socks", "spotty socks"]);
+
+      expect(result.status).toBe("fail");
+      expect(result.expects[0].pass).toBe(false);
+    });
+
+    it("fails when an element is duplicated rather than distinct", () => {
+      const result = runWithReturn(["red socks", "red socks"], ["red socks", "blue socks"]);
+
+      expect(result.status).toBe("fail");
+      expect(result.expects[0].pass).toBe(false);
+    });
+
+    it("falls back to deep equality for non-array values", () => {
+      expect(runWithReturn("HW", "HW").expects[0].pass).toBe(true);
+      expect(runWithReturn("HW", "WRONG").expects[0].pass).toBe(false);
+    });
+  });
+
   describe("code checks", () => {
     it("should pass when functional test passes and all code checks pass", () => {
       const mockMeta = {
