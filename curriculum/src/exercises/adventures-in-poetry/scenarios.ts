@@ -46,7 +46,7 @@ export const tasks = [
     name: "tasks.collectThePoem.name",
     description: "tasks.collectThePoem.description",
     hints: [],
-    requiredScenarios: ["hope", "wandered", "mists", "cammin", "hope-continued", "highlands", "tyger", "pleure"],
+    requiredScenarios: ["hope", "wandered", "mists", "not-lost", "hope-continued", "highlands", "tyger", "pleure"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
@@ -76,9 +76,9 @@ const poemScenarios: PoemScenario[] = [
     expected: "Season of mists and mellow fruitfulness"
   },
   {
-    slug: "cammin",
-    track: ["Nel", "", "mezzo", "del", "", "cammin", "di", "nostra", "vita", "🏁"],
-    expected: "Nel mezzo del cammin di nostra vita"
+    slug: "not-lost",
+    track: ["Not", "", "all", "those", "", "who", "wander", "are", "lost", "🏁"],
+    expected: "Not all those who wander are lost"
   },
   {
     slug: "hope-continued",

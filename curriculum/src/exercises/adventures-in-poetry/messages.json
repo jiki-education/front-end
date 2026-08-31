@@ -32,9 +32,9 @@
       "name": "Scenery next to the flag",
       "description": "A leaf sits on the square just before the checkered flag."
     },
-    "cammin": {
+    "notLost": {
       "name": "Exactly seven words",
-      "description": "A line of Dante with seven words on it."
+      "description": "A line with seven words on it, so the poet stops counting before the flag."
     },
     "hopeContinued": {
       "name": "A poem that is too long",
