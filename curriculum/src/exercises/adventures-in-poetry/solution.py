@@ -5,11 +5,9 @@ needs_space = False
 while True:
     found = move()
 
-    if found == "":
-        continue
     if found == "🏁":
         break
-    if is_emoji(found):
+    if found == "" or is_emoji(found):
         continue
     if found == "'":
         poem = poem + "'"

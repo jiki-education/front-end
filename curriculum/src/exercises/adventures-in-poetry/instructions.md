@@ -27,11 +27,12 @@ Your job is to walk the path, build up the poem, and then recite it.
 
 ## Restrictions
 
-There are lots of ways to solve this exercise, but to nudge you to use the `continue` and `break` keywords you recently learned, we have a few rules:
+There are lots of ways to solve this exercise, but to push you towards the `continue` and `break` keywords you recently learned, we have a few rules:
 
-1. You can't use `&&` or `||`.
-2. You can't write any helper functions.
-3. You're only allowed two levels of indentation, so this isn't allowed:
+1. Your solution must use both `continue` and `break`.
+2. You can't use `&&` or `!` in your solution.
+3. You can't write any helper functions.
+4. You're only allowed two levels of indentation, so this isn't allowed:
 
 ```javascript
 

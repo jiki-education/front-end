@@ -5,13 +5,10 @@ let needsSpace = false
 while (true) {
   let found = move()
 
-  if (found === "") {
-    continue
-  }
   if (found === "🏁") {
     break
   }
-  if (isEmoji(found)) {
+  if (found === "" || isEmoji(found)) {
     continue
   }
   if (found === "'") {

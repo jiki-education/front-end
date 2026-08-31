@@ -46,6 +46,19 @@ export const llmMetadata: LLMMetadata = {
         Do not hand over the guard-clause shape. Ask what should happen to the
         rest of the loop body once a square has been dealt with.
       `
+    },
+
+    "solve-tightly": {
+      description: `
+        Bonus task. The behaviour is identical to collect-the-poem, and the only
+        extra requirement is a line limit matching the canonical solution. A
+        student failing only this already has a working walk, so diagnose length,
+        not logic. The saving is usually the two skip guards: an empty square and
+        a piece of scenery are both "not part of the poem", so one guard with ||
+        covers both. Do not suggest merging the apostrophe and comma branches
+        into one - it fits the limit, but it duplicates the comma test and
+        smears one rule across two places.
+      `
     }
   }
 };

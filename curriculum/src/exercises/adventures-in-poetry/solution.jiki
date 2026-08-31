@@ -6,13 +6,10 @@ set found to ""
 repeat_forever do
   change found to move()
 
-  if found == "" do
-    next
-  end
   if found == "🏁" do
     break
   end
-  if is_emoji(found) do
+  if found == "" or is_emoji(found) do
     next
   end
   if found == "'" do
