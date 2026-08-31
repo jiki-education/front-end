@@ -195,6 +195,22 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     sky.style.background = "linear-gradient(#dceeff, #f4fbff)";
     this.view.appendChild(sky);
 
+    // A band of distant hills sitting on the grass line. Stretched to one copy
+    // across the width rather than tiled, so the horizon reads as one range
+    // instead of a repeating motif.
+    const hills = document.createElement("div");
+    hills.className = "hills";
+    hills.style.position = "absolute";
+    hills.style.bottom = "14%";
+    hills.style.left = "0";
+    hills.style.width = "100%";
+    hills.style.height = "10%";
+    hills.style.backgroundImage = "url(/static/images/exercise-assets/adventures-in-poetry/hills.svg)";
+    hills.style.backgroundSize = "100% 100%";
+    hills.style.backgroundPosition = "bottom center";
+    hills.style.backgroundRepeat = "no-repeat";
+    this.view.appendChild(hills);
+
     const grass = document.createElement("div");
     grass.className = "grass";
     grass.style.position = "absolute";
