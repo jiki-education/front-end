@@ -97,6 +97,7 @@ import {
   extractOperators,
   findMatchingStatements,
   maxLoopNestingDepth,
+  maxNestingDepth,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -201,6 +202,7 @@ export interface ExecutorResult {
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
     assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
+    countNestingDepth: () => number;
   };
 }
 
@@ -486,6 +488,7 @@ export class Executor {
           return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
         },
         assertMaxLoopNestingDepth: (depth: 1 | 2) => maxLoopNestingDepth(statements) <= depth,
+        countNestingDepth: () => maxNestingDepth(statements),
       },
     };
   }

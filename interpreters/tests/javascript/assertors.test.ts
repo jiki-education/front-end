@@ -667,4 +667,67 @@ rectangle(30, 40);`;
       expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(true);
     });
   });
+
+  describe("countNestingDepth", () => {
+    test("is 0 when there are no loops or ifs", () => {
+      expect(interpret("let x = 5;").assertors.countNestingDepth()).toBe(0);
+    });
+
+    test("counts a single loop as depth 1", () => {
+      expect(interpret("repeat(3) {\n}").assertors.countNestingDepth()).toBe(1);
+    });
+
+    test("counts a single if as depth 1", () => {
+      expect(interpret("if (true) {\n  let x = 1;\n}").assertors.countNestingDepth()).toBe(1);
+    });
+
+    test("counts an if inside a loop as depth 2", () => {
+      const code = "repeat(3) {\n  if (true) {\n    let x = 1;\n  }\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(2);
+    });
+
+    test("counts ifs the loop assertor treats as transparent", () => {
+      // assertMaxLoopNestingDepth(1) passes this - only one loop is involved.
+      const code = "repeat(3) {\n  if (true) {\n    if (false) {\n      let x = 1;\n    }\n  }\n}";
+      const result = interpret(code);
+      expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(true);
+      expect(result.assertors.countNestingDepth()).toBe(3);
+    });
+
+    test("counts an else if chain as a single level", () => {
+      const code =
+        "if (a) {\n  let x = 1;\n} else if (b) {\n  let x = 2;\n} else if (c) {\n  let x = 3;\n} else {\n  let x = 4;\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(1);
+    });
+
+    test("counts nesting inside an else if branch", () => {
+      const code = "if (a) {\n  let x = 1;\n} else if (b) {\n  repeat(3) {\n  }\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(2);
+    });
+
+    test("counts an if inside a braced else as genuinely nested", () => {
+      const code = "if (a) {\n  let x = 1;\n} else {\n  if (b) {\n    let x = 2;\n  }\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(2);
+    });
+
+    test("treats siblings as non-additive", () => {
+      const code = "if (a) {\n  let x = 1;\n}\nrepeat(3) {\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(1);
+    });
+
+    test("counts nesting inside a function body", () => {
+      const code = "function go() {\n  repeat(3) {\n    if (true) {\n      let x = 1;\n    }\n  }\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(2);
+    });
+
+    test("takes the deepest of several top level functions", () => {
+      const code =
+        "function shallow() {\n  let x = 1;\n}\nfunction deep() {\n  repeat(3) {\n    if (true) {\n      let x = 1;\n    }\n  }\n}";
+      expect(interpret(code).assertors.countNestingDepth()).toBe(2);
+    });
+
+    test("returns 0 on parse error", () => {
+      expect(interpret("let let let").assertors.countNestingDepth()).toBe(0);
+    });
+  });
 });

@@ -106,6 +106,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertOperatorUsed: () => true,
         assertStatement: () => true,
         assertMaxLoopNestingDepth: () => true,
+        countNestingDepth: () => 0,
       },
     };
   }
@@ -261,6 +262,7 @@ export function evaluateFunction(
       // TODO: JS-only for now. Implement statement matching for Python when needed.
       assertStatement: () => false,
       assertMaxLoopNestingDepth: () => true,
+      countNestingDepth: () => 0,
     },
   };
 }

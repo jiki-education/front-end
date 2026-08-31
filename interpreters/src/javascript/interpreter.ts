@@ -21,6 +21,7 @@ import {
   extractOperators,
   findMatchingStatements,
   maxLoopNestingDepth,
+  maxNestingDepth,
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
@@ -126,6 +127,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertOperatorUsed: () => true,
         assertStatement: () => true,
         assertMaxLoopNestingDepth: () => true,
+        countNestingDepth: () => 0,
       },
     };
   }
@@ -287,6 +289,7 @@ export function evaluateFunction(
         return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
       },
       assertMaxLoopNestingDepth: (depth: 1 | 2) => maxLoopNestingDepth(statements) <= depth,
+      countNestingDepth: () => maxNestingDepth(statements),
     },
   };
 }

@@ -382,6 +382,7 @@ export class Executor {
         // TODO: JS-only for now. Implement statement matching for Jikiscript when needed.
         assertStatement: () => false,
         assertMaxLoopNestingDepth: () => true,
+        countNestingDepth: () => 0,
       },
     };
   }

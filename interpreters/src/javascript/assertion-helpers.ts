@@ -148,6 +148,58 @@ export function maxLoopNestingDepth(statements: Statement[]): number {
 }
 
 /**
+ * AST node types that introduce a level of nesting. Loops plus `if` - the
+ * constructs that indent a student's code and make it harder to follow.
+ */
+const NESTING_STATEMENT_TYPES = new Set([...LOOP_STATEMENT_TYPES, "IfStatement"]);
+
+/**
+ * The bodies of every branch in an `if` / `else if` / `else` chain, flattened.
+ * An `else if` is parsed as an IfStatement in the parent's elseBranch, but it
+ * reads as a continuation of the same decision rather than a deeper level, so
+ * maxNestingDepth measures the whole chain at a single depth. An `if` inside a
+ * braced `else { ... }` is a BlockStatement and so is genuinely nested.
+ */
+function chainedIfBodies(stmt: IfStatement): Statement[] {
+  const bodies: Statement[] = [stmt.thenBranch];
+  let elseBranch = stmt.elseBranch;
+  while (elseBranch instanceof IfStatement) {
+    bodies.push(elseBranch.thenBranch);
+    elseBranch = elseBranch.elseBranch;
+  }
+  if (elseBranch) {
+    bodies.push(elseBranch);
+  }
+  return bodies;
+}
+
+/**
+ * The deepest chain of nested loops and ifs in the tree. A single loop or if is
+ * depth 1; an if inside a loop is depth 2; code with neither is 0. Blocks are
+ * transparent (they are already the body of the construct that opened them),
+ * and an `else if` chain counts once however many branches it has.
+ *
+ * Function declarations are only legal at the top level in this language, so
+ * each function body is measured from zero and the result is the deepest of
+ * them. Contrast maxLoopNestingDepth, which counts loops alone.
+ */
+export function maxNestingDepth(statements: Statement[]): number {
+  let max = 0;
+  for (const stmt of statements) {
+    let here: number;
+    if (stmt instanceof IfStatement) {
+      here = 1 + maxNestingDepth(chainedIfBodies(stmt));
+    } else if (NESTING_STATEMENT_TYPES.has(stmt.type)) {
+      here = 1 + maxNestingDepth(getSubStatements(stmt));
+    } else {
+      here = maxNestingDepth(getSubStatements(stmt));
+    }
+    max = Math.max(max, here);
+  }
+  return max;
+}
+
+/**
  * Recursively collect all statements whose AST node type matches `type`
  * (e.g. "RepeatStatement", "IfStatement"). Recurses through sub-statements
  * via getSubStatements, mirroring extractExpressions for the statement side.
