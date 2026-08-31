@@ -115,7 +115,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
 
     if (content !== "") {
       const item = document.createElement("div");
-      item.className = `item item-${index}`;
+      item.className = `item word item-${index}`;
       item.style.position = "absolute";
       item.style.bottom = "26%";
       item.style.left = "0";
@@ -123,7 +123,6 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       item.style.display = "flex";
       item.style.flexDirection = "column";
       item.style.alignItems = "center";
-      item.style.lineHeight = "1.05";
 
       // Words stack letter over letter; a single character stands on its own.
       for (const character of content) {
@@ -143,7 +142,20 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     const style = document.createElement("style");
     style.textContent = `
       #${this.view.id} { container-type: inline-size; position: relative; overflow: hidden; }
-      #${this.view.id} .letter { font-size: 3.2cqw; font-weight: 600; color: #193f7b; }
+      #${this.view.id} .word { gap: 0.4cqw; }
+      #${this.view.id} .letter {
+        font-size: 4cqw;
+        font-weight: 600;
+        color: #193f7b;
+        border: 1px solid var(--color-blue-300);
+        width: 5.5cqw;
+        height: 5.5cqw;
+        text-align: center;
+        background: white;
+        box-shadow: 0 0 3px var(--color-blue-300);
+        padding-top: 0.4cqw;
+        box-sizing: border-box;
+      }
       #${this.view.id} .poet { width: 9cqw; aspect-ratio: 101 / 82; }
       #${this.view.id} .poet img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
       #${this.view.id} .bubble { font-size: 3.4cqw; }
