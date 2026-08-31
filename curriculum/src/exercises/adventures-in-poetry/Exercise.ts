@@ -46,6 +46,22 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       transformations: { left: `${(this.position + 1) * this.stepWidth}%` }
     });
 
+    // Alternate the two frames so the poet's legs move as they walk. A hard cut
+    // rather than a fade, or the two frames ghost through each other.
+    const showsSecondFrame = this.position % 2 === 0;
+    this.addAnimation({
+      targets: `#${this.view.id} .poet-frame-1`,
+      offset: executionCtx.getCurrentTimeInMs(),
+      duration: 1,
+      transformations: { opacity: showsSecondFrame ? 0 : 1 }
+    });
+    this.addAnimation({
+      targets: `#${this.view.id} .poet-frame-2`,
+      offset: executionCtx.getCurrentTimeInMs(),
+      duration: 1,
+      transformations: { opacity: showsSecondFrame ? 1 : 0 }
+    });
+
     if (content !== "") {
       // The find drops into the poet and disappears.
       this.addAnimation({
@@ -128,7 +144,8 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     style.textContent = `
       #${this.view.id} { container-type: inline-size; position: relative; overflow: hidden; }
       #${this.view.id} .letter { font-size: 3.2cqw; font-weight: 600; color: #193f7b; }
-      #${this.view.id} .poet { font-size: 6cqw; }
+      #${this.view.id} .poet { width: 9cqw; aspect-ratio: 101 / 82; }
+      #${this.view.id} .poet img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
       #${this.view.id} .bubble { font-size: 3.4cqw; }
     `;
     this.view.appendChild(style);
@@ -167,11 +184,23 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
 
     const poet = document.createElement("div");
     poet.className = "poet";
-    poet.textContent = "🚶";
     poet.style.position = "absolute";
     poet.style.bottom = "18%";
     poet.style.left = "0%";
     poet.style.transform = "translateX(-50%)";
+
+    // Both walk frames sit stacked from the start, so swapping between them is
+    // an opacity tween the timeline can run backwards, and neither image has to
+    // be fetched mid-animation.
+    [1, 2].forEach((frame) => {
+      const image = document.createElement("img");
+      image.className = `poet-frame poet-frame-${frame}`;
+      image.src = `/static/images/exercise-assets/adventures-in-poetry/poet-${frame}.svg`;
+      image.alt = "";
+      image.style.opacity = frame === 1 ? "1" : "0";
+      poet.appendChild(image);
+    });
+
     this.view.appendChild(poet);
   }
 
