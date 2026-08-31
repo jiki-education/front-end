@@ -6,6 +6,18 @@ import metadata from "./metadata.json";
 export const FLAG = "🏁";
 const EMOJI_PATTERN = /\p{Extended_Pictographic}/u;
 
+const PUNCTUATION = "',";
+
+// The tile behind every letter, emoji and mark. The plate is `currentColor`, so
+// a tile's colour is set by the `color` on its own class and nothing else.
+const TILE_SVG = `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect x="1.5" y="1.5" width="61" height="61" rx="6.5" fill="currentColor" stroke="#6E6E6E" stroke-width="3"/>
+<circle opacity="0.5" cx="9" cy="55" r="3" fill="#6E6E6E"/>
+<circle opacity="0.5" cx="55" cy="55" r="3" fill="#6E6E6E"/>
+<circle opacity="0.5" cx="9" cy="9" r="3" fill="#6E6E6E"/>
+<circle opacity="0.5" cx="55" cy="9" r="3" fill="#6E6E6E"/>
+</svg>`;
+
 export default class AdventuresInPoetryExercise extends VisualExercise {
   protected get slug() {
     return metadata.slug;
@@ -117,7 +129,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       const item = document.createElement("div");
       item.className = `item word item-${index}`;
       item.style.position = "absolute";
-      item.style.bottom = "26%";
+      item.style.bottom = "17%";
       item.style.left = "0";
       item.style.width = "100%";
       item.style.display = "flex";
@@ -125,10 +137,18 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       item.style.alignItems = "center";
 
       // Words stack letter over letter; a single character stands on its own.
+      const kind = EMOJI_PATTERN.test(content) ? "emoji" : PUNCTUATION.includes(content) ? "mark" : "letter";
+
       for (const character of content) {
         const cell = document.createElement("div");
-        cell.className = "letter";
-        cell.textContent = character;
+        cell.className = `tile tile-${kind}`;
+        cell.innerHTML = TILE_SVG;
+
+        const glyph = document.createElement("span");
+        glyph.className = "glyph";
+        glyph.textContent = character;
+        cell.appendChild(glyph);
+
         item.appendChild(cell);
       }
 
@@ -143,20 +163,26 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     style.textContent = `
       #${this.view.id} { container-type: inline-size; position: relative; overflow: hidden; }
       #${this.view.id} .word { gap: 0.4cqw; }
-      #${this.view.id} .letter {
-        font-size: 4cqw;
-        font-weight: 600;
-        color: #193f7b;
-        border: 1px solid var(--color-blue-300);
-        width: 5.5cqw;
-        height: 5.5cqw;
-        text-align: center;
-        background: white;
-        box-shadow: 0 0 3px var(--color-blue-300);
-        padding-top: 0.4cqw;
-        box-sizing: border-box;
+      #${this.view.id} .tile {
+        position: relative;
+        width: 7cqw;
+        height: 7cqw;
+        display: grid;
+        place-items: center;
       }
-      #${this.view.id} .poet { width: 9cqw; aspect-ratio: 101 / 82; }
+      #${this.view.id} .tile svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      #${this.view.id} .glyph {
+        position: relative;
+        font-size: 5cqw;
+        font-weight: 600;
+        line-height: 1;
+      }
+      #${this.view.id} .tile-letter { color: var(--color-blue-900); }
+      #${this.view.id} .tile-letter .glyph { color: white; }
+      #${this.view.id} .tile-mark { color: var(--color-green-800); }
+      #${this.view.id} .tile-mark .glyph { color: white; }
+      #${this.view.id} .tile-emoji { color: var(--color-gray-100); }
+      #${this.view.id} .poet { width: 14cqw; aspect-ratio: 101 / 82; }
       #${this.view.id} .poet img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
       #${this.view.id} .bubble { font-size: 3.4cqw; }
     `;
@@ -175,7 +201,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     grass.style.bottom = "0";
     grass.style.left = "0";
     grass.style.width = "100%";
-    grass.style.height = "22%";
+    grass.style.height = "14%";
     grass.style.background = "linear-gradient(#8ec96a, #5aa63f)";
     this.view.appendChild(grass);
 
@@ -197,7 +223,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     const poet = document.createElement("div");
     poet.className = "poet";
     poet.style.position = "absolute";
-    poet.style.bottom = "18%";
+    poet.style.bottom = "10%";
     poet.style.left = "0%";
     poet.style.transform = "translateX(-50%)";
 
