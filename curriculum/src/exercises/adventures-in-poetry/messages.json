@@ -82,11 +82,11 @@
   },
   "functions": {
     "move": {
-      "description": "Walks the poet forward onto the next square and **gives back** whatever was on it.",
+      "description": "Walks the poet forward onto the next square and **returns** whatever was on it.",
       "category": "Movement"
     },
     "isEmoji": {
-      "description": "**Gives back** `true` if the thing you pass it is an emoji.",
+      "description": "**Returns** `true` if the thing you pass it is an emoji.",
       "category": "Checks"
     },
     "recite": {
