@@ -129,7 +129,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       const item = document.createElement("div");
       item.className = `item word item-${index}`;
       item.style.position = "absolute";
-      item.style.bottom = "17%";
+      item.style.bottom = "25%";
       item.style.left = "0";
       item.style.width = "100%";
       item.style.display = "flex";
@@ -165,15 +165,15 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       #${this.view.id} .word { gap: 0.4cqw; }
       #${this.view.id} .tile {
         position: relative;
-        width: 7cqw;
-        height: 7cqw;
+        width: 6cqw;
+        height: 6cqw;
         display: grid;
         place-items: center;
       }
       #${this.view.id} .tile svg { position: absolute; inset: 0; width: 100%; height: 100%; }
       #${this.view.id} .glyph {
         position: relative;
-        font-size: 5cqw;
+        font-size: 4cqw;
         font-weight: 600;
         line-height: 1;
       }
