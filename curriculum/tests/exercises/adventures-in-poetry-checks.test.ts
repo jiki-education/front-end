@@ -52,6 +52,25 @@ recite(poem)
     expect(failures(src).join("\n")).toContain("checks.noFunctions");
   });
 
+  it("rejects nesting past a loop and one if", () => {
+    const src = `
+let poem = ""
+while (true) {
+  let found = move()
+  if (found === "🏁") {
+    break
+  }
+  if (found !== "") {
+    if (!isEmoji(found)) {
+      poem = poem + found
+    }
+  }
+}
+recite(poem)
+`;
+    expect(failures(src).join("\n")).toContain("checks.tooDeeplyNested");
+  });
+
   it("rejects reciting more than once", () => {
     const src = `
 let poem = ""

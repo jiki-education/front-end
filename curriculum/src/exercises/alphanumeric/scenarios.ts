@@ -1,14 +1,5 @@
 import type { Task, IOScenario, CodeCheck } from "../types";
 
-// Require using continue to move past a character that has already been
-// classified, rather than nesting further conditions.
-const continueCheck: CodeCheck[] = [
-  {
-    pass: (result) => result.assertors.assertStatement("ContinueStatement"),
-    errorKey: "checks.mustUseContinue"
-  }
-];
-
 // Require the three helper functions from the instructions to each be defined
 // and actually used (called somewhere other than their own body), rather than
 // collapsing everything into a single inline pass.
@@ -45,14 +36,6 @@ export const tasks = [
     description: "tasks.classifyString.description",
     hints: [],
     requiredScenarios: ["duck", "number", "alphanumeric", "not-alphanumeric-1", "not-alphanumeric-2"],
-    bonus: false
-  },
-  {
-    id: "use-continue" as const,
-    name: "tasks.useContinue.name",
-    description: "tasks.useContinue.description",
-    hints: [],
-    requiredScenarios: ["alphanumeric-uses-continue"],
     bonus: false
   },
   {
@@ -111,16 +94,6 @@ export const scenarios: IOScenario[] = [
     args: ["42 Rubber Duck!"],
     expected: "Unknown",
     codeChecks: helpersCheck
-  },
-  {
-    slug: "alphanumeric-uses-continue",
-    name: "scenarios.alphanumericUsesContinue.name",
-    description: "scenarios.alphanumericUsesContinue.description",
-    taskId: "use-continue",
-    functionName: "what_am_i",
-    args: ["Duck42"],
-    expected: "Alphanumeric",
-    codeChecks: continueCheck
   },
   {
     slug: "alphanumeric-bonus-line-count",

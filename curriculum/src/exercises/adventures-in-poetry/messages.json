@@ -9,9 +9,8 @@
     "wrongPoem": "The poet recited \"{{got}}\" but the poem should be \"{{expected}}\".",
     "noLogicalOperators": "This exercise is about a different way of making decisions, so <code>&&</code> and <code>||</code> are not allowed here.",
     "noFunctions": "Write your solution as one walk, without defining any functions of your own.",
-    "needsContinue": "Your solution needs to use <code>continue</code>.",
-    "needsBreak": "Your solution needs to use <code>break</code>.",
-    "reciteOnce": "The poet should recite the poem once, after the walk has finished."
+    "reciteOnce": "The poet should recite the poem once, after the walk has finished.",
+    "tooDeeplyNested": "Your code nests too deeply. You are only allowed two levels, so a loop with an <code>if</code> inside it, but nothing inside that <code>if</code>."
   },
   "tasks": {
     "collectThePoem": {

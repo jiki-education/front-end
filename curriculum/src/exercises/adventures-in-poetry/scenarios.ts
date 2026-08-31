@@ -10,9 +10,8 @@ import type AdventuresInPoetryExercise from "./Exercise";
 //   - no user-defined functions, so the body can't be moved somewhere the
 //     nesting counter starts again from zero
 //
-// TODO: `countNestingDepth() <= 2` is still to be added to the interpreter
-// assertors. Until it lands the sibling-`if` shape passes these checks, so the
-// guard list is taught but not yet enforced.
+// Together these leave the flat guard list as the only shape that fits, so
+// `continue` and `break` are arrived at rather than demanded by name.
 const styleChecks: CodeCheck[] = [
   {
     pass: (result, language) => {
@@ -27,12 +26,8 @@ const styleChecks: CodeCheck[] = [
     errorKey: "checks.noFunctions"
   },
   {
-    pass: (result) => result.assertors.assertStatement("ContinueStatement"),
-    errorKey: "checks.needsContinue"
-  },
-  {
-    pass: (result) => result.assertors.assertStatement("BreakStatement"),
-    errorKey: "checks.needsBreak"
+    pass: (result) => result.assertors.countNestingDepth() <= 2,
+    errorKey: "checks.tooDeeplyNested"
   },
   {
     pass: (result) => result.assertors.numFunctionCallsInCode("recite") === 1,
