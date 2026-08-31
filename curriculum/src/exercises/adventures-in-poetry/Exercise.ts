@@ -8,14 +8,26 @@ const EMOJI_PATTERN = /\p{Extended_Pictographic}/u;
 
 const PUNCTUATION = "',";
 
+// The bubble hangs from this line, growing upwards as the poem wraps, and the
+// tail straddles it. The tail is kept inside these bounds so it never lands on
+// a rounded corner of the bubble.
+const BUBBLE_BOTTOM = 28;
+
+// The poet is POET_WIDTH cqw wide and centred on its square. The container is
+// `container-type: inline-size`, so 1cqw is 1% of the same box a `left`
+// percentage resolves against, and the two units are interchangeable here.
+const POET_WIDTH = 14;
+const TAIL_MIN_PERCENT = 11;
+const TAIL_MAX_PERCENT = 89;
+
 // The tile behind every letter, emoji and mark. The plate is `currentColor`, so
 // a tile's colour is set by the `color` on its own class and nothing else.
 const TILE_SVG = `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<rect x="1.5" y="1.5" width="61" height="61" rx="6.5" fill="currentColor" stroke="#6E6E6E" stroke-width="3"/>
-<circle opacity="0.5" cx="9" cy="55" r="3" fill="#6E6E6E"/>
-<circle opacity="0.5" cx="55" cy="55" r="3" fill="#6E6E6E"/>
-<circle opacity="0.5" cx="9" cy="9" r="3" fill="#6E6E6E"/>
-<circle opacity="0.5" cx="55" cy="9" r="3" fill="#6E6E6E"/>
+<rect x="1.5" y="1.5" width="61" height="61" rx="6.5" fill="currentColor" stroke="#222222" stroke-width="3"/>
+<circle opacity="0.5" cx="9" cy="55" r="3" fill="#222222"/>
+<circle opacity="0.5" cx="55" cy="55" r="3" fill="#222222"/>
+<circle opacity="0.5" cx="9" cy="9" r="3" fill="#222222"/>
+<circle opacity="0.5" cx="55" cy="9" r="3" fill="#222222"/>
 </svg>`;
 
 export default class AdventuresInPoetryExercise extends VisualExercise {
@@ -106,13 +118,34 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     this.recitedPoem = poem.value;
     this.recited = true;
 
+    // The poet turns to face the reader before reciting. The flip goes on the
+    // images rather than the container, whose transform is doing the centring.
+    this.addAnimation({
+      targets: `#${this.view.id} .poet img`,
+      offset: executionCtx.getCurrentTimeInMs(),
+      duration: 250,
+      transformations: { scaleX: -1 }
+    });
+
     this.addAnimation({
       targets: `#${this.view.id} .bubble`,
-      offset: executionCtx.getCurrentTimeInMs(),
+      offset: executionCtx.getCurrentTimeInMs() + 250,
       duration: 1,
       transformations: { innerHTML: poem.value }
     });
-    this.animateIntoView(executionCtx, `#${this.view.id} .bubble`, { duration: 300, offset: 1 });
+    // Point the tail at the poet's left edge, not their centre.
+    const poetPercent = (this.position + 1) * this.stepWidth - POET_WIDTH / 2;
+    const tailPercent = Math.min(Math.max(poetPercent, TAIL_MIN_PERCENT), TAIL_MAX_PERCENT);
+    this.addAnimation({
+      targets: `#${this.view.id} .bubble-tail`,
+      offset: executionCtx.getCurrentTimeInMs() + 250,
+      duration: 1,
+      transformations: { left: `${tailPercent}%` }
+    });
+
+    this.animateIntoView(executionCtx, `#${this.view.id} .bubble`, { duration: 300, offset: 251 });
+    this.animateIntoView(executionCtx, `#${this.view.id} .bubble-tail`, { duration: 300, offset: 251 });
+    executionCtx.fastForward(300);
   }
 
   private addSquare(index: number, content: string) {
@@ -162,7 +195,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     const style = document.createElement("style");
     style.textContent = `
       #${this.view.id} { container-type: inline-size; position: relative; overflow: hidden; }
-      #${this.view.id} .word { gap: 0.4cqw; }
+      #${this.view.id} .word { gap: 0.2cqw; }
       #${this.view.id} .tile {
         position: relative;
         width: 6cqw;
@@ -173,18 +206,34 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
       #${this.view.id} .tile svg { position: absolute; inset: 0; width: 100%; height: 100%; }
       #${this.view.id} .glyph {
         position: relative;
-        font-size: 4cqw;
+        font-size: 3.5cqw;
         font-weight: 600;
         line-height: 1;
+        filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5));
       }
-      #${this.view.id} .tile-letter { color: var(--color-blue-900); }
+      #${this.view.id} .tile-letter { color: var(--color-blue-700); }
       #${this.view.id} .tile-letter .glyph { color: white; }
-      #${this.view.id} .tile-mark { color: var(--color-green-800); }
+      #${this.view.id} .tile-mark { color: var(--color-green-500); }
       #${this.view.id} .tile-mark .glyph { color: white; }
       #${this.view.id} .tile-emoji { color: var(--color-gray-100); }
       #${this.view.id} .poet { width: 14cqw; aspect-ratio: 101 / 82; }
       #${this.view.id} .poet img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-      #${this.view.id} .bubble { font-size: 3.4cqw; }
+      #${this.view.id} .bubble {
+        font-size: 5cqw;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--color-blue-800);
+      }
+      #${this.view.id} .bubble-tail {
+        position: absolute;
+        box-sizing: border-box;
+        width: 4cqw;
+        height: 4cqw;
+        background: white;
+        border-right: 0.6cqw solid var(--color-blue-800);
+        border-bottom: 0.6cqw solid var(--color-blue-800);
+        transform: translateX(-50%) rotate(45deg);
+      }
     `;
     this.view.appendChild(style);
 
@@ -192,7 +241,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     sky.className = "sky";
     sky.style.position = "absolute";
     sky.style.inset = "0";
-    sky.style.background = "linear-gradient(#dceeff, #f4fbff)";
+    sky.style.background = "white";
     this.view.appendChild(sky);
 
     // A band of distant hills sitting on the grass line. Stretched to one copy
@@ -204,7 +253,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     hills.style.bottom = "14%";
     hills.style.left = "0";
     hills.style.width = "100%";
-    hills.style.height = "10%";
+    hills.style.height = "35%";
     hills.style.backgroundImage = "url(/static/images/exercise-assets/adventures-in-poetry/hills.svg)";
     hills.style.backgroundSize = "100% 100%";
     hills.style.backgroundPosition = "bottom center";
@@ -224,17 +273,30 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     const bubble = document.createElement("div");
     bubble.className = "bubble";
     bubble.style.position = "absolute";
-    bubble.style.top = "4%";
-    bubble.style.left = "8%";
-    bubble.style.width = "84%";
-    bubble.style.padding = "2% 3%";
+    bubble.style.bottom = `${BUBBLE_BOTTOM}%`;
+    bubble.style.left = "6%";
+    bubble.style.right = "6%";
+    bubble.style.padding = "3% 4%";
     bubble.style.boxSizing = "border-box";
     bubble.style.textAlign = "center";
     bubble.style.background = "#ffffff";
-    bubble.style.border = "2px solid #193f7b";
-    bubble.style.borderRadius = "10px";
+    bubble.style.border = "0.6cqw solid var(--color-blue-800)";
+    bubble.style.borderRadius = "2.5cqw";
+    bubble.style.boxShadow = "0 0 8px var(--color-blue-200)";
     bubble.style.opacity = "0";
+    bubble.style.zIndex = "3";
     this.view.appendChild(bubble);
+
+    // Sits on the bubble's bottom edge, half in and half out, and is moved to
+    // the poet's column when they recite. Above the bubble, so its white fill
+    // covers the run of border it stands on.
+    const tail = document.createElement("div");
+    tail.className = "bubble-tail";
+    tail.style.bottom = `calc(${BUBBLE_BOTTOM}% - 2cqw)`;
+    tail.style.left = "50%";
+    tail.style.opacity = "0";
+    tail.style.zIndex = "4";
+    this.view.appendChild(tail);
 
     const poet = document.createElement("div");
     poet.className = "poet";
@@ -242,6 +304,7 @@ export default class AdventuresInPoetryExercise extends VisualExercise {
     poet.style.bottom = "10%";
     poet.style.left = "0%";
     poet.style.transform = "translateX(-50%)";
+    poet.style.zIndex = "2";
 
     // Both walk frames sit stacked from the start, so swapping between them is
     // an opacity tween the timeline can run backwards, and neither image has to

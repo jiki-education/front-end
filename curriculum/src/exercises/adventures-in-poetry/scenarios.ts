@@ -46,7 +46,7 @@ export const tasks = [
     name: "tasks.collectThePoem.name",
     description: "tasks.collectThePoem.description",
     hints: [],
-    requiredScenarios: ["hope", "wandered", "mists", "not-lost", "hope-continued", "highlands", "tyger", "pleure"],
+    requiredScenarios: ["not-lost", "hope", "wandered", "mists", "hope-continued", "highlands", "tyger", "pleure"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
@@ -61,6 +61,11 @@ interface PoemScenario {
 
 const poemScenarios: PoemScenario[] = [
   {
+    slug: "not-lost",
+    track: ["Not", "", "all", "those", "", "who", "wander", "are", "lost", "🏁"],
+    expected: "Not all those who wander are lost"
+  },
+  {
     slug: "hope",
     track: ["Hope", "", "is", "the", "", "thing", "with", "", "feathers", "🏁"],
     expected: "Hope is the thing with feathers"
@@ -74,11 +79,6 @@ const poemScenarios: PoemScenario[] = [
     slug: "mists",
     track: ["Season", "of", "", "mists", "🦋", "and", "mellow", "", "fruitfulness", "🌿", "🏁"],
     expected: "Season of mists and mellow fruitfulness"
-  },
-  {
-    slug: "not-lost",
-    track: ["Not", "", "all", "those", "", "who", "wander", "are", "lost", "🏁"],
-    expected: "Not all those who wander are lost"
   },
   {
     slug: "hope-continued",
