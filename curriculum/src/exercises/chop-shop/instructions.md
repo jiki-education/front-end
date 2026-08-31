@@ -37,7 +37,7 @@ It's easiest with this to think of the inner arrays - the pairs of names and dur
 Indexing works the same as it does everywhere else, but you can chain indexes together like this...
 
 ```javascript
-const cuts = [
+let cuts = [
   ["Mohawk", 20],
   ["Slicked-Back Pixie", 15],
   ["Bob", 25],
