@@ -38,7 +38,7 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   // Handle user-defined functions differently from external functions
   if (callable instanceof JSUserDefinedFunction) {
-    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults, expression);
     executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
     return result;
   }
@@ -130,7 +130,8 @@ function executeUserDefinedFunction(
   executor: Executor,
   callable: JSUserDefinedFunction,
   argJikiObjects: JikiObject[],
-  argResults: EvaluationResult[]
+  argResults: EvaluationResult[],
+  expression: CallExpression
 ): EvaluationResultCallExpression {
   const declaration = callable.getDeclaration();
   // Create new environment with the closure (definition-time) environment as parent,
@@ -147,7 +148,11 @@ function executeUserDefinedFunction(
     );
   }
 
-  // Execute function body in new environment
+  // Execute function body in new environment. The call stack is pushed here rather
+  // than at the top of the function so that argument binding, which cannot recurse,
+  // stays outside the guarded region; the pop is in a finally so an early return
+  // (which unwinds as a ReturnValue throw) still unwinds the stack correctly.
+  executor.pushCallStack(callable.name, expression.location);
   try {
     executor.executeBlock(declaration.body, environment);
     // No return statement - return undefined
@@ -173,6 +178,8 @@ function executeUserDefinedFunction(
     }
     // Re-throw other errors
     throw error;
+  } finally {
+    executor.popCallStack();
   }
 }
 

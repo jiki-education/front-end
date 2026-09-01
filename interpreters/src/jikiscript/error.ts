@@ -130,6 +130,7 @@ export type RuntimeErrorType =
   | "StateErrorExpectedFunctionNotFoundInScope"
   | "StateErrorInfiniteLoopDetectedInExecution"
   | "StateErrorInfiniteRecursionDetectedInFunction"
+  | "MaxTotalCallDepthReached"
   | "StateErrorMaxIterationsReachedInLoop"
   | "StateErrorMaxTotalExecutionTimeExceeded"
   | "ThisKeywordUsedOutsideOfMethodContext"

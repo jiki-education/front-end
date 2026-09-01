@@ -114,6 +114,8 @@ export type RuntimeErrorType =
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
   | "MaxIterationsReached"
+  | "InfiniteRecursionDetected"
+  | "MaxTotalCallDepthReached"
   | "FunctionAlreadyDefined";
 
 export class RuntimeError extends Error {
@@ -166,6 +168,9 @@ export class Executor {
   private readonly timePerFrame: number = 1;
   private totalLoopIterations = 0;
   private readonly maxTotalLoopIterations: number;
+  private readonly callStack: string[] = [];
+  private readonly maxRecursiveCallsPerFunction: number;
+  private readonly maxTotalCallDepth: number;
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
@@ -181,9 +186,13 @@ export class Executor {
       allowTruthiness: false, // Default to false for educational purposes
       allowTypeCoercion: false,
       maxTotalLoopIterations: 1000, // Default limit to prevent infinite loops
+      maxRecursiveCallsPerFunction: 10,
+      maxTotalCallDepth: 10,
       ...context.languageFeatures,
     };
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
+    this.maxRecursiveCallsPerFunction = this.languageFeatures.maxRecursiveCallsPerFunction ?? 10;
+    this.maxTotalCallDepth = this.languageFeatures.maxTotalCallDepth ?? 10;
 
     // Register builtin functions (like print) as PyStdLibFunction objects
     for (const [name, builtin] of Object.entries(builtinFunctions)) {
@@ -574,6 +583,36 @@ export class Executor {
       log: this.log.bind(this),
       languageFeatures: this.languageFeatures,
     };
+  }
+
+  /**
+   * Record entry into a user-defined function and guard against runaway recursion.
+   *
+   * Two conditions, because they catch different shapes of the same bug. A count of
+   * one name catches the common case - a function calling itself - and can say so
+   * precisely, since many copies of a single name on the stack can only mean
+   * self-reference. The overall depth catches mutual recursion, where a cycle of n
+   * functions reaches n times the per-function limit before any one name trips, and
+   * so acts as the backstop that keeps us clear of the host engine's native stack.
+   */
+  public pushCallStack(name: string, location: Location) {
+    this.callStack.push(name);
+
+    if (this.callStack.filter(n => n === name).length > this.maxRecursiveCallsPerFunction) {
+      this.error("InfiniteRecursionDetected", location, {
+        name: name,
+        max: this.maxRecursiveCallsPerFunction,
+      });
+    }
+    if (this.callStack.length > this.maxTotalCallDepth) {
+      this.error("MaxTotalCallDepthReached", location, {
+        max: this.maxTotalCallDepth,
+      });
+    }
+  }
+
+  public popCallStack() {
+    this.callStack.pop();
   }
 
   public addFunctionCallToLog(name: string, args: any[], returnValue: any) {

@@ -44,6 +44,13 @@ export interface LanguageFeatures {
   requireSemicolons?: boolean;
   enforceFormatting?: boolean;
   maxTotalLoopIterations?: number;
+  // Guards against runaway recursion. maxRecursiveCallsPerFunction bounds how many
+  // times a single function may appear on the call stack at once, which is what
+  // catches a function that calls itself; maxTotalCallDepth bounds the stack as a
+  // whole, which catches mutual recursion spread across several functions before it
+  // can exhaust the host engine's native stack.
+  maxRecursiveCallsPerFunction?: number;
+  maxTotalCallDepth?: number;
   repeatDelay?: number;
   /**
    * Enable native JavaScript behavior for edge cases that don't make pedagogical sense.

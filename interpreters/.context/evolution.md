@@ -426,3 +426,60 @@ This historical context helps understand architectural decisions but is not requ
 ### Impact
 
 These changes ensure consistent behavior between JavaScript and Python interpreters, particularly around error handling and external function integration. The success flag fix was critical for proper UI integration, as the UI relies on this flag to determine if execution completed successfully.
+
+## 2026-09-01: Recursion Guards Across All Three Interpreters
+
+### Problem
+
+Runaway recursion in student code exhausted the host engine's native stack. The
+resulting native `RangeError` escaped `Executor.execute` and was caught by the
+parse-error handler in `interpreter.ts`, so it was returned as `error` with
+`frames: []`. Students saw the raw engine string with an empty scrubber:
+`Maximum call stack size exceeded` on V8, `InternalError: too much recursion` on
+SpiderMonkey. JikiScript had a partial guard (a hardcoded limit of 5 calls to the
+same function name); JavaScript and Python had none.
+
+### Changes Made
+
+1. **Two guard conditions, both configurable per exercise**
+   - `maxRecursiveCallsPerFunction` - how many times one function name may appear
+     on the call stack at once. Catches the common case, a function calling
+     itself, and can name it precisely: many copies of a single name can only
+     mean self-reference.
+   - `maxTotalCallDepth` - the size of the call stack as a whole. Catches mutual
+     recursion, where a cycle of n functions reaches n times the per-function
+     limit before any single name trips, and acts as the backstop against the
+     native stack.
+   - Both default to 10 and are settable via `languageFeatures`.
+
+2. **Implementation**
+   - JavaScript and Python: a `callStack: string[]` on the executor, with
+     `pushCallStack`/`popCallStack` wrapping the body execution in
+     `executeUserDefinedFunction`. Pushed after argument binding (which cannot
+     recurse) and popped in a `finally`, so an early return - which unwinds as a
+     `ReturnValue` throw - still unwinds the stack correctly.
+   - JikiScript: reused the existing `functionCallStack`, replacing the hardcoded
+     `> 5` with `maxRecursiveCallsPerFunction` and adding the depth condition.
+
+3. **Errors**
+   - JavaScript/Python: `InfiniteRecursionDetected` and `MaxTotalCallDepthReached`.
+   - JikiScript: kept `StateErrorInfiniteRecursionDetectedInFunction` for the
+     name condition, added `MaxTotalCallDepthReached`.
+   - All have `en` and `system` translation entries.
+
+### Impact
+
+Runaway recursion now produces a normal error frame at the call site with
+`error: null` on the result, matching how `MaxIterationsReached` handles infinite
+loops, instead of an untranslated engine error and an empty scrubber. The whole
+existing test corpus (3673 tests) passes at the default of 10, so no current
+exercise recurses deeper than that.
+
+### Known Gap
+
+Neither guard covers native recursion that involves no function call at all.
+`let a = [1]; a.push(a)` still overflows the stack via `JSArray.toString`
+(`jsObjects/JSArray.ts`), which walks elements with no cycle detection and is
+invoked by the frame describer. `unwrapJSObject` (`jsObjects/index.ts`) is a
+second unguarded walker over the same shapes. The fix is cycle detection
+rendering `[Circular]`, matching real JavaScript, not a call guard.

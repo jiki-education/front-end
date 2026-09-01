@@ -65,6 +65,8 @@
       "AttributeError": "AttributeError: attribute: {{attribute}}: type: {{type}}",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
+      "InfiniteRecursionDetected": "InfiniteRecursionDetected: name: {{name}}: max: {{max}}",
+      "MaxTotalCallDepthReached": "MaxTotalCallDepthReached: max: {{max}}",
       "MaxIterationsReached": "MaxIterationsReached: max: {{max}}",
       "FunctionAlreadyDefined": "FunctionAlreadyDefined: name: {{name}}",
       "ValueError": "ValueError: {{message}}"
