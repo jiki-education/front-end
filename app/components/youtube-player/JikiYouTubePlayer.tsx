@@ -42,7 +42,7 @@ export interface JikiYouTubePlayerHandle {
 
 export interface JikiYouTubePlayerProps {
   videoId: string;
-  /** Video title, shown on the start facade and used as the iframe title. */
+  /** Video title. Not shown on the facade — used for the iframe title and ARIA labels. */
   title?: string;
   /** Poster image for the start facade. Defaults to the YouTube thumbnail. */
   poster?: string;
@@ -199,7 +199,11 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
               // captions, needed for per-language dubs) is reachable.
               controls: 1,
               modestbranding: 1,
+              // Since 2018 rel=0 no longer removes end-screen suggestions, it
+              // only restricts them to this channel. The end overlay is what
+              // actually hides them.
               rel: 0,
+              // No annotations/cards over the video.
               iv_load_policy: 3,
               playsinline: 1,
               cc_load_policy: 0,
@@ -213,10 +217,10 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
           onError={() => setIsReady(true)}
         />
       ) : (
-        <StartFacade
+        <PosterFacade
           posterSrc={posterSrc}
           fallbackPosterSrc={fallbackPosterSrc}
-          title={title}
+          label={title ? `Play ${title}` : "Play"}
           onActivate={() => setActivated(true)}
         />
       )}
@@ -227,31 +231,51 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
         </div>
       )}
 
-      {/* End bookend: covers YouTube's suggested-video grid with our own replay. */}
-      {activated && phase === "ended" && <EndOverlay onReplay={handleReplay} />}
+      {/* End bookend: the same poster + play button as the start, which both
+          hides YouTube's suggested-video grid and returns the player to the
+          state the viewer first saw. */}
+      {activated && phase === "ended" && (
+        <PosterFacade
+          posterSrc={posterSrc}
+          fallbackPosterSrc={fallbackPosterSrc}
+          label="Replay"
+          entering
+          onActivate={handleReplay}
+        />
+      )}
     </div>
   );
 });
 
 export default JikiYouTubePlayer;
 
-// Start facade — shown before the iframe mounts, so no request hits YouTube
-// (beyond the poster image) until the viewer chooses to play.
-function StartFacade({
+// The poster + play button shown both before the iframe mounts (so no request
+// hits YouTube beyond the poster image until the viewer chooses to play) and
+// again once the video ends, where it doubles as the cover over YouTube's
+// suggested-video grid.
+function PosterFacade({
   posterSrc,
   fallbackPosterSrc,
-  title,
+  label,
+  entering = false,
   onActivate
 }: {
   posterSrc: string;
   fallbackPosterSrc?: string;
-  title?: string;
+  label: string;
+  /** Fade in on mount. Used by the end screen, which replaces a visible video. */
+  entering?: boolean;
   onActivate: () => void;
 }) {
   const [src, setSrc] = useState(posterSrc);
 
   return (
-    <button type="button" className={styles.facade} onClick={onActivate} aria-label={title ? `Play ${title}` : "Play"}>
+    <button
+      type="button"
+      className={`${styles.facade} ${entering ? styles.facadeEntering : ""}`}
+      onClick={onActivate}
+      aria-label={label}
+    >
       {/* Plain <img>: the poster is an external YouTube thumbnail and images are
           served unoptimized (see next.config), so next/image adds no benefit. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -268,22 +292,9 @@ function StartFacade({
         }}
       />
       <span className={styles.facadeScrim} />
-      {title && <span className={styles.facadeTitle}>{title}</span>}
       <span className={styles.bigPlayButton}>
         <PlayIcon className={styles.bigPlayIcon} aria-hidden="true" />
       </span>
     </button>
-  );
-}
-
-// Covers YouTube's end-screen suggested-video grid with our own scrim and a
-// single replay action, keeping the post-video state on-brand.
-function EndOverlay({ onReplay }: { onReplay: () => void }) {
-  return (
-    <div className={styles.stateOverlay}>
-      <button type="button" className={styles.bigPlayButton} onClick={onReplay} aria-label="Replay">
-        <PlayIcon className={styles.bigPlayIcon} aria-hidden="true" />
-      </button>
-    </div>
   );
 }

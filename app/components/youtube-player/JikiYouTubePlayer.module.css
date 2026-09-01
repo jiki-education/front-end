@@ -1,9 +1,13 @@
+/* Square corners and a bare frame, matching the Mux player: v10's skin defaults
+   to --media-border-radius: 0 and JikiVideoPlayer keeps it there, so both
+   players inherit their rounding from whatever container holds them (in the
+   episode flow, EpisodeVideo's .videoContainer). Rounding here as well would
+   nest a second radius inside that one. */
 .player {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: 12px;
     background: var(--color-black, #000);
     isolation: isolate;
 }
@@ -57,7 +61,32 @@
     }
 }
 
-/* ---- Start facade ---- */
+/* ---- Poster facade (start + end) ---- */
+
+/* At the end the facade replaces a still-visible video frame, so it fades in
+   rather than cutting. Matches the iframe's own 200ms handoff, but slower — the
+   end screen is a resting state, not a load. Only the end screen animates: at
+   the start the poster IS the first paint, and fading that in would just look
+   like a slow load. */
+.facadeEntering {
+    animation: facade-fade-in 450ms ease both;
+}
+
+@keyframes facade-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .facadeEntering {
+        animation: none;
+    }
+}
 
 .facade {
     position: absolute;
@@ -80,33 +109,19 @@
     object-fit: cover;
 }
 
+/* A gentle wash so the play button reads against any poster. */
 .facadeScrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 100%);
 }
 
-.facadeTitle {
-    position: absolute;
-    top: 20px;
-    inset-inline-start: 24px;
-    inset-inline-end: 24px;
-    color: var(--color-white, #fff);
-    font-size: 20px;
-    font-weight: 600;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* ---- End overlay ---- */
-
-/* Blocks pointer events so YouTube's end-screen suggestions underneath are
-   neither visible nor clickable; only our replay button is interactive. */
-.stateOverlay {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: color-mix(in srgb, var(--color-purple-950) 55%, transparent);
+/* The poster and scrim are positioned, so they'd paint over a statically
+   positioned play button regardless of DOM order. Lift the button (and title)
+   into the same positioned layer so it stays on top of both. */
+.facade > .bigPlayButton {
+    position: relative;
+    z-index: 1;
 }
 
 /* ---- Big centred play / replay button ---- */

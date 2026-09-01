@@ -8,6 +8,7 @@ const YT_PAUSED = 2;
 
 interface YouTubeMockProps {
   videoId: string;
+  className?: string;
   onReady?: (event: { target: unknown }) => void;
   onStateChange?: (event: { data: number; target: unknown }) => void;
   onError?: () => void;
@@ -33,7 +34,8 @@ jest.mock("react-youtube", () => ({
   __esModule: true,
   default: (props: YouTubeMockProps) => {
     latestProps = props;
-    return <div data-testid="yt-iframe" data-video-id={props.videoId} />;
+    // Carries className through so tests can assert on the loading/visible state.
+    return <div data-testid="yt-iframe" data-video-id={props.videoId} className={props.className} />;
   }
 }));
 
@@ -134,6 +136,22 @@ describe("JikiYouTubePlayer", () => {
 
       expect(onEnded).toHaveBeenCalled();
     });
+
+    it("stops holding the frame behind the spinner when YouTube errors", () => {
+      render(<JikiYouTubePlayer videoId="abc123" />);
+
+      fireEvent.click(screen.getByRole("button"));
+      const iframe = screen.getByTestId("yt-iframe");
+      expect(iframe).toHaveClass("iframeWrapperHidden");
+
+      // An unavailable video never fires onReady, so onError has to clear the
+      // loading state or the spinner spins forever over YouTube's own error.
+      act(() => {
+        latestProps?.onError?.();
+      });
+
+      expect(iframe).not.toHaveClass("iframeWrapperHidden");
+    });
   });
 
   describe("end overlay", () => {
@@ -160,6 +178,16 @@ describe("JikiYouTubePlayer", () => {
       expect(fakePlayer.seekTo).toHaveBeenCalledWith(0, true);
       // Seeking out of ENDED does not reliably resume on its own.
       expect(fakePlayer.playVideo).toHaveBeenCalled();
+    });
+
+    it("shows the poster again on the end screen, covering YouTube's suggestions", () => {
+      render(<JikiYouTubePlayer videoId="abc123" />);
+
+      activateAndReady();
+      fireState(YT_ENDED);
+
+      const replay = screen.getByLabelText("Replay");
+      expect(replay.querySelector("img")).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/maxresdefault.jpg");
     });
 
     it("hides the overlay once playback resumes", () => {
