@@ -11,17 +11,18 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches guard clauses: using continue to abandon an iteration
     early, and break to leave the loop entirely, instead of wrapping the body of
-    a loop in a condition. Logical operators are banned so that the student
-    cannot collapse the skip conditions into one wrapping if.
+    a loop in a condition. && and ! are banned so the skip conditions cannot be
+    collapsed into one wrapping if, and so De Morgan cannot hand the ban back.
+    || is allowed, and the flat guard list is the shortest correct shape.
 
     Anchor steps, in the order a student should get them working:
-    1. A loop that calls move() and stops at the checkered flag.
-    2. Skipping bare grass, so empty squares add nothing.
-    3. Skipping scenery with isEmoji(), placed AFTER the flag check.
-    4. Joining words with a space, without a leading space on the first word.
-    5. Apostrophe and comma squares, which need a flag variable carried between
+    1. A loop that calls move() and breaks at the checkered flag, checked first.
+    2. Skipping squares that are not part of the poem, both bare grass and
+       scenery. The flag is an emoji too, so this must come after the flag check.
+    3. Joining words with a space, without a leading space on the first word.
+    4. Apostrophe and comma squares, which need a flag variable carried between
        iterations to control the spacing.
-    6. Stopping at seven words as a second exit, with recite() after the loop.
+    5. Stopping at seven words as a second exit, with recite() after the loop.
   `,
 
   tasks: {
