@@ -64,7 +64,7 @@
     },
     "yasegaeru": {
       "name": "A line of Issa",
-      "description": "Seven words of haiku, with a line limit to keep your guards tight."
+      "description": "Seven words of haiku, with a line limit to keep your guards tight. The tidiest solution fits in 32 lines."
     }
   },
   "hints": {
@@ -100,7 +100,7 @@
       "category": "Movement"
     },
     "isEmoji": {
-      "description": "**Returns** `true` if the thing you pass it is an emoji.",
+      "description": "Returns `true` if the thing you pass it is an emoji.",
       "category": "Checks"
     },
     "recite": {
