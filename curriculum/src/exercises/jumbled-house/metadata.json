@@ -1,6 +1,7 @@
 {
   "slug": "jumbled-house",
   "levelId": "strings-and-colors",
+  "deepDiveVideo": "jumbled-house-deep-dive",
   "hints": [
     {
       "question": "hints.whereToStart.question",
