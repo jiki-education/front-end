@@ -1,7 +1,8 @@
 import type { Location } from "./location";
 
 export type DisabledLanguageFeatureErrorType =
-  "DisabledFeatureExcludeListViolation" | "DisabledFeatureIncludeListViolation";
+  | "DisabledFeatureExcludeListViolation"
+  | "DisabledFeatureIncludeListViolation";
 
 export type SyntaxErrorType =
   | "DuplicateParameterNameInFunctionDeclaration"
