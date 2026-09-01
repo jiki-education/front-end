@@ -11,12 +11,12 @@ interface WalkthroughCardProps {
 
 export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
   const t = useTranslations("dashboard.exercisePath.walkthrough");
-  const walkthroughVideo = lesson.walkthroughVideo;
-  if (!walkthroughVideo) {
+  const deepDiveVideo = lesson.deepDiveVideo;
+  if (!deepDiveVideo) {
     return null;
   }
   const isLocked = !lesson.completed;
-  const percentage = lesson.walkthroughVideoWatchedPercentage;
+  const percentage = lesson.deepDiveVideoWatchedPercentage;
 
   const getStateClass = () => {
     if (isLocked) {
@@ -37,7 +37,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
     if (isLocked) {
       return;
     }
-    showVideoWalkthrough({ playbackId: walkthroughVideo.id, lessonSlug: lesson.lesson.slug });
+    showVideoWalkthrough({ playbackId: deepDiveVideo.id, lessonSlug: lesson.lesson.slug });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -47,7 +47,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
       if (isLocked) {
         return;
       }
-      showVideoWalkthrough({ playbackId: walkthroughVideo.id, lessonSlug: lesson.lesson.slug });
+      showVideoWalkthrough({ playbackId: deepDiveVideo.id, lessonSlug: lesson.lesson.slug });
     }
   };
 

@@ -35,7 +35,7 @@ describe("no copy catalog carries video data", () => {
     const offenders = Object.entries(catalog)
       .filter(([, entry]) => {
         const keys = Object.keys(entry as object);
-        return keys.includes("video") || keys.includes("walkthroughVideo");
+        return keys.includes("video") || keys.includes("deepDiveVideo");
       })
       .map(([slug]) => slug);
 

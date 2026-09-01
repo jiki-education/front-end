@@ -1125,6 +1125,9 @@
     "guides": {
       "title": "Guides - Jiki",
       "description": "Step by step guides to help you set up your tools and get the most out of Jiki."
+    },
+    "exercises": {
+      "notFound": "Exercise Not Found"
     }
   },
   "apiErrors": {
@@ -1642,7 +1645,7 @@
       "confirmNo": "Not for now",
       "confirmYes": "Yes",
       "deepDiveHeading": "Deep Dive",
-      "deepDiveDescription": "Still stuck? Watch a deep dive of Jeremy solving this exercise.",
+      "deepDiveDescription": "Still stuck? Watch Jeremy solve this exercise.",
       "walkthroughThumbnailAlt": "Deep Dive video thumbnail"
     },
     "chatHeader": {
@@ -2178,6 +2181,26 @@
       "transaction_not_allowed": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
       "try_again_later": "Your card was declined. Please try again in a few minutes.",
       "withdrawal_count_limit_exceeded": "Your card has hit its limit. Please try a different card, or contact your card issuer."
+    }
+  },
+  "exercises": {
+    "public": {
+      "eyebrow": "Coding Exercise",
+      "banner": "👋 Hello there! This is an exercise from Jiki - <signup>Sign up for free</signup> and solve it yourself.",
+      "ctaTitle": "Want to solve this exercise?",
+      "ctaSubtitle": "Create a free Jiki account to write the code, run it, and watch it come to life.",
+      "ctaButton": "Sign Up For Free",
+      "ctaFootnote": "Already have an account? <login>Log in</login>.",
+      "video": {
+        "header": "Watch the Deep Dive",
+        "description": "Jeremy walks through this exercise, step by step.",
+        "playAriaLabel": "Play the exercise deep dive video",
+        "thumbnailAlt": "Exercise deep dive thumbnail"
+      },
+      "functions": {
+        "heading": "Functions You'll Use",
+        "description": "The building blocks this exercise gives you to work with."
+      }
     }
   }
 }

@@ -1,0 +1,53 @@
+.card {
+    margin-top: 20px;
+}
+
+.header {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 4px;
+}
+
+.description {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+}
+
+.signature {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-blue-700);
+    margin-bottom: 4px;
+}
+
+.functionDescription {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-gray-600);
+}
+
+.functionDescription code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+}

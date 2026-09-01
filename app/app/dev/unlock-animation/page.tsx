@@ -52,7 +52,7 @@ export default function UnlockAnimationTest() {
       title: "Introduction to Variables",
       description: "Learn about variables and data types"
     },
-    walkthroughVideo: {
+    deepDiveVideo: {
       provider: "mux" as const,
       id: "mock-video-id-1",
       durationSeconds: 120,
@@ -61,7 +61,7 @@ export default function UnlockAnimationTest() {
     completed: lessonCompleted,
     locked: false,
     route: "/lessons/lesson-1",
-    walkthroughVideoWatchedPercentage: 0
+    deepDiveVideoWatchedPercentage: 0
   };
 
   const unlockingLesson: LessonDisplayData = {
@@ -71,7 +71,7 @@ export default function UnlockAnimationTest() {
       title: "Variables Quiz",
       description: "Test your knowledge of variables"
     },
-    walkthroughVideo: {
+    deepDiveVideo: {
       provider: "mux" as const,
       id: "mock-video-id-2",
       durationSeconds: 120,
@@ -80,7 +80,7 @@ export default function UnlockAnimationTest() {
     completed: false,
     locked: animationState === "completing" || (!recentlyUnlocked && animationState === "idle"),
     route: "/lessons/lesson-2",
-    walkthroughVideoWatchedPercentage: 0
+    deepDiveVideoWatchedPercentage: 0
   };
 
   // Build className for completing lesson

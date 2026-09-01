@@ -215,7 +215,7 @@ describe("buildLevelSections", () => {
     it("resolves a walkthrough for an exercise lesson", () => {
       const levels = [createLevel({ lessons: [createLesson({ slug: "maze-solve-basic", type: "exercise" })] })];
       const result = buildLevelSections(levels, {}, undefined, videoIndex("maze-solve-basic"));
-      expect(result[0].lessons[0].walkthroughVideo).toEqual(source);
+      expect(result[0].lessons[0].deepDiveVideo).toEqual(source);
     });
 
     it.each(["video", "choose_language"] as const)(
@@ -224,7 +224,7 @@ describe("buildLevelSections", () => {
         const slug = "welcome-to-coding-fundamentals";
         const levels = [createLevel({ lessons: [createLesson({ slug, type })] })];
         const result = buildLevelSections(levels, {}, undefined, videoIndex(slug));
-        expect(result[0].lessons[0].walkthroughVideo).toBeUndefined();
+        expect(result[0].lessons[0].deepDiveVideo).toBeUndefined();
       }
     );
   });
