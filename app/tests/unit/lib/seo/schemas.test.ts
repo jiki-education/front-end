@@ -111,7 +111,7 @@ describe("videoObjectSchema", () => {
     });
     expect(schema["@type"]).toBe("VideoObject");
     expect(schema.embedUrl).toBe("https://www.youtube.com/embed/abc123");
-    expect(schema.thumbnailUrl).toBe("https://img.youtube.com/vi/abc123/maxresdefault.jpg");
+    expect(schema.thumbnailUrl).toBe("https://i.ytimg.com/vi/abc123/maxresdefault.jpg");
     expect(schema.duration).toBe("PT10M5S");
     expect(schema.uploadDate).toBe("2026-03-04T00:00:00+00:00");
     expect(schema.url).toBe(`${SITE}/projects/maze/episodes/intro`);

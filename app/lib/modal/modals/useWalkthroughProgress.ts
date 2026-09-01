@@ -1,4 +1,6 @@
 import type { JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
+import type { YTPlayer } from "@/components/youtube-player/JikiYouTubePlayer";
+import type { VideoSource } from "@/types/lesson";
 import { useEffect, useRef } from "react";
 import { updateWalkthroughVideoPercentage } from "@/lib/api/lessons";
 
@@ -8,8 +10,9 @@ function getStorageKey(lessonSlug: string): string {
   return `${STORAGE_KEY_PREFIX}${lessonSlug}`;
 }
 
-export function useWalkthroughProgress(lessonSlug: string) {
+export function useWalkthroughProgress(lessonSlug: string, provider: VideoSource["provider"] = "mux") {
   const playerRef = useRef<JikiVideoPlayerHandle>(null);
+  const ytPlayerRef = useRef<YTPlayer | null>(null);
   const lastReportedPercentRef = useRef(-1);
   const hasRestoredPositionRef = useRef(false);
 
@@ -23,15 +26,10 @@ export function useWalkthroughProgress(lessonSlug: string) {
     updateWalkthroughVideoPercentage(lessonSlug, rounded).catch(() => {});
   };
 
-  const handleTimeUpdate = () => {
-    const player = playerRef.current;
-    if (!player) {
-      return;
-    }
-
-    const currentTime = player.currentTime || 0;
-    const duration = player.duration || 0;
-    if (duration === 0) {
+  // Shared by both providers: persist the resume point locally and report the
+  // percentage upwards.
+  const recordPosition = (currentTime: number, duration: number) => {
+    if (!duration) {
       return;
     }
 
@@ -43,8 +41,16 @@ export function useWalkthroughProgress(lessonSlug: string) {
     }
 
     // Report every 1%
-    const percentage = (currentTime / duration) * 100;
-    reportProgress(percentage);
+    reportProgress((currentTime / duration) * 100);
+  };
+
+  const handleTimeUpdate = () => {
+    const player = playerRef.current;
+    if (!player) {
+      return;
+    }
+
+    recordPosition(player.currentTime || 0, player.duration || 0);
   };
 
   const handleVideoEnd = () => {
@@ -53,6 +59,21 @@ export function useWalkthroughProgress(lessonSlug: string) {
       localStorage.removeItem(getStorageKey(lessonSlug));
     } catch {
       // Ignore — localStorage may be unavailable in private browsing
+    }
+  };
+
+  // Reads the stored resume point, or null when there's nothing to restore.
+  const savedPosition = (duration: number): number | null => {
+    try {
+      const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
+      if (!savedTime) {
+        return null;
+      }
+      const time = parseFloat(savedTime);
+      return time > 0 && time < duration ? time : null;
+    } catch {
+      // Ignore — localStorage may be unavailable in private browsing
+      return null;
     }
   };
 
@@ -77,18 +98,61 @@ export function useWalkthroughProgress(lessonSlug: string) {
 
     hasRestoredPositionRef.current = true;
 
-    try {
-      const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
-      if (savedTime) {
-        const time = parseFloat(savedTime);
-        if (time > 0 && time < duration) {
-          player.currentTime = time;
-        }
-      }
-    } catch {
-      // Ignore — localStorage may be unavailable in private browsing
+    const time = savedPosition(duration);
+    if (time !== null) {
+      player.currentTime = time;
     }
   };
+
+  const restoreYouTubePosition = (player: YTPlayer) => {
+    if (hasRestoredPositionRef.current) {
+      return;
+    }
+
+    // Duration isn't available until the video has loaded — retry on a later event.
+    const duration = player.getDuration();
+    if (!duration) {
+      return;
+    }
+
+    hasRestoredPositionRef.current = true;
+
+    const time = savedPosition(duration);
+    if (time !== null) {
+      player.seekTo(time, true);
+    }
+  };
+
+  const handleYouTubeReady = (event: { target: YTPlayer }) => {
+    ytPlayerRef.current = event.target;
+    restoreYouTubePosition(event.target);
+  };
+
+  const handleYouTubeStateChange = (event: { data: number; target: YTPlayer }) => {
+    // YT.PlayerState: ENDED=0, PLAYING=1
+    if (event.data === 0) {
+      handleVideoEnd();
+    } else if (event.data === 1) {
+      restoreYouTubePosition(event.target);
+      recordPosition(event.target.getCurrentTime(), event.target.getDuration());
+    }
+  };
+
+  // YouTube has no native timeupdate event — poll while the player is mounted.
+  useEffect(() => {
+    if (provider !== "youtube" || typeof window === "undefined") {
+      return;
+    }
+    const interval = window.setInterval(() => {
+      const player = ytPlayerRef.current;
+      if (!player) {
+        return;
+      }
+      recordPosition(player.getCurrentTime(), player.getDuration());
+    }, 1000);
+    return () => window.clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provider, lessonSlug]);
 
   // Clean up refs on unmount (no need to clear storage — we want it to persist)
   useEffect(() => {
@@ -102,6 +166,8 @@ export function useWalkthroughProgress(lessonSlug: string) {
     playerRef,
     handleTimeUpdate,
     handleVideoEnd,
-    restorePosition
+    restorePosition,
+    handleYouTubeReady,
+    handleYouTubeStateChange
   };
 }

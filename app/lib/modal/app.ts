@@ -25,6 +25,7 @@
 
 import type { MembershipTier } from "@/lib/pricing";
 import type { ModalTrigger } from "@/lib/analytics";
+import type { VideoSource } from "@/types/lesson";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
 import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
@@ -121,7 +122,7 @@ export const showPremiumUpgradeModal = (
 };
 
 // Convenience function for video walkthrough modal
-export const showVideoWalkthrough = (props: { playbackId: string; lessonSlug: string }) => {
+export const showVideoWalkthrough = (props: { video: VideoSource; lessonSlug: string }) => {
   showModal("video-walkthrough-modal", props);
 };
 

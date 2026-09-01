@@ -37,7 +37,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
     if (isLocked) {
       return;
     }
-    showVideoWalkthrough({ playbackId: deepDiveVideo.id, lessonSlug: lesson.lesson.slug });
+    showVideoWalkthrough({ video: deepDiveVideo, lessonSlug: lesson.lesson.slug });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -47,7 +47,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
       if (isLocked) {
         return;
       }
-      showVideoWalkthrough({ playbackId: deepDiveVideo.id, lessonSlug: lesson.lesson.slug });
+      showVideoWalkthrough({ video: deepDiveVideo, lessonSlug: lesson.lesson.slug });
     }
   };
 

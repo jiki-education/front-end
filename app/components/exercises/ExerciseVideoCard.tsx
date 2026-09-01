@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { showVideoWalkthrough } from "@/lib/modal/app";
 import type { VideoSource } from "@/types/lesson";
+import { videoThumbnailUrl } from "@/lib/videos/thumbnail";
 import styles from "./ExerciseVideoCard.module.css";
 
 interface ExerciseVideoCardProps {
@@ -17,9 +18,9 @@ interface ExerciseVideoCardProps {
  */
 export function ExerciseVideoCard({ slug, video }: ExerciseVideoCardProps) {
   const t = useTranslations("exercises.public.video");
-  const thumbnailUrl = `https://image.mux.com/${video.id}/thumbnail.jpg?width=1280&height=720`;
+  const thumbnailUrl = videoThumbnailUrl(video, 1280, 720);
 
-  const play = () => showVideoWalkthrough({ playbackId: video.id, lessonSlug: slug });
+  const play = () => showVideoWalkthrough({ video, lessonSlug: slug });
 
   return (
     <section className={styles.card}>
