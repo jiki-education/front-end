@@ -47,7 +47,7 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   // Handle user-defined functions
   if (callable instanceof PyUserDefinedFunction) {
-    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults, expression);
     executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
     return result;
   }
@@ -132,7 +132,8 @@ function executeUserDefinedFunction(
   executor: Executor,
   callable: PyUserDefinedFunction,
   argJikiObjects: JikiObject[],
-  argResults: EvaluationResultExpression[]
+  argResults: EvaluationResultExpression[],
+  expression: CallExpression
 ): EvaluationResultCallExpression {
   const declaration = callable.getDeclaration();
   const environment = new Environment(executor.environment);
@@ -144,6 +145,9 @@ function executeUserDefinedFunction(
     environment.define(declaration.parameters[i].name.lexeme, argJikiObjects[i]);
   }
 
+  // Pushed after argument binding, which cannot recurse; popped in the finally below
+  // so an early return (which unwinds as a ReturnValue throw) still unwinds the stack.
+  executor.pushCallStack(callable.name, expression.location);
   try {
     // Execute function body
     for (const statement of declaration.body) {
@@ -170,6 +174,7 @@ function executeUserDefinedFunction(
     }
     throw error;
   } finally {
+    executor.popCallStack();
     executor.environment = prevEnvironment;
   }
 }

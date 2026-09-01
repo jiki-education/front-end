@@ -65,6 +65,8 @@
       "AttributeError": "`{{type}}` object has no attribute `{{attribute}}`.",
       "MethodNotYetImplemented": "The method `{{method}}` is not yet implemented.",
       "MethodNotYetAvailable": "The method `{{method}}` is not yet available.",
+      "InfiniteRecursionDetected": "The function `{{name}}` called itself over and over again without ever stopping. A function that uses itself needs a way to stop; without one it keeps going forever.",
+      "MaxTotalCallDepthReached": "Your functions called each other over and over again without ever stopping. The maximum number of function calls that can be waiting at once in this exercise is {{max}}.",
       "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of times the loops are allowed to run in this exercise is {{max}}.",
       "FunctionAlreadyDefined": "There is already a function called `{{name}}`. Please choose a different name.",
       "ValueError": "{{message}}"

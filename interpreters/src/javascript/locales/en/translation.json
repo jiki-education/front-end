@@ -119,6 +119,8 @@
       "MethodNotYetImplemented": "The `{{method}}` method is a valid method but it's not yet available to you.",
       "MethodNotYetAvailable": "The `{{method}}` method is not available at your current learning level. Keep progressing to unlock this feature!",
       "PropertyNotYetAvailable": "The `{{property}}` property is not available at your current learning level. Keep progressing to unlock this feature!",
+      "InfiniteRecursionDetected": "The function `{{name}}` called itself over and over again without ever stopping. A function that uses itself needs a way to stop; without one it keeps going forever.",
+      "MaxTotalCallDepthReached": "Your functions called each other over and over again without ever stopping. The maximum number of function calls that can be waiting at once in this exercise is {{max}}.",
       "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of times the loops are allowed to run in this exercise is {{max}}.",
       "RepeatCountMustBeNumber": "repeat() requires a number, but got {{type}}.",
       "RepeatCountMustBeNonNegative": "repeat() count must be 0 or greater, but got {{value}}.",

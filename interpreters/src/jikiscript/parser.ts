@@ -1353,6 +1353,8 @@ export function parse(
       timePerFrame: 1,
       repeatDelay: 0,
       maxTotalLoopIterations: 10000,
+      maxRecursiveCallsPerFunction: 10,
+      maxTotalCallDepth: 10,
       maxTotalExecutionTime: 10000000, // 10 seconds (in microseconds)
       allowGlobals: false,
       customFunctionDefinitionMode: false,

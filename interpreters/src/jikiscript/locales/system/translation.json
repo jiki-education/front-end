@@ -124,6 +124,7 @@
       "StateErrorExpectedFunctionHasWrongArgumentCount": "ExpectedFunctionHasWrongArguments: name: {{name}}",
       "StateErrorExpectedFunctionNotFoundInScope": "ExpectedFunctionNotFound: name: {{name}}",
       "StateErrorInfiniteLoopDetectedInExecution": "StateErrorInfiniteLoopDetectedInExecution",
+      "MaxTotalCallDepthReached": "MaxTotalCallDepthReached: max: {{max}}",
       "StateErrorInfiniteRecursionDetectedInFunction": "StateErrorInfiniteRecursionDetectedInFunction",
       "StateErrorMaxIterationsReachedInLoop": "MaxIterationsReached: max: {{max}}",
       "StateErrorMaxTotalExecutionTimeExceeded": "StateErrorMaxTotalExecutionTimeExceeded",

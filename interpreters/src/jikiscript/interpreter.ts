@@ -40,6 +40,8 @@ export interface LanguageFeatures {
   timePerFrame: number;
   repeatDelay: number;
   maxTotalLoopIterations: number;
+  maxRecursiveCallsPerFunction: number;
+  maxTotalCallDepth: number;
   maxTotalExecutionTime: number;
   allowGlobals: boolean;
   customFunctionDefinitionMode: boolean;
@@ -53,6 +55,13 @@ export interface InputLanguageFeatures {
   timePerFrame?: number;
   repeatDelay?: number;
   maxTotalLoopIterations?: number;
+  // Guards against runaway recursion. maxRecursiveCallsPerFunction bounds how many
+  // times a single function may appear on the call stack at once, which is what
+  // catches a function that calls itself; maxTotalCallDepth bounds the stack as a
+  // whole, which catches mutual recursion spread across several functions before it
+  // can exhaust the host engine's native stack.
+  maxRecursiveCallsPerFunction?: number;
+  maxTotalCallDepth?: number;
   maxTotalExecutionTime?: number;
   allowGlobals?: boolean;
   customFunctionDefinitionMode?: boolean;
@@ -192,6 +201,8 @@ export class Interpreter {
       timePerFrame: 1,
       repeatDelay: 0,
       maxTotalLoopIterations: 10000,
+      maxRecursiveCallsPerFunction: 10,
+      maxTotalCallDepth: 10,
       maxTotalExecutionTime: 15000000, // 15 seconds (in microseconds)
       allowGlobals: false,
       customFunctionDefinitionMode: false,

@@ -119,6 +119,8 @@
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "PropertyNotYetAvailable": "PropertyNotYetAvailable: property: {{property}}",
+      "InfiniteRecursionDetected": "InfiniteRecursionDetected: name: {{name}}: max: {{max}}",
+      "MaxTotalCallDepthReached": "MaxTotalCallDepthReached: max: {{max}}",
       "MaxIterationsReached": "MaxIterationsReached: max: {{max}}",
       "RepeatCountMustBeNumber": "RepeatCountMustBeNumber: type: {{type}}",
       "RepeatCountMustBeNonNegative": "RepeatCountMustBeNonNegative: value: {{value}}",

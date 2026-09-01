@@ -232,6 +232,36 @@ test("StateErrorInfiniteRecursionDetectedInFunction", () => {
   expect(frames[0].error!.message).toBe("StateErrorInfiniteRecursionDetectedInFunction");
 });
 
+test("StateErrorInfiniteRecursionDetectedInFunction respects maxRecursiveCallsPerFunction", () => {
+  const code = `function foo with n do
+                  if n > 0 do
+                    foo(n - 1)
+                  end
+                end
+                foo(4)`;
+
+  const withinLimit = interpret(code, { languageFeatures: { maxRecursiveCallsPerFunction: 10 } });
+  expect(withinLimit.frames.every(f => f.status === "SUCCESS")).toBe(true);
+
+  const { frames } = interpret(code, { languageFeatures: { maxRecursiveCallsPerFunction: 2 } });
+  expect(frames[frames.length - 1].error!.message).toBe("StateErrorInfiniteRecursionDetectedInFunction");
+});
+
+test("MaxTotalCallDepthReached catches mutual recursion", () => {
+  const code = `function a with n do
+                  return b(n)
+                end
+                function b with n do
+                  return a(n)
+                end
+                a(1)`;
+
+  const { frames } = interpret(code, {
+    languageFeatures: { maxRecursiveCallsPerFunction: 1000, maxTotalCallDepth: 10 },
+  });
+  expect(frames[frames.length - 1].error!.message).toBe("MaxTotalCallDepthReached: max: 10");
+});
+
 describe("RangeErrorRepeatCountTooHighForExecution", () => {
   test("default", () => {
     const max = 10000;

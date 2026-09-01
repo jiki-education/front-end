@@ -148,6 +148,8 @@ export class Executor {
   private readonly timePerFrame: number;
   private totalLoopIterations = 0;
   private readonly maxTotalLoopIterations: number = 0;
+  private readonly maxRecursiveCallsPerFunction: number = 10;
+  private readonly maxTotalCallDepth: number = 10;
   public customFunctionDefinitionMode: boolean;
   private readonly addSuccessFrames: boolean;
 
@@ -205,6 +207,8 @@ export class Executor {
 
     this.timePerFrame = this.languageFeatures.timePerFrame;
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations;
+    this.maxRecursiveCallsPerFunction = this.languageFeatures.maxRecursiveCallsPerFunction;
+    this.maxTotalCallDepth = this.languageFeatures.maxTotalCallDepth;
 
     this.customFunctionDefinitionMode = this.languageFeatures.customFunctionDefinitionMode;
 
@@ -1326,11 +1330,24 @@ export class Executor {
     });
   }
 
+  /**
+   * Two conditions, because they catch different shapes of the same bug. A count of
+   * one name catches the common case - a function calling itself - and can say so
+   * precisely, since many copies of a single name on the stack can only mean
+   * self-reference. The overall depth catches mutual recursion, where a cycle of n
+   * functions reaches n times the per-function limit before any one name trips, and
+   * so acts as the backstop that keeps us clear of the host engine's native stack.
+   */
   public addFunctionToCallStack(name: string, expression: FunctionCallExpression | MethodCallExpression) {
     this.functionCallStack.push(name);
 
-    if (this.functionCallStack.filter(n => n === name).length > 5) {
+    if (this.functionCallStack.filter(n => n === name).length > this.maxRecursiveCallsPerFunction) {
       this.error("StateErrorInfiniteRecursionDetectedInFunction", expression.location);
+    }
+    if (this.functionCallStack.length > this.maxTotalCallDepth) {
+      this.error("MaxTotalCallDepthReached", expression.location, {
+        max: this.maxTotalCallDepth,
+      });
     }
   }
 
