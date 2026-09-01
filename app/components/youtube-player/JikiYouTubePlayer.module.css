@@ -1,0 +1,153 @@
+/* Square corners and a bare frame, matching the Mux player: v10's skin defaults
+   to --media-border-radius: 0 and JikiVideoPlayer keeps it there, so both
+   players inherit their rounding from whatever container holds them (in the
+   episode flow, EpisodeVideo's .videoContainer). Rounding here as well would
+   nest a second radius inside that one. */
+.player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-black, #000);
+    isolation: isolate;
+}
+
+/* YouTube iframe fills the frame; positioned siblings after it paint on top. */
+.iframeWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Matches the Mux player's handoff: hold the frame dark behind a spinner until
+   YouTube is ready, then fade the iframe in rather than popping it. */
+.iframeWrapperHidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.iframeWrapper {
+    transition: opacity 200ms ease;
+}
+
+.spinnerOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: 5px solid rgba(255, 255, 255, 0.25);
+    border-top-color: var(--color-blue-400);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---- Poster facade (start + end) ---- */
+
+/* At the end the facade replaces a still-visible video frame, so it fades in
+   rather than cutting. Matches the iframe's own 200ms handoff, but slower — the
+   end screen is a resting state, not a load. Only the end screen animates: at
+   the start the poster IS the first paint, and fading that in would just look
+   like a slow load. */
+.facadeEntering {
+    animation: facade-fade-in 450ms ease both;
+}
+
+@keyframes facade-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .facadeEntering {
+        animation: none;
+    }
+}
+
+.facade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--color-black, #000);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* A gentle wash so the play button reads against any poster. */
+.facadeScrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+/* The poster and scrim are positioned, so they'd paint over a statically
+   positioned play button regardless of DOM order. Lift the button (and title)
+   into the same positioned layer so it stays on top of both. */
+.facade > .bigPlayButton {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Big centred play / replay button ---- */
+
+.bigPlayButton {
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-purple-950) 80%, transparent);
+    color: var(--color-white, #fff);
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.bigPlayButton:hover {
+    background: var(--color-purple-800);
+    transform: scale(1.06);
+}
+
+.bigPlayIcon {
+    width: 32px;
+    height: 32px;
+    margin-inline-start: 4px;
+}
