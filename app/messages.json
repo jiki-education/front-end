@@ -1372,7 +1372,9 @@
       "autoRefresh": "This page will automatically refresh",
       "noteLabel": "Note:",
       "noteText": "Opening new tabs or making additional requests will extend your wait time.",
-      "reconnecting": "Reconnecting in <timer>{count}</timer> {count, plural, one {second} other {seconds}}"
+      "reconnecting": "Reconnecting in <timer>{count}</timer> {count, plural, one {second} other {seconds}}",
+      "manualSubtitle": "We waited, and our servers are still asking you to slow down. Give it a few moments, then reload the page yourself.",
+      "manualRefresh": "We've already refreshed once for you"
     },
     "exerciseSuccess": {
       "defaultTitle": "Congratulations!",
