@@ -1,31 +1,43 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { VideoSource } from "@/types/lesson";
 import { useWalkthroughProgress } from "./useWalkthroughProgress";
 import styles from "./VideoWalkthroughModal.module.css";
 
 const VideoPlayer = dynamic(() => import("@/components/ui/JikiVideoPlayer"), { ssr: false });
+const YouTubePlayer = dynamic(() => import("@/components/youtube-player/JikiYouTubePlayer"), { ssr: false });
 
 interface VideoWalkthroughModalProps {
-  playbackId: string;
+  video: VideoSource;
   lessonSlug: string;
 }
 
-export function VideoWalkthroughModal({ playbackId, lessonSlug }: VideoWalkthroughModalProps) {
-  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition } = useWalkthroughProgress(lessonSlug);
+export function VideoWalkthroughModal({ video, lessonSlug }: VideoWalkthroughModalProps) {
+  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition, handleYouTubeReady, handleYouTubeStateChange } =
+    useWalkthroughProgress(lessonSlug, video.provider);
 
   return (
     <div className={styles.videoWrapper}>
-      <VideoPlayer
-        ref={playerRef}
-        playbackId={playbackId}
-        autoPlay={true}
-        className={styles.muxPlayer}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleVideoEnd}
-        onLoadedMetadata={restorePosition}
-        onCanPlay={restorePosition}
-      />
+      {video.provider === "youtube" ? (
+        <YouTubePlayer
+          videoId={video.id}
+          className={styles.muxPlayer}
+          onRawReady={handleYouTubeReady}
+          onRawStateChange={handleYouTubeStateChange}
+        />
+      ) : (
+        <VideoPlayer
+          ref={playerRef}
+          playbackId={video.id}
+          autoPlay={true}
+          className={styles.muxPlayer}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleVideoEnd}
+          onLoadedMetadata={restorePosition}
+          onCanPlay={restorePosition}
+        />
+      )}
     </div>
   );
 }

@@ -14,6 +14,7 @@ import EyeOpenIcon from "@/icons/eye-open.svg";
 import { showWalkthroughConfirm } from "@/lib/modal/app";
 import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgress";
 import type { VideoSource } from "@/types/lesson";
+import { videoThumbnailUrl } from "@/lib/videos/thumbnail";
 import type { Hint } from "@jiki/curriculum";
 import style from "./hints-panel.module.css";
 
@@ -21,6 +22,7 @@ hljs.registerLanguage("jikiscript", setupJikiscript);
 hljs.registerLanguage("javascript", setupJavascript);
 
 const VideoPlayer = dynamic(() => import("@/components/ui/JikiVideoPlayer"), { ssr: false });
+const YouTubePlayer = dynamic(() => import("@/components/youtube-player/JikiYouTubePlayer"), { ssr: false });
 
 interface HintsViewProps {
   hints: Hint[] | undefined;
@@ -96,13 +98,13 @@ export default function HintsPanel({ hints, deepDiveVideo, lessonSlug, className
         {hasWalkthrough && (
           <div className={style.walkthroughSection}>
             <h3>{t("deepDiveHeading")}</h3>
-            <p>{t("deepDiveDescription")}</p>
+            <p>{t.rich("deepDiveDescription", { strong: (chunks) => <strong>{chunks}</strong> })}</p>
             {walkthroughUnlocked ? (
-              <InlineWalkthroughPlayer playbackId={deepDiveVideo.id} lessonSlug={lessonSlug} />
+              <InlineWalkthroughPlayer video={deepDiveVideo} lessonSlug={lessonSlug} />
             ) : (
               <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
                 <img
-                  src={`https://image.mux.com/${deepDiveVideo.id}/thumbnail.jpg?width=400&height=225`}
+                  src={videoThumbnailUrl(deepDiveVideo, 1280, 720)}
                   alt={t("walkthroughThumbnailAlt")}
                   className={style.walkthroughThumb}
                 />
@@ -120,21 +122,31 @@ export default function HintsPanel({ hints, deepDiveVideo, lessonSlug, className
   );
 }
 
-function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: string; lessonSlug: string }) {
-  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition } = useWalkthroughProgress(lessonSlug);
+function InlineWalkthroughPlayer({ video, lessonSlug }: { video: VideoSource; lessonSlug: string }) {
+  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition, handleYouTubeReady, handleYouTubeStateChange } =
+    useWalkthroughProgress(lessonSlug, video.provider);
 
   return (
     <div className={style.walkthroughPlayerWrapper}>
-      <VideoPlayer
-        ref={playerRef}
-        playbackId={playbackId}
-        autoPlay={true}
-        className={style.walkthroughPlayer}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleVideoEnd}
-        onLoadedMetadata={restorePosition}
-        onCanPlay={restorePosition}
-      />
+      {video.provider === "youtube" ? (
+        <YouTubePlayer
+          videoId={video.id}
+          className={style.walkthroughPlayer}
+          onRawReady={handleYouTubeReady}
+          onRawStateChange={handleYouTubeStateChange}
+        />
+      ) : (
+        <VideoPlayer
+          ref={playerRef}
+          playbackId={video.id}
+          autoPlay={true}
+          className={style.walkthroughPlayer}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleVideoEnd}
+          onLoadedMetadata={restorePosition}
+          onCanPlay={restorePosition}
+        />
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { localePath } from "@/lib/i18n/routes";
 import { SITE_URL } from "@/lib/site";
+import { videoThumbnailUrl } from "@/lib/videos/thumbnail";
 
 // Stable @id anchors so every page's nodes can reference the one Organization /
 // WebSite entity by id instead of repeating it (schema.org node deduplication).
@@ -150,10 +151,7 @@ export function videoObjectSchema(video: VideoInput) {
       ? `https://www.youtube.com/embed/${video.videoKey}`
       : `https://player.mux.com/${video.videoKey}`;
   const thumbnailUrl =
-    video.thumbnailUrl ??
-    (video.provider === "youtube"
-      ? `https://img.youtube.com/vi/${video.videoKey}/maxresdefault.jpg`
-      : `https://image.mux.com/${video.videoKey}/thumbnail.jpg?width=1280&height=720`);
+    video.thumbnailUrl ?? videoThumbnailUrl({ provider: video.provider, id: video.videoKey }, 1280, 720);
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",

@@ -1644,8 +1644,8 @@
       "confirmReveal": "Are you sure you want to reveal this hint?",
       "confirmNo": "Not for now",
       "confirmYes": "Yes",
-      "deepDiveHeading": "Deep Dive",
-      "deepDiveDescription": "Still stuck? Watch Jeremy solve this exercise.",
+      "deepDiveHeading": "Watch Jeremy solve the Exercise",
+      "deepDiveDescription": "Still stuck? Work along with Jeremy <strong>until you get unstuck</strong> then solve the rest of the exercise by yourself.",
       "walkthroughThumbnailAlt": "Deep Dive video thumbnail"
     },
     "chatHeader": {

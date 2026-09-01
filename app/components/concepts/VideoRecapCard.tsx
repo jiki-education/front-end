@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { showVideoWalkthrough } from "@/lib/modal/app";
 import type { VideoSource } from "@/types/lesson";
+import { videoThumbnailUrl } from "@/lib/videos/thumbnail";
 import styles from "./VideoRecapCard.module.css";
 
 interface VideoRecapCardProps {
@@ -10,33 +11,31 @@ interface VideoRecapCardProps {
 }
 
 export function VideoRecapCard({ conceptSlug, video, isAuthenticated }: VideoRecapCardProps) {
-  const playbackId = video.id;
-
   if (isAuthenticated) {
-    return <LoggedInVideoRecapCard conceptSlug={conceptSlug} playbackId={playbackId} />;
+    return <LoggedInVideoRecapCard conceptSlug={conceptSlug} video={video} />;
   }
 
-  return <ExternalVideoRecapCard conceptSlug={conceptSlug} playbackId={playbackId} />;
+  return <ExternalVideoRecapCard conceptSlug={conceptSlug} video={video} />;
 }
 
-function LoggedInVideoRecapCard({ conceptSlug, playbackId }: { conceptSlug: string; playbackId: string }) {
+function LoggedInVideoRecapCard({ conceptSlug, video }: { conceptSlug: string; video: VideoSource }) {
   const t = useTranslations("concepts.videoRecap");
   return (
     <VideoRecapCardShell
       conceptSlug={conceptSlug}
-      playbackId={playbackId}
+      video={video}
       header={t("loggedInHeader")}
       description={t("loggedInDescription")}
     />
   );
 }
 
-function ExternalVideoRecapCard({ conceptSlug, playbackId }: { conceptSlug: string; playbackId: string }) {
+function ExternalVideoRecapCard({ conceptSlug, video }: { conceptSlug: string; video: VideoSource }) {
   const t = useTranslations("concepts.videoRecap");
   return (
     <VideoRecapCardShell
       conceptSlug={conceptSlug}
-      playbackId={playbackId}
+      video={video}
       header={t("loggedOutHeader")}
       description={t("loggedOutDescription")}
     />
@@ -45,17 +44,17 @@ function ExternalVideoRecapCard({ conceptSlug, playbackId }: { conceptSlug: stri
 
 interface VideoRecapCardShellProps {
   conceptSlug: string;
-  playbackId: string;
+  video: VideoSource;
   header: string;
   description: string;
 }
 
-function VideoRecapCardShell({ conceptSlug, playbackId, header, description }: VideoRecapCardShellProps) {
+function VideoRecapCardShell({ conceptSlug, video, header, description }: VideoRecapCardShellProps) {
   const t = useTranslations("concepts.videoRecap");
-  const thumbnailUrl = `https://image.mux.com/${playbackId}/thumbnail.jpg?width=640&height=360`;
+  const thumbnailUrl = videoThumbnailUrl(video, 640, 360);
 
   const handleClick = () => {
-    showVideoWalkthrough({ playbackId, lessonSlug: conceptSlug });
+    showVideoWalkthrough({ video, lessonSlug: conceptSlug });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
