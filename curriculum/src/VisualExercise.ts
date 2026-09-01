@@ -98,6 +98,7 @@ export interface Animation {
     translateY?: number;
     rotate?: number;
     scale?: number;
+    scaleX?: number;
     opacity?: number;
     height?: number | string;
     gridRow?: number;

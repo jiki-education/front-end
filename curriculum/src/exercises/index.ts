@@ -6,6 +6,7 @@ export const exercises = {
   acronym: () => import("./acronym"),
   "after-party": () => import("./after-party"),
   alphanumeric: () => import("./alphanumeric"),
+  "adventures-in-poetry": () => import("./adventures-in-poetry"),
   luhn: () => import("./luhn"),
   "run-length-encoding": () => import("./run-length-encoding"),
   "digital-root": () => import("./digital-root"),

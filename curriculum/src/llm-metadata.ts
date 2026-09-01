@@ -11,6 +11,7 @@
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as alphanumericLLM } from "./exercises/alphanumeric/llm-metadata";
+import { llmMetadata as adventuresInPoetryLLM } from "./exercises/adventures-in-poetry/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as annalynsInfiltrationLLM } from "./exercises/annalyns-infiltration/llm-metadata";
 import { llmMetadata as chopShopLLM } from "./exercises/chop-shop/llm-metadata";
@@ -127,6 +128,7 @@ const llmMetadataRegistry = {
   acronym: acronymLLM,
   "after-party": afterPartyLLM,
   alphanumeric: alphanumericLLM,
+  "adventures-in-poetry": adventuresInPoetryLLM,
   anagram: anagramLLM,
   "annalyns-infiltration": annalynsInfiltrationLLM,
   "chop-shop": chopShopLLM,

@@ -1,0 +1,26 @@
+{
+  "slug": "adventures-in-poetry",
+  "levelId": "advanced-loops",
+  "hints": [
+    {
+      "question": "hints.scenery.question",
+      "answer": "hints.scenery.answer"
+    },
+    {
+      "question": "hints.flagSkipped.question",
+      "answer": "hints.flagSkipped.answer"
+    },
+    {
+      "question": "hints.spacing.question",
+      "answer": "hints.spacing.answer"
+    },
+    {
+      "question": "hints.apostrophe.question",
+      "answer": "hints.apostrophe.answer"
+    },
+    {
+      "question": "hints.reciteOnce.question",
+      "answer": "hints.reciteOnce.answer"
+    }
+  ]
+}

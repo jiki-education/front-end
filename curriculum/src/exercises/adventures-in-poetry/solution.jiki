@@ -1,0 +1,36 @@
+set poem to ""
+set words to 0
+set needs_space to false
+set found to ""
+
+repeat_forever do
+  change found to move()
+
+  if found == "🏁" do
+    break
+  end
+  if found == "" or is_emoji(found) do
+    next
+  end
+  if found == "'" do
+    change poem to poem + "'"
+    change needs_space to false
+    next
+  end
+  if found == "," do
+    change poem to poem + ","
+    change needs_space to true
+    next
+  end
+  if needs_space do
+    change poem to poem + " "
+  end
+  change poem to poem + found
+  change needs_space to true
+  change words to words + 1
+  if words == 7 do
+    break
+  end
+end
+
+recite(poem)

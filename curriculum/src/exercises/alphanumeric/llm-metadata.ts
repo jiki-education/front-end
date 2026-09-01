@@ -10,8 +10,8 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     Compose three helper functions into a whatAmI classifier. Two tasks: classify-string
-    (the classifier working end to end), use-continue (adds the continue requirement), and the bonus
-    solve-tightly (the same classifier within a line limit).
+    (the classifier working end to end) and the bonus solve-tightly (the same classifier
+    within a line limit).
   `,
 
   tasks: {
@@ -23,13 +23,6 @@ export const llmMetadata: LLMMetadata = {
         non-obvious trap is the classification ORDER in whatAmI: an all-letters or all-digits string is
         ALSO alphanumeric, so "Alpha"/"Numeric" must be checked before "Alphanumeric", otherwise
         everything collapses to "Alphanumeric". Anything with symbols, spaces, or non-ASCII is "Unknown".
-      `
-    },
-    "use-continue": {
-      description: `
-        The student's solution must contain a continue statement (ContinueStatement), requiring the use of
-        continue to move past an already-classified character rather than nesting further conditions. It
-        does not change the required behaviour.
       `
     },
     "solve-tightly": {

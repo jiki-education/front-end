@@ -20,9 +20,9 @@ Then, write a <define>`whatAmI(string)`</define> function that uses those helper
 - Strings with both letters and numbers should return `"Alphanumeric"`
 - Everything else should return `"Unknown"`
 
-### Using what you just learned
+### Bonus tasks
 
-Although there are many valid ways to solve this exercise, the solution we want you to come up with uses a `continue` statement and the three functions above.
+There are lots of valid ways to solve this exercise. You might like to try using a `continue` statement, but there are many other good solutions.
 
 There's also a bonus task that challenges you to solve the whole thing in 42 lines of code or fewer. That target isn't necessarily the most production-quality solution. A couple of extra lines probably give a nicer one, and there are shorter solutions too. But it's a good goal to push your capabilities towards.
 

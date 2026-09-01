@@ -118,6 +118,7 @@ None.
 - `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Advanced Loops level)
 - `luhn` - Luhn: validate identification numbers with the Luhn checksum, doubling every second digit from the right (Advanced Loops level)
 - `run-length-encoding` - Run-Length Encoding: compress and decompress text by counting runs of repeated characters (Advanced Loops level)
+- `adventures-in-poetry` - Adventures in Poetry: walk a path collecting the words of a poem, using continue to skip squares and break to stop (Advanced Loops level)
 - `digital-root` - Digital Root: collapse a number to a single digit by repeatedly summing its digits with a while loop (Advanced Loops level)
 - `weather-symbols` - Weather Symbols: draw a six-day forecast by iterating a list of day-descriptions with an index, mapping each to its symbols (Lists level)
 - `guest-list` - Guest List: count how many people in the queue are not on the guest list (Lists level)
