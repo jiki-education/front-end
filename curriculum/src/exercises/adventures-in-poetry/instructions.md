@@ -10,7 +10,7 @@ Each square holds one of four things:
 1. Nothing (`""`)
 2. A **word** from the poem.
 3. Scenery like a leaf or a butterfly (an emoji).
-4. A checkered flag, which tells the robot to stop.
+4. A checkered flag (`🏁`), which tells the robot to stop.
 
 To help you, you have a few functions. Firstly, you have a <literal>`move()`</literal> function, which tells the poetic robot to move forward onto the next square and returns whatever was on it. You have an <literal>`isEmoji(thing)`</literal> function, which returns a boolean telling you whether the string you pass in is an emoji. And finally you have a <literal>`recite(poem)`</literal> function, which you need to use with the final poem.
 
