@@ -1,5 +1,4 @@
 .hintItem {
-    margin-bottom: 12px;
     border: 2px solid var(--color-purple-200);
     border-radius: 8px;
     overflow: hidden;
@@ -199,10 +198,10 @@
 
 /* Walkthrough video section */
 .walkthroughSection {
-    margin: 8px 0 24px 0;
+    margin: 24px 0 0 0;
     padding: 20px;
     background: var(--color-purple-50);
-    border: 2px solid var(--color-purple-200);
+    border: 2px solid var(--color-purple-300);
     border-radius: 12px;
 
     h3 {

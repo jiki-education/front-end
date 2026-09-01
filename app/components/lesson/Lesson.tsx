@@ -125,7 +125,7 @@ export default function Lesson({ slug }: LessonProps) {
           lesson={lesson}
           lessonTitle={copy?.title ?? ""}
           video={lesson.type === "exercise" ? undefined : lessonVideo}
-          walkthroughVideo={lesson.type === "exercise" ? lessonVideo : undefined}
+          deepDiveVideo={lesson.type === "exercise" ? lessonVideo : undefined}
           userCourse={userCourse}
           isCompleted={isCompleted}
           serverSubmission={serverSubmission}

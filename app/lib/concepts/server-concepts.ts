@@ -117,3 +117,18 @@ export async function getExercisesForConceptServer(slug: string, locale: string)
   const metas = await getExerciseMetaBySlugsServer(concept.exerciseSlugs, locale);
   return metas.map((m) => ({ slug: m.slug, title: m.title }));
 }
+
+/**
+ * The concepts one exercise practises, derived by reversing the concept index's
+ * `exerciseSlugs`.
+ *
+ * The mapping is stored on the concept because a concept owns its exercise list;
+ * the public exercise page needs the same edge read the other way round, so it
+ * walks the index rather than adding a second copy of the relationship.
+ */
+export async function getConceptsForExerciseServer(exerciseSlug: string, locale: string): Promise<ConceptAncestor[]> {
+  const concepts = await fetchConceptIndex(locale);
+  return concepts
+    .filter((concept) => concept.exerciseSlugs.includes(exerciseSlug))
+    .map((concept) => ({ slug: concept.slug, title: concept.title }));
+}

@@ -2,7 +2,7 @@ import { cache } from "react";
 import { exerciseIndexHashes } from "@/lib/generated/exercise-hashes";
 import { assetsUrl } from "@/lib/server/origin";
 import { readArtifact, readArtifactJson } from "@/lib/server/artifacts";
-import { exerciseIndexPath, exerciseIndexPointerPath } from "@/lib/assets-paths";
+import { exerciseIndexPath, exerciseIndexPointerPath, exerciseProsePath } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { ExerciseMetaEntry } from "@/lib/api/exercise-meta";
 
@@ -42,4 +42,31 @@ export async function getExerciseMetaBySlugsServer(slugs: string[], locale: stri
   const index = await fetchExerciseIndex(locale);
   const slugSet = new Set(slugs);
   return index.filter((e) => slugSet.has(e.slug));
+}
+
+/** One exercise's prose-index entry, or null when the locale doesn't publish it. */
+export async function getExerciseMetaServer(slug: string, locale: string): Promise<ExerciseMetaEntry | null> {
+  const index = await fetchExerciseIndex(locale);
+  return index.find((e) => e.slug === slug) ?? null;
+}
+
+/**
+ * One exercise's instructions markdown, read from its prose artifact.
+ *
+ * The public exercise page shows only the opening paragraphs of this, but the
+ * artifact is the sole home of the long-form copy — the index carries the
+ * one-line description and nothing more.
+ */
+export async function getExerciseInstructionsServer(
+  slug: string,
+  locale: string,
+  proseHash: string
+): Promise<string | null> {
+  const path = exerciseProsePath(slug, locale, proseHash);
+  const res = await readArtifact(path);
+  if (!res.ok) {
+    return null;
+  }
+  const prose = await res.json<{ instructions: string }>();
+  return prose.instructions;
 }

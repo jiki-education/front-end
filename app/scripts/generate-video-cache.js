@@ -88,8 +88,8 @@ function readRefs() {
       continue;
     }
     const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
-    if (metadata.walkthroughVideo) {
-      refs[dir.name] = metadata.walkthroughVideo;
+    if (metadata.deepDiveVideo) {
+      refs[dir.name] = metadata.deepDiveVideo;
     }
   }
 

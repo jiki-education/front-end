@@ -8,11 +8,11 @@ import type { LessonSummary, VideoSource } from "@/types/lesson";
 export interface LessonDisplayData {
   lesson: LessonSummary & { title: string; description: string };
   // The recorded walkthrough solve, if this exercise has one.
-  walkthroughVideo?: VideoSource;
+  deepDiveVideo?: VideoSource;
   completed: boolean;
   locked: boolean;
   route: string;
-  walkthroughVideoWatchedPercentage: number;
+  deepDiveVideoWatchedPercentage: number;
 }
 
 // Simple types for the level section component

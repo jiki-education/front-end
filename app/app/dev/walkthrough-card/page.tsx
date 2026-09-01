@@ -12,7 +12,7 @@ function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplay
       slug: "maze-solve-basic",
       type: "exercise"
     },
-    walkthroughVideo: {
+    deepDiveVideo: {
       provider: "mux",
       id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
       durationSeconds: 120,
@@ -21,15 +21,15 @@ function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplay
     completed: false,
     locked: false,
     route: "/lesson/test",
-    walkthroughVideoWatchedPercentage: 0,
+    deepDiveVideoWatchedPercentage: 0,
     ...overrides
   };
 }
 
 const lockedLesson = createLesson({ locked: true, completed: false });
-const unwatchedLesson = createLesson({ completed: true, walkthroughVideoWatchedPercentage: 0 });
-const watchingLesson = createLesson({ completed: true, walkthroughVideoWatchedPercentage: 50 });
-const watchedLesson = createLesson({ completed: true, walkthroughVideoWatchedPercentage: 100 });
+const unwatchedLesson = createLesson({ completed: true, deepDiveVideoWatchedPercentage: 0 });
+const watchingLesson = createLesson({ completed: true, deepDiveVideoWatchedPercentage: 50 });
+const watchedLesson = createLesson({ completed: true, deepDiveVideoWatchedPercentage: 100 });
 
 export default function WalkthroughCardPage() {
   return (

@@ -83,14 +83,10 @@ export function RHS({ orchestrator }: RHSProps) {
         return <FunctionsView functions={orchestrator.getExercise().functions} />;
       case "hints": {
         const context = orchestrator.getStore().getState().context;
-        const walkthroughVideo = context.type === "lesson" ? context.walkthroughVideo : undefined;
+        const deepDiveVideo = context.type === "lesson" ? context.deepDiveVideo : undefined;
         const lessonSlug = context.slug;
         return (
-          <HintsPanel
-            hints={orchestrator.getExercise().hints}
-            walkthroughVideo={walkthroughVideo}
-            lessonSlug={lessonSlug}
-          />
+          <HintsPanel hints={orchestrator.getExercise().hints} deepDiveVideo={deepDiveVideo} lessonSlug={lessonSlug} />
         );
       }
       case "log":

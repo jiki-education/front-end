@@ -11,7 +11,7 @@ const sampleHints = [
   { question: "Hint", answer: "Consider using the <code>modulo</code> operator to check for even/odd numbers." }
 ];
 
-const walkthroughVideo: VideoSource = {
+const deepDiveVideo: VideoSource = {
   provider: "mux",
   id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
   durationSeconds: 120,
@@ -27,11 +27,11 @@ export default function HintsWalkthroughPage() {
 
         <div className={styles.sections}>
           <Section label="Hints + Walkthrough Video">
-            <HintsPanel hints={sampleHints} walkthroughVideo={walkthroughVideo} lessonSlug="maze-solve-basic" />
+            <HintsPanel hints={sampleHints} deepDiveVideo={deepDiveVideo} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Walkthrough Video Only (no hints)">
-            <HintsPanel hints={[]} walkthroughVideo={walkthroughVideo} lessonSlug="maze-solve-basic" />
+            <HintsPanel hints={[]} deepDiveVideo={deepDiveVideo} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Hints Only (no walkthrough)">

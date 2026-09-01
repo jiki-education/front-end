@@ -18,12 +18,12 @@ jest.mock("@/components/lesson/LessonContent", () => ({
     onReady,
     isCompleted,
     video,
-    walkthroughVideo
+    deepDiveVideo
   }: {
     onReady: () => void;
     isCompleted: boolean;
     video?: { id: string };
-    walkthroughVideo?: { id: string };
+    deepDiveVideo?: { id: string };
   }) => {
     onReady();
     return (
@@ -31,7 +31,7 @@ jest.mock("@/components/lesson/LessonContent", () => ({
         data-testid="lesson-content"
         data-completed={String(isCompleted)}
         data-video={video?.id ?? "none"}
-        data-walkthrough={walkthroughVideo?.id ?? "none"}
+        data-walkthrough={deepDiveVideo?.id ?? "none"}
       />
     );
   }

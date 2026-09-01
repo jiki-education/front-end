@@ -237,3 +237,24 @@ export function conceptLearningResourceSchema(
     provider: ORG_REF
   };
 }
+
+// -- Learning resources (exercises) -----------------------------------------------
+
+export function exerciseLearningResourceSchema(
+  exercise: { slug: string; title: string; description: string },
+  locale: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: exercise.title,
+    description: exercise.description,
+    url: canonicalUrl(`/exercises/${exercise.slug}`, locale),
+    inLanguage: locale,
+    learningResourceType: "Exercise",
+    educationalLevel: "Beginner",
+    teaches: exercise.title,
+    isAccessibleForFree: true,
+    provider: ORG_REF
+  };
+}
