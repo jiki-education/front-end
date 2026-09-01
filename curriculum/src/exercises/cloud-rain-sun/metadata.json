@@ -1,6 +1,7 @@
 {
   "slug": "cloud-rain-sun",
   "levelId": "strings-and-colors",
+  "deepDiveVideo": "cloud-rain-sun-deep-dive",
   "hints": [
     {
       "question": "hints.cloudShape.question",

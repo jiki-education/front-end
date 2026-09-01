@@ -270,5 +270,45 @@
       "durationSeconds": 170,
       "uploadDate": "2026-07-13"
     }
+  },
+  "foxy-face-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "iLjPyBKKLdk",
+      "durationSeconds": 853,
+      "uploadDate": "2026-09-01"
+    }
+  },
+  "fix-wall-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "88Wo05xIbqQ",
+      "durationSeconds": 401,
+      "uploadDate": "2026-09-01"
+    }
+  },
+  "penguin-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "d3v1ZHN53NI",
+      "durationSeconds": 381,
+      "uploadDate": "2026-09-01"
+    }
+  },
+  "cloud-rain-sun-deep-dive": {
+    "fallback": {
+      "provider": "mux",
+      "id": "o02XphzQdOcdYwNPttiByTzoyzdh93jim01zm8VeLOHw4",
+      "durationSeconds": 417,
+      "uploadDate": "2026-09-01"
+    }
+  },
+  "jumbled-house-deep-dive": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Te4vRMsS00Nzz7V3pmtZ2QkH4bM4wfDts01pp8VKC77B00",
+      "durationSeconds": 606,
+      "uploadDate": "2026-09-01"
+    }
   }
 }

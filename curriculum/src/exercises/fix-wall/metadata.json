@@ -1,6 +1,7 @@
 {
   "slug": "fix-wall",
   "levelId": "using-functions",
+  "deepDiveVideo": "fix-wall-deep-dive",
   "hints": [
     {
       "question": "hints.howToDrawBricks.question",
