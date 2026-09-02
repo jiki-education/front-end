@@ -67,6 +67,15 @@
  * while six separate ones are that plus six startups. A wide burst is therefore
  * turned back into a single `all`.
  *
+ * ## Opting in
+ *
+ * Off unless JIKI_ALL_LOCALES is set, which `bin/dev --all-locales` does. Most
+ * work here is English-only, and the price of being on is not the publish but
+ * the watcher: chokidar walking every locale's corpus, then a republish every
+ * time the i18n repo changes underneath it, which it does constantly. Anything
+ * already published stays on disk, so the last locales built are still
+ * browsable, just frozen.
+ *
  * ## When there is no i18n checkout
  *
  * It says so once and exits 0. Most work in this repo needs no translations,
@@ -89,6 +98,13 @@ const PUBLIC_DIR = path.join(APP_DIR, "public");
 // for a worktree that does not sit beside the default.
 const i18nRepo = path.resolve(process.env.JIKI_I18N_REPO || path.join(APP_DIR, "..", "..", "i18n"));
 const publisher = path.join(i18nRepo, "scripts", "publish.mjs");
+
+if (!process.env.JIKI_ALL_LOCALES) {
+  console.log(
+    "Skipping translated content. Run `./bin/dev --all-locales` to build and watch it (English is unaffected)."
+  );
+  process.exit(0);
+}
 
 if (!fs.existsSync(publisher)) {
   console.log(
