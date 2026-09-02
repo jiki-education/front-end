@@ -126,6 +126,11 @@ export const showVideoWalkthrough = (props: { video: VideoSource; lessonSlug: st
   showModal("video-walkthrough-modal", props);
 };
 
+// Convenience function for an exercise's intro video, shown on first open
+export const showExerciseIntroVideo = (props: { video: VideoSource }) => {
+  showModal("exercise-intro-video-modal", props);
+};
+
 // Convenience function for walkthrough confirmation modal
 export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
   showModal("walkthrough-confirm-modal", props, undefined, walkthroughConfirmStyles.modal);

@@ -342,5 +342,13 @@
       "durationSeconds": 363,
       "uploadDate": "2026-09-02"
     }
+  },
+  "fix-wall-intro": {
+    "fallback": {
+      "provider": "mux",
+      "id": "Kd6TZ6MWyXnMj00F02wkBV2EjyL019iyaAo35fOTvJwWrk",
+      "durationSeconds": 337,
+      "uploadDate": "2026-09-02"
+    }
   }
 }

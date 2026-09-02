@@ -21,6 +21,7 @@ interface LessonContentProps {
   lessonTitle: string;
   video?: VideoSource;
   deepDiveVideo?: VideoSource;
+  introVideo?: VideoSource;
   userCourse: UserCourse | null;
   isCompleted: boolean;
   serverSubmission: LastSubmissionData | null;
@@ -32,6 +33,7 @@ export default function LessonContent({
   lessonTitle,
   video,
   deepDiveVideo,
+  introVideo,
   userCourse,
   isCompleted,
   serverSubmission,
@@ -45,7 +47,7 @@ export default function LessonContent({
     return (
       <CodingExercise
         language={userCourse?.language || "javascript"}
-        context={{ type: "lesson", slug: lesson.slug, deepDiveVideo }}
+        context={{ type: "lesson", slug: lesson.slug, deepDiveVideo, introVideo }}
         isCompleted={isCompleted}
         serverSubmission={serverSubmission}
         onReady={onReady}

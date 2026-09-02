@@ -184,9 +184,10 @@ Exercise content is served as static files, separate from the exercise modules i
 Every video is authored once in `curriculum/src/videos/videos.json`, keyed by video slug as a map of locale to source plus a required `fallback`. It is resolved per locale at build time and published as a **front-end-owned artifact, never as part of a copy catalog**: the `i18n` repo republishes those per locale as closed literals, so a video field folded in there works in English and silently disappears in every locale that repo publishes. See `.context/i18n.md` § "The Video Cache".
 
 - **Build script**: `scripts/generate-video-cache.js` produces:
-  - `public/static/videos/{locale}/index-{hash}.json` — `{ sources: { videoSlug -> VideoSource }, refs: { conceptSlug|exerciseSlug -> videoSlug } }`
+  - `public/static/videos/{locale}/index-{hash}.json` — `{ sources: { videoSlug -> VideoSource }, refs: { conceptSlug|exerciseSlug|exerciseSlug:intro -> videoSlug } }`
   - `lib/generated/video-hashes.ts` — locale -> hash manifest, **compiled in with no pointer**, because videos change only when this repo deploys
-- **Resolution**: `lib/videos/select.ts` — `videoIndexTargetFor()` picks which locale's index to read, `videoFor()` follows a ref or treats the slug as a video slug (a video lesson's slug IS its video slug)
+- **Resolution**: `lib/videos/select.ts` — `videoIndexTargetFor()` picks which locale's index to read, `videoFor()` follows a ref or treats the slug as a video slug (a video lesson's slug IS its video slug), `introVideoFor()` asks for the `:intro` ref an exercise's `introVideo` key produces
+- **An exercise can name two videos**: `deepDiveVideo` (a walkthrough of the solve, offered in the Hints panel behind an unlock) claims the bare slug, and `introVideo` (setup, shown once in a modal on first open and again at the foot of the instructions) is namespaced as `slug:intro` so the two never collide
 - **Clients**: `lib/api/videos.ts` (browser) and `lib/videos/server-videos.ts` (SSR); both join an existing `Promise.all`, so no extra round trip of depth
 - **Only locales with their own recording are emitted**; everything else reads the default locale's index
 - **Dev/build commands**: `video-cache:generate` and `video-cache:watch` (wired into `dev` and `build`)

@@ -63,6 +63,8 @@ export function RHS({ orchestrator }: RHSProps) {
 
   // Function to render content based on active tab
   const renderTabContent = () => {
+    const lessonContext = orchestrator.getStore().getState().context;
+    const introVideo = lessonContext.type === "lesson" ? lessonContext.introVideo : undefined;
     const exercise = orchestrator.getExercise();
     switch (activeTab) {
       case "instructions":
@@ -75,6 +77,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseSlug={exercise.slug}
             levelTitle={levelTitle}
             isChallenge={orchestrator.isChallenge()}
+            introVideo={introVideo}
           />
         );
       case "tasks":
@@ -103,6 +106,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseSlug={exercise.slug}
             levelTitle={levelTitle}
             isChallenge={orchestrator.isChallenge()}
+            introVideo={introVideo}
           />
         );
     }

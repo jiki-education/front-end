@@ -7,6 +7,8 @@ import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
+import { showExerciseIntroVideo } from "@/lib/modal/app";
+import { hasSeenIntroVideo, markIntroVideoSeen } from "@/lib/exercises/introVideoSeen";
 import styles from "./CodingExercise.module.css";
 import "./codemirror.css";
 
@@ -47,6 +49,18 @@ export default function CodingExercise({
       onReady();
     }
   }, [isLoading, onReady]);
+
+  // An exercise's intro video plays once, the first time it is opened. It waits
+  // for the load to settle so it doesn't stack on top of the loading modal, and
+  // the seen flag is written as it opens so a reload can't replay it.
+  const introVideo = context.type === "lesson" ? context.introVideo : undefined;
+  useEffect(() => {
+    if (isLoading || loadError || !introVideo || hasSeenIntroVideo(context.slug)) {
+      return;
+    }
+    markIntroVideoSeen(context.slug);
+    showExerciseIntroVideo({ video: introVideo });
+  }, [isLoading, loadError, introVideo, context.slug]);
 
   // Error state
   if (loadError) {

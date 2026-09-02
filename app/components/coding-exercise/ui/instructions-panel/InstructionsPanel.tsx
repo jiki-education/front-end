@@ -9,6 +9,7 @@ import LibrarySection from "./LibrarySection";
 import { getConceptsBySlugs } from "@/lib/api/concepts";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
+import type { VideoSource } from "@/types/lesson";
 import styles from "./instructions-panel.module.css";
 
 interface InstructionsPanelProps {
@@ -20,6 +21,9 @@ interface InstructionsPanelProps {
   // Resolved during the exercise load, so it is never empty while a fetch runs.
   levelTitle: string;
   isChallenge?: boolean;
+  // Plays at the foot of the instructions, and in a modal the first time the
+  // exercise is opened. Absent for exercises that name no intro.
+  introVideo?: VideoSource;
   className?: string;
 }
 
@@ -31,6 +35,7 @@ export default function InstructionsPanel({
   exerciseSlug,
   levelTitle,
   isChallenge = false,
+  introVideo,
   className = ""
 }: InstructionsPanelProps) {
   const t = useTranslations("codingExercise.instructionsPanel");
@@ -190,7 +195,7 @@ export default function InstructionsPanel({
       {/* Scrollable Content */}
       <div ref={scrollContainerRef} className={styles.scrollableContent}>
         {/* Instructions Section */}
-        <InstructionsContent ref={instructionsRef} instructions={instructions} />
+        <InstructionsContent ref={instructionsRef} instructions={instructions} introVideo={introVideo} />
 
         {/* Functions Section */}
         {functions.length > 0 && (

@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { fetchCurriculumCopy, resolveCopy, type CurriculumCopy } from "@/lib/api/curriculum-copy";
 import { fetchVideoIndex } from "@/lib/api/videos";
-import { videoFor, type VideoIndex } from "@/lib/videos/select";
+import { introVideoFor, videoFor, type VideoIndex } from "@/lib/videos/select";
 import LessonContent from "./LessonContent";
 import LessonError from "./LessonError";
 
@@ -114,6 +114,11 @@ export default function Lesson({ slug }: LessonProps) {
   // picker); an exercise offers it as a walkthrough of the solve.
   const lessonVideo = videos ? (videoFor(videos, slug) ?? undefined) : undefined;
 
+  // Separate from the lesson's own video: an exercise can also carry an intro
+  // that sets the task up, which plays in the instructions rather than as a
+  // walkthrough of the solve.
+  const introVideo = videos ? (introVideoFor(videos, slug) ?? undefined) : undefined;
+
   // LessonContent must mount *underneath* the modal (not behind an early return) so its
   // dynamic chunk and exercise loader can run in the background. The child fires onReady
   // when truly ready, which flips innerReady and unmounts the modal in a single render —
@@ -126,6 +131,7 @@ export default function Lesson({ slug }: LessonProps) {
           lessonTitle={copy?.title ?? ""}
           video={lesson.type === "exercise" ? undefined : lessonVideo}
           deepDiveVideo={lesson.type === "exercise" ? lessonVideo : undefined}
+          introVideo={lesson.type === "exercise" ? introVideo : undefined}
           userCourse={userCourse}
           isCompleted={isCompleted}
           serverSubmission={serverSubmission}
