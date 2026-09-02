@@ -5,6 +5,31 @@
     --media-border-radius: 0;
 }
 
+/* Captions. v10 has no caption styling API — it hands cues to native rendering
+   and its skin only repositions them (videojs/v10#1437 tracks adding one), so
+   the appearance is the browser's and the pseudo-elements are the only hook.
+
+   Two layers, because they do different jobs. ::cue is standard and carries the
+   text: colour, line-height, font. The BOX is painted by Blink/WebKit on an
+   internal element, which is why a background-color on ::cue alone reads as no
+   change at all — the Mux Player build we came from styled both for the same
+   reason. It has to be the -background box, which shrink-wraps the text, and
+   not -display, which is the positioned cue box and spans the full width
+   because WebVTT's `size` setting defaults to 100%. The webkit pseudo-element
+   is unavailable in Firefox, which keeps its own default box behind text that
+   is still white and legible. */
+:global(video)::cue {
+    color: white;
+    line-height: 1.3;
+}
+
+:global(video)::-webkit-media-text-track-display {
+    background-color: var(--color-gray-900-75);
+    padding: 8px 0;
+    width: fit-content;
+    margin-inline: auto;
+}
+
 /* Hide the skin's skip-forward/back buttons (e.g. the landing Hero, which the
    Mux Player build hid via --seek-*-button CSS vars). v10's SeekButton marks its
    direction with data-direction, so we hide both directions within the wrapper. */

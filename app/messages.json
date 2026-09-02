@@ -1542,7 +1542,8 @@
     "exerciseIntroVideo": {
       "title": "Welcome to your First Drawing Exercise",
       "intro": "Watch this quick introduction to how drawing exercises work and how to solve them. You can also see this at the bottom of the instructions.",
-      "close": "Let's get started"
+      "close": "Let's get started",
+      "watchAlt": "Watch the introduction"
     }
   },
   "challenge": {

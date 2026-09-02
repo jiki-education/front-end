@@ -42,6 +42,53 @@
     height: 100%;
 }
 
+.thumbWrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playBtn {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    svg {
+        width: 44px;
+        height: 44px;
+        fill: var(--color-gray-800);
+        margin-inline-start: 6px;
+    }
+}
+
+.thumbWrapper:hover .playBtn {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 .buttons {
     display: flex;
 
