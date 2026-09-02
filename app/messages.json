@@ -1538,6 +1538,11 @@
       "otherLabel": "Outlook & other calendars",
       "otherHelp": "Copy this link and add it as a subscribed calendar.",
       "copied": "Copied"
+    },
+    "exerciseIntroVideo": {
+      "title": "Welcome to your First Drawing Exercise",
+      "intro": "Watch this quick introduction to how drawing exercises work and how to solve them. You can also see this at the bottom of the instructions.",
+      "close": "Let's get started"
     }
   },
   "challenge": {

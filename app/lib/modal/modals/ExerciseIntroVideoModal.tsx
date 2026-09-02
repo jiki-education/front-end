@@ -1,7 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import type { VideoSource } from "@/types/lesson";
+import { hideModal } from "../store";
 import styles from "./ExerciseIntroVideoModal.module.css";
 
 const VideoPlayer = dynamic(() => import("@/components/ui/JikiVideoPlayer"), { ssr: false });
@@ -19,13 +21,24 @@ interface ExerciseIntroVideoModalProps {
  * the student is free to close it and start.
  */
 export function ExerciseIntroVideoModal({ video }: ExerciseIntroVideoModalProps) {
+  const t = useTranslations("modals.exerciseIntroVideo");
+
   return (
-    <div className={styles.videoWrapper}>
-      {video.provider === "youtube" ? (
-        <YouTubePlayer videoId={video.id} className={styles.player} />
-      ) : (
-        <VideoPlayer playbackId={video.id} autoPlay={true} className={styles.player} />
-      )}
+    <div className={styles.content}>
+      <h4>{t("title")}</h4>
+      <p>{t("intro")}</p>
+      <div className={styles.videoWrapper}>
+        {video.provider === "youtube" ? (
+          <YouTubePlayer videoId={video.id} className={styles.player} />
+        ) : (
+          <VideoPlayer playbackId={video.id} autoPlay={true} className={styles.player} />
+        )}
+      </div>
+      <div className={styles.buttons}>
+        <button className="ui-btn ui-btn-default ui-btn-primary" onClick={hideModal}>
+          {t("close")}
+        </button>
+      </div>
     </div>
   );
 }

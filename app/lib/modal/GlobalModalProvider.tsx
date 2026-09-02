@@ -43,8 +43,8 @@ export function GlobalModalProvider() {
     return null;
   }
 
-  // Video modals render directly with a custom full-screen blur overlay
-  if (modalName === "video-walkthrough-modal" || modalName === "exercise-intro-video-modal") {
+  // Video walkthrough modal renders directly with custom full-screen blur overlay
+  if (modalName === "video-walkthrough-modal") {
     return (
       <div className={styles.videoWalkthroughOverlay}>
         <button className={styles.videoWalkthroughClose} onClick={hideModal}>
