@@ -9,6 +9,7 @@ import SidebarLayoutContent from "@/components/layout/SidebarLayoutContent";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { RelatedConceptsPills } from "@/components/concepts/ConceptPill";
+import { UpgradeCard } from "@/components/ui/UpgradeCard/UpgradeCard";
 import { ExerciseVideoCard } from "@/components/exercises/ExerciseVideoCard";
 import { ExerciseFunctionsCard } from "@/components/exercises/ExerciseFunctionsCard";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -52,37 +53,18 @@ export default function PublicExercisePage(props: PublicExercisePageProps) {
 
 function ExerciseTeaser({ slug, title, description, instructionsHtml, video, concepts }: PublicExercisePageProps) {
   return (
-    <>
-      <ExerciseBanner />
-      <div className={styles.grid}>
-        <main className={styles.main}>
-          <ExerciseHero slug={slug} title={title} description={description} />
-          {instructionsHtml && <MarkdownContent content={instructionsHtml} variant="base" />}
-        </main>
-        <aside className={styles.aside}>
-          {video && <ExerciseVideoCard slug={slug} video={video} />}
-          {/* Every concept is readable logged-out, so nothing here is ever locked. */}
-          <RelatedConceptsPills concepts={concepts} isUnlocked={() => true} />
-          <ExerciseFunctionsCard slug={slug} />
-        </aside>
-      </div>
-    </>
-  );
-}
-
-/** A one-line reminder of where the page came from, above the read itself. */
-function ExerciseBanner() {
-  const t = useTranslations("exercises.public");
-  const routes = useLocaleRoutes();
-  return (
-    <div className={styles.banner}>
-      {t.rich("banner", {
-        signup: (chunks) => (
-          <Link href={routes.authSignup()} className={styles.bannerLink}>
-            {chunks}
-          </Link>
-        )
-      })}
+    <div className={styles.grid}>
+      <main className={styles.main}>
+        <ExerciseHero slug={slug} title={title} description={description} />
+        {instructionsHtml && <MarkdownContent content={instructionsHtml} variant="base" />}
+      </main>
+      <aside className={styles.aside}>
+        <UpgradeCard />
+        {video && <ExerciseVideoCard slug={slug} video={video} />}
+        {/* Every concept is readable logged-out, so nothing here is ever locked. */}
+        <RelatedConceptsPills concepts={concepts} isUnlocked={() => true} />
+        <ExerciseFunctionsCard slug={slug} />
+      </aside>
     </div>
   );
 }

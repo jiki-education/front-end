@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import BlogPostContent from "./BlogPostContent";
-import CTABlock from "./CTABlock";
-import RecentBlogPosts from "./RecentBlogPosts";
+import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
 
 interface BlogPostPageProps {
   slug: string;
@@ -34,7 +33,6 @@ export async function getBlogPostMetadata(slug: string, locale: string): Promise
 }
 
 export default async function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
-  const t = await getTranslations({ locale, namespace: "blog.cta" });
   let post;
   try {
     post = await getBlogPost(slug, locale);
@@ -46,34 +44,11 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
   const allPosts = await getAllBlogPosts(locale);
   const relatedPosts = getRelatedBlogPosts(slug, allPosts, 5);
 
-  if (authenticated) {
-    return <BlogPostContent post={post} variant="authenticated" relatedPosts={relatedPosts} locale={locale} />;
-  }
-
   return (
     <>
-      <BlogPostContent post={post} variant="unauthenticated" locale={locale} />
+      <BlogPostContent post={post} relatedPosts={relatedPosts} locale={locale} />
 
-      {/* Minimal CTA */}
-      <CTABlock
-        variant="minimal"
-        title={t("minimalTitle")}
-        subtitle={t("minimalSubtitle")}
-        buttonText={t("minimalButton")}
-        buttonHref="/signup"
-      />
-
-      {/* Related Posts */}
-      <RecentBlogPosts posts={relatedPosts} />
-
-      {/* Gradient CTA */}
-      <CTABlock
-        variant="gradient"
-        title={t("gradientTitle")}
-        subtitle={t("gradientSubtitle")}
-        buttonText={t("gradientButton")}
-        buttonHref="/signup"
-      />
+      {!authenticated && <SignupCta />}
     </>
   );
 }

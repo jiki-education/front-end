@@ -1,4 +1,5 @@
 import ArticlesPage from "@/components/articles/ArticlesPage";
+import { hasAuthenticationCookie } from "@/lib/auth/server-storage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { isSupportedLocale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
@@ -36,7 +37,7 @@ export default async function AuthenticatedLocaleArticlesPage({ params, searchPa
 
   return (
     <AuthenticatedHeaderLayout>
-      <ArticlesPage authenticated locale={locale} tag={tag} page={page} />
+      <ArticlesPage authenticated={await hasAuthenticationCookie()} locale={locale} tag={tag} page={page} />
     </AuthenticatedHeaderLayout>
   );
 }

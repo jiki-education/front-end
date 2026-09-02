@@ -7,37 +7,24 @@ import styles from "@/components/ui/ContentWithSidebar.module.css";
 
 interface BlogPostContentProps {
   post: ProcessedBlogPost;
-  variant?: "authenticated" | "unauthenticated";
-  relatedPosts?: BlogPostMeta[];
+  relatedPosts: BlogPostMeta[];
   locale: string;
 }
 
 export default function BlogPostContent({ post, relatedPosts, locale }: BlogPostContentProps) {
-  const hasRelatedPosts = relatedPosts && relatedPosts.length > 0;
-
   return (
     <div className={styles.mainContent}>
       <BlogPostHeader post={post} />
-      {hasRelatedPosts ? (
-        <div className={styles.contentWrapper}>
-          <div className={`${shared["lg-container"]} ${styles.contentWrapperInner}`}>
-            <article className={styles.articleContent}>
-              <MarkdownContent content={post.content} className="blog-post-content" />
-            </article>
-            <aside className={styles.rightPanel}>
-              <RelatedPosts posts={relatedPosts} locale={locale} />
-            </aside>
-          </div>
+      <div className={styles.contentWrapper}>
+        <div className={`${shared["lg-container"]} ${styles.contentWrapperInner}`}>
+          <article className={styles.articleContent}>
+            <MarkdownContent content={post.content} className="blog-post-content" />
+          </article>
+          <aside className={styles.rightPanel}>
+            <RelatedPosts posts={relatedPosts} locale={locale} />
+          </aside>
         </div>
-      ) : (
-        <div className={styles.contentWrapperFull}>
-          <div className={`${shared["lg-container"]} ${styles.contentWrapperFullInner}`}>
-            <article className={styles.articleContent}>
-              <MarkdownContent content={post.content} className="blog-post-content" />
-            </article>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

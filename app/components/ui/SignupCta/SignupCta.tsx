@@ -5,7 +5,7 @@ import styles from "./SignupCta.module.css";
 
 export function SignupCta() {
   const routes = useLocaleRoutes();
-  const t = useTranslations("concepts.signupCta");
+  const t = useTranslations("common.signupCta");
   return (
     <div className={styles.wrapper}>
       <div className={styles.cta}>

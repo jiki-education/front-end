@@ -7,37 +7,24 @@ import styles from "@/components/ui/ContentWithSidebar.module.css";
 
 interface ArticleDetailContentProps {
   article: ProcessedArticle;
-  relatedArticles?: ArticleMeta[];
+  relatedArticles: ArticleMeta[];
   locale: string;
-  variant?: "authenticated" | "unauthenticated";
 }
 
-export default function ArticleDetailContent({ article, relatedArticles = [], locale }: ArticleDetailContentProps) {
-  const hasRelatedArticles = relatedArticles.length > 0;
-
+export default function ArticleDetailContent({ article, relatedArticles, locale }: ArticleDetailContentProps) {
   return (
     <div className={styles.mainContent}>
       <ArticleHeader article={article} />
-      {hasRelatedArticles ? (
-        <div className={styles.contentWrapper}>
-          <div className={`${shared["lg-container"]} ${styles.contentWrapperInner}`}>
-            <article className={styles.articleContent}>
-              <MarkdownContent content={article.content} />
-            </article>
-            <aside className={styles.rightPanel}>
-              <RelatedArticles articles={relatedArticles} locale={locale} />
-            </aside>
-          </div>
+      <div className={styles.contentWrapper}>
+        <div className={`${shared["lg-container"]} ${styles.contentWrapperInner}`}>
+          <article className={styles.articleContent}>
+            <MarkdownContent content={article.content} />
+          </article>
+          <aside className={styles.rightPanel}>
+            <RelatedArticles articles={relatedArticles} locale={locale} />
+          </aside>
         </div>
-      ) : (
-        <div className={styles.contentWrapperFull}>
-          <div className={`${shared["lg-container"]} ${styles.contentWrapperFullInner}`}>
-            <article className={styles.articleContent}>
-              <MarkdownContent content={article.content} />
-            </article>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
