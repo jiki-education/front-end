@@ -149,9 +149,9 @@
       "DisabledFeatureIncludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level."
     },
     "stdlib": {
-      "StdlibExactArgs": "{{functionName}}() has {{expected}} input slot(s), but you only provided {{received}} thing(s) to put in them.",
-      "StdlibAtLeastArgs": "{{functionName}}() has at least {{minimum}} input slot(s), but you only provided {{received}} thing(s) to put in them.",
-      "StdlibArgRange": "{{functionName}}() has between {{min}} and {{max}} input slots, but you only provided {{received}} thing(s) to put in them.",
+      "StdlibExactArgs": "{{functionName}}() has $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{received}} }) for Jiki to use with it.",
+      "StdlibAtLeastArgs": "{{functionName}}() needs at least $t(phrases.slotCount, {\"count\": {{minimum}} }) but you provided $t(phrases.inputCount, {\"count\": {{received}} }) for Jiki to use with it.",
+      "StdlibArgRange": "{{functionName}}() has between {{min}} and {{max}} input slots but you provided $t(phrases.inputCount, {\"count\": {{received}} }) for Jiki to use with it.",
       "StdlibArgTypeMismatch": "{{functionName}}() expected {{argName}} to be a {{expected}}, but you gave it a {{received}}.",
       "StdlibArgMustBeInteger": "{{functionName}}() expected {{argName}} to be a whole number, but you gave it {{value}}.",
       "MethodNotYetImplemented": "The `{{method}}` method is a valid method but it's not yet available to you.",
@@ -167,7 +167,7 @@
     "slotCount_many": "∅",
     "slotCount_other": "{{count}} input slots",
     "inputCount_zero": "no inputs",
-    "inputCount_one": "an input",
+    "inputCount_one": "1 input",
     "inputCount_two": "∅",
     "inputCount_few": "∅",
     "inputCount_many": "∅",
