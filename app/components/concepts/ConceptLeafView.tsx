@@ -54,6 +54,7 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
           rightPanel={
             <ConceptSidebar
               conceptSlug={concept.slug}
+              conceptTitle={concept.title}
               relatedConcepts={relatedConcepts}
               relatedExercises={relatedExercises}
               relatedChallenges={relatedChallenges}

@@ -44,6 +44,12 @@ The `app/icons/` directory contains symlinks to curriculum icon directories:
 - `icons/lessons/` → `curriculum/images/lesson-icons/`
 - `icons/projects/` → `curriculum/images/project-icons/`
 
+`icons/social/` is not a symlink: it holds the third-party brand marks used by
+`components/ui/ShareLinks`, vendored from Simple Icons and Bootstrap Icons
+rather than drawn here, because a network's mark has to be the official one.
+`icons/social/SOURCES.md` records where each came from and under which licence,
+and is the place to add a row when a network is added.
+
 ## SVGR Integration
 
 This project uses SVGR to automatically convert SVG files into React components. SVGs can be imported directly as components without manual conversion.

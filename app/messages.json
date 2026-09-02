@@ -160,6 +160,12 @@
       "heading": "Start your <highlight>coding journey</highlight> today!",
       "text": "Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of all, <free>it's free!</free>",
       "button": "Sign Up For Free"
+    },
+    "shareLinks": {
+      "heading": "Share this",
+      "shareOn": "Share on {network}",
+      "copyLink": "Copy link",
+      "copied": "Link copied"
     }
   },
   "build": {
