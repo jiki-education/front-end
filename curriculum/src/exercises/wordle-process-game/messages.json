@@ -1,7 +1,7 @@
 {
   "checks": {
     "rowMismatchWithRow": "The \"{{letter}}\" at row {{row}}, square {{square}} should be \"{{expected}}\", not \"{{actual}}\".",
-    "rowNotColoredWithRow": "Row {{row}} was never colored.",
+    "rowNotColoredWithRow": "Row {{row}} wasn't colored.",
     "rowWrongLengthWithRow": "Row {{row}} got {{actual}} states, but a row needs {{expected}}."
   },
   "tasks": {
