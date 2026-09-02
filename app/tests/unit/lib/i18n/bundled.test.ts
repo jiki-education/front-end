@@ -80,8 +80,10 @@ describe("nothing locale-varying is bundled", () => {
       "interpreter-message-hashes.ts",
       "level-message-hashes.ts",
       "messages-hashes.ts",
-      // locale-invariant: fingerprints for images, icons and CSS
+      // locale-invariant: fingerprints for images, icons and CSS, plus the
+      // exercise -> level map (which varies by neither locale nor language)
       "asset-hashes.ts",
+      "exercise-levels.ts",
       "concept-icon-hashes.ts",
       "css-asset-hashes.json",
       // locale-varying, but published by this repo alone and so pointer-free.
