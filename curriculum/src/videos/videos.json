@@ -310,5 +310,45 @@
       "durationSeconds": 606,
       "uploadDate": "2026-09-01"
     }
+  },
+  "dnd-roll-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "pFhCYrjXOXY",
+      "durationSeconds": 352,
+      "uploadDate": "2026-09-02"
+    }
+  },
+  "relational-snowman-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "8NJp2xdz1uU",
+      "durationSeconds": 527,
+      "uploadDate": "2026-09-02"
+    }
+  },
+  "golf-rolling-ball-state-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "6sT5WewS460",
+      "durationSeconds": 715,
+      "uploadDate": "2026-09-02"
+    }
+  },
+  "plant-the-flowers-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "8GU_5blMJZQ",
+      "durationSeconds": 357,
+      "uploadDate": "2026-09-02"
+    }
+  },
+  "space-invaders-repeat-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "UV3KtppPYAI",
+      "durationSeconds": 363,
+      "uploadDate": "2026-09-02"
+    }
   }
 }

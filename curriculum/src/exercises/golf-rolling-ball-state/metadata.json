@@ -1,6 +1,7 @@
 {
   "slug": "golf-rolling-ball-state",
   "levelId": "basic-state",
+  "deepDiveVideo": "golf-rolling-ball-state-deep-dive",
   "hints": [
     {
       "question": "hints.dontKnowWhereToStart.question",

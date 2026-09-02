@@ -1,6 +1,7 @@
 {
   "slug": "plant-the-flowers",
   "levelId": "basic-state",
+  "deepDiveVideo": "plant-the-flowers-deep-dive",
   "hints": [
     {
       "question": "hints.stuck.question",
