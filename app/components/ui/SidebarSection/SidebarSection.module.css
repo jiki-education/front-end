@@ -7,12 +7,12 @@
     font-size: 19px;
     font-weight: 600;
     color: var(--color-gray-900);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .description {
     font-size: 16px;
     color: var(--color-gray-500);
     line-height: 1.4;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
