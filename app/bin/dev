@@ -1,4 +1,16 @@
 #!/usr/bin/env sh
+
+# Translated content is skipped by default. Watching the i18n repo means a
+# chokidar walk over every locale's corpus plus a republish on every change
+# there, which is a lot of CPU to spend on locales you are usually not looking
+# at. Pass --all-locales when you actually want to see them.
+for arg in "$@"; do
+  if [ "$arg" = "--all-locales" ]; then
+    JIKI_ALL_LOCALES=1
+    export JIKI_ALL_LOCALES
+  fi
+done
+
 pnpm install
 
 # Start interpreters watch in background
