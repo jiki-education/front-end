@@ -1,5 +1,4 @@
 import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
-import { hasAuthenticationCookie } from "@/lib/auth/server-storage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import JsonLd from "@/components/seo/JsonLd";
 import { getAllBlogPosts } from "@/lib/content";
@@ -45,7 +44,7 @@ export default async function AuthenticatedLocaleBlogPostPage({ params }: Props)
   return (
     <AuthenticatedHeaderLayout>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <BlogPostPage slug={slug} authenticated={await hasAuthenticationCookie()} locale={locale} />
+      <BlogPostPage slug={slug} locale={locale} />
     </AuthenticatedHeaderLayout>
   );
 }

@@ -1,5 +1,4 @@
 import ArticleDetailPage, { getArticleMetadata } from "@/components/articles/ArticleDetailPage";
-import { hasAuthenticationCookie } from "@/lib/auth/server-storage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import JsonLd from "@/components/seo/JsonLd";
 import { getAllArticles } from "@/lib/content";
@@ -44,7 +43,7 @@ export default async function AuthenticatedLocaleArticlePage({ params }: Props) 
   return (
     <AuthenticatedHeaderLayout>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <ArticleDetailPage slug={slug} authenticated={await hasAuthenticationCookie()} locale={locale} />
+      <ArticleDetailPage slug={slug} locale={locale} />
     </AuthenticatedHeaderLayout>
   );
 }

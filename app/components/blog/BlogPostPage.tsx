@@ -3,11 +3,10 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import BlogPostContent from "./BlogPostContent";
-import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
+import { LoggedOutSignupCta } from "@/components/ui/SignupCta/LoggedOutSignupCta";
 
 interface BlogPostPageProps {
   slug: string;
-  authenticated: boolean;
   locale: string;
 }
 
@@ -32,7 +31,7 @@ export async function getBlogPostMetadata(slug: string, locale: string): Promise
   }
 }
 
-export default async function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
+export default async function BlogPostPage({ slug, locale }: BlogPostPageProps) {
   let post;
   try {
     post = await getBlogPost(slug, locale);
@@ -48,7 +47,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     <>
       <BlogPostContent post={post} relatedPosts={relatedPosts} locale={locale} />
 
-      {!authenticated && <SignupCta />}
+      <LoggedOutSignupCta />
     </>
   );
 }

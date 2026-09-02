@@ -1,5 +1,4 @@
 import BlogPage from "@/components/blog/BlogPage";
-import { hasAuthenticationCookie } from "@/lib/auth/server-storage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { isSupportedLocale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
@@ -38,7 +37,7 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
   // Authenticated UI with header/footer
   return (
     <AuthenticatedHeaderLayout>
-      <BlogPage authenticated={await hasAuthenticationCookie()} locale={locale} page={page} />
+      <BlogPage locale={locale} page={page} />
     </AuthenticatedHeaderLayout>
   );
 }

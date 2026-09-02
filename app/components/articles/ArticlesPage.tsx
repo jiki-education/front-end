@@ -2,17 +2,16 @@ import { getTranslations } from "next-intl/server";
 import { getArticles, ARTICLE_TAG_SLUGS, type ArticleTagSlug } from "@/lib/content";
 import PageHeader from "@/components/blog/PageHeader";
 import ArticlesContent from "./ArticlesContent";
-import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
+import { LoggedOutSignupCta } from "@/components/ui/SignupCta/LoggedOutSignupCta";
 import styles from "./ArticlesPage.module.css";
 
 interface ArticlesPageProps {
-  authenticated: boolean;
   locale: string;
   tag?: string | null;
   page?: string | null;
 }
 
-export default async function ArticlesPage({ authenticated, locale, tag, page }: ArticlesPageProps) {
+export default async function ArticlesPage({ locale, tag, page }: ArticlesPageProps) {
   // getTranslations, not useTranslations: this is an async server component now,
   // because the article list it renders is fetched rather than bundled.
   const t = await getTranslations("articles.header");
@@ -43,7 +42,7 @@ export default async function ArticlesPage({ authenticated, locale, tag, page }:
       </div>
 
       {/* Outside the padded container so the band bleeds to the viewport edges. */}
-      {!authenticated && <SignupCta />}
+      <LoggedOutSignupCta />
     </div>
   );
 }

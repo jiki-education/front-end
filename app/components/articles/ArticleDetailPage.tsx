@@ -2,12 +2,11 @@ import { getArticle, getAllArticles, getRelatedArticles } from "@/lib/content";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
+import { LoggedOutSignupCta } from "@/components/ui/SignupCta/LoggedOutSignupCta";
 import ArticleDetailContent from "./ArticleDetailContent";
 
 interface ArticleDetailPageProps {
   slug: string;
-  authenticated: boolean;
   locale: string;
 }
 
@@ -31,7 +30,7 @@ export async function getArticleMetadata(slug: string, locale: string): Promise<
   }
 }
 
-export default async function ArticleDetailPage({ slug, authenticated, locale }: ArticleDetailPageProps) {
+export default async function ArticleDetailPage({ slug, locale }: ArticleDetailPageProps) {
   let article;
   try {
     article = await getArticle(slug, locale);
@@ -47,7 +46,7 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
     <>
       <ArticleDetailContent article={article} relatedArticles={relatedArticles} locale={locale} />
 
-      {!authenticated && <SignupCta />}
+      <LoggedOutSignupCta />
     </>
   );
 }
