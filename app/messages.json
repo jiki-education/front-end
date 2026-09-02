@@ -2172,7 +2172,8 @@
       "ctaFootnote": "Already have an account? <login>Log in</login>.",
       "video": {
         "header": "Watch the Deep Dive",
-        "description": "Jeremy walks through this exercise, step by step."
+        "description": "Jeremy walks through this exercise, step by step.",
+        "playAriaLabel": "Play the exercise deep dive video"
       },
       "functions": {
         "heading": "Functions You'll Use",
