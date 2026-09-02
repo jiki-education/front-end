@@ -53,8 +53,9 @@ const styleChecks: CodeCheck[] = [
   }
 ];
 
-// Bonus only: reward getting the guard list tight. Each language's limit is its
-// own canonical solution's line count.
+// Bonus only: reward getting the guard list tight. Each language's limit is a
+// little above its own canonical solution's line count, so there is room to
+// reach the shape without matching it line for line.
 const lineCountCheck: CodeCheck[] = [
   {
     pass: (result, language) => {
@@ -159,6 +160,10 @@ const poemScenarios: PoemScenario[] = [
   }
 ];
 
+function collapseSpaces(poem: string): string {
+  return poem.replace(/ +/g, " ").trim();
+}
+
 export const scenarios: VisualScenario[] = poemScenarios.map(({ slug, track, expected, taskId, extraChecks }) => {
   const camelSlug = slug.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
 
@@ -172,17 +177,24 @@ export const scenarios: VisualScenario[] = poemScenarios.map(({ slug, track, exp
     },
     expectations(exercise) {
       const ex = exercise as AdventuresInPoetryExercise;
+      const got = ex.recitedPoem ?? "";
+
+      // Spacing mistakes (a doubled space from an empty square, a leading space,
+      // a space before a comma) leave the words themselves correct, so the plain
+      // mismatch message reads as though the two poems are identical. Say that it
+      // is the spacing that is wrong.
+      const wordsAreRight = got !== expected && collapseSpaces(got) === collapseSpaces(expected);
+
       return [
         {
           pass: ex.recited,
           errorHtml: exercise.t("checks.notRecited")
         },
         {
-          pass: ex.recitedPoem === expected,
-          errorHtml: exercise.t("checks.wrongPoem", {
-            expected,
-            got: ex.recitedPoem ?? ""
-          })
+          pass: got === expected,
+          errorHtml: wordsAreRight
+            ? exercise.t("checks.wrongSpacing", { expected, got })
+            : exercise.t("checks.wrongPoem", { expected, got })
         }
       ];
     },
