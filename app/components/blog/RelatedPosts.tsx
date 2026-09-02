@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/routes";
+import { SidebarSection } from "@/components/ui/SidebarSection/SidebarSection";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import styles from "./RelatedPosts.module.css";
@@ -17,14 +18,13 @@ export default function RelatedPosts({ posts, locale }: RelatedPostsProps) {
   }
 
   return (
-    <div className={styles.relatedPostsContainer}>
-      <h3 className={styles.relatedPostsTitle}>{t("heading")}</h3>
+    <SidebarSection heading={t("heading")}>
       <div className={styles.relatedPostsSection}>
         {posts.map((post) => (
           <RelatedPostCard key={post.slug} post={post} locale={locale} />
         ))}
       </div>
-    </div>
+    </SidebarSection>
   );
 }
 

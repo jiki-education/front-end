@@ -1,0 +1,69 @@
+.links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid var(--color-gray-300);
+    border-radius: 10px;
+    background: var(--color-gray-50);
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: var(--color-gray-100);
+        color: var(--brand, var(--color-gray-900));
+        border-color: currentcolor;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/*
+   Each network's own colour, on hover only: at rest the row reads as one set of
+   buttons rather than six competing logos, and the colour then confirms which
+   one is under the cursor.
+
+   These are deliberately not palette tokens. A brand colour isn't ours to pick
+   or to reuse - it is fixed by the network, and it means nothing anywhere else
+   in the product - so it stays scoped to this file instead of entering
+   colors.css, where it would read as a colour anyone may design with.
+*/
+.link[data-network="x"] {
+    --brand: #000000;
+}
+
+.link[data-network="bluesky"] {
+    --brand: #1185fe;
+}
+
+.link[data-network="linkedin"] {
+    --brand: #0a66c2;
+}
+
+.link[data-network="reddit"] {
+    --brand: #ff4500;
+}
+
+.link[data-network="hacker-news"] {
+    --brand: #f0652f;
+}
+
+.link.copied {
+    background: var(--color-green-100);
+    border-color: var(--color-green-400);
+    color: var(--color-green-600);
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+}
