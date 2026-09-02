@@ -2173,8 +2173,7 @@
       "video": {
         "header": "Watch the Deep Dive",
         "description": "Jeremy walks through this exercise, step by step.",
-        "playAriaLabel": "Play the exercise deep dive video",
-        "thumbnailAlt": "Exercise deep dive thumbnail"
+        "playAriaLabel": "Play the exercise deep dive video"
       },
       "functions": {
         "heading": "Functions You'll Use",

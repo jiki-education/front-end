@@ -61,7 +61,7 @@ function ExerciseTeaser({ slug, title, description, instructionsHtml, video, con
       </main>
       <aside className={styles.aside}>
         <UpgradeCard />
-        {video && <ExerciseVideoCard slug={slug} video={video} />}
+        {video && <ExerciseVideoCard video={video} />}
         {/* Every concept is readable logged-out, so nothing here is ever locked. */}
         <RelatedConceptsPills concepts={concepts} isUnlocked={() => true} />
         <ExerciseFunctionsCard slug={slug} />
