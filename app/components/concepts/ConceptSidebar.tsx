@@ -46,7 +46,7 @@ export function ConceptSidebar({
         </div>
       )}
       {video && <VideoRecapCard conceptSlug={conceptSlug} video={video} isAuthenticated={isAuthenticated} />}
-      <ShareLinks title={conceptTitle} path={routes.concept(conceptSlug)} />
+      <ShareLinks subject="concept" title={conceptTitle} path={routes.concept(conceptSlug)} />
       <RelatedConceptsPills concepts={relatedConcepts} isUnlocked={isConceptUnlocked} />
       <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} isAuthenticated={isAuthenticated} />
       <RelatedChallenges challenges={relatedChallenges} getStatus={getChallengeStatus} />

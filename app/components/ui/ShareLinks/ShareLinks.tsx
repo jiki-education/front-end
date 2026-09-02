@@ -2,7 +2,9 @@
 
 import { useEffect, useState, type ComponentType, type SVGProps } from "react";
 import { useTranslations } from "next-intl";
+import { copyToClipboard } from "@/lib/clipboard";
 import { SITE_URL } from "@/lib/site";
+import { SidebarSection } from "@/components/ui/SidebarSection/SidebarSection";
 import BlueskyIcon from "@/icons/social/bluesky.svg";
 import CopiedIcon from "@/icons/social/copied.svg";
 import CopyLinkIcon from "@/icons/social/copy-link.svg";
@@ -12,9 +14,18 @@ import RedditIcon from "@/icons/social/reddit.svg";
 import XIcon from "@/icons/social/x.svg";
 import styles from "./ShareLinks.module.css";
 
+/**
+ * What is being shared. Each kind has its own sentence rather than one sentence
+ * with the noun interpolated: a language that inflects the noun after "this"
+ * can't be translated correctly from a fragment it never sees in place.
+ */
+export type ShareSubject = "blogPost" | "article" | "concept";
+
 interface ShareLinksProps {
   /** Title of the thing being shared, used as the pre-filled post text. */
   title: string;
+  /** Which sentence to show under the heading. */
+  subject: ShareSubject;
   /**
    * Locale-aware path of the page (e.g. "/hu/blog/translatathon"), as built by
    * `localePath`. Shared URLs carry the locale so the reader lands in the
@@ -24,19 +35,19 @@ interface ShareLinksProps {
   path: string;
 }
 
-export function ShareLinks({ title, path }: ShareLinksProps) {
+export function ShareLinks({ title, subject, path }: ShareLinksProps) {
   const t = useTranslations("common.shareLinks");
   const url = `${SITE_URL}${path}`;
 
   return (
-    <div className={styles.container}>
-      <h3 className={styles.heading}>{t("heading")}</h3>
+    <SidebarSection heading={t("heading")} description={t(`description.${subject}`)}>
       <div className={styles.links}>
         {shareTargets(url, title).map((target) => (
           <a
             key={target.key}
             href={target.href}
             className={styles.link}
+            data-network={target.key}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t("shareOn", { network: target.name })}
@@ -47,7 +58,7 @@ export function ShareLinks({ title, path }: ShareLinksProps) {
         ))}
         <CopyLinkButton url={url} />
       </div>
-    </div>
+    </SidebarSection>
   );
 }
 
@@ -66,11 +77,10 @@ function CopyLinkButton({ url }: { url: string }) {
   }, [justCopied]);
 
   const handleClick = () => {
-    navigator.clipboard
-      .writeText(url)
+    copyToClipboard(url)
       .then(() => setJustCopied(true))
       .catch((error: unknown) => {
-        console.error("Clipboard write failed:", error);
+        console.error("Copy link failed:", error);
       });
   };
 

@@ -23,7 +23,7 @@ export default function BlogPostContent({ post, relatedPosts, locale }: BlogPost
             <MarkdownContent content={post.content} className="blog-post-content" />
           </article>
           <aside className={styles.rightPanel}>
-            <ShareLinks title={post.title} path={localePath(`/blog/${post.slug}`, locale)} />
+            <ShareLinks subject="blogPost" title={post.title} path={localePath(`/blog/${post.slug}`, locale)} />
             <RelatedPosts posts={relatedPosts} locale={locale} />
           </aside>
         </div>

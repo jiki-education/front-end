@@ -23,7 +23,7 @@ export default function ArticleDetailContent({ article, relatedArticles, locale 
             <MarkdownContent content={article.content} />
           </article>
           <aside className={styles.rightPanel}>
-            <ShareLinks title={article.title} path={localePath(`/help/${article.slug}`, locale)} />
+            <ShareLinks subject="article" title={article.title} path={localePath(`/help/${article.slug}`, locale)} />
             <RelatedArticles articles={relatedArticles} locale={locale} />
           </aside>
         </div>
