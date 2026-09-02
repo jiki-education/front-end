@@ -2,7 +2,7 @@ import { type ExecutionContext, type Shared, isNumber, isList, isString } from "
 import { VisualExercise } from "../../VisualExercise";
 import type { AvailableFunction } from "../../types";
 
-type LetterState = "correct" | "present" | "absent";
+export type LetterState = "correct" | "present" | "absent";
 
 const STATE_COLORS: Record<LetterState, string> = {
   correct: "rgb(106, 170, 100)",
@@ -219,6 +219,7 @@ export default class WordleExercise extends VisualExercise {
   private targetWord: string = "";
   private nextRow = 0;
   private guessedWords: string[] = [];
+  private rowWords: string[] = [];
   private guessRows: HTMLElement[] = [];
 
   constructor() {
@@ -270,6 +271,16 @@ export default class WordleExercise extends VisualExercise {
     return this.rowStates[idx] ?? [];
   }
 
+  // The letter drawn in one square of a row, so failure messages can name the
+  // letter the student is looking at rather than a bare square number.
+  public letterForRow(rowIdx: number, square: number): string {
+    return (this.rowWords[rowIdx] ?? "")[square - 1] ?? "";
+  }
+
+  private setRowWord(rowIdx: number, word: string) {
+    this.rowWords[rowIdx] = word.toLowerCase();
+  }
+
   // Pre-fill rows with guess letters during scenario setup (no animation).
   public drawGuesses(words: string[]) {
     words.forEach((word, idx) => this.drawGuessImmediate(idx, word));
@@ -280,6 +291,7 @@ export default class WordleExercise extends VisualExercise {
   }
 
   private drawGuessImmediate(rowIdx: number, word: string) {
+    this.setRowWord(rowIdx, word);
     const row = this.guessRows[rowIdx];
     const letters = row.getElementsByClassName("letter");
     for (let i = 0; i < NUM_COLS; i++) {
@@ -379,6 +391,7 @@ export default class WordleExercise extends VisualExercise {
   }
 
   private animateDrawGuess(executionCtx: ExecutionContext, rowIdx: number, word: string) {
+    this.setRowWord(rowIdx, word);
     for (let col = 0; col < NUM_COLS; col++) {
       const char = (word[col] ?? "").toLowerCase();
       this.animations.push({
