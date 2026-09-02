@@ -6,12 +6,13 @@ vi.mock("../src/gemini", () => ({
   streamGeminiResponse: vi.fn(
     async (_prompt: string, _apiKey: string, _systemInstruction: string, onChunk?: (chunk: string) => void) => {
       onChunk?.("mocked response");
-      return new ReadableStream({
+      const stream = new ReadableStream({
         start(controller) {
           controller.enqueue(new TextEncoder().encode("mocked response"));
           controller.close();
         }
       });
+      return { stream, model: "gemini-2.5-flash", usage: Promise.resolve(null) };
     }
   )
 }));

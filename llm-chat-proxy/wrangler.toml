@@ -3,6 +3,13 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Retain Workers Logs (queryable by status/time in the dashboard for 7 days on the
+# paid plan) so failures are diagnosable after the fact without catching them live.
+# Billed per log EVENT, not size; a healthy request emits one structured summary
+# line (see src/index.ts), so volume stays well within the included allotment.
+[observability]
+enabled = true
+
 [[rules]]
 type = "Text"
 globs = ["**/*.css", "**/*.javascript", "**/*.py", "**/*.jiki", "**/*.md"]
