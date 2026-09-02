@@ -9,21 +9,28 @@
    and its skin only repositions them (videojs/v10#1437 tracks adding one), so
    the appearance is the browser's and the pseudo-elements are the only hook.
 
-   Two layers, because they do different jobs. ::cue is standard and carries the
-   text: colour, line-height, font. The BOX is painted by Blink/WebKit on an
-   internal element, which is why a background-color on ::cue alone reads as no
-   change at all — the Mux Player build we came from styled both for the same
-   reason. It has to be the -background box, which shrink-wraps the text, and
-   not -display, which is the positioned cue box and spans the full width
-   because WebVTT's `size` setting defaults to 100%. The webkit pseudo-element
-   is unavailable in Firefox, which keeps its own default box behind text that
-   is still white and legible. */
-:global(video)::cue {
+   The cue's own box cannot be touched: Chrome's UA stylesheet declares
+   `::cue { background-color: rgba(0,0,0,0.498) !important }`, and !important
+   inverts the cascade so a UA declaration beats any author rule. That is
+   deliberate — the box carries the viewer's caption preferences. ::cue does
+   take the text properties, so colour and line-height go there, and the opaque
+   box goes on -display, which accepts a background. -display is the positioned
+   cue box and spans the full width, because WebVTT's `size` setting defaults to
+   100%, hence the fit-content.
+
+   -display is a Blink/WebKit pseudo-element, so Firefox keeps its own box
+   behind text that is still white and legible.
+
+   Both rules are scoped to .videoPlayer rather than written as bare `video`
+   rules: css-loader runs CSS Modules in pure mode for the production webpack
+   build and rejects a selector carrying no local class, so a global-only rule
+   compiles under turbopack in dev and then fails the build. */
+.videoPlayer video::cue {
     color: white;
     line-height: 1.3;
 }
 
-:global(video)::-webkit-media-text-track-display {
+.videoPlayer video::-webkit-media-text-track-display {
     background-color: var(--color-gray-900-75);
     padding: 8px 0;
     width: fit-content;
