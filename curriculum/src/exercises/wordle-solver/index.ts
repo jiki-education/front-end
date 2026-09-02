@@ -73,7 +73,7 @@ const exerciseDefinition: VisualExerciseCore = {
     "logical-not",
     "creating-functions-with-return-values"
   ],
-  interpreterOptions: { maxTotalLoopIterations: 5000 }
+  interpreterOptions: { maxTotalLoopIterations: 20000 }
 };
 
 export default exerciseDefinition;
