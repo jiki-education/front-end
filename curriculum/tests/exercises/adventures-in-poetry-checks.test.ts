@@ -193,4 +193,60 @@ recite(poem)
     const results = run(src);
     expect(results.every((r) => r.status === "fail")).toBe(true);
   });
+  it("reports a whitespace-only mismatch as a spacing problem", () => {
+    // Every word is right and in the right order, but each empty square adds a
+    // space of its own. Rendered as HTML the doubled spaces collapse, so the
+    // plain mismatch message would show two strings that look identical.
+    const src = `
+let poem = ""
+while (true) {
+  let found = move()
+  if (found === "\u{1F3C1}") {
+    break
+  }
+  if (isEmoji(found)) {
+    continue
+  }
+  if (poem !== "") {
+    poem = poem + " " + found
+    continue
+  }
+  poem = poem + found
+}
+recite(poem)
+`;
+    const gaps = run(src).find((r) => r.slug === "hope");
+    const messages = (gaps?.expects ?? []).filter((e) => !e.pass).map((e) => e.errorHtml ?? "");
+
+    expect(messages).toContain("checks.wrongSpacing");
+    expect(messages).not.toContain("checks.wrongPoem");
+  });
+
+  it("still reports a genuinely different poem as a wrong poem", () => {
+    // The apostrophe is treated as a word of its own, so the words themselves
+    // differ and the spacing message would be a lie.
+    const src = `
+let poem = ""
+let needsSpace = false
+while (true) {
+  let found = move()
+  if (found === "\u{1F3C1}") {
+    break
+  }
+  if (found === "" || isEmoji(found)) {
+    continue
+  }
+  if (needsSpace) {
+    poem = poem + " "
+  }
+  poem = poem + found
+  needsSpace = true
+}
+recite(poem)
+`;
+    const highlands = run(src).find((r) => r.slug === "highlands");
+    const messages = (highlands?.expects ?? []).filter((e) => !e.pass).map((e) => e.errorHtml ?? "");
+
+    expect(messages).toContain("checks.wrongPoem");
+  });
 });

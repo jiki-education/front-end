@@ -6,7 +6,8 @@
   },
   "checks": {
     "notRecited": "The poet never recited anything. Make sure you call <code>recite()</code> once the walk is over.",
-    "wrongPoem": "The poet recited \"{{got}}\" but the poem should be \"{{expected}}\".",
+    "wrongPoem": "The poet recited:<pre style=\"white-space: pre-wrap; margin: 6px 0; background: white; padding: 4px 7px; font-size: 13px; border-radius: 5px; border: 1px solid var(--color-red-200)\">{{got}}</pre>but the poem should be:<pre style=\"white-space: pre-wrap; margin: 6px 0; background: white; padding: 4px 7px; font-size: 13px; border-radius: 5px; border: 1px solid var(--color-red-200)\">{{expected}}</pre>",
+    "wrongSpacing": "The poet collected the right words in the right order, but the spacing is wrong. It recited:<pre style=\"white-space: pre-wrap; margin: 6px 0; background: white; padding: 4px 7px; font-size: 13px; border-radius: 5px; border: 1px solid var(--color-red-200)\">{{got}}</pre>but the poem should be:<pre style=\"white-space: pre-wrap; margin: 6px 0; background: white; padding: 4px 7px; font-size: 13px; border-radius: 5px; border: 1px solid var(--color-red-200)\">{{expected}}</pre>",
     "noFunctions": "Write your solution as one walk, without defining any functions of your own.",
     "reciteOnce": "The poet should recite the poem once, after the walk has finished.",
     "tooDeeplyNested": "Your code nests too deeply. You are only allowed two levels, so a loop with an <code>if</code> inside it, but nothing inside that <code>if</code>.",
@@ -64,7 +65,7 @@
     },
     "yasegaeru": {
       "name": "A line of Issa",
-      "description": "Seven words of haiku, with a line limit to keep your guards tight. The tidiest solution fits in 32 lines."
+      "description": "Seven words of haiku, with a line limit to keep your guards tight. Can you find a tidy solution that's only 32 lines long? (Or less?)"
     }
   },
   "hints": {
