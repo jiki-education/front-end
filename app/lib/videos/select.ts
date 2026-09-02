@@ -62,6 +62,20 @@ export function videoFor(index: VideoIndex, slug: string): VideoSource | null {
   return ownEntry(index.sources, videoSlug) ?? null;
 }
 
+/**
+ * The suffix `generate-video-cache.js` gives an exercise's intro-video ref.
+ *
+ * An exercise can name two videos in different roles: a deep dive of the solve,
+ * which claims the bare slug, and an intro that sets the exercise up. Only one
+ * of them can be `refs[slug]`, so the intro is namespaced.
+ */
+export const INTRO_REF_SUFFIX = ":intro";
+
+/** The intro video an exercise plays, or null when it names none. */
+export function introVideoFor(index: VideoIndex, slug: string): VideoSource | null {
+  return videoFor(index, `${slug}${INTRO_REF_SUFFIX}`);
+}
+
 // These are parsed JSON and a compiled manifest, so a plain index would reach
 // Object.prototype and resolve a slug like "constructor" to a function rather
 // than missing.

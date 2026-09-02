@@ -26,7 +26,7 @@
  *
  *   /static/videos/{locale}/index-{hash}.json
  *     { sources: { [videoSlug]: VideoSource },
- *       refs:    { [conceptSlug|exerciseSlug]: videoSlug } }
+ *       refs:    { [conceptSlug|exerciseSlug|exerciseSlug:intro]: videoSlug } }
  *
  * `sources` is deduplicated by video slug, because one recording teaches several
  * concepts: the loops video covers break, continue, for-loops and while-loops.
@@ -90,6 +90,12 @@ function readRefs() {
     const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
     if (metadata.deepDiveVideo) {
       refs[dir.name] = metadata.deepDiveVideo;
+    }
+    // An exercise can name two videos playing different roles, so the intro is
+    // namespaced rather than claiming the bare slug the deep dive already uses.
+    // The suffix is INTRO_REF_SUFFIX in lib/videos/select.ts; keep them in step.
+    if (metadata.introVideo) {
+      refs[`${dir.name}:intro`] = metadata.introVideo;
     }
   }
 

@@ -32,6 +32,7 @@ import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.modul
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import welcomeStyles from "./modals/WelcomeModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
+import exerciseIntroVideoStyles from "./modals/ExerciseIntroVideoModal.module.css";
 import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 import { showModal } from "./store";
 
@@ -124,6 +125,11 @@ export const showPremiumUpgradeModal = (
 // Convenience function for video walkthrough modal
 export const showVideoWalkthrough = (props: { video: VideoSource; lessonSlug: string }) => {
   showModal("video-walkthrough-modal", props);
+};
+
+// Convenience function for an exercise's intro video, shown on first open
+export const showExerciseIntroVideo = (props: { video: VideoSource }) => {
+  showModal("exercise-intro-video-modal", props, undefined, exerciseIntroVideoStyles.modal);
 };
 
 // Convenience function for walkthrough confirmation modal

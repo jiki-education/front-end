@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { videoFor, type VideoIndex } from "@/lib/videos/select";
+import { introVideoFor, videoFor, type VideoIndex } from "@/lib/videos/select";
 import { assembleConcepts, type ConceptStructure } from "@/lib/concepts/assemble";
 
 const APP_DIR = path.join(__dirname, "..", "..", "..", "..");
@@ -100,6 +100,27 @@ describe("videoFor", () => {
   it("does not resolve inherited object properties to a video", () => {
     expect(videoFor(index, "constructor")).toBeNull();
     expect(videoFor(index, "toString")).toBeNull();
+  });
+});
+
+describe("introVideoFor", () => {
+  // An exercise can name both a deep dive and an intro, so the two must not
+  // collide: the deep dive claims the bare slug and the intro is namespaced.
+  const index: VideoIndex = {
+    sources: {
+      "fix-wall-deep-dive": { provider: "youtube", id: "deep-id", durationSeconds: 401, uploadDate: "2026-09-01" },
+      "fix-wall-intro": { provider: "mux", id: "intro-id", durationSeconds: 337, uploadDate: "2026-09-02" }
+    },
+    refs: { "fix-wall": "fix-wall-deep-dive", "fix-wall:intro": "fix-wall-intro" }
+  };
+
+  it("resolves an exercise's intro without disturbing its deep dive", () => {
+    expect(introVideoFor(index, "fix-wall")?.id).toBe("intro-id");
+    expect(videoFor(index, "fix-wall")?.id).toBe("deep-id");
+  });
+
+  it("returns null for an exercise that names no intro", () => {
+    expect(introVideoFor(index, "build-wall")).toBeNull();
   });
 });
 

@@ -487,3 +487,26 @@
 .fullWidthButton {
     width: 100%;
 }
+
+.introVideoSection {
+    margin-top: 24px;
+}
+
+.introVideoSection h3 {
+    margin-bottom: 8px;
+}
+
+.introVideoWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.introVideoPlayer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}

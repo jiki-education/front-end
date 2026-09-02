@@ -41,6 +41,9 @@ const PaymentVerificationFailedModal = dynamic(() =>
 );
 const PremiumUpgradeModal = dynamic(() => import("./PremiumUpgradeModal").then((m) => m.PremiumUpgradeModal));
 const WelcomeToPremiumModal = dynamic(() => import("./WelcomeToPremiumModal").then((m) => m.WelcomeToPremiumModal));
+const ExerciseIntroVideoModal = dynamic(() =>
+  import("./ExerciseIntroVideoModal").then((m) => m.ExerciseIntroVideoModal)
+);
 const VideoWalkthroughModal = dynamic(() => import("./VideoWalkthroughModal").then((m) => m.VideoWalkthroughModal));
 const WalkthroughConfirmModal = dynamic(() =>
   import("./WalkthroughConfirmModal").then((m) => m.WalkthroughConfirmModal)
@@ -66,6 +69,7 @@ export const appModals = {
   "premium-upgrade-modal": PremiumUpgradeModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
   "video-walkthrough-modal": VideoWalkthroughModal,
+  "exercise-intro-video-modal": ExerciseIntroVideoModal,
   "walkthrough-confirm-modal": WalkthroughConfirmModal,
   "welcome-modal": WelcomeModal
 };

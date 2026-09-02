@@ -1538,6 +1538,12 @@
       "otherLabel": "Outlook & other calendars",
       "otherHelp": "Copy this link and add it as a subscribed calendar.",
       "copied": "Copied"
+    },
+    "exerciseIntroVideo": {
+      "title": "Welcome to your First Drawing Exercise",
+      "intro": "Watch this quick introduction to how drawing exercises work and how to solve them. You can also see this at the bottom of the instructions.",
+      "close": "Let's get started",
+      "watchAlt": "Watch the introduction"
     }
   },
   "challenge": {
@@ -1708,7 +1714,8 @@
       "libraryEmpty": "This is where you will see Concepts as you progress through the exercises. These will be references you can use to refresh your memory on what you've learned.",
       "libraryChallenges": "You can use any concepts you've learned so far in this exercise. Refer back to your Concept Library when you want to remind yourself of what you've learned.",
       "libraryWithConcepts": "These are the key concepts used in this exercise. Use them to refresh yourself on what you've learned so far.",
-      "openConceptLibrary": "Open Concept Library"
+      "openConceptLibrary": "Open Concept Library",
+      "introVideoTitle": "Video Introduction"
     },
     "scrubber": {
       "previousFrame": "Previous frame",
