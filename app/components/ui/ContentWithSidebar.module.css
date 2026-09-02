@@ -13,7 +13,7 @@
 .contentWrapperInner {
     display: grid;
     gap: 7%;
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 1fr 360px;
 }
 
 .articleContent {
