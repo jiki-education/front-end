@@ -7,6 +7,12 @@
     font-size: 19px;
     font-weight: 600;
     color: var(--color-gray-900);
+    margin-bottom: 16px;
+}
+
+/* A blurb follows, so the heading sits tight against its own sentence rather
+   than spaced as if the content came next. */
+.heading.withDescription {
     margin-bottom: 2px;
 }
 
