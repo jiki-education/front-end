@@ -483,3 +483,50 @@ Neither guard covers native recursion that involves no function call at all.
 invoked by the frame describer. `unwrapJSObject` (`jsObjects/index.ts`) is a
 second unguarded walker over the same shapes. The fix is cycle detection
 rendering `[Circular]`, matching real JavaScript, not a call guard.
+
+## 2026-09-03: Arity Error Wording
+
+### Problem
+
+A student reported that calling a two-parameter function with one argument said:
+
+> This function has 2 input slots but you provided **an input** for Jiki to use with it.
+
+The count is the whole point of the error, and it was the one case where the
+message hid it. `phrases.inputCount_one` in `javascript/locales/en` rendered "an
+input" rather than a number, so only the singular case lost the information.
+
+Separately, the `error.stdlib.Stdlib{Exact,AtLeast,Range}Args` strings phrased
+the same idea a third way - `slot(s)`, `thing(s) to put in them` - inconsistent
+with the `InvalidNumberOfArguments_*` family a student actually sees.
+
+### Changes Made
+
+1. `phrases.inputCount_one` is now `1 input`. Not "only 1 input": the same
+   phrase renders when a student over-supplies (a zero-slot function called with
+   one argument), where "only" would read wrong.
+
+2. The three stdlib arity strings in both `javascript` and `python` `en` locales
+   now mirror the `InvalidNumberOfArguments_*` wording, prefixed with the
+   function name, and defer pluralisation to `phrases.slotCount` /
+   `phrases.inputCount` via i18next nesting rather than `(s)` parentheticals.
+   `python/locales/en` gained the `phrases` block for this - `javascript` already
+   had one.
+
+All of this is locale-file only; the call sites already pass structured counts.
+
+### Known Gap
+
+The stdlib arity strings are unreachable in practice. `executeCallExpression`
+runs one `checkArity` gate against `callable.arity` before dispatch, and every
+stdlib member declares an arity, so `guardExactArgs` / `guardArgRange` inside a
+stdlib function never fire for a call expression - the student sees the
+`InvalidNumberOfArguments_*` message instead. The guards remain as defence in
+depth, now worded consistently should they ever surface.
+
+Python's own `checkArity` (`python/executor/executeCallExpression.ts`) still
+builds its English by hand - `"slot"`/`"slots"`, `"at least "`, `"between X and
+Y"` - injected as interpolation values, and carries a `TODO` saying so. It is
+untranslatable and renders `0 input slots` where JavaScript renders `no input
+slots`. Porting it to the JavaScript `context` + `phrases` approach is left as
+follow-up work.
