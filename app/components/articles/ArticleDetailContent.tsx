@@ -1,4 +1,5 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
+import { LoggedOutUpgradeCard } from "@/components/ui/UpgradeCard/LoggedOutUpgradeCard";
 import { ShareLinks } from "@/components/ui/ShareLinks/ShareLinks";
 import { localePath } from "@/lib/i18n/routes";
 import type { ProcessedArticle, ArticleMeta } from "@/lib/content/types";
@@ -23,6 +24,7 @@ export default function ArticleDetailContent({ article, relatedArticles, locale 
             <MarkdownContent content={article.content} />
           </article>
           <aside className={styles.rightPanel}>
+            <LoggedOutUpgradeCard />
             <ShareLinks subject="article" title={article.title} path={localePath(`/help/${article.slug}`, locale)} />
             <RelatedArticles articles={relatedArticles} locale={locale} />
           </aside>

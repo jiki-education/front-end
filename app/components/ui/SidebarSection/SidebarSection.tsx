@@ -19,7 +19,7 @@ interface SidebarSectionProps {
 export function SidebarSection({ heading, description, children }: SidebarSectionProps) {
   return (
     <div className={styles.section}>
-      <h3 className={styles.heading}>{heading}</h3>
+      <h3 className={description ? `${styles.heading} ${styles.withDescription}` : styles.heading}>{heading}</h3>
       {description && <p className={styles.description}>{description}</p>}
       {children}
     </div>
