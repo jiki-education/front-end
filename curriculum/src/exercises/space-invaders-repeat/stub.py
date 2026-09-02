@@ -1,3 +1,2 @@
 # Look at the pattern of aliens
 # What actions do you repeat for each group?
-# Use: repeat(n): ...
