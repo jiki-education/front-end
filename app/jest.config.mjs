@@ -17,6 +17,7 @@ const customJestConfig = {
     "^@jiki/interpreters/python$": "<rootDir>/../interpreters/dist/python.js",
     "^@jiki/interpreters$": "<rootDir>/../interpreters",
     "^@jiki/curriculum$": "<rootDir>/../curriculum",
+    "^@jiki/curriculum/slugs$": "<rootDir>/../curriculum/src/slugs.ts",
     "^marked$": "<rootDir>/__mocks__/marked.js"
   },
   testMatch: ["<rootDir>/tests/**/*.test.{js,jsx,ts,tsx}"],

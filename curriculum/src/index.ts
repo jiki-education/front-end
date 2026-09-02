@@ -8,6 +8,7 @@ export {
   exerciseLessonSlugs,
   videoLessonSlugs,
   challengeSlugs,
+  isExerciseLessonSlug,
   isChallengeSlug,
   isVideoLessonSlug,
   type ExerciseLessonSlug,
