@@ -1,3 +1,4 @@
+import { expectRowStates } from "../../exercise-categories/wordle/expectRowStates";
 import type { Task, VisualScenario } from "../types";
 import type ProcessGameExercise from "./Exercise";
 
@@ -32,14 +33,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
-      return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.holeInOne.firstRow")
-        }
-      ];
+      return [expectRowStates(ex, 0, ["correct", "correct", "correct", "correct", "correct"])];
     }
   },
   {
@@ -54,18 +48,8 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "absent", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.twoGuesses.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.twoGuesses.secondRow")
-        }
+        expectRowStates(ex, 0, ["correct", "absent", "correct", "correct", "correct"]),
+        expectRowStates(ex, 1, ["correct", "correct", "correct", "correct", "correct"])
       ];
     }
   },
@@ -81,24 +65,9 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "absent", "correct", "absent", "present"]),
-          errorHtml: exercise.t("checks.threeGuesses.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "absent", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.threeGuesses.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.threeGuesses.thirdRow")
-        }
+        expectRowStates(ex, 0, ["correct", "absent", "correct", "absent", "present"]),
+        expectRowStates(ex, 1, ["correct", "absent", "correct", "correct", "correct"]),
+        expectRowStates(ex, 2, ["correct", "correct", "correct", "correct", "correct"])
       ];
     }
   },
@@ -117,37 +86,12 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.phew.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.phew.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) === JSON.stringify(["absent", "absent", "absent", "present", "present"]),
-          errorHtml: exercise.t("checks.phew.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.phew.fourthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(4)) === JSON.stringify(["absent", "present", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.phew.fifthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(5)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.phew.sixthRow")
-        }
+        expectRowStates(ex, 0, ["absent", "absent", "absent", "absent", "absent"]),
+        expectRowStates(ex, 1, ["absent", "absent", "absent", "absent", "absent"]),
+        expectRowStates(ex, 2, ["absent", "absent", "absent", "present", "present"]),
+        expectRowStates(ex, 3, ["present", "absent", "absent", "absent", "absent"]),
+        expectRowStates(ex, 4, ["absent", "present", "absent", "absent", "absent"]),
+        expectRowStates(ex, 5, ["correct", "correct", "correct", "correct", "correct"])
       ];
     }
   },
@@ -163,28 +107,10 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "present", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "absent", "present", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus1.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.bonus1.fourthRow")
-        }
+        expectRowStates(ex, 0, ["absent", "absent", "absent", "present", "absent"]),
+        expectRowStates(ex, 1, ["correct", "absent", "present", "absent", "absent"]),
+        expectRowStates(ex, 2, ["correct", "correct", "correct", "absent", "absent"]),
+        expectRowStates(ex, 3, ["correct", "correct", "correct", "correct", "correct"])
       ];
     }
   },
@@ -203,41 +129,12 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "absent"]),
-          errorHtml: exercise.t("checks.bonus2.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.fourthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(4)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.fifthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(5)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.bonus2.sixthRow")
-        }
+        expectRowStates(ex, 0, ["present", "absent", "correct", "absent", "absent"]),
+        expectRowStates(ex, 1, ["correct", "correct", "correct", "absent", "absent"]),
+        expectRowStates(ex, 2, ["correct", "correct", "correct", "absent", "absent"]),
+        expectRowStates(ex, 3, ["correct", "correct", "correct", "absent", "correct"]),
+        expectRowStates(ex, 4, ["correct", "correct", "correct", "absent", "correct"]),
+        expectRowStates(ex, 5, ["correct", "correct", "correct", "correct", "correct"])
       ];
     }
   }

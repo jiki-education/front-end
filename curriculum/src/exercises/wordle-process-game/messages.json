@@ -1,39 +1,8 @@
 {
   "checks": {
-    "holeInOne": {
-      "firstRow": "We expected all the letters to be green"
-    },
-    "twoGuesses": {
-      "firstRow": "We expected the second letter to be absent",
-      "secondRow": "We expected all the letters to be green"
-    },
-    "threeGuesses": {
-      "firstRow": "We expected the second and fourth letters to be absent",
-      "secondRow": "We expected the second letter to be absent",
-      "thirdRow": "We expected all the letters to be green"
-    },
-    "phew": {
-      "firstRow": "We expected everything to be absent.",
-      "secondRow": "We expected everything to be absent.",
-      "thirdRow": "We expected the last two to be present and the rest absent.",
-      "fourthRow": "We expected the first to be present and the rest absent.",
-      "fifthRow": "We expected the second to be present and the rest absent",
-      "sixthRow": "We expected all the letters to be green"
-    },
-    "bonus1": {
-      "firstRow": "We expected only the fourth letter of the first row to be present.",
-      "secondRow": "The second row isn't right. This is the tricky one: only one of the repeated letters should be colored.",
-      "thirdRow": "The third row isn't right.",
-      "fourthRow": "We expected all the letters in the fourth row to be green."
-    },
-    "bonus2": {
-      "firstRow": "The first row isn't right.",
-      "secondRow": "The second row isn't right.",
-      "thirdRow": "The third row isn't right.",
-      "fourthRow": "The fourth row isn't right. This is the tricky one: `swiss` has more `s`s than the target does.",
-      "fifthRow": "The fifth row isn't right.",
-      "sixthRow": "We expected all the letters in the sixth row to be green."
-    }
+    "rowMismatchWithRow": "The \"{{letter}}\" at row {{row}}, square {{square}} should be \"{{expected}}\", not \"{{actual}}\".",
+    "rowNotColoredWithRow": "Row {{row}} wasn't colored.",
+    "rowWrongLengthWithRow": "Row {{row}} got {{actual}} states, but a row needs {{expected}}."
   },
   "tasks": {
     "processGame": {

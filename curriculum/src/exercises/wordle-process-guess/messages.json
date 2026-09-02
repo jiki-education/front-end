@@ -1,10 +1,8 @@
 {
   "checks": {
-    "allCorrect": "We expected all the letters to be green",
-    "absent": "We expected the 'a' and 'u' to be absent",
-    "present": "We expected the 'l' and 'e' to be present.",
-    "complex": "We expected present, present, present, correct, absent",
-    "differentWord": "We expected correct, present, present, present, absent"
+    "rowMismatch": "The \"{{letter}}\" at square {{square}} should be \"{{expected}}\", not \"{{actual}}\".",
+    "rowNotColored": "The row wasn't colored.",
+    "rowWrongLength": "The row got {{actual}} states, but a row needs {{expected}}."
   },
   "tasks": {
     "processGuess": {
