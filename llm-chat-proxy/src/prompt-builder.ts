@@ -26,8 +26,9 @@ interface PromptOptions {
 // A diff longer than this is replaced wholesale with a marker - a partial diff is
 // worse than none. Mirrors DIFF_MAX_LENGTH in the app's codeDiff.ts. Enforced
 // here too as defense-in-depth against a tampered payload.
-const DIFF_MAX_LENGTH = 1000;
-const DIFF_TOO_LONG_MESSAGE = "[Diff too long to render]";
+// Exported so the tests assert against these rather than re-typing the literals.
+export const DIFF_MAX_LENGTH = 1000;
+export const DIFF_TOO_LONG_MESSAGE = "[Diff too long to render]";
 
 // Input validation limits to prevent abuse and prompt injection
 export const INPUT_LIMITS = {

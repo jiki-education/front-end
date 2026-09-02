@@ -66,6 +66,46 @@ describe("codeSnapshotStore", () => {
     });
   });
 
+  describe("write failure tolerance", () => {
+    // The availability probe writes too, so a blanket setItem mock would bail out
+    // before the save itself is attempted. Throwing only for our own key exercises
+    // the quota path proper.
+    function throwOnSnapshotWrites() {
+      return jest.spyOn(Storage.prototype, "setItem").mockImplementation((key: string) => {
+        if (key.startsWith("jiki_code_snapshots_")) {
+          throw new Error("QuotaExceededError");
+        }
+      });
+    }
+
+    it("does not throw when the snapshot write is rejected (quota)", () => {
+      const setItem = throwOnSnapshotWrites();
+
+      expect(() => saveSnapshot(KEY, 0, "question one", "move()\n")).not.toThrow();
+
+      setItem.mockRestore();
+    });
+
+    it("degrades to no snapshots rather than failing the read", () => {
+      const setItem = throwOnSnapshotWrites();
+      saveSnapshot(KEY, 0, "question one", "move()\n");
+      setItem.mockRestore();
+
+      expect(getSnapshots(KEY)).toEqual({});
+    });
+
+    it("does not throw when localStorage is unavailable entirely", () => {
+      const setItem = jest.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+        throw new Error("SecurityError");
+      });
+
+      expect(() => saveSnapshot(KEY, 0, "question one", "move()\n")).not.toThrow();
+      expect(getSnapshots(KEY)).toEqual({});
+
+      setItem.mockRestore();
+    });
+  });
+
   describe("corruption tolerance", () => {
     it("returns an empty map for unparseable stored data", () => {
       localStorage.setItem("jiki_code_snapshots_lesson:test-exercise", "{not json");

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { buildPrompt, INPUT_LIMITS } from "../src/prompt-builder";
+import { buildPrompt, INPUT_LIMITS, DIFF_MAX_LENGTH, DIFF_TOO_LONG_MESSAGE } from "../src/prompt-builder";
 
 // Mock exercise content. Prose and code are separate artifacts served at
 // separate URLs, so the mocks are separate too: the prose file carries the
@@ -545,23 +545,23 @@ describe("Prompt Builder - code diffs", () => {
   it("renders the too-long marker for the sentinel value", async () => {
     const prompt = await buildText(
       defaultOpts({
-        history: [{ role: "user", content: "big change", codeDiff: "[Diff too long to render]" }]
+        history: [{ role: "user", content: "big change", codeDiff: DIFF_TOO_LONG_MESSAGE }]
       })
     );
 
-    expect(prompt).toContain("[Diff too long to render]");
+    expect(prompt).toContain(DIFF_TOO_LONG_MESSAGE);
     expect(prompt).not.toContain("Code changes since previous message:");
   });
 
   it("defensively renders the too-long marker for an oversized diff payload", async () => {
-    const oversized = "@@ -1,1 +1,1 @@\n" + "+x\n".repeat(1000);
+    const oversized = "@@ -1,1 +1,1 @@\n" + "+x\n".repeat(DIFF_MAX_LENGTH);
     const prompt = await buildText(
       defaultOpts({
         history: [{ role: "user", content: "tampered", codeDiff: oversized }]
       })
     );
 
-    expect(prompt).toContain("[Diff too long to render]");
+    expect(prompt).toContain(DIFF_TOO_LONG_MESSAGE);
     // The oversized diff body must not leak through.
     expect(prompt).not.toContain("+x\n+x\n+x");
   });
