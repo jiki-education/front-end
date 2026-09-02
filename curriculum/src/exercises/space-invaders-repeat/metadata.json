@@ -1,6 +1,7 @@
 {
   "slug": "space-invaders-repeat",
   "levelId": "repeat-loop",
+  "deepDiveVideo": "space-invaders-repeat-deep-dive",
   "hints": [
     {
       "question": "hints.avoidRepeating.question",

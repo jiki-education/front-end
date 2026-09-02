@@ -1,6 +1,7 @@
 {
   "slug": "dnd-roll",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "dnd-roll-deep-dive",
   "hints": [
     {
       "question": "hints.chooseDie.question",
