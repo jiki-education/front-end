@@ -79,11 +79,28 @@ Used in `app/(app)/layout.tsx` to protect authenticated pages:
 
 1. **ClientAuthGuard** - Client component that redirects unauthenticated users
    - Waits for `hasCheckedAuth` from global initialization
-   - If not authenticated: Redirects to external version (if dual-purpose) or `/auth/login`
+   - If not authenticated: Redirects to the route's public equivalent, or `/auth/login`
    - If authenticated: Renders children
    - Shows nothing while checking or redirecting
 
 **Flow:** Global auth initialized → guard checks state → redirect or render
+
+**Public equivalents.** Two (app) routes have a public page at a different URL, and
+signed-out visitors are sent there rather than to the login form:
+
+| Route              | Public equivalent   |
+| ------------------ | ------------------- |
+| `/dashboard`       | the landing page    |
+| `/lesson/<slug>`\* | `/exercises/<slug>` |
+
+\* Exercise lessons only (`isExerciseLessonSlug` from `@jiki/curriculum/slugs`).
+Video, quiz and choose-language lessons have no public page and keep the login
+bounce. The exercise redirect is made by `middleware.ts` on document requests, so
+it costs no round trip through the app and works for crawlers; the guard repeats
+it for the cases middleware can't see — client-side navigations (whose RSC request
+the locale layer deliberately leaves alone) and an auth cookie that only turns out
+to be dead once the token refresh fails. `/exercises/<slug>` sends signed-in
+visitors back to `/lesson/<slug>`, so the two halves fit together with no loop.
 
 #### External Context (Auth Pages)
 

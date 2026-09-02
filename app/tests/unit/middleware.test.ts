@@ -2,8 +2,10 @@
  * @jest-environment node
  */
 import { NextRequest } from "next/server";
+import { exerciseLessonSlugs, videoLessonSlugs } from "@jiki/curriculum";
 import { middleware } from "@/middleware";
 import { isStaging } from "@/lib/env";
+import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 
 jest.mock("@/lib/env");
 
@@ -89,5 +91,55 @@ describe("middleware RSC cache headers", () => {
     const res = middleware(requestFor("/", { rsc: "1" }));
 
     expect(res.headers.get("Cache-Control")).toBe("no-store");
+  });
+});
+
+describe("middleware public-exercise redirect", () => {
+  //
+  // A signed-out visitor who follows a link to an exercise lesson should land on
+  // that exercise's public page rather than on the login form. Only exercise
+  // lessons have such a page; every other lesson type keeps the login bounce.
+  //
+  const exerciseSlug = exerciseLessonSlugs[0];
+  const videoSlug = videoLessonSlugs[0];
+
+  beforeEach(() => {
+    mockIsStaging.mockReturnValue(false);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("sends a signed-out visitor from an exercise lesson to its public page", () => {
+    const res = middleware(requestFor(`/lesson/${exerciseSlug}`));
+
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get("Location")!).pathname).toBe(`/exercises/${exerciseSlug}`);
+  });
+
+  it("never caches that redirect, since which page the URL serves is a property of the visitor", () => {
+    const res = middleware(requestFor(`/lesson/${exerciseSlug}`));
+
+    expect(res.headers.get("Cache-Control")).toBe("private, no-store");
+    expect(res.headers.get("Vary")).toBe("Cookie");
+  });
+
+  it("leaves a signed-in visitor on the lesson", () => {
+    const res = middleware(requestFor(`/lesson/${exerciseSlug}`, { cookie: `${AUTHENTICATION_COOKIE_NAME}=42` }));
+
+    expect(res.headers.get("Location")).toBeNull();
+  });
+
+  it("leaves a video lesson alone, as it has no public page to send them to", () => {
+    const res = middleware(requestFor(`/lesson/${videoSlug}`));
+
+    expect(res.headers.get("Location")).toBeNull();
+  });
+
+  it("leaves an unknown lesson slug alone", () => {
+    const res = middleware(requestFor("/lesson/not-a-real-lesson"));
+
+    expect(res.headers.get("Location")).toBeNull();
   });
 });

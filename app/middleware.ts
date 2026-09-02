@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isExerciseLessonSlug } from "@jiki/curriculum/slugs";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { isStaging } from "./lib/env";
 import { PATHNAME_HEADER, URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
@@ -35,6 +36,48 @@ function setCSP(response: NextResponse): void {
   response.headers.set("Content-Security-Policy", cspHeader);
 }
 
+const LESSON_PATH_PREFIX = "/lesson/";
+
+/**
+ * Send a logged-out visitor from an exercise lesson to that exercise's public page.
+ *
+ * /lesson/<slug> is auth-gated, so signed-out visitors were bounced to the login
+ * page — a dead end for anyone following a shared link. Every exercise lesson has
+ * a public twin at /exercises/<slug> (the teaser, with instructions, video and a
+ * sign-up CTA), and that page sends signed-in visitors back to /lesson/<slug>, so
+ * the two halves fit together with no loop.
+ *
+ * Only exercise lessons have such a twin: video, quiz and choose-language lessons
+ * have no /exercises page and would 404, so they fall through to ClientAuthGuard's
+ * login bounce as before. `isExerciseLessonSlug` is the curriculum's own list, so
+ * the classification needs no API call.
+ *
+ * The target is naked; the locale redirect above moves the follow-up request to
+ * the visitor's language, exactly as it would for any other public URL.
+ */
+function redirectToPublicExercise(request: NextRequest, path: string): NextResponse | null {
+  if (!path.startsWith(LESSON_PATH_PREFIX)) {
+    return null;
+  }
+  if (request.cookies.has(AUTHENTICATION_COOKIE_NAME)) {
+    return null;
+  }
+
+  const slug = path.slice(LESSON_PATH_PREFIX.length);
+  if (!isExerciseLessonSlug(slug)) {
+    return null;
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = `/exercises/${slug}`;
+  const response = NextResponse.redirect(url, 307);
+  // Which page this URL serves is a property of the visitor, not of the URL, so
+  // neither the browser nor the CDN may keep this answer.
+  response.headers.set("Cache-Control", "private, no-store");
+  response.headers.set("Vary", "Cookie");
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
@@ -61,6 +104,14 @@ export function middleware(request: NextRequest) {
   const localeRedirect = redirectToCorrectLocale(request);
   if (localeRedirect) {
     return localeRedirect;
+  }
+
+  //
+  // Signed-out visitors get an exercise's public page rather than the login page.
+  //
+  const publicExerciseRedirect = redirectToPublicExercise(request, path);
+  if (publicExerciseRedirect) {
+    return publicExerciseRedirect;
   }
 
   //

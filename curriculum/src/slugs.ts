@@ -180,8 +180,13 @@ export type ExerciseSlug = ExerciseLessonSlug | ChallengeSlug;
 const _everyExerciseIsRegistered: readonly RegisteredExerciseSlug[] = [...exerciseLessonSlugs, ...challengeSlugs];
 void _everyExerciseIsRegistered;
 
+const exerciseLessonSlugSet: ReadonlySet<string> = new Set(exerciseLessonSlugs);
 const challengeSlugSet: ReadonlySet<string> = new Set(challengeSlugs);
 const videoLessonSlugSet: ReadonlySet<string> = new Set(videoLessonSlugs);
+
+export function isExerciseLessonSlug(slug: string): slug is ExerciseLessonSlug {
+  return exerciseLessonSlugSet.has(slug);
+}
 
 export function isChallengeSlug(slug: string): slug is ChallengeSlug {
   return challengeSlugSet.has(slug);
