@@ -3,7 +3,7 @@
 }
 
 .cta {
-    padding: 40px 60px;
+    padding: 60px;
     background: linear-gradient(135deg, var(--color-blue-600) 0%, var(--color-blue-500) 100%);
     text-align: center;
 }
@@ -46,7 +46,7 @@
 
 @media (max-width: 768px) {
     .cta {
-        padding: 32px 24px;
+        padding: 60px 24px;
     }
 
     .title {

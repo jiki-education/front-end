@@ -4,7 +4,7 @@ import FolderIcon from "@/icons/folder.svg";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
 import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
-import { SignupCta } from "@/components/concepts/SignupCta";
+import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
 import { useAuthStore } from "@/lib/auth/authStore";
 import styles from "@/app/styles/modules/concepts.module.css";
 import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";

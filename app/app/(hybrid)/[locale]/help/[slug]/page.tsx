@@ -43,7 +43,7 @@ export default async function AuthenticatedLocaleArticlePage({ params }: Props) 
   return (
     <AuthenticatedHeaderLayout>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <ArticleDetailPage slug={slug} authenticated={true} locale={locale} />
+      <ArticleDetailPage slug={slug} locale={locale} />
     </AuthenticatedHeaderLayout>
   );
 }

@@ -37,7 +37,7 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
   // Authenticated UI with header/footer
   return (
     <AuthenticatedHeaderLayout>
-      <BlogPage authenticated locale={locale} page={page} />
+      <BlogPage locale={locale} page={page} />
     </AuthenticatedHeaderLayout>
   );
 }

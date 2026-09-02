@@ -14,6 +14,16 @@
     gap: 16px;
 }
 
+/* Below 1024px the sidebar stops being a 350px column and stacks full-width
+   under the article, which is far too wide for a single file of cards. Pair
+   them up until the viewport is genuinely narrow. */
+@media (min-width: 650px) and (max-width: 1024px) {
+    .relatedPostsSection {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 .blogCard {
     background: white;
     border: 2px solid var(--color-gray-200);

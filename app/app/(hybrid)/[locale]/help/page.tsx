@@ -36,7 +36,7 @@ export default async function AuthenticatedLocaleArticlesPage({ params, searchPa
 
   return (
     <AuthenticatedHeaderLayout>
-      <ArticlesPage authenticated locale={locale} tag={tag} page={page} />
+      <ArticlesPage locale={locale} tag={tag} page={page} />
     </AuthenticatedHeaderLayout>
   );
 }

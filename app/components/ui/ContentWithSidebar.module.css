@@ -5,8 +5,7 @@
     background: transparent;
 }
 
-.contentWrapper,
-.contentWrapperFull {
+.contentWrapper {
     margin-bottom: 32px;
     padding: 40px 0;
 }
@@ -15,10 +14,6 @@
     display: grid;
     gap: 7%;
     grid-template-columns: 1fr 350px;
-}
-
-.contentWrapperFullInner {
-    /* width/padding provided by shared lg-container */
 }
 
 .articleContent {
@@ -47,8 +42,7 @@
 }
 
 @media (max-width: 768px) {
-    .contentWrapper,
-    .contentWrapperFull {
+    .contentWrapper {
         padding: 32px 0;
     }
 }

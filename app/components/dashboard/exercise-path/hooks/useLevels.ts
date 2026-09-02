@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { lessonPath } from "@/lib/i18n/routes";
 import { useLocale } from "next-intl";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { fetchCurriculumCopy, resolveCopy, type CurriculumCopyCatalog } from "@/lib/api/curriculum-copy";
@@ -70,7 +71,7 @@ export function buildLevelSections(
         },
         completed: lesson.status === "completed",
         locked: lesson.status === "locked",
-        route: `/lesson/${lesson.slug}`,
+        route: lessonPath(lesson.slug),
         // Only exercises have walkthroughs. Every video lesson's own slug also
         // resolves in the index, so an ungated lookup would offer each video
         // lesson its own recording as a "walkthrough".

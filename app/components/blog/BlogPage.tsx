@@ -5,15 +5,15 @@ import Pagination from "@/components/ui/Pagination";
 import BlogPostsGrid from "./BlogPostsGrid";
 import FeaturedLatestPost from "./FeaturedLatestPost";
 import PageHeader from "./PageHeader";
+import { LoggedOutSignupCta } from "@/components/ui/SignupCta/LoggedOutSignupCta";
 import styles from "./BlogPage.module.css";
 
 interface BlogPageProps {
-  authenticated: boolean;
   locale: string;
   page?: string | null;
 }
 
-export default async function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
+export default async function BlogPage({ locale, page }: BlogPageProps) {
   // getTranslations, not useTranslations: this is an async server component now,
   // because the post list it renders is fetched rather than bundled.
   const t = await getTranslations("blog.header");
@@ -35,6 +35,9 @@ export default async function BlogPage({ authenticated: _, locale, page }: BlogP
           className={styles.pagination}
         />
       </div>
+
+      {/* Outside the padded container so the band bleeds to the viewport edges. */}
+      <LoggedOutSignupCta />
     </div>
   );
 }

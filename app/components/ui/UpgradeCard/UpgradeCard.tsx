@@ -7,7 +7,7 @@ import styles from "./UpgradeCard.module.css";
 
 export function UpgradeCard() {
   const routes = useLocaleRoutes();
-  const t = useTranslations("concepts.upgradeCard");
+  const t = useTranslations("common.upgradeCard");
   return (
     <div className={styles.card}>
       <div className={styles.row}>

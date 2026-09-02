@@ -1,7 +1,7 @@
 import { RelatedConceptsPills } from "@/components/concepts/ConceptPill";
 import { RelatedChallenges } from "@/components/concepts/RelatedChallenges";
 import { RelatedExercises } from "@/components/concepts/RelatedExercises";
-import { UpgradeCard } from "@/components/concepts/UpgradeCard";
+import { UpgradeCard } from "@/components/ui/UpgradeCard/UpgradeCard";
 import { VideoRecapCard } from "@/components/concepts/VideoRecapCard";
 import type { ChallengeStatus } from "@/lib/api/challenges";
 import type { LessonStatus } from "@/lib/api/lesson-progress";

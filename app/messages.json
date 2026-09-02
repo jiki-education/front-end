@@ -149,6 +149,17 @@
     },
     "userAvatar": {
       "alt": "User avatar"
+    },
+    "signupCta": {
+      "title": "Ready to Start Your Coding Journey?",
+      "subtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills. It's free!",
+      "button": "Sign Up For Free"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "Start your <highlight>coding journey</highlight> today!",
+      "text": "Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of all, <free>it's free!</free>",
+      "button": "Sign Up For Free"
     }
   },
   "build": {
@@ -998,7 +1009,6 @@
     "relatedExercises": {
       "heading": "Related Exercises",
       "description": "These exercises are great ways for you to practice this concept!",
-      "signupPrompt": "<link>Sign up</link> to solve them!",
       "locked": "This exercise is locked"
     },
     "relatedChallenges": {
@@ -1013,17 +1023,6 @@
       "loggedOutDescription": "Learn this concept with Jeremy and Jiki!",
       "playAriaLabel": "Play lesson recap video",
       "thumbnailAlt": "Lesson recap thumbnail"
-    },
-    "signupCta": {
-      "title": "Ready to Start Your Coding Journey?",
-      "subtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "button": "Sign Up For Free"
-    },
-    "upgradeCard": {
-      "logoAlt": "Jiki",
-      "heading": "Start your <highlight>coding journey</highlight> today!",
-      "text": "Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of all, <free>it's free!</free>",
-      "button": "Sign Up For Free"
     }
   },
   "seo": {
@@ -2090,19 +2089,8 @@
       "byAuthor": "by {name}",
       "readFullArticle": "Read full article →"
     },
-    "recentPosts": {
-      "heading": "Recent Posts"
-    },
     "relatedPosts": {
       "heading": "Related Posts"
-    },
-    "cta": {
-      "minimalTitle": "Try Jiki for free",
-      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
-      "minimalButton": "Get started now",
-      "gradientTitle": "Ready to Start Your Coding Journey?",
-      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "gradientButton": "Sign Up For Free"
     }
   },
   "articles": {
@@ -2131,14 +2119,6 @@
       "premium": "Premium",
       "exercises": "Exercises",
       "videos": "Videos"
-    },
-    "cta": {
-      "minimalTitle": "Try Jiki for free",
-      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
-      "minimalButton": "Get started now",
-      "gradientTitle": "Ready to Start Your Coding Journey?",
-      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "gradientButton": "Sign Up For Free"
     }
   },
   "checkout": {
@@ -2186,7 +2166,6 @@
   "exercises": {
     "public": {
       "eyebrow": "Coding Exercise",
-      "banner": "👋 Hello there! This is an exercise from Jiki - <signup>Sign up for free</signup> and solve it yourself.",
       "ctaTitle": "Want to solve this exercise?",
       "ctaSubtitle": "Create a free Jiki account to write the code, run it, and watch it come to life.",
       "ctaButton": "Sign Up For Free",

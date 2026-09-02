@@ -9,7 +9,7 @@ import ConceptLayout from "@/components/concepts/ConceptLayout";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptArticleSkeleton } from "@/components/concepts/LoadingStates";
 import { ConceptSidebar } from "@/components/concepts/ConceptSidebar";
-import { SignupCta } from "@/components/concepts/SignupCta";
+import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
 import { ConceptLoadingView } from "@/components/concepts/ConceptLoadingView";
 import { ConceptErrorView } from "@/components/concepts/ConceptErrorView";
 import { useConceptDetailData, type ConceptDetailSeed } from "@/components/concepts/lib/useConceptDetailData";

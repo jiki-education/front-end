@@ -44,7 +44,7 @@ export default async function AuthenticatedLocaleBlogPostPage({ params }: Props)
   return (
     <AuthenticatedHeaderLayout>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <BlogPostPage slug={slug} authenticated={true} locale={locale} />
+      <BlogPostPage slug={slug} locale={locale} />
     </AuthenticatedHeaderLayout>
   );
 }

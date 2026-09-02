@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts";
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
-import { SignupCta } from "@/components/concepts/SignupCta";
+import { SignupCta } from "@/components/ui/SignupCta/SignupCta";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useAuthStore } from "@/lib/auth/authStore";
