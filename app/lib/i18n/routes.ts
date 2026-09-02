@@ -46,6 +46,19 @@ export function localePath(path: string, locale: Locale | string): string {
 }
 
 /**
+ * The path to one lesson (an exercise a signed-in student is working through).
+ *
+ * Deliberately not a `makeRoutes` helper: `/lesson/*` lives in the `(app)` route
+ * group, which has no `[locale]` tree, so the path is naked in every locale.
+ * Taking a locale it would then ignore would imply a variation that does not
+ * exist. It is still a named function so the string lives in one place, like
+ * every other route.
+ */
+export function lessonPath(slug: string): string {
+  return `/lesson/${slug}`;
+}
+
+/**
  * Rails-style named route helpers bound to a single `locale`. Each helper is the
  * one canonical place a given path string is written, so a route move is a
  * one-line change here, and callers get autocomplete instead of stringly-typed paths.

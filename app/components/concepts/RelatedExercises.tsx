@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
+import { lessonPath } from "@/lib/i18n/routes";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import styles from "./RelatedExercises.module.css";
@@ -71,7 +72,7 @@ function ExerciseItem({
   }
 
   return (
-    <Link href={`/lesson/${exercise.slug}`} className={className}>
+    <Link href={lessonPath(exercise.slug)} className={className}>
       <LessonIcon slug={exercise.slug} width={48} height={48} />
       <span className={styles.itemName}>{exercise.title}</span>
     </Link>

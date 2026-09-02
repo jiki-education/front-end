@@ -14,6 +14,7 @@ import { ExerciseVideoCard } from "@/components/exercises/ExerciseVideoCard";
 import { ExerciseFunctionsCard } from "@/components/exercises/ExerciseFunctionsCard";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { fetchLessonStatusesBySlugs } from "@/lib/api/lesson-progress";
+import { lessonPath } from "@/lib/i18n/routes";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptAncestor } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
@@ -133,7 +134,7 @@ function useSignedInRedirect(slug: string, isAuthenticated: boolean): boolean {
       try {
         const statuses = await fetchLessonStatusesBySlugs([slug]);
         if (statuses[slug] !== "locked") {
-          destination = `/lesson/${slug}`;
+          destination = lessonPath(slug);
         }
       } catch {
         // Fall through to the dashboard.
