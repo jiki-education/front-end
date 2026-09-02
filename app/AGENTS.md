@@ -169,6 +169,11 @@ Exercise content is served as static files, separate from the exercise modules i
   - `public/static/exercises/{slug}/code/{language}/code-{hash}.json` — stub + solution
   - `public/static/exercises/{locale}/current.json` — local dev pointer for non-English locales, never uploaded (on R2 the `i18n` repo is the single writer of these)
   - `lib/generated/exercise-hashes.ts` — hash manifests for both index kinds
+  - `lib/generated/exercise-levels.ts` — slug -> levelId, compiled in with no pointer. Which
+    level an exercise belongs to is neither prose nor code (it varies by neither locale nor
+    language), so it is its own front-end-owned manifest rather than a field in an index the
+    i18n repo republishes. `lib/exercises/published.ts` pairs it with the ordered level
+    registry and `LAST_PUBLISHED_LEVEL_SLUG` so the sitemap lists only live exercises.
 - **Client API**: `lib/api/exercise-meta.ts` provides `getExerciseMetaBySlugs()` and `fetchExerciseContent()`, which fetches the two indexes concurrently and then prose and code concurrently, so the split adds no round trip
 - **Exercise loading**: `useExerciseLoader` loads the exercise module (ExerciseCore) and static content in parallel, then assembles into `ExerciseDefinition`
 - **Dev/build commands**: `exercise-cache:generate` and `exercise-cache:watch` (wired into `dev` and `build`)
