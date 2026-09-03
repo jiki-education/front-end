@@ -271,14 +271,6 @@
       "uploadDate": "2026-07-13"
     }
   },
-  "foxy-face-deep-dive": {
-    "fallback": {
-      "provider": "youtube",
-      "id": "4YC-F6CNsPU",
-      "durationSeconds": 917,
-      "uploadDate": "2026-09-02"
-    }
-  },
   "penguin-deep-dive": {
     "fallback": {
       "provider": "youtube",
