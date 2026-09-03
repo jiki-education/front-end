@@ -69,6 +69,23 @@ export function shouldShowSpotlight(
   return Boolean(result?.passed) && !isExerciseCompleted && (inspectedTest?.animationTimeline?.duration ?? 0) > 0;
 }
 
+// A missed animation completion must not strand the student. The spotlight makes
+// the whole exercise inert (see CodingExerciseInner) and disables the scrubber,
+// and the only thing that clears it is showCompletionModalIfReady — which, on the
+// spotlight path, is only ever reached from the inspected timeline's onComplete.
+// So if that callback never arrives (a backgrounded tab stalls
+// requestAnimationFrame, for instance) the page is locked with no way out and no
+// way to re-trigger completion short of editing the code and running again.
+//
+// A deadline armed alongside onComplete is a safe backstop because the timeline's
+// reported duration is an upper bound on how long playback can take:
+// AnimationTimeline.populateTimeline pads it to Math.max(animations,
+// lastFrameTime), playback is always 1x (there is no speed control), and the
+// spotlight itself prevents the student from pausing or scrubbing mid-flight. So
+// "time left to play, plus slack for requestAnimationFrame jitter" cannot expire
+// while a healthy animation is still running.
+const COMPLETION_FALLBACK_SLACK_MS = 2000;
+
 // Factory function to create an instance-specific store
 export interface OrchestratorStoreInit {
   exercise: ExerciseDefinition;
@@ -91,9 +108,21 @@ export function createOrchestratorStore({
 }: OrchestratorStoreInit): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => {
+      let completionFallbackTimer: ReturnType<typeof setTimeout> | null = null;
+      // Guards against the modal being shown twice for one passing run, now that
+      // both onComplete and the fallback deadline can reach it.
+      let hasShownCompletionModal = false;
+
+      const clearCompletionFallback = () => {
+        if (completionFallbackTimer !== null) {
+          clearTimeout(completionFallbackTimer);
+          completionFallbackTimer = null;
+        }
+      };
+
       const showCompletionModalIfReady = () => {
         const state = get();
-        if (!state.testSuiteResult?.passed || state.isExerciseCompleted) {
+        if (!state.testSuiteResult?.passed || state.isExerciseCompleted || hasShownCompletionModal) {
           return;
         }
 
@@ -139,7 +168,37 @@ export function createOrchestratorStore({
             }
           }
         });
+        hasShownCompletionModal = true;
+        clearCompletionFallback();
         state.setIsSpotlightActive(false);
+      };
+
+      // Arm the backstop deadline for the inspected test's playback. Only used at
+      // the completion moment, which is the one case where a missed onComplete
+      // leaves the student stuck behind the spotlight.
+      const armCompletionFallback = (test: TestResult, fromTime: number) => {
+        clearCompletionFallback();
+
+        const timeline = test.animationTimeline;
+        if (!timeline) {
+          return;
+        }
+
+        const remainingMs = Math.max(0, timeline.duration - fromTime) / TIME_SCALE_FACTOR;
+
+        completionFallbackTimer = setTimeout(() => {
+          completionFallbackTimer = null;
+
+          // Land the canvas on the finished state so the modal isn't laid over a
+          // half-played animation. Seek muted: an unmuted seek to the end would
+          // fire onComplete and re-enter here.
+          if (!timeline.completed) {
+            get().setIsPlaying(false);
+            timeline.seek(timeline.duration, true);
+          }
+
+          showCompletionModalIfReady();
+        }, remainingMs + COMPLETION_FALLBACK_SLACK_MS);
       };
 
       return {
@@ -282,6 +341,8 @@ export function createOrchestratorStore({
           // Clean up old test's animation timeline callbacks (visual tests only)
           oldTest?.animationTimeline?.clearUpdateCallbacks();
           oldTest?.animationTimeline?.clearCompleteCallbacks();
+          // The deadline belongs to the outgoing test's timeline, so it goes with it.
+          clearCompletionFallback();
 
           if (!test) {
             set({
@@ -351,6 +412,13 @@ export function createOrchestratorStore({
 
           if (shouldAutoPlay) {
             get().setIsPlaying(true);
+
+            // setTestSuiteResult has already decided whether this is the
+            // completion moment, so the spotlight flag tells us whether a missed
+            // onComplete would strand the student.
+            if (get().isSpotlightActive) {
+              armCompletionFallback(test, timeToUse);
+            }
           }
         },
 
@@ -442,6 +510,7 @@ export function createOrchestratorStore({
         },
         setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
         setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
+        cancelCompletionFallback: () => clearCompletionFallback(),
         setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
         setCompletionResponse: (response) => set({ completionResponse: response }),
         setFoldedLines: (lines) => {
@@ -478,6 +547,11 @@ export function createOrchestratorStore({
         // Test results actions
         setTestSuiteResult: (result) => {
           const state = get();
+
+          // A new run gets a fresh shot at the completion modal, and any deadline
+          // left over from the previous run's timeline is now meaningless.
+          clearCompletionFallback();
+          hasShownCompletionModal = false;
 
           // Select the best test to inspect: stay on current if still failing,
           // otherwise first failing, otherwise last test (all pass).
@@ -634,7 +708,9 @@ export function createOrchestratorStore({
         setCompletedTasks: (completedTasks) => set({ completedTasks }),
         setCurrentTaskId: (currentTaskId) => set({ currentTaskId }),
 
-        reset: () =>
+        reset: () => {
+          clearCompletionFallback();
+          hasShownCompletionModal = false;
           set({
             code: exercise.stubs[language],
             exerciseTitle: exercise.title,
@@ -690,7 +766,8 @@ export function createOrchestratorStore({
             taskProgress: new Map(),
             completedTasks: new Set(),
             currentTaskId: null
-          })
+          });
+        }
       };
     })
   );
