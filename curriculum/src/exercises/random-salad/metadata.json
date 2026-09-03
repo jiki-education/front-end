@@ -1,6 +1,7 @@
 {
   "slug": "random-salad",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "random-salad-deep-dive",
   "hints": [
     {
       "question": "hints.leavesExample.question",

@@ -1,6 +1,7 @@
 {
   "slug": "sunset",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "sunset-deep-dive",
   "hints": [
     {
       "question": "hints.howToAnimate.question",
