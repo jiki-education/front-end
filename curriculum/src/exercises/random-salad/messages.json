@@ -7,10 +7,10 @@
   },
   "checks": {
     "saladNotMade": "You didn't make the salad. Make sure you call <code>makeSalad()</code> with all four ingredients.",
-    "needLeavesRandomInt": "You need to call <code>Math.randomInt(40, 100)</code> to generate the number of leaves.",
-    "needTomatoesRandomInt": "You need to call <code>Math.randomInt(5, leaves / 5)</code> to generate the number of tomatoes.",
-    "needCroutonsRandomInt": "You need to call <code>Math.randomInt(tomatoes, tomatoes * 2)</code> to generate the number of croutons.",
-    "needOlivesRandomInt": "You need to call <code>Math.randomInt(1, tomatoes / 2)</code> to generate the number of olives."
+    "needLeavesRandomInt": "The logic for the number of leaves doesn't follow the agreement you've made with your partner.",
+    "needTomatoesRandomInt": "The logic for the number of tomatoes doesn't follow the agreement you've made with your partner.",
+    "needCroutonsRandomInt": "The logic for the number of croutons doesn't follow the agreement you've made with your partner.",
+    "needOlivesRandomInt": "The logic for the number of olives doesn't follow the agreement you've made with your partner."
   },
   "tasks": {
     "makeRandomSalad": {
@@ -26,8 +26,8 @@
   },
   "hints": {
     "leavesExample": {
-      "question": "Give me an example of how to work out the leaves",
-      "answer": "Use `let leaves = Math.randomInt(40, 100)` to generate a random amount of salad leaves that you can then use in the other functions."
+      "question": "How do I generate a random number?",
+      "answer": "`Math.randomInt(min, max)` gives you a random whole number between the two values you pass it. For example, `let score = Math.randomInt(1, 6)` picks a number from 1 to 6. Store the result in a variable so you can use it later."
     },
     "leavesCount": {
       "question": "How many leaves do I need?",
@@ -47,7 +47,7 @@
     },
     "makeSalad": {
       "question": "How do I make the salad?",
-      "answer": "Once you've worked out how many ingredients you need for each, input leaves, tomatoes, croutons, olives into makeSalad()."
+      "answer": "Once you've worked out how many of each ingredient you need, pass your four variables into `makeSalad()` in the order shown in its signature."
     }
   },
   "describers": {
@@ -57,6 +57,10 @@
     "makeSalad": {
       "description": "Makes a salad with the given amounts of each ingredient.",
       "category": "Action"
+    },
+    "randomInt": {
+      "description": "Returns a random whole number between min and max (inclusive).",
+      "category": "Numbers"
     }
   }
 }

@@ -10,6 +10,13 @@ const functions: FunctionInfo[] = [
     description: "functions.makeSalad.description",
     examples: ["makeSalad(50, 12, 30, 10)"],
     category: "functions.makeSalad.category"
+  },
+  {
+    name: "Math.randomInt",
+    signature: "Math.randomInt(min, max)",
+    description: "functions.randomInt.description",
+    examples: ["Math.randomInt(1, 10)", "Math.randomInt(40, 100)"],
+    category: "functions.randomInt.category"
   }
 ];
 
