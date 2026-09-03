@@ -1,7 +1,6 @@
 {
   "slug": "foxy-face",
   "levelId": "strings-and-colors",
-  "deepDiveVideo": "foxy-face-deep-dive",
   "hints": [
     {
       "question": "hints.callTriangle.question",
