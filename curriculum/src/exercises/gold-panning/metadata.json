@@ -1,6 +1,7 @@
 {
   "slug": "gold-panning",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "gold-panning-deep-dive",
   "hints": [
     {
       "question": "hints.wrongSellAmount.question",

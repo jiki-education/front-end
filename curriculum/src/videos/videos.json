@@ -343,6 +343,30 @@
       "uploadDate": "2026-09-02"
     }
   },
+  "gold-panning-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "pN0AABTthrk",
+      "durationSeconds": 560,
+      "uploadDate": "2026-09-03"
+    }
+  },
+  "sunset-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "xeKf-4bd-qQ",
+      "durationSeconds": 870,
+      "uploadDate": "2026-09-03"
+    }
+  },
+  "random-salad-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "rNlPZ8VPY4w",
+      "durationSeconds": 413,
+      "uploadDate": "2026-09-03"
+    }
+  },
   "fix-wall-intro": {
     "fallback": {
       "provider": "mux",
