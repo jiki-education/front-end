@@ -34,7 +34,7 @@ If a letter appears twice in your guess but only once in the target word:
 
 The same idea scales up: three in a guess and two in the word means two get colored and the third goes gray.
 
-Run the second bonus scenario and look at the `"SWISS"` row. The target word is `"swims"`, which has two `"s"`s in it, and both are already green: the one at the start and the one at the end. But your code also colors the fourth square yellow, which tells the player there's _another_ `"s"` still to find. There isn't. That fourth square should be gray.
+Run the second bonus scenario and look at the `"swiss"` row. The target word is `"swims"`, which has two `"s"`s in it, and both are already green: the one at the start and the one at the end. But your code also colors the fourth square yellow, which tells the player there's _another_ `"s"` still to find. There isn't. That fourth square should be gray.
 
 You need to partially solve the issue for the first bonus scenario (so start there!), then fully solve the problem for the second one.
 

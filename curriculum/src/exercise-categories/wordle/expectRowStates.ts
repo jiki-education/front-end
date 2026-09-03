@@ -46,7 +46,10 @@ export function expectRowStates(
       errorHtml: exercise.t(`checks.rowMismatch${suffix}`, {
         row,
         square,
-        letter: exercise.letterForRow(rowIdx, square),
+        // Upper case because a lower case "l" is indistinguishable from an
+        // upper case "I" in the message font, which sent a student hunting for
+        // the wrong square.
+        letter: exercise.letterForRow(rowIdx, square).toUpperCase(),
         expected: expected[idx],
         actual: actual[idx]
       })
