@@ -39,7 +39,7 @@
     },
     "stateRules": {
       "question": "When is a letter `\"correct\"` vs `\"present\"` vs `\"absent\"`?",
-      "answer": "If `guess[i]` equals `target[i]`, it's `\"correct\"`. Otherwise, if the letter exists somewhere in `target`, it's `\"present\"`. If not, it's `\"absent\"`."
+      "answer": "Under this exercise's simplified rules: if `guess[i]` equals `target[i]`, it's `\"correct\"`. Otherwise, if the letter exists somewhere in `target`, it's `\"present\"`. If not, it's `\"absent\"`."
     },
     "buildList": {
       "question": "How do I build up the array of states?",

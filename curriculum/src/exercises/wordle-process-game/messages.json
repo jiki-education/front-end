@@ -43,7 +43,7 @@
   "hints": {
     "reuseWork": {
       "question": "How do I reuse my work from `processGuess`?",
-      "answer": "The logic that turns one guess into an array of states is the same. Pull it into a helper function (or copy it) and call it for each guess in the array."
+      "answer": "For the main scenarios it's exactly the logic you already wrote. Pull it into a helper function (or copy it) and call it for each guess in the array. The bonus task changes that logic, so you'll come back and edit the helper if you take it on."
     },
     "trackRow": {
       "question": "How do I track which row each guess belongs to?",
