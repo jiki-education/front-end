@@ -1,4 +1,5 @@
 import type { Task, VisualScenario, VisualTestExpect } from "../types";
+import { expectSolverGuesses } from "../../exercise-categories/wordle/expectSolverGuesses";
 import type WordleSolverExercise from "./Exercise";
 
 export const tasks = [
@@ -55,15 +56,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.holeInOne.firstRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -77,20 +70,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.entirelyWrong.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.entirelyWrong.secondRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -104,20 +84,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.twoNeeded.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.twoNeeded.secondRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -131,26 +98,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.threeNeeded.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "absent", "correct", "correct"]),
-          errorHtml: exercise.t("checks.threeNeeded.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.threeNeeded.thirdRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -164,31 +112,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.fourNeeded.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "correct", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.fourNeeded.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "absent", "correct"]),
-          errorHtml: exercise.t("checks.fourNeeded.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.fourNeeded.fourthRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -202,21 +126,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["present", "absent", "correct", "correct", "absent"]),
-          errorHtml: exercise.t("checks.present1.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present1.secondRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -230,26 +140,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.present2.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["absent", "present", "absent", "present", "present"]),
-          errorHtml: exercise.t("checks.present2.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present2.thirdRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -263,31 +154,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "present", "present", "absent"]),
-          errorHtml: exercise.t("checks.present3.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present3.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["correct", "absent", "absent", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present3.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present3.fourthRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   },
   {
@@ -301,36 +168,7 @@ export const scenarios: VisualScenario[] = [
     },
     expectations(exercise) {
       const ex = exercise as WordleSolverExercise;
-      return [
-        noRepeatedGuesses(ex),
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.present4.firstRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: exercise.t("checks.present4.secondRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(2)) === JSON.stringify(["present", "absent", "present", "absent", "absent"]),
-          errorHtml: exercise.t("checks.present4.thirdRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["correct", "correct", "correct", "present", "present"]),
-          errorHtml: exercise.t("checks.present4.fourthRow")
-        },
-        {
-          pass:
-            JSON.stringify(ex.statesForRow(4)) ===
-            JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: exercise.t("checks.present4.fifthRow")
-        }
-      ];
+      return [noRepeatedGuesses(ex), expectSolverGuesses(ex)];
     }
   }
 ];

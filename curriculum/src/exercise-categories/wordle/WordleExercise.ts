@@ -13,7 +13,7 @@ const STATE_COLORS: Record<LetterState, string> = {
 const NUM_ROWS = 6;
 const NUM_COLS = 5;
 
-const COMMON_WORDS = [
+export const COMMON_WORDS = [
   "which",
   "about",
   "there",
@@ -210,6 +210,35 @@ function countOccurrences(items: string | string[], target: string): number {
   return count;
 }
 
+// A letter is only coloured as many times as it actually occurs in the target:
+// correct letters claim their occurrence first, then leftover letters are marked
+// present left to right until the target's supply of that letter runs out.
+export function scoreGuess(target: string, guess: string): LetterState[] {
+  const states: LetterState[] = [];
+  const claimed: string[] = [];
+
+  for (let idx = 0; idx < guess.length; idx++) {
+    if (target[idx] === guess[idx]) {
+      states.push("correct");
+      claimed.push(guess[idx]);
+    } else {
+      states.push("absent");
+    }
+  }
+
+  for (let idx = 0; idx < guess.length; idx++) {
+    if (states[idx] === "correct") continue;
+    const letter = guess[idx];
+    const inTarget = countOccurrences(target, letter);
+    if (inTarget > countOccurrences(claimed, letter)) {
+      states[idx] = "present";
+      claimed.push(letter);
+    }
+  }
+
+  return states;
+}
+
 export default class WordleExercise extends VisualExercise {
   protected get slug() {
     return "wordle";
@@ -265,6 +294,15 @@ export default class WordleExercise extends VisualExercise {
   // board happens to look.
   public hasRepeatedGuess(): boolean {
     return new Set(this.guessedWords).size !== this.guessedWords.length;
+  }
+
+  public currentTargetWord(): string {
+    return this.targetWord;
+  }
+
+  // Every word the solver has guessed, in order, including any past row 6.
+  public guessesMade(): string[] {
+    return [...this.guessedWords];
   }
 
   public statesForRow(idx: number): LetterState[] {
@@ -344,7 +382,7 @@ export default class WordleExercise extends VisualExercise {
 
     const guess = word.value.toLowerCase();
     this.guessedWords.push(guess);
-    const states = this.scoreGuess(this.targetWord, guess);
+    const states = scoreGuess(this.targetWord, guess);
     const idx = this.nextRow;
     this.nextRow += 1;
 
@@ -352,35 +390,6 @@ export default class WordleExercise extends VisualExercise {
       this.rowStates[idx] = states;
       this.animateDrawGuess(executionCtx, idx, guess);
       this.animateColorRow(executionCtx, idx, states);
-    }
-
-    return states;
-  }
-
-  // A letter is only coloured as many times as it actually occurs in the target:
-  // correct letters claim their occurrence first, then leftover letters are marked
-  // present left to right until the target's supply of that letter runs out.
-  private scoreGuess(target: string, guess: string): LetterState[] {
-    const states: LetterState[] = [];
-    const claimed: string[] = [];
-
-    for (let idx = 0; idx < guess.length; idx++) {
-      if (target[idx] === guess[idx]) {
-        states.push("correct");
-        claimed.push(guess[idx]);
-      } else {
-        states.push("absent");
-      }
-    }
-
-    for (let idx = 0; idx < guess.length; idx++) {
-      if (states[idx] === "correct") continue;
-      const letter = guess[idx];
-      const inTarget = countOccurrences(target, letter);
-      if (inTarget > countOccurrences(claimed, letter)) {
-        states[idx] = "present";
-        claimed.push(letter);
-      }
     }
 
     return states;
