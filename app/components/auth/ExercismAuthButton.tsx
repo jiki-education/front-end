@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { isExercismAuthEnabled, beginExercismAuth } from "@/lib/auth/exercism";
 import ExercismIcon from "@/icons/exercism.svg";
 import styles from "./AuthForm.module.css";
@@ -10,6 +11,8 @@ interface ExercismAuthButtonProps {
 }
 
 export function ExercismAuthButton({ children, onError }: ExercismAuthButtonProps) {
+  const activeLocale = useLocale();
+
   // Don't render if Exercism OAuth client ID is not configured
   if (!isExercismAuthEnabled()) {
     return null;
@@ -17,7 +20,7 @@ export function ExercismAuthButton({ children, onError }: ExercismAuthButtonProp
 
   const handleClick = () => {
     try {
-      beginExercismAuth();
+      beginExercismAuth(activeLocale);
     } catch (err) {
       console.error("Failed to start Exercism auth:", err);
       onError?.();

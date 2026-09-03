@@ -5,6 +5,7 @@
 
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { useLocale } from "next-intl";
 import { SignupForm } from "@/components/auth/SignupForm";
 
 // Mock next/navigation
@@ -200,8 +201,39 @@ describe("SignupForm", () => {
       fireEvent.click(screen.getByTestId("google-auth-button"));
 
       await waitFor(() => {
-        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code");
+        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code", undefined);
       });
+    });
+
+    it("signs up through Google in the locale being read, not the browser's", async () => {
+      jest.mocked(useLocale).mockReturnValue("bn");
+      mockSearchParamsGet.mockReturnValue(null);
+      mockGoogleLogin.mockResolvedValue({ status: "success" });
+
+      render(<SignupForm />);
+
+      fireEvent.click(screen.getByTestId("google-auth-button"));
+
+      await waitFor(() => {
+        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code", "bn");
+      });
+    });
+
+    it("sends no locale for a signup in the default locale", async () => {
+      jest.mocked(useLocale).mockReturnValue("en");
+      mockSearchParamsGet.mockReturnValue(null);
+
+      render(<SignupForm />);
+
+      fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "test@example.com" } });
+      fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+      fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
+
+      await waitFor(() => {
+        expect(mockSignup).toHaveBeenCalled();
+      });
+
+      expect(mockSignup.mock.calls[0][0]).not.toHaveProperty("locale");
     });
 
     it("preserves return_to in login link", () => {

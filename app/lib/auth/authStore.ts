@@ -10,6 +10,7 @@ import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User }
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
+import type { Locale } from "@/lib/locales";
 import { resolveUserLocale } from "@/lib/i18n/userLocale";
 import { create } from "zustand";
 import type { StoreApi } from "zustand";
@@ -29,8 +30,8 @@ interface AuthStore {
   setup2FA: (otpCode: string) => Promise<void>;
   verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData, cfTurnstileResponse: string) => Promise<User>;
-  googleLogin: (code: string) => Promise<LoginResponse>;
-  exercismLogin: (code: string, codeVerifier: string) => Promise<LoginResponse>;
+  googleLogin: (code: string, seedLocale?: Locale) => Promise<LoginResponse>;
+  exercismLogin: (code: string, codeVerifier: string, seedLocale?: Locale) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -113,15 +114,23 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Google login action - calls Rails directly
-  // The API finds-or-creates the user, so attribution is sent in case this is a signup
+  // The API finds-or-creates the user, so attribution and locale are sent in case
+  // this is a signup — the API ignores both for an existing account.
   // Returns the response so caller can handle 2FA flows (same as login)
-  googleLogin: (code) => requestLogin(set, get, "/auth/google", { code, attribution: readAttribution() }),
+  googleLogin: (code, seedLocale) =>
+    requestLogin(set, get, "/auth/google", { code, attribution: readAttribution(), locale: seedLocale ?? null }),
 
   // Exercism login action - calls Rails directly
-  // The API finds-or-creates the user, so attribution is sent in case this is a signup
+  // The API finds-or-creates the user, so attribution and locale are sent in case
+  // this is a signup — the API ignores both for an existing account.
   // Returns the response so caller can handle 2FA flows (same as login)
-  exercismLogin: (code, codeVerifier) =>
-    requestLogin(set, get, "/auth/exercism", { code, code_verifier: codeVerifier, attribution: readAttribution() }),
+  exercismLogin: (code, codeVerifier, seedLocale) =>
+    requestLogin(set, get, "/auth/exercism", {
+      code,
+      code_verifier: codeVerifier,
+      attribution: readAttribution(),
+      locale: seedLocale ?? null
+    }),
 
   // Signup action - calls Rails directly
   // Returns user data so caller can check email_confirmed status

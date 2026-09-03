@@ -189,7 +189,7 @@ describe("LoginForm", () => {
       fireEvent.click(screen.getByTestId("google-auth-button"));
 
       await waitFor(() => {
-        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code");
+        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code", undefined);
       });
     });
 

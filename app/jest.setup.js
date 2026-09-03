@@ -161,7 +161,10 @@ jest.mock("next-intl", () => {
     // options object rather than a bare namespace). Mirrored here so plain modules
     // that build a translator outside React work under test.
     createTranslator: ({ namespace } = {}) => createTranslator(namespace),
-    useLocale: () => "en",
+    // A jest.fn so a test can render a component in another locale (jest.mocked
+    // (useLocale).mockReturnValue("bn")); the implementation given here survives
+    // jest.clearAllMocks(), so the default stays "en" for everyone else.
+    useLocale: jest.fn(() => "en"),
     useMessages: () => messages,
     useFormatter: () => ({
       dateTime: (value) => String(value),
