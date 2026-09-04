@@ -1431,6 +1431,14 @@
       "whatHappened": "<strong>“What happened?” tips</strong> — step through your code line by line to see what went wrong",
       "revealHints": "<strong>Reveal all the Hints</strong> — read through all the hints above for guidance"
     },
+    "codeSyncChoice": {
+      "title": "Which version of your code do you want to use?",
+      "intro": "A newer version of your code was saved from another device. Choose the version to continue with — the other one isn't overwritten until you next run your code.",
+      "localLabel": "On this device",
+      "serverLabel": "Latest saved version",
+      "useLocal": "Use this device's code",
+      "useServer": "Use latest version"
+    },
     "paymentConfirming": {
       "title": "Confirming your payment…",
       "description": "Hang tight while we confirm your payment with Stripe. This usually only takes a moment."

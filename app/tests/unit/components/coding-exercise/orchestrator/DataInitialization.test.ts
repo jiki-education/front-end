@@ -94,7 +94,7 @@ describe("Data Initialization Priority Logic", () => {
       const serverCode = "// Server code";
       const serverData = {
         code: serverCode,
-        storedAt: new Date().toISOString()
+        createdAt: new Date().toISOString()
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -129,7 +129,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode
-        // No storedAt timestamp
+        // No createdAt timestamp
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -171,7 +171,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: serverTime.toISOString()
+        createdAt: serverTime.toISOString()
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -213,7 +213,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: serverTime.toISOString()
+        createdAt: serverTime.toISOString()
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -255,7 +255,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: serverTime.toISOString()
+        createdAt: serverTime.toISOString()
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -295,7 +295,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: timestamp
+        createdAt: timestamp
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -390,7 +390,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: "invalid-date"
+        createdAt: "invalid-date"
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -428,7 +428,7 @@ describe("Data Initialization Priority Logic", () => {
 
       const serverData = {
         code: serverCode,
-        storedAt: new Date().toISOString()
+        createdAt: new Date().toISOString()
       };
 
       mockLoadCodeMirrorContent.mockReturnValue({
@@ -485,7 +485,7 @@ describe("Data Initialization Priority Logic", () => {
       // Simulate calling through orchestrator
       const serverData = {
         code: serverCode,
-        storedAt: new Date().toISOString()
+        createdAt: new Date().toISOString()
       };
       store.getState().initializeExerciseData(serverData);
 

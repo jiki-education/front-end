@@ -113,15 +113,11 @@ export class EditorManager {
   }
 
   cleanup() {
-    // Save content before cleanup
-    const code = this.editorView.state.doc.toString();
-    const readonlyRanges = getCodeMirrorFieldValue(this.editorView, readOnlyRangesStateField);
-    this.saveImmediately(code, readonlyRanges);
-
-    // Cancel any pending saves
-    if (this.saveDebounced) {
-      this.saveDebounced.cancel();
-    }
+    // Flush any pending debounced save so a last-second edit isn't lost. When
+    // nothing was edited, nothing is written — an unconditional save here would
+    // re-stamp localStorage on every visit, making its timestamp useless for
+    // cross-device conflict detection.
+    this.saveDebounced?.flush();
 
     // Clean up any remaining tooltips before destroying editor
     cleanupAllInformationTooltips();
@@ -248,30 +244,6 @@ export class EditorManager {
   autoSaveContent(code: string, readonlyRanges?: ReadonlyRange[]) {
     if (this.saveDebounced) {
       this.saveDebounced(code, readonlyRanges);
-    }
-  }
-
-  saveImmediately(code: string, readonlyRanges?: ReadonlyRange[]) {
-    if (this.saveDebounced) {
-      this.saveDebounced.cancel();
-    }
-
-    if (this.isSaving) {
-      return;
-    }
-
-    this.isSaving = true;
-
-    try {
-      const result = saveCodeMirrorContent(this.exerciseSlug, code, readonlyRanges);
-
-      if (!result.success) {
-        console.error("Failed to save CodeMirror content:", result.error);
-      }
-    } catch (error) {
-      console.error(`Error saving exercise ${this.exerciseSlug}:`, error);
-    } finally {
-      this.isSaving = false;
     }
   }
 

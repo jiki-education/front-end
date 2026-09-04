@@ -3,7 +3,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
+import { findCodeConflict } from "../lib/findCodeConflict";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { showCodeSyncChoice } from "@/lib/modal/app";
+import { hideModal } from "@/lib/modal";
 import { setEditorMessages } from "../lib/i18n/editorMessages";
 import { getInterpreter } from "../lib/test-runner/getInterpreter";
 import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
@@ -33,6 +36,8 @@ export function useExerciseLoader({
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [awaitingCodeChoice, setAwaitingCodeChoice] = useState(false);
+  const awaitingCodeChoiceRef = useRef(false);
 
   // Active UI locale. Drives both the runtime message dict AND the content fetch
   // (instructions/stub/solution). No fallback: an exercise without a content blob
@@ -111,28 +116,53 @@ export function useExerciseLoader({
         const serverData = serverSubmission
           ? {
               code: findFileForLanguage(serverSubmission.files, language)?.content ?? "",
-              storedAt: serverSubmission.stored_at
+              createdAt: serverSubmission.created_at
             }
           : undefined;
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator({
-          exercise,
-          language,
-          context,
-          interpreterLocaleMessages,
-          exerciseLocaleMessages,
-          proseHash: content.proseHash,
-          codeHash: content.codeHash,
-          onGoToDashboard,
-          serverData,
-          // Resolved here rather than in the panel that renders it: the level
-          // catalog loads with the exercise, so the header paints complete
-          // instead of inserting the level line once a later fetch lands.
-          levelTitle: resolveLevelTitle(levelMessages, exercise.levelId),
-          isCompleted
-        });
+        const createOrchestrator = (chosenServerData: typeof serverData) => {
+          orchestratorRef.current = new Orchestrator({
+            exercise,
+            language,
+            context,
+            interpreterLocaleMessages,
+            exerciseLocaleMessages,
+            proseHash: content.proseHash,
+            codeHash: content.codeHash,
+            onGoToDashboard,
+            serverData: chosenServerData,
+            // Resolved here rather than in the panel that renders it: the level
+            // catalog loads with the exercise, so the header paints complete
+            // instead of inserting the level line once a later fetch lands.
+            levelTitle: resolveLevelTitle(levelMessages, exercise.levelId),
+            isCompleted
+          });
+        };
 
+        // When the server holds a meaningfully newer version of the code than
+        // this device, the student picks which one to load. Only the editor
+        // gets the picked version — localStorage and the server stay untouched
+        // until they edit or run code, so neither copy is destroyed by the
+        // choice itself. Dropping serverData on "local" lets the orchestrator's
+        // normal merge rules land on the local copy.
+        const conflict = findCodeConflict(exerciseSlug, serverData);
+        if (conflict) {
+          awaitingCodeChoiceRef.current = true;
+          setAwaitingCodeChoice(true);
+          setIsLoading(false);
+          showCodeSyncChoice({
+            ...conflict,
+            onChoose: (choice) => {
+              awaitingCodeChoiceRef.current = false;
+              createOrchestrator(choice === "server" ? serverData : undefined);
+              setAwaitingCodeChoice(false);
+            }
+          });
+          return;
+        }
+
+        createOrchestrator(serverData);
         setIsLoading(false);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : t("unknownError"));
@@ -144,6 +174,10 @@ export function useExerciseLoader({
 
     // Cleanup function to destroy orchestrator when component unmounts
     return () => {
+      if (awaitingCodeChoiceRef.current) {
+        awaitingCodeChoiceRef.current = false;
+        hideModal();
+      }
       if (orchestratorRef.current) {
         orchestratorRef.current.destroy();
         orchestratorRef.current = null;
@@ -155,6 +189,7 @@ export function useExerciseLoader({
   return {
     orchestrator: orchestratorRef.current,
     isLoading,
-    loadError
+    loadError,
+    awaitingCodeChoice
   };
 }

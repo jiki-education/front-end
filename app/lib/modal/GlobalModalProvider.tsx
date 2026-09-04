@@ -77,7 +77,8 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "walkthrough-confirm-modal" ||
-    modalName === "payment-confirming-modal";
+    modalName === "payment-confirming-modal" ||
+    modalName === "code-sync-choice-modal";
 
   // Check if this modal should not close on overlay click
   const shouldNotCloseOnOverlayClick =
@@ -85,7 +86,8 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal";
+    modalName === "welcome-modal" ||
+    modalName === "code-sync-choice-modal";
 
   // Check if this modal should not close on ESC key
   const shouldNotCloseOnEsc =
@@ -93,7 +95,8 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal";
+    modalName === "welcome-modal" ||
+    modalName === "code-sync-choice-modal";
 
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props

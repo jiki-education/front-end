@@ -555,7 +555,7 @@ export function createOrchestratorStore({
         // Exercise data initialization with priority logic
         initializeExerciseData: (serverData?: {
           code: string;
-          storedAt?: string;
+          createdAt?: string;
           readonlyRanges?: ReadonlyRange[];
         }) => {
           const state = get();
@@ -584,13 +584,13 @@ export function createOrchestratorStore({
             const localStorageData = localStorageResult.data;
 
             // If server has no timestamp, use localStorage
-            if (!serverData.storedAt) {
+            if (!serverData.createdAt) {
               set({ code: localStorageData.code });
               return;
             }
 
             // Compare timestamps - server data must be newer by at least 1 minute
-            const serverTime = new Date(serverData.storedAt).getTime();
+            const serverTime = new Date(serverData.createdAt).getTime();
             const localTime = new Date(localStorageData.storedAt).getTime();
 
             // Check for invalid timestamps (NaN)
