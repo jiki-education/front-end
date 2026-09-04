@@ -51,6 +51,4 @@ movingRight = !movingRight
 
 And that flips it. `!movingRight` means the opposite of whatever it was previously.
 
-So if `movingRight` was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently,
-
-and that bang tells him to find the opposite. So the opposite of true is false. The opposite of false is true, and then he puts it back in the box. This is exactly the same as that longer if/else statement, but it's just much neater and more succinct to write.
+So if `movingRight` was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently, and that bang tells him to find the opposite. So the opposite of true is false. The opposite of false is true, and then he puts it back in the box. This is exactly the same as that longer if/else statement, but it's just much neater and more succinct to write.
