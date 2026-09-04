@@ -11,11 +11,12 @@ const YouTubePlayer = dynamic(() => import("@/components/youtube-player/JikiYouT
 interface VideoWalkthroughModalProps {
   video: VideoSource;
   lessonSlug: string;
+  onProgress?: (percentage: number) => void;
 }
 
-export function VideoWalkthroughModal({ video, lessonSlug }: VideoWalkthroughModalProps) {
+export function VideoWalkthroughModal({ video, lessonSlug, onProgress }: VideoWalkthroughModalProps) {
   const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition, handleYouTubeReady, handleYouTubeStateChange } =
-    useWalkthroughProgress(lessonSlug, video.provider);
+    useWalkthroughProgress(lessonSlug, video.provider, onProgress);
 
   return (
     <div className={styles.videoWrapper}>
