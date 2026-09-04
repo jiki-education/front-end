@@ -66,10 +66,9 @@ export function useAuth(): UseAuthReturn {
     setTwoFactorState({ type: "verify" });
   };
 
-  // Google's auth-code flow runs in a popup, so this page never unloads and the
-  // locale being read is still the one rendered here — no round trip to carry it
-  // across, unlike the Exercism flow. Sent for logins too; the API only reads it
-  // when the account is new.
+  // The locale is read here rather than carried across a round trip, as the
+  // auth-code flow runs in a popup and this page never unloads. Sent for logins
+  // too; the API only reads it when the account is new.
   const handleGoogleSuccess = async (code: string) => {
     setGoogleAuthError(null);
     try {

@@ -17,13 +17,9 @@ import { generateCodeVerifier, generateCodeChallenge } from "./pkce";
 const STATE_KEY = "exercism_oauth_state";
 const VERIFIER_KEY = "exercism_oauth_verifier";
 
-// The locale the user started the flow in, stashed for the same reason as the
-// state and verifier: it can't survive the trip any other way. The redirect_uri
-// is naked (Exercism holds one registered URI, not one per locale), so the
-// callback page's own locale is re-derived from Accept-Language and would report
-// the device's language rather than the one being read - which is precisely the
-// signal we came here for. Read once on callback and sent to the API as the
-// new account's locale.
+// The locale the user started the flow in. Stashed rather than read from the
+// callback page, whose locale comes from Accept-Language: the redirect_uri is
+// naked, since Exercism holds one registered URI and not one per locale.
 const LOCALE_KEY = "exercism_oauth_locale";
 
 const DEFAULT_EXERCISM_URL = "https://exercism.org";
