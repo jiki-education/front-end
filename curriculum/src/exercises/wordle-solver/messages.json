@@ -1,50 +1,14 @@
 {
   "checks": {
     "repeatedGuess": "You guessed the same word more than once. Each guess should use what you learnt from the previous ones, and you should stop as soon as you've won.",
-    "holeInOne": {
-      "firstRow": "We expected all the letters to be green"
-    },
-    "entirelyWrong": {
-      "firstRow": "We expected the first row to be absent",
-      "secondRow": "We expected the second row to be correct"
-    },
-    "twoNeeded": {
-      "firstRow": "We expected the first row to have one correct",
-      "secondRow": "We expected the second row to be correct"
-    },
-    "threeNeeded": {
-      "firstRow": "We expected the first row to have one correct",
-      "secondRow": "We expected the second row to have all but one correct",
-      "thirdRow": "We expected the third row to be correct"
-    },
-    "fourNeeded": {
-      "firstRow": "We expected the first row to have one correct",
-      "secondRow": "We expected the second row to have the first two correct",
-      "thirdRow": "We expected the third row have four correct",
-      "fourthRow": "We expected the fourth row to be correct"
-    },
-    "present1": {
-      "firstRow": "We expected the first row to be present, absent, correct, correct, absent.",
-      "secondRow": "We expected the second row to be all correct"
-    },
-    "present2": {
-      "firstRow": "We expected the first row to be present, absent, absent, absent, absent",
-      "secondRow": "We expected the second row to be absent, present, absent, present, present",
-      "thirdRow": "We expected the third row to be correct"
-    },
-    "present3": {
-      "firstRow": "We expected the first row to be absent, absent, present, present, absent.",
-      "secondRow": "We expected the second row to be absent, absent, absent, correct, correct",
-      "thirdRow": "We expected the third row to be correct, absent, absent, correct, correct",
-      "fourthRow": "We expected the fourth row to be correct"
-    },
-    "present4": {
-      "firstRow": "We expected the first row to be absent",
-      "secondRow": "We expected the second row to be absent",
-      "thirdRow": "We expected the third row to be present, absent, present, absent, absent",
-      "fourthRow": "We expected the fourth row to be correct, correct, correct, present, present",
-      "fifthRow": "We expected the fifth row to be correct"
-    }
+    "guessNotCommonWord": "Guess {{row}} was \"{{word}}\", which isn't one of the words from `commonWords()`.",
+    "guessUsesAbsent": "Guess {{row}} was \"{{word}}\", but an earlier guess had already shown that \"{{letter}}\" isn't in the word.",
+    "guessIgnoresCorrect": "Guess {{row}} was \"{{word}}\", but an earlier guess had already shown that square {{square}} is \"{{letter}}\".",
+    "guessMissesPresent": "Guess {{row}} was \"{{word}}\", but an earlier guess had already shown that \"{{letter}}\" is somewhere in the word, and \"{{word}}\" doesn't contain it.",
+    "guessRepeatsPresentSquare": "Guess {{row}} was \"{{word}}\", but an earlier guess had already shown that \"{{letter}}\" is in the word but not in square {{square}}.",
+    "guessNotFirstFitting": "Guess {{row}} was \"{{word}}\" but we expected it to be \"{{expected}}\".",
+    "guessAfterSolved": "Your code made guess {{row}} after the previous guess had already solved the word. Stop as soon as every letter is correct.",
+    "stoppedBeforeSolved": "Your code stopped after {{guesses}} guesses without solving the word."
   },
   "tasks": {
     "firstWord": {
