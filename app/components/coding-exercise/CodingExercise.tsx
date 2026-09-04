@@ -32,7 +32,7 @@ export default function CodingExercise({
   const t = useTranslations("codingExercise");
   const router = useRouter();
   const continueHref = context.type === "challenge" ? "/challenges" : "/dashboard";
-  const { orchestrator, isLoading, loadError } = useExerciseLoader({
+  const { orchestrator, isLoading, loadError, awaitingCodeChoice } = useExerciseLoader({
     language,
     exerciseSlug: context.slug,
     context,
@@ -55,12 +55,12 @@ export default function CodingExercise({
   // the seen flag is written as it opens so a reload can't replay it.
   const introVideo = context.type === "lesson" ? context.introVideo : undefined;
   useEffect(() => {
-    if (isLoading || loadError || !introVideo || hasSeenIntroVideo(context.slug)) {
+    if (isLoading || awaitingCodeChoice || loadError || !introVideo || hasSeenIntroVideo(context.slug)) {
       return;
     }
     markIntroVideoSeen(context.slug);
     showExerciseIntroVideo({ video: introVideo });
-  }, [isLoading, loadError, introVideo, context.slug]);
+  }, [isLoading, awaitingCodeChoice, loadError, introVideo, context.slug]);
 
   // Error state
   if (loadError) {
@@ -71,8 +71,10 @@ export default function CodingExercise({
     );
   }
 
-  // Loading — the parent renders LessonLoadingModal as an overlay until onReady fires
-  if (isLoading) {
+  // Loading — the parent renders LessonLoadingModal as an overlay until onReady
+  // fires. While the student picks between code versions, the choice modal is
+  // the whole UI and the orchestrator doesn't exist yet.
+  if (isLoading || awaitingCodeChoice) {
     return null;
   }
 

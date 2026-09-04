@@ -25,6 +25,7 @@ jest.mock("@codemirror/view", () => ({
       },
       dispatch: jest.fn(),
       focus: jest.fn(),
+      destroy: jest.fn(),
       lineBlockAt: jest.fn().mockReturnValue({ top: 0, height: 20 }),
       scrollDOM: { scrollTop: 0, clientHeight: 400, scrollTo: jest.fn() },
       requestMeasure: jest.fn()
@@ -108,7 +109,7 @@ jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
 }));
 
 jest.mock("lodash", () => ({
-  debounce: jest.fn((fn) => fn)
+  debounce: jest.fn((fn) => Object.assign((...args: unknown[]) => fn(...args), { cancel: jest.fn(), flush: jest.fn() }))
 }));
 
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
@@ -144,6 +145,17 @@ describe("EditorManager", () => {
     it("should initialize with element and create editorView", () => {
       expect(editorManager).toBeDefined();
       expect(editorManager.editorView).toBeDefined();
+    });
+  });
+
+  describe("cleanup", () => {
+    it("does not write to localStorage when no save is pending", () => {
+      const { saveCodeMirrorContent } = jest.requireMock("@/components/coding-exercise/lib/localStorage");
+      saveCodeMirrorContent.mockClear();
+
+      editorManager.cleanup();
+
+      expect(saveCodeMirrorContent).not.toHaveBeenCalled();
     });
   });
 

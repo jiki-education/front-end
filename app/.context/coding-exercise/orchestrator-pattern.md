@@ -154,6 +154,7 @@ While the orchestrator and store are destroyed on navigation:
 - **localStorage Persistence**: User code and exercise progress are saved to localStorage
 - **Automatic Restoration**: When returning to an exercise, saved data is loaded from localStorage
 - **Exercise UUID Key**: Each exercise uses its slug as a unique key for localStorage
+- **Cross-device Sync**: The server's last submission (saved on Run Code, with its `created_at` timestamp) is merged with localStorage in `initializeExerciseData`. When the server copy is meaningfully newer AND different, `findCodeConflict` + the `code-sync-choice-modal` ask the student which version to load; only the editor receives the pick — neither store is written until they edit or run
 
 ### Store Access Pattern
 

@@ -32,6 +32,7 @@ import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.modul
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import welcomeStyles from "./modals/WelcomeModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
+import codeSyncChoiceStyles from "./modals/CodeSyncChoiceModal.module.css";
 import exerciseIntroVideoStyles from "./modals/ExerciseIntroVideoModal.module.css";
 import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 import { showModal } from "./store";
@@ -139,6 +140,15 @@ export const showExerciseIntroVideo = (props: { video: VideoSource }) => {
 // Convenience function for walkthrough confirmation modal
 export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
   showModal("walkthrough-confirm-modal", props, undefined, walkthroughConfirmStyles.modal);
+};
+
+// Convenience function for choosing between local and server code versions
+export const showCodeSyncChoice = (props: {
+  localCode: string;
+  serverCode: string;
+  onChoose: (choice: "local" | "server") => void;
+}) => {
+  showModal("code-sync-choice-modal", props, undefined, codeSyncChoiceStyles.modal);
 };
 
 // Convenience function for avatar edit modal

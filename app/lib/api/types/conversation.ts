@@ -15,7 +15,7 @@ export interface LastSubmissionFile {
  */
 export interface LastSubmissionData {
   files: LastSubmissionFile[];
-  stored_at?: string;
+  created_at?: string;
 }
 
 /**

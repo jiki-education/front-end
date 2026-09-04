@@ -157,7 +157,7 @@ export interface OrchestratorActions {
   setShouldPlayOnTestChange: (shouldPlayOnTestChange: boolean) => void;
 
   // Exercise data initialization
-  initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => void;
+  initializeExerciseData: (serverData?: { code: string; createdAt?: string; readonlyRanges?: ReadonlyRange[] }) => void;
 
   // Lint errors action
   setLintErrors: (errors: LintError[]) => void;

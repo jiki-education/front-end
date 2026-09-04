@@ -42,7 +42,7 @@ Class that manages the CodeMirror editor instance:
 - Maintains a readonly `editorView` property that's guaranteed to exist
 - Configures all extensions during construction
 - Sets up event handlers for editor changes
-- Manages cleanup including saving content to localStorage
+- Manages cleanup, flushing any pending debounced save (never writing when nothing was edited, so localStorage's timestamp keeps meaning "last edited")
 
 Key features:
 

@@ -1,0 +1,99 @@
+.modal {
+    max-width: 760px;
+    width: calc(100vw - 32px);
+    border-radius: 24px;
+    padding: 0;
+}
+
+.content {
+    padding: 32px;
+
+    h4 {
+        font-size: 21px;
+        font-weight: 600;
+        color: var(--color-gray-900);
+        margin: 0 0 2px 0;
+        text-align: center;
+        text-wrap: balance;
+    }
+
+    > p {
+        font-size: 16px;
+        color: var(--color-gray-500);
+        line-height: 1.5;
+        margin: 0 0 20px 0;
+        text-align: center;
+        text-wrap: balance;
+    }
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    h5 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin: 0 0 10px 0;
+        text-align: center;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 15px;
+    }
+}
+
+/* One vertical scroll container for both panes, so the aligned rows stay
+   aligned while scrolling. Each pane scrolls horizontally on its own. */
+.diff {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-height: 320px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+.pane {
+    min-width: 0;
+    margin: 0;
+    padding: 10px;
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-100);
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-gray-700);
+    text-align: start;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.line {
+    min-height: 1.5em;
+    width: max-content;
+    min-width: 100%;
+    padding-inline: 4px;
+    border-radius: 3px;
+}
+
+.local .changed {
+    background: var(--color-red-50);
+}
+
+.server .changed {
+    background: var(--color-green-50);
+}
+
+.spacer {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--color-gray-100),
+        var(--color-gray-100) 2px,
+        transparent 2px,
+        transparent 8px
+    );
+}
