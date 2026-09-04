@@ -1,7 +1,6 @@
 {
   "slug": "rainbow-splodges",
   "levelId": "functions-that-return-things",
-  "deepDiveVideo": "rainbow-splodges-deep-dive",
   "hints": [
     {
       "question": "hints.keepCirclesInBox.question",

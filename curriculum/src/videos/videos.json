@@ -375,14 +375,6 @@
       "uploadDate": "2026-09-04"
     }
   },
-  "rainbow-splodges-deep-dive": {
-    "fallback": {
-      "provider": "youtube",
-      "id": "JpIyFUWqCBE",
-      "durationSeconds": 1237,
-      "uploadDate": "2026-09-04"
-    }
-  },
   "fix-wall-intro": {
     "fallback": {
       "provider": "mux",
