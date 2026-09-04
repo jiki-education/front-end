@@ -10,7 +10,11 @@ function getStorageKey(lessonSlug: string): string {
   return `${STORAGE_KEY_PREFIX}${lessonSlug}`;
 }
 
-export function useWalkthroughProgress(lessonSlug: string, provider: VideoSource["provider"] = "mux") {
+export function useWalkthroughProgress(
+  lessonSlug: string,
+  provider: VideoSource["provider"] = "mux",
+  onProgress?: (percentage: number) => void
+) {
   const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const ytPlayerRef = useRef<YTPlayer | null>(null);
   const lastReportedPercentRef = useRef(-1);
@@ -22,6 +26,7 @@ export function useWalkthroughProgress(lessonSlug: string, provider: VideoSource
       return;
     }
     lastReportedPercentRef.current = rounded;
+    onProgress?.(rounded);
     // Best-effort progress ping; the API client reports genuine /internal failures centrally.
     updateWalkthroughVideoPercentage(lessonSlug, rounded).catch(() => {});
   };

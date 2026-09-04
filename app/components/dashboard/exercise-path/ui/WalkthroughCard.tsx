@@ -1,4 +1,5 @@
 import WalkthroughIcon from "@/icons/walkthrough.svg";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import type { LessonDisplayData } from "../types";
 import { showVideoWalkthrough } from "@/lib/modal/app";
@@ -11,12 +12,15 @@ interface WalkthroughCardProps {
 
 export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
   const t = useTranslations("dashboard.exercisePath.walkthrough");
+  // Mirrors progress reported by the walkthrough modal, so the card updates
+  // without a dashboard refetch. Never regresses below the server-known value.
+  const [livePercentage, setLivePercentage] = useState(0);
   const deepDiveVideo = lesson.deepDiveVideo;
   if (!deepDiveVideo) {
     return null;
   }
   const isLocked = !lesson.completed;
-  const percentage = lesson.deepDiveVideoWatchedPercentage;
+  const percentage = Math.max(lesson.deepDiveVideoWatchedPercentage, livePercentage);
 
   const getStateClass = () => {
     if (isLocked) {
@@ -31,13 +35,21 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
     return styles.unwatched;
   };
 
+  const openWalkthrough = () => {
+    showVideoWalkthrough({
+      video: deepDiveVideo,
+      lessonSlug: lesson.lesson.slug,
+      onProgress: (percentage) => setLivePercentage((prev) => Math.max(prev, percentage))
+    });
+  };
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (isLocked) {
       return;
     }
-    showVideoWalkthrough({ video: deepDiveVideo, lessonSlug: lesson.lesson.slug });
+    openWalkthrough();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -47,7 +59,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
       if (isLocked) {
         return;
       }
-      showVideoWalkthrough({ video: deepDiveVideo, lessonSlug: lesson.lesson.slug });
+      openWalkthrough();
     }
   };
 

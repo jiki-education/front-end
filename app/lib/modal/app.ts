@@ -123,7 +123,11 @@ export const showPremiumUpgradeModal = (
 };
 
 // Convenience function for video walkthrough modal
-export const showVideoWalkthrough = (props: { video: VideoSource; lessonSlug: string }) => {
+export const showVideoWalkthrough = (props: {
+  video: VideoSource;
+  lessonSlug: string;
+  onProgress?: (percentage: number) => void;
+}) => {
   showModal("video-walkthrough-modal", props);
 };
 
