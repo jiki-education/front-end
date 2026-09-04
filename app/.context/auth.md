@@ -68,6 +68,9 @@ Used in `app/layout.tsx` to initialize authentication for the entire app:
 
 3. **ClientLoggedOutAuthInitializer** - Client component that sets logged-out state
    - Calls `setNoUser()` to immediately mark user as unauthenticated
+   - Only if the store has not been checked yet: the component can remount without a new
+     request (`ClientLocaleProvider` unmounts the tree while a locale swap is pending), and a
+     store populated by a login since the page rendered must not be overwritten
    - Renders nothing (empty fragment)
    - Prevents unnecessary API call when no token exists
 
@@ -79,11 +82,15 @@ Used in `app/(app)/layout.tsx` to protect authenticated pages:
 
 1. **ClientAuthGuard** - Client component that redirects unauthenticated users
    - Waits for `hasCheckedAuth` from global initialization
-   - If not authenticated: Redirects to the route's public equivalent, or `/auth/login`
+   - If not authenticated: asks the API once more (`recheckAuth`) before acting, since the store
+     is a client-side cache that can be stale on arrival (a login on the previous page, or a
+     remount that re-ran a logged-out initializer). Bouncing on a stale "logged out" while the
+     cookie says otherwise loops with the landing page's cookie-based redirect to `/dashboard`
+   - If still not authenticated: Redirects to the route's public equivalent, or `/auth/login`
    - If authenticated: Renders children
    - Shows nothing while checking or redirecting
 
-**Flow:** Global auth initialized → guard checks state → redirect or render
+**Flow:** Global auth initialized → guard checks state → recheck once if logged out → redirect or render
 
 **Public equivalents.** Two (app) routes have a public page at a different URL, and
 signed-out visitors are sent there rather than to the login form:
