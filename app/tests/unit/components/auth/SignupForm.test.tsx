@@ -9,6 +9,11 @@ import { SignupForm } from "@/components/auth/SignupForm";
 
 // Mock next/navigation
 const mockRouterPush = jest.fn();
+const mockHardNavigate = jest.fn();
+
+jest.mock("@/lib/auth/hardNavigate", () => ({
+  hardNavigate: (url: string) => mockHardNavigate(url)
+}));
 const mockSearchParamsGet = jest.fn();
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockRouterPush }),
@@ -137,7 +142,7 @@ describe("SignupForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
 
       await waitFor(() => {
-        expect(mockRouterPush).toHaveBeenCalledWith("/dashboard");
+        expect(mockHardNavigate).toHaveBeenCalledWith("/dashboard");
       });
     });
 
@@ -152,7 +157,7 @@ describe("SignupForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
 
       await waitFor(() => {
-        expect(mockRouterPush).toHaveBeenCalledWith("/dashboard");
+        expect(mockHardNavigate).toHaveBeenCalledWith("/dashboard");
       });
     });
 
@@ -172,7 +177,7 @@ describe("SignupForm", () => {
       expect(localStorage.getItem("just_signed_up_email")).toBe("test@example.com");
     });
 
-    it("does not use router.push for valid external return_to URL when email is confirmed", async () => {
+    it("leaves with a full navigation to a valid external return_to URL when email is confirmed", async () => {
       const returnToUrl = "https://api.jiki.io/auth/discourse/sso";
       mockSearchParamsGet.mockReturnValue(returnToUrl);
       mockSignup.mockResolvedValue({ email_confirmed: true });
@@ -189,6 +194,7 @@ describe("SignupForm", () => {
 
       // router.push should NOT be called because the code uses window.location.href for external URLs
       expect(mockRouterPush).not.toHaveBeenCalled();
+      expect(mockHardNavigate).toHaveBeenCalledWith(returnToUrl);
     });
 
     it("calls googleLogin for Google signup", async () => {
@@ -250,6 +256,7 @@ describe("SignupForm", () => {
 
       // Should use sessionStorage and do external redirect, not router.push
       expect(mockRouterPush).not.toHaveBeenCalled();
+      expect(mockHardNavigate).toHaveBeenCalledWith(returnToUrl);
     });
   });
 

@@ -33,9 +33,6 @@ interface AuthStore {
   exercismLogin: (code: string, codeVerifier: string) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
-  // Discard the current answer and ask the API again. For callers that have
-  // reason to distrust the store (see internal/ClientAuthGuard).
-  recheckAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
   requestPasswordReset: (email: string, cfTurnstileResponse: string) => Promise<void>;
   resetPassword: (data: PasswordReset) => Promise<void>;
@@ -284,14 +281,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         return;
       }
     }
-  },
-
-  recheckAuth: async () => {
-    if (get().isLoading) {
-      return;
-    }
-    set({ hasCheckedAuth: false });
-    await get().checkAuth();
   },
 
   // Refresh user data from server

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { isExerciseLessonSlug } from "@jiki/curriculum/slugs";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useAuthStore } from "../../../../lib/auth/authStore";
@@ -27,27 +27,14 @@ import { useAuthStore } from "../../../../lib/auth/authStore";
 const LESSON_PATH_PREFIX = "/lesson/";
 
 export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, hasCheckedAuth, recheckAuth } = useAuthStore();
+  const { isAuthenticated, hasCheckedAuth } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
   const routes = useLocaleRoutes();
-  const rechecked = useRef(false);
 
   // Handle unauthenticated redirect in useEffect (not during render)
   useEffect(() => {
     if (hasCheckedAuth && !isAuthenticated) {
-      // The store is a client-side cache of what /internal/me last said, and it
-      // can be stale by the time a protected route is reached: a login on the
-      // page we navigated from, or a remount that re-ran a logged-out
-      // initializer. Bouncing on a stale "logged out" while the cookie says
-      // otherwise loops (the landing page sends cookie-holders straight back
-      // here). So ask the API once before trusting it. A 401 clears the cookie
-      // and lands back here as a confirmed logout; the ref stops a second ask.
-      if (!rechecked.current) {
-        rechecked.current = true;
-        void recheckAuth();
-        return;
-      }
       // /dashboard's public equivalent is the landing page, not a same-URL twin.
       if (pathname === "/dashboard") {
         router.push(routes.home());
@@ -61,7 +48,7 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
       }
       router.push(routes.authLogin());
     }
-  }, [isAuthenticated, hasCheckedAuth, pathname, router, routes, recheckAuth]);
+  }, [isAuthenticated, hasCheckedAuth, pathname, router, routes]);
 
   // Show nothing while auth is checking (loading spinner shown by ClientAuthInitializer above)
   // or while redirecting unauthenticated users
