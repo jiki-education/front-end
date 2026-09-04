@@ -4,6 +4,7 @@
 
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { useLocale } from "next-intl";
 import { ExercismAuthButton } from "@/components/auth/ExercismAuthButton";
 import { isExercismAuthEnabled, beginExercismAuth } from "@/lib/auth/exercism";
 
@@ -21,6 +22,7 @@ describe("ExercismAuthButton", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.mocked(useLocale).mockReturnValue("en");
   });
 
   describe("when Exercism OAuth is configured", () => {
@@ -42,6 +44,16 @@ describe("ExercismAuthButton", () => {
 
       expect(mockBeginExercismAuth).toHaveBeenCalledTimes(1);
       expect(mockOnError).not.toHaveBeenCalled();
+    });
+
+    it("should start the flow with the locale being browsed", () => {
+      jest.mocked(useLocale).mockReturnValue("bn");
+
+      render(<ExercismAuthButton onError={mockOnError}>Use Exercism</ExercismAuthButton>);
+
+      fireEvent.click(screen.getByRole("button"));
+
+      expect(mockBeginExercismAuth).toHaveBeenCalledWith("bn");
     });
 
     it("should call onError when starting the flow fails", () => {

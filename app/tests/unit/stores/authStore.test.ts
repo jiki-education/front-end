@@ -68,6 +68,30 @@ describe("AuthStore - Google Authentication", () => {
       expect(state.hasCheckedAuth).toBe(true);
     });
 
+    it("should send the seed locale so a new account is created in it", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "success", user: mockUser })
+      });
+
+      const { googleLogin } = useAuthStore.getState();
+      await googleLogin("test-code", "bn");
+
+      expect(JSON.parse(mockFetch.mock.calls[0][1].body)).toMatchObject({ locale: "bn" });
+    });
+
+    it("should send a null locale when there is no signal", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "success", user: mockUser })
+      });
+
+      const { googleLogin } = useAuthStore.getState();
+      await googleLogin("test-code");
+
+      expect(JSON.parse(mockFetch.mock.calls[0][1].body)).toMatchObject({ locale: null });
+    });
+
     it("should set loading state during authentication", async () => {
       let resolvePromise: (value: { ok: boolean; json: () => Promise<{ user: User }> }) => void;
       const fetchPromise = new Promise<{ ok: boolean; json: () => Promise<{ user: User }> }>((resolve) => {
@@ -137,7 +161,7 @@ describe("AuthStore - Google Authentication", () => {
         expect.objectContaining({
           method: "POST",
           credentials: "include",
-          body: JSON.stringify({ code: "test-auth-code", attribution: null })
+          body: JSON.stringify({ code: "test-auth-code", attribution: null, locale: null })
         })
       );
       expect(mockFetch).toHaveBeenCalledTimes(1);

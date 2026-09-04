@@ -7,6 +7,7 @@ import { generateCodeChallenge } from "@/lib/auth/pkce";
 
 const STATE_KEY = "exercism_oauth_state";
 const VERIFIER_KEY = "exercism_oauth_verifier";
+const LOCALE_KEY = "exercism_oauth_locale";
 
 describe("exercism", () => {
   beforeEach(() => {
@@ -63,6 +64,32 @@ describe("exercism", () => {
       expect(params.get("code_challenge")).toBe(generateCodeChallenge(sessionStorage.getItem(VERIFIER_KEY)!));
     });
 
+    it("stashes the locale the flow started in", () => {
+      buildExercismAuthorizeUrl("bn");
+
+      expect(sessionStorage.getItem(LOCALE_KEY)).toBe("bn");
+    });
+
+    it("stashes nothing for the default locale, which is no signal", () => {
+      buildExercismAuthorizeUrl("en");
+
+      expect(sessionStorage.getItem(LOCALE_KEY)).toBeNull();
+    });
+
+    it("stashes nothing when no locale is passed", () => {
+      buildExercismAuthorizeUrl();
+
+      expect(sessionStorage.getItem(LOCALE_KEY)).toBeNull();
+    });
+
+    it("clears a locale stashed by an abandoned earlier attempt", () => {
+      sessionStorage.setItem(LOCALE_KEY, "bn");
+
+      buildExercismAuthorizeUrl("en");
+
+      expect(sessionStorage.getItem(LOCALE_KEY)).toBeNull();
+    });
+
     it("defaults to exercism.org when no URL is configured", () => {
       delete process.env.NEXT_PUBLIC_EXERCISM_URL;
 
@@ -87,6 +114,35 @@ describe("exercism", () => {
 
       expect(sessionStorage.getItem(STATE_KEY)).toBeNull();
       expect(sessionStorage.getItem(VERIFIER_KEY)).toBeNull();
+    });
+
+    it("returns the locale the flow started in", () => {
+      sessionStorage.setItem(LOCALE_KEY, "bn");
+
+      const result = consumeExercismCallback("auth-code", "stored-state");
+
+      expect(result).toEqual({
+        status: "ok",
+        code: "auth-code",
+        codeVerifier: "stored-verifier",
+        seedLocale: "bn"
+      });
+    });
+
+    it("clears the stashed locale", () => {
+      sessionStorage.setItem(LOCALE_KEY, "bn");
+
+      consumeExercismCallback("auth-code", "stored-state");
+
+      expect(sessionStorage.getItem(LOCALE_KEY)).toBeNull();
+    });
+
+    it("drops a stashed locale we no longer serve", () => {
+      sessionStorage.setItem(LOCALE_KEY, "xx");
+
+      const result = consumeExercismCallback("auth-code", "stored-state");
+
+      expect(result).toEqual({ status: "ok", code: "auth-code", codeVerifier: "stored-verifier" });
     });
 
     it("returns an error when no code is provided", () => {

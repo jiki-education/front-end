@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useLocale } from "next-intl";
 import { toastError } from "@/lib/toast";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { storeReturnTo, getPostAuthRedirect } from "@/lib/auth/return-to";
+import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
 import type { LoginResponse } from "@/types/auth";
 import { TwoFactorSetupForm } from "@/components/auth/TwoFactorSetupForm";
 import { TwoFactorVerifyForm } from "@/components/auth/TwoFactorVerifyForm";
@@ -22,6 +24,7 @@ interface UseAuthReturn {
 export function useAuth(): UseAuthReturn {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const activeLocale = useLocale();
   const { googleLogin } = useAuthStore();
 
   const [twoFactorState, setTwoFactorState] = useState<TwoFactorState>({ type: "none" });
@@ -63,10 +66,13 @@ export function useAuth(): UseAuthReturn {
     setTwoFactorState({ type: "verify" });
   };
 
+  // The locale is read here rather than carried across a round trip, as the
+  // auth-code flow runs in a popup and this page never unloads. Sent for logins
+  // too; the API only reads it when the account is new.
   const handleGoogleSuccess = async (code: string) => {
     setGoogleAuthError(null);
     try {
-      const result = await googleLogin(code);
+      const result = await googleLogin(code, detectSeedLocale(activeLocale));
       handleAuthResponse(result);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Google authentication failed";

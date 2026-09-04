@@ -146,10 +146,27 @@ describe("AuthStore - Exercism Authentication", () => {
         expect.objectContaining({
           method: "POST",
           credentials: "include",
-          body: JSON.stringify({ code: "test-auth-code", code_verifier: "test-code-verifier", attribution: null })
+          body: JSON.stringify({
+            code: "test-auth-code",
+            code_verifier: "test-code-verifier",
+            attribution: null,
+            locale: null
+          })
         })
       );
       expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it("should send the seed locale so a new account is created in it", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "success", user: mockUser })
+      });
+
+      const { exercismLogin } = useAuthStore.getState();
+      await exercismLogin("test-auth-code", "test-code-verifier", "bn");
+
+      expect(JSON.parse(mockFetch.mock.calls[0][1].body)).toMatchObject({ locale: "bn" });
     });
   });
 });

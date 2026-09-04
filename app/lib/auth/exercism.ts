@@ -9,15 +9,23 @@
  *    returns the code verifier needed for the token exchange on the API.
  */
 
+import { isSupportedLocale } from "@/lib/i18n/config";
+import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
+import type { Locale } from "@/lib/locales";
 import { generateCodeVerifier, generateCodeChallenge } from "./pkce";
 
 const STATE_KEY = "exercism_oauth_state";
 const VERIFIER_KEY = "exercism_oauth_verifier";
 
+// The locale the user started the flow in. Stashed rather than read from the
+// callback page, whose locale comes from Accept-Language: the redirect_uri is
+// naked, since Exercism holds one registered URI and not one per locale.
+const LOCALE_KEY = "exercism_oauth_locale";
+
 const DEFAULT_EXERCISM_URL = "https://exercism.org";
 
 export type ExercismCallbackResult =
-  | { status: "ok"; code: string; codeVerifier: string }
+  | { status: "ok"; code: string; codeVerifier: string; seedLocale?: Locale }
   | { status: "error"; message: string };
 
 /**
@@ -29,16 +37,19 @@ export function isExercismAuthEnabled(): boolean {
 
 /**
  * Starts the Exercism OAuth flow by redirecting to Exercism's authorize page.
+ *
+ * `activeLocale` is the locale the user is browsing in, carried across the
+ * round trip so a signup can be recorded against it. See LOCALE_KEY.
  */
-export function beginExercismAuth(): void {
-  window.location.href = buildExercismAuthorizeUrl();
+export function beginExercismAuth(activeLocale?: string): void {
+  window.location.href = buildExercismAuthorizeUrl(activeLocale);
 }
 
 /**
  * Generates and stashes the PKCE verifier + state, and returns the Exercism
  * authorize URL to redirect the user to.
  */
-export function buildExercismAuthorizeUrl(): string {
+export function buildExercismAuthorizeUrl(activeLocale?: string): string {
   const clientId = process.env.NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID;
   if (!clientId) {
     throw new Error("Exercism OAuth is not configured");
@@ -50,6 +61,13 @@ export function buildExercismAuthorizeUrl(): string {
 
   sessionStorage.setItem(VERIFIER_KEY, codeVerifier);
   sessionStorage.setItem(STATE_KEY, state);
+
+  const seedLocale = activeLocale == null ? undefined : detectSeedLocale(activeLocale);
+  if (seedLocale) {
+    sessionStorage.setItem(LOCALE_KEY, seedLocale);
+  } else {
+    sessionStorage.removeItem(LOCALE_KEY);
+  }
 
   const params = new URLSearchParams({
     response_type: "code",
@@ -71,8 +89,10 @@ export function buildExercismAuthorizeUrl(): string {
 export function consumeExercismCallback(code: string | null, state: string | null): ExercismCallbackResult {
   const storedState = sessionStorage.getItem(STATE_KEY);
   const storedVerifier = sessionStorage.getItem(VERIFIER_KEY);
+  const storedLocale = sessionStorage.getItem(LOCALE_KEY);
   sessionStorage.removeItem(STATE_KEY);
   sessionStorage.removeItem(VERIFIER_KEY);
+  sessionStorage.removeItem(LOCALE_KEY);
 
   if (!code) {
     return { status: "error", message: "Exercism did not return an authorization code" };
@@ -84,7 +104,12 @@ export function consumeExercismCallback(code: string | null, state: string | nul
     return { status: "error", message: "Missing authentication details. Please try again." };
   }
 
-  return { status: "ok", code, codeVerifier: storedVerifier };
+  // A stashed locale that is no longer one we serve is dropped rather than
+  // sent, matching how the API treats an unsupported value: no signal, so the
+  // account falls back to the Accept-Language derivation.
+  const seedLocale = isSupportedLocale(storedLocale) ? storedLocale : undefined;
+
+  return { status: "ok", code, codeVerifier: storedVerifier, seedLocale };
 }
 
 function exercismBaseUrl(): string {

@@ -77,7 +77,22 @@ describe("ExercismCallbackHandler", () => {
       });
 
       expect(mockConsumeExercismCallback).toHaveBeenCalledWith("auth-code-123", "state-abc");
-      expect(mockExercismLogin).toHaveBeenCalledWith("auth-code-123", "verifier-xyz");
+      expect(mockExercismLogin).toHaveBeenCalledWith("auth-code-123", "verifier-xyz", undefined);
+    });
+
+    it("forwards the locale the flow started in, which the callback URL has lost", async () => {
+      mockConsumeExercismCallback.mockReturnValue({
+        status: "ok",
+        code: "auth-code-123",
+        codeVerifier: "verifier-xyz",
+        seedLocale: "bn"
+      });
+
+      render(<ExercismCallbackHandler />);
+
+      await waitFor(() => {
+        expect(mockExercismLogin).toHaveBeenCalledWith("auth-code-123", "verifier-xyz", "bn");
+      });
     });
 
     it("shows a loading state while authenticating", () => {

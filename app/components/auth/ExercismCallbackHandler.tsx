@@ -36,7 +36,7 @@ export function ExercismCallbackHandler() {
 
     const completeLogin = async () => {
       try {
-        const result = await exercismLogin(callback.code, callback.codeVerifier);
+        const result = await exercismLogin(callback.code, callback.codeVerifier, callback.seedLocale);
         handleAuthResponse(result);
       } catch (err) {
         const message = err instanceof Error ? err.message : t("authFailed");
