@@ -444,6 +444,9 @@ class Orchestrator {
       this.editorManager = null;
     }
 
+    // Cancel the completion-modal backstop deadline so it can't fire after teardown
+    this.store.getState().cancelCompletionFallback();
+
     // Clean up animation timeline if current test has one
     const currentTest = this.store.getState().currentTest;
     if (currentTest?.animationTimeline) {

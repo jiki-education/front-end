@@ -126,6 +126,7 @@ export interface OrchestratorActions {
   setCurrentTestTime: (time: number, nearestOrExactFrame?: "nearest" | "exact", force?: boolean) => void;
   setHasCodeBeenEdited: (value: boolean) => void;
   setIsSpotlightActive: (value: boolean) => void;
+  cancelCompletionFallback: () => void;
   setIsExerciseCompleted: (value: boolean) => void;
   setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;

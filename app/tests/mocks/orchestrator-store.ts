@@ -101,6 +101,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
         }),
       setHasCodeBeenEdited: jest.fn(),
       setIsSpotlightActive: jest.fn(),
+      cancelCompletionFallback: jest.fn(),
       setHasEverHadSuccessfulRun: jest.fn(),
       setShouldShowCompleteButton: jest.fn(),
       setIsExerciseCompleted: jest.fn(),
