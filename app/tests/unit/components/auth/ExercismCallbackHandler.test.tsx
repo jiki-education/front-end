@@ -9,6 +9,11 @@ import { consumeExercismCallback } from "@/lib/auth/exercism";
 
 // Mock next/navigation
 const mockRouterPush = jest.fn();
+const mockHardNavigate = jest.fn();
+
+jest.mock("@/lib/auth/hardNavigate", () => ({
+  hardNavigate: (url: string) => mockHardNavigate(url)
+}));
 const mockSearchParamsGet = jest.fn();
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockRouterPush }),
@@ -73,7 +78,7 @@ describe("ExercismCallbackHandler", () => {
       render(<ExercismCallbackHandler />);
 
       await waitFor(() => {
-        expect(mockRouterPush).toHaveBeenCalledWith("/dashboard");
+        expect(mockHardNavigate).toHaveBeenCalledWith("/dashboard");
       });
 
       expect(mockConsumeExercismCallback).toHaveBeenCalledWith("auth-code-123", "state-abc");
@@ -98,7 +103,7 @@ describe("ExercismCallbackHandler", () => {
       );
 
       await waitFor(() => {
-        expect(mockRouterPush).toHaveBeenCalled();
+        expect(mockHardNavigate).toHaveBeenCalled();
       });
 
       expect(mockExercismLogin).toHaveBeenCalledTimes(1);
