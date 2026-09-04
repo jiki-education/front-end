@@ -1,6 +1,7 @@
 {
   "slug": "stock-market",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "stock-market-deep-dive",
   "hints": [
     {
       "question": "hints.whereToStart.question",
