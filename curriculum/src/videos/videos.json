@@ -367,6 +367,22 @@
       "uploadDate": "2026-09-03"
     }
   },
+  "stock-market-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "uUXVmRk_-XI",
+      "durationSeconds": 617,
+      "uploadDate": "2026-09-04"
+    }
+  },
+  "rainbow-splodges-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "HGhRcoTjbA4",
+      "durationSeconds": 1237,
+      "uploadDate": "2026-09-04"
+    }
+  },
   "fix-wall-intro": {
     "fallback": {
       "provider": "mux",
