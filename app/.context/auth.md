@@ -82,15 +82,11 @@ Used in `app/(app)/layout.tsx` to protect authenticated pages:
 
 1. **ClientAuthGuard** - Client component that redirects unauthenticated users
    - Waits for `hasCheckedAuth` from global initialization
-   - If not authenticated: asks the API once more (`recheckAuth`) before acting, since the store
-     is a client-side cache that can be stale on arrival (a login on the previous page, or a
-     remount that re-ran a logged-out initializer). Bouncing on a stale "logged out" while the
-     cookie says otherwise loops with the landing page's cookie-based redirect to `/dashboard`
-   - If still not authenticated: Redirects to the route's public equivalent, or `/auth/login`
+   - If not authenticated: Redirects to the route's public equivalent, or `/auth/login`
    - If authenticated: Renders children
    - Shows nothing while checking or redirecting
 
-**Flow:** Global auth initialized → guard checks state → recheck once if logged out → redirect or render
+**Flow:** Global auth initialized → guard checks state → redirect or render
 
 **Public equivalents.** Two (app) routes have a public page at a different URL, and
 signed-out visitors are sent there rather than to the login form:
@@ -592,6 +588,10 @@ Both the login and signup forms (`components/auth/LoginForm.tsx`, `components/au
 2. Exercism redirects back to `/auth/exercism/callback?code=...&state=...`
 3. The callback page (`app/(external)/auth/exercism/callback/page.tsx` → `components/auth/ExercismCallbackHandler.tsx`) validates the state against sessionStorage (CSRF protection), then calls `exercismLogin(code, codeVerifier)` which POSTs to the API at `/auth/exercism`
 4. The API exchanges the code with Exercism, finds-or-creates the user, and signs them in. The callback handler reuses `useAuth()` so 2FA flows and post-auth redirects behave identically to other login methods
+
+### Leaving an auth page after login
+
+Every in-page login (`useAuth`'s `redirectAfterAuth`, which the login form, Google, Exercism and both 2FA forms funnel through, and `ConfirmEmailForm`) leaves the page with a **full document load** via `lib/auth/hardNavigate.ts`, never `router.push`. Auth pages are server-rendered anonymous: no cookie, so `ClientLoggedOutAuthInitializer` is in the tree, and the locale came from the URL rather than the account. A login changes both, and a client-side push would carry that stale shell into the app (the root layout persists across pushes), leaving `ClientLocaleProvider` to swap the catalog in place and remount the tree. A full load rebuilds the shell from the cookies the login just set, so the destination is rendered for the right visitor in the right language from the start.
 
 - **PKCE hashing**: uses `js-sha256` (pure JS) rather than `crypto.subtle` because the Web Crypto API is unavailable on non-secure origins like `http://local.jiki.io` in local development
 - **Env**: `NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID`, `NEXT_PUBLIC_EXERCISM_URL` (defaults to `https://exercism.org`; local dev uses `http://local.exercism.io:3020`)

@@ -6,7 +6,6 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
 import { DEFAULT_TIME_ZONE, getLocaleDirection, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
-import { localePath } from "@/lib/i18n/routes";
 import { resolveUserLocale } from "@/lib/i18n/userLocale";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
@@ -56,19 +55,6 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
 
   useEffect(() => {
     if (!needsSwap) {
-      return;
-    }
-    // A locale-prefixed URL (e.g. /es-ES/auth/login for a French account) has a
-    // twin under the right prefix, and the server renders that twin in the right
-    // language from the start. Go there rather than swapping in place: it avoids
-    // painting Spanish and re-rendering French, and it avoids the unmount below,
-    // which re-runs every mount-time effect in the app. Naked routes have no such
-    // twin (the server reads the cookie setUser just wrote), so they still swap.
-    const location = window.location;
-    const current = `${location.pathname}${location.search}${location.hash}`;
-    const target = localePath(current, authoritative);
-    if (target !== current) {
-      location.assign(target);
       return;
     }
     return loadLocaleCatalog(authoritative, {
