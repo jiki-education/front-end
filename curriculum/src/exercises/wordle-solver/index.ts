@@ -66,7 +66,6 @@ const exerciseDefinition: VisualExerciseCore = {
   conceptSlugs: [
     "arrays",
     "building-arrays",
-    "dictionaries",
     "string-indexing",
     "if",
     "while-loops",

@@ -1,21 +1,16 @@
 let present = []
 let absent = []
-let squares = [
-  { actual: "", not: [] },
-  { actual: "", not: [] },
-  { actual: "", not: [] },
-  { actual: "", not: [] },
-  { actual: "", not: [] }
-]
+let actuals = ["", "", "", "", ""]
+let nots = [[], [], [], [], []]
 
-function letterOkInGuess(letter, letterKnowledge) {
-  if (letterKnowledge["actual"] !== "") {
-    return letter === letterKnowledge["actual"]
+function letterOkInGuess(letter, idx) {
+  if (actuals[idx] !== "") {
+    return letter === actuals[idx]
   }
   if (absent.includes(letter)) {
     return false
   }
-  if (letterKnowledge["not"].includes(letter)) {
+  if (nots[idx].includes(letter)) {
     return false
   }
   return true
@@ -24,7 +19,7 @@ function letterOkInGuess(letter, letterKnowledge) {
 function isWordPossible(word) {
   for (let idx = 0; idx < word.length; idx++) {
     let char = word[idx]
-    if (!letterOkInGuess(char, squares[idx])) {
+    if (!letterOkInGuess(char, idx)) {
       return false
     }
   }
@@ -58,12 +53,12 @@ function recordKnowledge(word, states) {
   for (let idx = 0; idx < word.length; idx++) {
     let letter = word[idx]
     if (states[idx] === "correct") {
-      squares[idx]["actual"] = letter
+      actuals[idx] = letter
     } else if (states[idx] === "present") {
       if (!present.includes(letter)) {
         present.push(letter)
       }
-      squares[idx]["not"].push(letter)
+      nots[idx].push(letter)
     } else if (!isFoundElsewhere(word, states, letter)) {
       if (!absent.includes(letter)) {
         absent.push(letter)

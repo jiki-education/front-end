@@ -1,26 +1,21 @@
 set present to []
 set absent to []
-set squares to [
-  {"actual": "", "not": []},
-  {"actual": "", "not": []},
-  {"actual": "", "not": []},
-  {"actual": "", "not": []},
-  {"actual": "", "not": []}
-]
+set actuals to ["", "", "", "", ""]
+set nots to [[], [], [], [], []]
 
-function letter_ok_in_guess with letter, letter_knowledge do
-  if letter_knowledge["actual"] != "" do
-    return letter == letter_knowledge["actual"]
+function letter_ok_in_guess with letter, idx do
+  if actuals[idx] != "" do
+    return letter == actuals[idx]
   end
   if absent.includes(letter) do
     return false
   end
-  return not letter_knowledge["not"].includes(letter)
+  return not nots[idx].includes(letter)
 end
 
 function is_word_possible with word do
   for each char in word indexed by idx do
-    if not letter_ok_in_guess(char, squares[idx]) do
+    if not letter_ok_in_guess(char, idx) do
       return false
     end
   end
@@ -52,12 +47,12 @@ end
 function record_knowledge with word, states do
   for each letter in word indexed by idx do
     if states[idx] == "correct" do
-      change squares[idx]["actual"] to letter
+      change actuals[idx] to letter
     else if states[idx] == "present" do
       if not present.includes(letter) do
         present.push(letter)
       end
-      squares[idx]["not"].push(letter)
+      nots[idx].push(letter)
     else if not is_found_elsewhere(word, states, letter) do
       if not absent.includes(letter) do
         absent.push(letter)
