@@ -1,7 +1,8 @@
 {
   "errors": {
     "xNotNumber": "x must be a number",
-    "yNotNumber": "y must be a number"
+    "yNotNumber": "y must be a number",
+    "fireworksAlreadyFired": "You only have enough fireworks to fire them once!"
   },
   "describers": {
     "rollRight": "rolled the ball one unit to the right",
