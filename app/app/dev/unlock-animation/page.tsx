@@ -61,7 +61,9 @@ export default function UnlockAnimationTest() {
     completed: lessonCompleted,
     locked: false,
     route: "/lessons/lesson-1",
-    deepDiveVideoWatchedPercentage: 0
+    deepDiveVideoWatchedPercentage: 0,
+    hasBonus: false,
+    bonusCompleted: false
   };
 
   const unlockingLesson: LessonDisplayData = {
@@ -80,7 +82,9 @@ export default function UnlockAnimationTest() {
     completed: false,
     locked: animationState === "completing" || (!recentlyUnlocked && animationState === "idle"),
     route: "/lessons/lesson-2",
-    deepDiveVideoWatchedPercentage: 0
+    deepDiveVideoWatchedPercentage: 0,
+    hasBonus: false,
+    bonusCompleted: false
   };
 
   // Build className for completing lesson

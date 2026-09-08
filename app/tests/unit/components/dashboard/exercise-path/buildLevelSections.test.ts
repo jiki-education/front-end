@@ -1,12 +1,17 @@
 import { buildLevelSections } from "@/components/dashboard/exercise-path/hooks/useLevels";
 import type { LevelWithProgress, LessonWithProgress } from "@/types/levels";
 
+jest.mock("@/lib/generated/exercise-bonuses", () => ({
+  exercisesWithBonus: new Set(["maze-solve-basic"])
+}));
+
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
     slug: "maze-solve-basic",
     type: "exercise",
     status: "not_started",
     walkthrough_video_watched_percentage: 0,
+    bonus_completed: false,
     ...overrides
   };
 }
@@ -227,5 +232,23 @@ describe("buildLevelSections", () => {
         expect(result[0].lessons[0].deepDiveVideo).toBeUndefined();
       }
     );
+  });
+
+  describe("bonus", () => {
+    it("flags an exercise listed in the bonus manifest", () => {
+      const result = buildLevelSections([createLevel({ lessons: [createLesson({ bonus_completed: true })] })]);
+      expect(result[0].lessons[0].hasBonus).toBe(true);
+      expect(result[0].lessons[0].bonusCompleted).toBe(true);
+    });
+
+    it("does not flag an exercise absent from the manifest", () => {
+      const result = buildLevelSections([createLevel({ lessons: [createLesson({ slug: "other-exercise" as any })] })]);
+      expect(result[0].lessons[0].hasBonus).toBe(false);
+    });
+
+    it("never flags a non-exercise lesson, even one whose slug is in the manifest", () => {
+      const result = buildLevelSections([createLevel({ lessons: [createLesson({ type: "video" })] })]);
+      expect(result[0].lessons[0].hasBonus).toBe(false);
+    });
   });
 });

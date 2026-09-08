@@ -13,6 +13,10 @@ export interface LessonDisplayData {
   locked: boolean;
   route: string;
   deepDiveVideoWatchedPercentage: number;
+  // Whether the exercise has a bonus task (from the compiled manifest) and
+  // whether the student has passed it (from the API). Non-exercises have neither.
+  hasBonus: boolean;
+  bonusCompleted: boolean;
 }
 
 // Simple types for the level section component

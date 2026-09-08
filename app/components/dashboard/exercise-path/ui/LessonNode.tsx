@@ -3,6 +3,7 @@ import QuizIcon from "@/icons/quiz.svg";
 import VideoIcon from "@/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
+import StarIcon from "@/icons/star.svg";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
@@ -113,6 +114,18 @@ export function LessonNode({
       <div className={styles.statusBadge}>
         {lesson.completed ? t("status.complete") : lesson.locked ? t("status.locked") : t("status.inProgress")}
       </div>
+      {lesson.hasBonus && !lesson.locked && (
+        <span
+          className={`${styles.bonusStar}${lesson.bonusCompleted ? ` ${styles.bonusStarCompleted}` : ""}`}
+          role="img"
+          aria-label={lesson.bonusCompleted ? t("bonus.completed") : t("bonus.available")}
+          title={lesson.bonusCompleted ? t("bonus.completed") : t("bonus.available")}
+          data-testid="bonus-star"
+          data-completed={lesson.bonusCompleted ? "true" : "false"}
+        >
+          <StarIcon />
+        </span>
+      )}
       <span className={styles.lessonConnector} />
       <div className={`${styles.partIcon}${lesson.lesson.type === "video" ? ` ${styles.videoIcon}` : ""}`}>
         {lesson.lesson.type === "video" ? (
