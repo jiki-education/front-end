@@ -31,6 +31,14 @@ export function countOutstandingBonusTasks(exercise: ExerciseDefinition, result:
 }
 
 /**
+ * Whether the exercise has bonus tasks and every one of them is passing.
+ * An exercise with no bonus tasks has no bonus to pass, so this is false.
+ */
+export function allBonusTasksPassed(exercise: ExerciseDefinition, result: TestSuiteResult): boolean {
+  return exercise.tasks.some((task) => task.bonus) && countOutstandingBonusTasks(exercise, result) === 0;
+}
+
+/**
  * The first failing bonus scenario's test result, or null if none is failing.
  * Used to focus the scenario view on the bonus the student is about to tackle.
  */

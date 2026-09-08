@@ -17,6 +17,8 @@ interface CodingExerciseProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  // Server-known bonus pass. Challenges have no bonus tracking, so omit it.
+  isBonusCompleted?: boolean;
   serverSubmission?: LastSubmissionData | null;
   onReady: () => void;
 }
@@ -26,6 +28,7 @@ export default function CodingExercise({
   context,
   levelId,
   isCompleted,
+  isBonusCompleted = false,
   serverSubmission,
   onReady
 }: CodingExerciseProps) {
@@ -38,6 +41,7 @@ export default function CodingExercise({
     context,
     levelId,
     isCompleted,
+    isBonusCompleted,
     serverSubmission,
     onGoToDashboard: () => router.push(continueHref)
   });

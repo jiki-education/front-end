@@ -24,6 +24,7 @@ interface LessonContentProps {
   introVideo?: VideoSource;
   userCourse: UserCourse | null;
   isCompleted: boolean;
+  isBonusCompleted: boolean;
   serverSubmission: LastSubmissionData | null;
   onReady: () => void;
 }
@@ -36,6 +37,7 @@ export default function LessonContent({
   introVideo,
   userCourse,
   isCompleted,
+  isBonusCompleted,
   serverSubmission,
   onReady
 }: LessonContentProps) {
@@ -49,6 +51,7 @@ export default function LessonContent({
         language={userCourse?.language || "javascript"}
         context={{ type: "lesson", slug: lesson.slug, deepDiveVideo, introVideo }}
         isCompleted={isCompleted}
+        isBonusCompleted={isBonusCompleted}
         serverSubmission={serverSubmission}
         onReady={onReady}
       />

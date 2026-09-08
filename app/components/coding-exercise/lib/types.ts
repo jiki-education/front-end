@@ -60,6 +60,9 @@ export interface OrchestratorState {
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
   isExerciseCompleted: boolean;
+  // Every bonus task has been passed (on this device or, via the server, any
+  // other). Once true the bonus_completed PATCH is never sent again.
+  isBonusCompleted: boolean;
   completionResponse: CompletionResponseData[];
   foldedLines: number[]; // Line numbers that are currently folded in the editor
   language: Language;
@@ -128,6 +131,7 @@ export interface OrchestratorActions {
   setIsSpotlightActive: (value: boolean) => void;
   cancelCompletionFallback: () => void;
   setIsExerciseCompleted: (value: boolean) => void;
+  setIsBonusCompleted: (value: boolean) => void;
   setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;
   setLanguage: (language: OrchestratorState["language"]) => void;

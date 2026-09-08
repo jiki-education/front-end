@@ -20,6 +20,7 @@ interface UseExerciseLoaderProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  isBonusCompleted: boolean;
   serverSubmission?: LastSubmissionData | null;
   onGoToDashboard: () => void;
 }
@@ -30,6 +31,7 @@ export function useExerciseLoader({
   context,
   levelId,
   isCompleted,
+  isBonusCompleted,
   serverSubmission,
   onGoToDashboard
 }: UseExerciseLoaderProps) {
@@ -136,7 +138,8 @@ export function useExerciseLoader({
             // catalog loads with the exercise, so the header paints complete
             // instead of inserting the level line once a later fetch lands.
             levelTitle: resolveLevelTitle(levelMessages, exercise.levelId),
-            isCompleted
+            isCompleted,
+            isBonusCompleted
           });
         };
 

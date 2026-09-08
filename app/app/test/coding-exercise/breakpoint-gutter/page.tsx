@@ -52,7 +52,8 @@ export default function BreakpointGutterTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

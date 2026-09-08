@@ -8,7 +8,8 @@ jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
 }));
 
 jest.mock("@/lib/api/lessons", () => ({
-  submitLessonExercise: jest.fn().mockResolvedValue(undefined)
+  submitLessonExercise: jest.fn().mockResolvedValue(undefined),
+  markLessonBonusCompleted: jest.fn().mockResolvedValue(undefined)
 }));
 
 jest.mock("@/lib/api/challenges", () => ({
@@ -28,7 +29,7 @@ describe("TestSuiteManager", () => {
   const mockCode = "console.log('test')";
   const mockExercise = createMockExercise();
 
-  function buildManager(context?: ExerciseContext) {
+  function buildManager(context?: ExerciseContext, storeOverrides: Record<string, unknown> = {}) {
     mockStore = createMockOrchestratorStore({
       setHasSyntaxError: jest.fn(),
       setStatus: jest.fn(),
@@ -38,7 +39,8 @@ describe("TestSuiteManager", () => {
       setShouldShowInformationWidget: jest.fn(),
       setHighlightedLine: jest.fn(),
       currentTest: null,
-      language: "javascript"
+      language: "javascript",
+      ...storeOverrides
     });
     return new TestSuiteManager(mockStore, {}, {}, undefined, context);
   }
@@ -232,6 +234,89 @@ describe("TestSuiteManager", () => {
       await expect(manager.runCode(mockCode, mockExercise)).rejects.toThrow("Some other error");
 
       expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(false);
+    });
+  });
+
+  // The mock exercise's bonus task owns test-scenario-bonus; the required
+  // task owns test-scenario-1 and test-scenario-2.
+  describe("bonus completion reporting", () => {
+    const lesson: ExerciseContext = { type: "lesson", slug: "maze-solve-basic" };
+    const suite = (bonusStatus: "pass" | "fail") => ({
+      tests: [
+        { slug: "test-scenario-1", status: "pass" },
+        { slug: "test-scenario-2", status: "pass" },
+        { slug: "test-scenario-bonus", status: bonusStatus }
+      ],
+      passed: true
+    });
+
+    async function run(manager: TestSuiteManager, result: ReturnType<typeof suite>) {
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue(result);
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+    }
+
+    it("PATCHes bonus_completed and flags the store when every bonus scenario passes", async () => {
+      const manager = buildManager(lesson);
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+
+      await run(manager, suite("pass"));
+
+      expect(markLessonBonusCompleted).toHaveBeenCalledWith("maze-solve-basic");
+      expect(mockStore.getState().setIsBonusCompleted).toHaveBeenCalledWith(true);
+    });
+
+    it("does nothing while a bonus scenario is still failing", async () => {
+      const manager = buildManager(lesson);
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+
+      await run(manager, suite("fail"));
+
+      expect(markLessonBonusCompleted).not.toHaveBeenCalled();
+      expect(mockStore.getState().setIsBonusCompleted).not.toHaveBeenCalled();
+    });
+
+    it("does not resend once the bonus is already recorded", async () => {
+      const manager = buildManager(lesson, { isBonusCompleted: true });
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+
+      await run(manager, suite("pass"));
+
+      expect(markLessonBonusCompleted).not.toHaveBeenCalled();
+    });
+
+    it("does not report for challenges", async () => {
+      const manager = buildManager({ type: "challenge", slug: "structured-house" });
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+
+      await run(manager, suite("pass"));
+
+      expect(markLessonBonusCompleted).not.toHaveBeenCalled();
+    });
+
+    it("does not report for an exercise without bonus tasks", async () => {
+      const manager = buildManager(lesson);
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [{ slug: "test-scenario-1", status: "pass" }], passed: true });
+      const noBonus = createMockExercise({ tasks: [{ id: "test-task-1", name: "Basic Test Task", bonus: false }] });
+
+      await manager.runCode(mockCode, noBonus);
+      await flushMicrotasks();
+
+      expect(markLessonBonusCompleted).not.toHaveBeenCalled();
+    });
+
+    it("clears the flag so the next passing run retries when the request fails", async () => {
+      const manager = buildManager(lesson);
+      const { markLessonBonusCompleted } = await import("@/lib/api/lessons");
+      (markLessonBonusCompleted as jest.Mock).mockRejectedValueOnce(new NetworkError("offline"));
+      jest.spyOn(console, "warn").mockImplementation(() => {});
+
+      await run(manager, suite("pass"));
+
+      expect(mockStore.getState().setIsBonusCompleted).toHaveBeenLastCalledWith(false);
     });
   });
 

@@ -15,6 +15,7 @@ export function makeTestOrchestrator(
     codeHash: "",
     onGoToDashboard: () => {},
     levelTitle: "",
-    isCompleted: false
+    isCompleted: false,
+    isBonusCompleted: false
   });
 }

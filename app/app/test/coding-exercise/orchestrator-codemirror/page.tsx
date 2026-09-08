@@ -31,7 +31,8 @@ export default function OrchestratorCodeMirrorTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     });
     setOrchestrator(orch);
 
