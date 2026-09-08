@@ -50,6 +50,7 @@ describe("CodeEditor", () => {
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       isExerciseCompleted: false,
+      isBonusCompleted: false,
       completionResponse: [],
       foldedLines: [],
       language: "jikiscript" as const,

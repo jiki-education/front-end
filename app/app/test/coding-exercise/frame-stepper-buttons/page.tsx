@@ -48,7 +48,8 @@ export default function FrameStepperButtonsTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     });
 
     // Create test frames and set up the test state

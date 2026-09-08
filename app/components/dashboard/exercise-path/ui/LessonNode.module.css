@@ -222,6 +222,53 @@
     display: none;
 }
 
+/* ─── Bonus star ────────────────────────────────────────────────────────── */
+
+/* Sits just inside the corner badge (the ::after tick/lock, 28px at 16px from
+   the end edge). Purple once the bonus is passed; an outline until then, so a
+   finished exercise with a bonus outstanding still reads as a reason to return. */
+.bonusStar {
+    position: absolute;
+    top: 16px;
+    inset-inline-end: 50px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-purple-200);
+    border: 1.5px solid;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 0 0 2px inset;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.bonusStar svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Outline: the star path is drawn with the current colour as a stroke only. */
+.bonusStar svg path {
+    fill: white;
+    stroke: currentColor;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
+
+.bonusStarCompleted {
+    background: var(--color-purple-500);
+    color: white;
+    box-shadow: 0 2px 8px var(--color-purple-500-30);
+    border: 0;
+}
+
+.bonusStarCompleted svg path {
+    fill: currentColor;
+}
+
 /* ─── Connectors ────────────────────────────────────────────────────────── */
 
 .lessonConnector {

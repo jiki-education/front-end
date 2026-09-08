@@ -4,6 +4,7 @@ import type { Messages as InterpreterMessages, SyntaxError } from "@jiki/interpr
 import { toastError } from "@/lib/toast";
 import type { StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
+import { allBonusTasksPassed } from "../bonusScenarios";
 import { processMessageContent } from "../../ui/messageUtils";
 import type { TestExpect, TestSuiteResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
@@ -102,6 +103,34 @@ export class TestSuiteManager {
   }
 
   /**
+   * Report that every bonus task has passed, once. The store flag is seeded
+   * from the server, so a lesson whose bonus was completed on another device
+   * never sends again. The flag is set eagerly so a second passing run while
+   * the first request is in flight doesn't send twice; on failure it is reset so
+   * the next passing run retries.
+   */
+  private reportBonusCompleted(exercise: ExerciseDefinition, testResults: TestSuiteResult): void {
+    // Only lessons track bonuses server-side.
+    if (!this.context || this.context.type !== "lesson") {
+      return;
+    }
+
+    const state = this.store.getState();
+    if (state.isBonusCompleted || !allBonusTasksPassed(exercise, testResults)) {
+      return;
+    }
+    state.setIsBonusCompleted(true);
+
+    const slug = this.context.slug;
+    void import("@/lib/api/lessons")
+      .then(({ markLessonBonusCompleted }) => markLessonBonusCompleted(slug))
+      .catch((error: unknown) => {
+        this.store.getState().setIsBonusCompleted(false);
+        console.warn("Failed to mark bonus as completed:", error);
+      });
+  }
+
+  /**
    * Run tests on the provided code
    */
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
@@ -133,6 +162,8 @@ export class TestSuiteManager {
       if (this.taskManager) {
         this.taskManager.updateTaskProgress(testResults, exercise);
       }
+
+      this.reportBonusCompleted(exercise, testResults);
     } catch (error) {
       console.error(error);
 

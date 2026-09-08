@@ -36,6 +36,9 @@ export interface OrchestratorInit {
   // runtime transition when a student finishes; the level title never changes.
   levelTitle: string;
   isCompleted: boolean;
+  // Whether the server already holds a bonus pass for this lesson. Challenges
+  // have no bonus tracking, so they pass false.
+  isBonusCompleted: boolean;
 }
 
 class Orchestrator {
@@ -71,7 +74,8 @@ class Orchestrator {
     onGoToDashboard,
     serverData,
     levelTitle,
-    isCompleted
+    isCompleted,
+    isBonusCompleted
   }: OrchestratorInit) {
     this.exercise = exercise;
     this.language = language;
@@ -81,7 +85,15 @@ class Orchestrator {
     this.exerciseLocaleMessages = exerciseLocaleMessages;
 
     // Create instance-specific store with exercise, language, and context
-    this.store = createOrchestratorStore({ exercise, language, context, onGoToDashboard, levelTitle, isCompleted });
+    this.store = createOrchestratorStore({
+      exercise,
+      language,
+      context,
+      onGoToDashboard,
+      levelTitle,
+      isCompleted,
+      isBonusCompleted
+    });
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);

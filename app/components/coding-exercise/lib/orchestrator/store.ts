@@ -11,6 +11,7 @@ import { createStore, type StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR, INFO_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
 import {
+  allBonusTasksPassed,
   bonusScenarioSlugs,
   countOutstandingBonusTasks,
   firstFailingBonusScenario,
@@ -96,6 +97,7 @@ export interface OrchestratorStoreInit {
   // which requires them) so store-level tests can build a store without caring.
   levelTitle?: string;
   isCompleted?: boolean;
+  isBonusCompleted?: boolean;
 }
 
 export function createOrchestratorStore({
@@ -104,7 +106,8 @@ export function createOrchestratorStore({
   context,
   onGoToDashboard,
   levelTitle = "",
-  isCompleted = false
+  isCompleted = false,
+  isBonusCompleted = false
 }: OrchestratorStoreInit): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => {
@@ -153,10 +156,12 @@ export function createOrchestratorStore({
           onGoToDashboard,
           onCompleteExercise: async () => {
             try {
+              // Only lessons track bonuses server-side; challenges have no
+              // bonus_passed to report.
               const response =
                 state.context.type === "challenge"
                   ? await markChallengeComplete(state.context.slug)
-                  : await markLessonComplete(state.context.slug);
+                  : await markLessonComplete(state.context.slug, allBonusTasksPassed(exercise, result));
               const events = response?.meta?.events || [];
               get().setCompletionResponse(events);
               get().setIsExerciseCompleted(true);
@@ -215,6 +220,7 @@ export function createOrchestratorStore({
         hasCodeBeenEdited: false,
         isSpotlightActive: false,
         isExerciseCompleted: isCompleted,
+        isBonusCompleted,
         completionResponse: [],
         foldedLines: [],
         language: language,
@@ -512,6 +518,7 @@ export function createOrchestratorStore({
         setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
         cancelCompletionFallback: () => clearCompletionFallback(),
         setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
+        setIsBonusCompleted: (value) => set({ isBonusCompleted: value }),
         setCompletionResponse: (response) => set({ completionResponse: response }),
         setFoldedLines: (lines) => {
           set({ foldedLines: lines });
@@ -791,6 +798,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       isExerciseCompleted: state.isExerciseCompleted,
+      isBonusCompleted: state.isBonusCompleted,
       completionResponse: state.completionResponse,
       foldedLines: state.foldedLines,
       language: state.language,

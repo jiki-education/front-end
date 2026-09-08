@@ -388,8 +388,20 @@ interface LessonData {
 ```typescript
 import { markLessonComplete } from "@/lib/api/lessons";
 
-await markLessonComplete("solve-a-maze");
+// bonus_passed reports whether every bonus task was passing at completion.
+// Defaults to false (video and choose-language lessons have no bonus).
+await markLessonComplete("solve-a-maze", bonusPassed);
 ```
+
+#### Mark Lesson Bonus Completed
+
+```typescript
+import { markLessonBonusCompleted } from "@/lib/api/lessons";
+
+await markLessonBonusCompleted("solve-a-maze");
+```
+
+Called by `TestSuiteManager` after any test run in which every bonus task passes, whether or not the exercise is complete yet. It fires once: the store's `isBonusCompleted` flag is seeded from the user lesson's `bonus_completed` field on load and set on send, so neither a second passing run nor a second device re-sends. Challenges have no bonus tracking, so nothing is sent for them.
 
 ### Usage in Components
 

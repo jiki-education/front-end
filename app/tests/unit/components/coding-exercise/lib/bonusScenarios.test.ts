@@ -1,4 +1,5 @@
 import {
+  allBonusTasksPassed,
   bonusScenarioSlugs,
   countOutstandingBonusTasks,
   firstFailingBonusScenario,
@@ -105,5 +106,33 @@ describe("firstOutstandingBonusTaskId", () => {
       "test-scenario-bonus": "pass"
     });
     expect(firstOutstandingBonusTaskId(exercise, result)).toBeNull();
+  });
+});
+
+describe("allBonusTasksPassed", () => {
+  it("is true once every bonus scenario passes", () => {
+    const result = makeResult({
+      "test-scenario-1": "pass",
+      "test-scenario-2": "pass",
+      "test-scenario-bonus": "pass"
+    });
+    expect(allBonusTasksPassed(exercise, result)).toBe(true);
+  });
+
+  it("is false while a bonus scenario is failing", () => {
+    const result = makeResult({
+      "test-scenario-1": "pass",
+      "test-scenario-2": "pass",
+      "test-scenario-bonus": "fail"
+    });
+    expect(allBonusTasksPassed(exercise, result)).toBe(false);
+  });
+
+  it("is false for an exercise with no bonus tasks", () => {
+    const noBonus = createMockExercise({
+      tasks: [{ id: "test-task-1", name: "Basic Test Task", bonus: false }]
+    });
+    const result = makeResult({ "test-scenario-1": "pass", "test-scenario-2": "pass" });
+    expect(allBonusTasksPassed(noBonus, result)).toBe(false);
   });
 });
