@@ -192,6 +192,12 @@ Every video is authored once in `curriculum/src/videos/videos.json`, keyed by vi
 - **Only locales with their own recording are emitted**; everything else reads the default locale's index
 - **Dev/build commands**: `video-cache:generate` and `video-cache:watch` (wired into `dev` and `build`)
 - **Generated files are gitignored**: `public/static/videos/`
+- **Never start YouTube playback from our own code.** `JikiYouTubePlayer` mounts the iframe idle
+  (`autoplay: 0`, no `playVideo()` on ready) and lets the viewer press YouTube's own play button.
+  YouTube only credits a view when playback is initiated from the player's native button, so a
+  facade-plus-autoplay wrapper silently costs every embedded view and all its watch time. Our own
+  telemetry is unaffected either way: `useWalkthroughProgress` listens to player state, it doesn't
+  drive it.
 
 ### Translated Content in Development
 

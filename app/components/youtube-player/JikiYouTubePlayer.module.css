@@ -61,9 +61,9 @@
     }
 }
 
-/* ---- Poster facade (start + end) ---- */
+/* ---- End bookend poster ---- */
 
-/* At the end the facade replaces a still-visible video frame, so it fades in
+/* The bookend replaces a still-visible video frame, so it fades in
    rather than cutting. Matches the iframe's own 200ms handoff, but slower — the
    end screen is a resting state, not a load. Only the end screen animates: at
    the start the poster IS the first paint, and fading that in would just look
