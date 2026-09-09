@@ -8,6 +8,11 @@ export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp?: string;
+  // Unified diff of what the student changed in their code since their previous
+  // message, attached at send time (see codeDiff.ts). Carried to the proxy so it
+  // can interleave progress into the conversation history. Undefined = no diff to
+  // show (no snapshot / base of run); "" = code unchanged since previous message.
+  codeDiff?: string;
 }
 
 export interface SignatureData {

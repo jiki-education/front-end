@@ -12,11 +12,18 @@ export interface ChatRequest {
   proseHash: string;
   codeHash: string;
   locale?: string; // Locale segment of the content path; defaults to "en" for older clients
+  // Diff of what the student changed since their previous message, leading into
+  // the current code. Same semantics as ChatMessage.codeDiff.
+  currentCodeDiff?: string;
 }
 
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+  // Unified diff of what the student changed in their code since their previous
+  // message. Undefined = no diff to show; "" = code unchanged since previous
+  // message; otherwise the diff text (or the too-long sentinel).
+  codeDiff?: string;
 }
 
 export interface RateLimitInfo {

@@ -17,6 +17,9 @@ export interface ChatRequestPayload {
   // only the first.
   proseHash: string;
   codeHash: string;
+  // Diff of what the student changed since their previous message, leading into
+  // the current code. Same semantics as ChatMessage.codeDiff (see codeDiff.ts).
+  currentCodeDiff?: string;
 }
 
 export interface StreamCallbacks {
