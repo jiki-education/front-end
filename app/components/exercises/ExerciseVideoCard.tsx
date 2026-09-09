@@ -28,7 +28,7 @@ export function ExerciseVideoCard({ video }: ExerciseVideoCardProps) {
       <p className={styles.description}>{t("description")}</p>
       <div className={styles.player}>
         {video.provider === "youtube" ? (
-          // The YouTube player brings its own poster-and-play facade.
+          // Mounts idle, showing YouTube's own play button.
           <YouTubePlayer videoId={video.id} className={styles.playerInner} />
         ) : (
           <MuxVideoWithFacade video={video} />
@@ -41,8 +41,8 @@ export function ExerciseVideoCard({ video }: ExerciseVideoCardProps) {
 /**
  * The skin around our Mux playback shows a control bar but no centre play
  * button, which reads as an already-started video sitting at zero. A facade
- * gives the same "click the poster to play" affordance the YouTube player has,
- * and keeps the HLS stream unfetched until someone wants it.
+ * gives it a "click the poster to play" affordance, and keeps the HLS stream
+ * unfetched until someone wants it.
  */
 function MuxVideoWithFacade({ video }: { video: VideoSource }) {
   const t = useTranslations("exercises.public.video");

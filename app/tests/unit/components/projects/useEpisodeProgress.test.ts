@@ -7,7 +7,7 @@ jest.mock("@/lib/api/user-videos", () => ({
 }));
 jest.mock("@/lib/auth/authStore");
 
-import { fetchUserVideo, updateUserVideoPercentage } from "@/lib/api/user-videos";
+import { fetchUserVideo, updateUserVideoPercentage, type UserVideoData } from "@/lib/api/user-videos";
 import { useAuthStore } from "@/lib/auth/authStore";
 
 const mockedFetch = fetchUserVideo as jest.MockedFunction<typeof fetchUserVideo>;
@@ -30,6 +30,13 @@ function makeYouTubeEvent(data: { currentTime: number; duration: number; seekTo:
     seekTo: data.seekTo
   };
   return { target } as unknown as Parameters<ReturnType<typeof useEpisodeProgress>["handleYouTubeReady"]>[0];
+}
+
+function playingEvent(data: { currentTime: number; duration: number; seekTo: jest.Mock }) {
+  return {
+    data: 1,
+    target: { getCurrentTime: () => data.currentTime, getDuration: () => data.duration, seekTo: data.seekTo }
+  };
 }
 
 describe("useEpisodeProgress", () => {
@@ -131,6 +138,13 @@ describe("useEpisodeProgress", () => {
       result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
     });
 
+    // Seeking a cued player would start playback.
+    expect(seekTo).not.toHaveBeenCalled();
+
+    act(() => {
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+
     // (50 - 1)% of 200s duration = 98s
     expect(seekTo).toHaveBeenCalledWith(98, true);
   });
@@ -151,6 +165,7 @@ describe("useEpisodeProgress", () => {
     const seekTo = jest.fn();
     act(() => {
       result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
     });
 
     expect(seekTo).not.toHaveBeenCalled();
@@ -199,6 +214,7 @@ describe("useEpisodeProgress", () => {
     const seekTo = jest.fn();
     act(() => {
       result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
     });
     expect(seekTo).toHaveBeenCalledWith(48, true); // (25 - 1)% of 200s
 
@@ -215,6 +231,91 @@ describe("useEpisodeProgress", () => {
   it("does not seek when no user_video exists", async () => {
     mockedFetch.mockResolvedValue(null);
     const { result } = renderHook(() => useEpisodeProgress(UUID));
+    await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    const seekTo = jest.fn();
+    act(() => {
+      result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+
+    expect(seekTo).not.toHaveBeenCalled();
+  });
+
+  // The player can become ready before fetchUserVideo resolves. The restore then
+  // runs off the arriving data rather than a player event, so it has to make the
+  // same never-seek-a-cued-player check the PLAYING handler makes.
+  it("does not seek when the user video arrives while the player is still idle", async () => {
+    let resolveFetch: (data: UserVideoData) => void = () => {};
+    mockedFetch.mockReturnValue(
+      new Promise<UserVideoData>((resolve) => {
+        resolveFetch = resolve;
+      })
+    );
+
+    const { result } = renderHook(() => useEpisodeProgress(UUID, "youtube"));
+    await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
+
+    // Player ready first, still cued — no play has happened.
+    const seekTo = jest.fn();
+    act(() => {
+      result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+
+    await act(async () => {
+      resolveFetch({ uuid: UUID, watched_percentage: 50, status: "started", completed_at: null });
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    expect(seekTo).not.toHaveBeenCalled();
+
+    // Deferred, not dropped: it lands once the viewer presses play.
+    act(() => {
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+    expect(seekTo).toHaveBeenCalledWith(98, true);
+  });
+
+  it("restores when the user video arrives after playback has already started", async () => {
+    let resolveFetch: (data: UserVideoData) => void = () => {};
+    mockedFetch.mockReturnValue(
+      new Promise<UserVideoData>((resolve) => {
+        resolveFetch = resolve;
+      })
+    );
+
+    const { result } = renderHook(() => useEpisodeProgress(UUID, "youtube"));
+    await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
+
+    // Viewer presses play before the progress data lands.
+    const seekTo = jest.fn();
+    act(() => {
+      result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+      result.current.handleYouTubeStateChange(playingEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+    expect(seekTo).not.toHaveBeenCalled();
+
+    await act(async () => {
+      resolveFetch({ uuid: UUID, watched_percentage: 50, status: "started", completed_at: null });
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    // Already playing, so seeking costs nothing — restore straight away.
+    expect(seekTo).toHaveBeenCalledWith(98, true);
+  });
+
+  // Seeking a cued player starts playback, which YouTube won't count.
+  it("never seeks on ready, even with a position to restore", async () => {
+    mockedFetch.mockResolvedValue({
+      uuid: UUID,
+      watched_percentage: 50,
+      status: "started",
+      completed_at: null
+    });
+    const { result } = renderHook(() => useEpisodeProgress(UUID, "youtube"));
     await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 0));

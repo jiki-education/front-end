@@ -23,6 +23,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
   const ytPlayerRef = useRef<ProgressPlayer | null>(null);
   const lastReportedPercentRef = useRef(-1);
   const hasRestoredPositionRef = useRef(false);
+  const hasStartedPlayingRef = useRef(false);
   const [userVideo, setUserVideo] = useState<UserVideoData | null>(null);
   const userVideoLoadedRef = useRef(false);
 
@@ -35,6 +36,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
   // navigation between episodes without a remount).
   useEffect(() => {
     hasRestoredPositionRef.current = false;
+    hasStartedPlayingRef.current = false;
     lastReportedPercentRef.current = -1;
     userVideoLoadedRef.current = false;
     ytPlayerRef.current = null;
@@ -136,6 +138,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
   };
 
   // YouTube handlers
+  // Restore on PLAYING, not here: seeking a cued player starts playback.
   const handleYouTubeReady = (event: { target: YouTubeProgressTarget }) => {
     const target = event.target;
     ytPlayerRef.current = {
@@ -143,7 +146,6 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
       getDuration: () => target.getDuration(),
       seekTo: (s: number) => target.seekTo(s, true)
     };
-    restorePosition(ytPlayerRef.current);
   };
 
   const handleYouTubeStateChange = (event: { data: number; target: YouTubeProgressTarget }) => {
@@ -151,6 +153,7 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     if (event.data === 0) {
       reportProgress(100);
     } else if (event.data === 1) {
+      hasStartedPlayingRef.current = true;
       // Once playing, duration is available — restore if we haven't yet.
       if (!hasRestoredPositionRef.current && ytPlayerRef.current) {
         restorePosition(ytPlayerRef.current);
@@ -181,7 +184,10 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     }
     if (muxPlayerRef.current) {
       handleMuxLoadedMetadata();
-    } else if (ytPlayerRef.current) {
+    } else if (ytPlayerRef.current && hasStartedPlayingRef.current) {
+      // Only once playing: seeking a cued player would start playback, and
+      // YouTube doesn't count a view it didn't see the viewer start. If we're
+      // still idle, the PLAYING handler restores instead.
       restorePosition(ytPlayerRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

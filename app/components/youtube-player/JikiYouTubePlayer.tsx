@@ -36,15 +36,13 @@ export interface JikiYouTubePlayerHandle {
   seekTo: (seconds: number) => void;
   getCurrentTime: () => number;
   getDuration: () => number;
-  /** Mount the player and start playback without a facade click. */
-  activate: () => void;
 }
 
 export interface JikiYouTubePlayerProps {
   videoId: string;
-  /** Video title. Not shown on the facade — used for the iframe title and ARIA labels. */
+  /** Video title. Used for the iframe title and ARIA labels. */
   title?: string;
-  /** Poster image for the start facade. Defaults to the YouTube thumbnail. */
+  /** Poster image for the end bookend. Defaults to the YouTube thumbnail. */
   poster?: string;
   /** Start muted (helps unattended autoplay). Defaults to false. */
   muted?: boolean;
@@ -87,7 +85,6 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
   const playerRef = useRef<YTPlayer | null>(null);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const [activated, setActivated] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
 
@@ -127,8 +124,7 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
       pause: () => playerRef.current?.pauseVideo(),
       seekTo: (seconds: number) => playerRef.current?.seekTo(seconds, true),
       getCurrentTime: () => playerRef.current?.getCurrentTime() ?? 0,
-      getDuration: () => playerRef.current?.getDuration() ?? 0,
-      activate: () => setActivated(true)
+      getDuration: () => playerRef.current?.getDuration() ?? 0
     };
   }, []);
 
@@ -140,9 +136,9 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
       event.target.mute();
     }
     setIsReady(true);
-    // The iframe only mounts after the facade click, so this play() inherits that
-    // user gesture and isn't treated as unattended autoplay.
-    event.target.playVideo();
+    // Deliberately no playVideo() here. YouTube only credits a view when playback
+    // is started from the player's own play button, so we mount the iframe idle and
+    // let the viewer press it. See the autoplay note in `opts` below.
     onReady?.(imperativeHandle());
     onRawReady?.(event);
   };
@@ -183,63 +179,55 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
       role="region"
       aria-label={title ? `Video player: ${title}` : "Video player"}
     >
-      {activated ? (
-        <YouTube
-          videoId={videoId}
-          title={title}
-          className={`${styles.iframeWrapper} ${isReady ? "" : styles.iframeWrapperHidden}`}
-          iframeClassName={styles.iframe}
-          opts={{
-            width: "100%",
-            height: "100%",
-            host: "https://www.youtube-nocookie.com",
-            playerVars: {
-              autoplay: 1,
-              // Native controls stay on so the Settings gear (audio track +
-              // captions, needed for per-language dubs) is reachable.
-              controls: 1,
-              modestbranding: 1,
-              // Since 2018 rel=0 no longer removes end-screen suggestions, it
-              // only restricts them to this channel. The end overlay is what
-              // actually hides them.
-              rel: 0,
-              // No annotations/cards over the video.
-              iv_load_policy: 3,
-              playsinline: 1,
-              cc_load_policy: 0,
-              color: "white"
-            }
-          }}
-          onReady={handleReady}
-          onStateChange={handleStateChange}
-          // Clear the loading state on failure too, so a broken/unavailable video
-          // surfaces YouTube's own error rather than spinning forever.
-          onError={() => setIsReady(true)}
-        />
-      ) : (
-        <PosterFacade
-          posterSrc={posterSrc}
-          fallbackPosterSrc={fallbackPosterSrc}
-          label={title ? `Play ${title}` : "Play"}
-          onActivate={() => setActivated(true)}
-        />
-      )}
+      <YouTube
+        videoId={videoId}
+        title={title}
+        className={`${styles.iframeWrapper} ${isReady ? "" : styles.iframeWrapperHidden}`}
+        iframeClassName={styles.iframe}
+        opts={{
+          width: "100%",
+          height: "100%",
+          host: "https://www.youtube-nocookie.com",
+          playerVars: {
+            // Must stay 0. A playback started by autoplay=1 (or by playVideo())
+            // is not credited to the video's view count — YouTube only counts a
+            // view when the viewer presses the player's own play button.
+            autoplay: 0,
+            // Native controls stay on so the Settings gear (audio track +
+            // captions, needed for per-language dubs) is reachable.
+            controls: 1,
+            modestbranding: 1,
+            // Since 2018 rel=0 no longer removes end-screen suggestions, it
+            // only restricts them to this channel. The end overlay is what
+            // actually hides them.
+            rel: 0,
+            // No annotations/cards over the video.
+            iv_load_policy: 3,
+            playsinline: 1,
+            cc_load_policy: 0,
+            color: "white"
+          }
+        }}
+        onReady={handleReady}
+        onStateChange={handleStateChange}
+        // Clear the loading state on failure too, so a broken/unavailable video
+        // surfaces YouTube's own error rather than spinning forever.
+        onError={() => setIsReady(true)}
+      />
 
-      {activated && !isReady && (
+      {!isReady && (
         <div className={styles.spinnerOverlay}>
           <div className={styles.spinner} />
         </div>
       )}
 
-      {/* End bookend: the same poster + play button as the start, which both
-          hides YouTube's suggested-video grid and returns the player to the
-          state the viewer first saw. */}
-      {activated && phase === "ended" && (
-        <PosterFacade
+      {/* End bookend: a poster + replay button covering YouTube's suggested-video
+          grid once playback finishes. */}
+      {phase === "ended" && (
+        <EndBookend
           posterSrc={posterSrc}
           fallbackPosterSrc={fallbackPosterSrc}
           label="Replay"
-          entering
           onActivate={handleReplay}
         />
       )}
@@ -249,30 +237,26 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
 
 export default JikiYouTubePlayer;
 
-// The poster + play button shown both before the iframe mounts (so no request
-// hits YouTube beyond the poster image until the viewer chooses to play) and
-// again once the video ends, where it doubles as the cover over YouTube's
-// suggested-video grid.
-function PosterFacade({
+// The poster + button shown once the video ends, covering YouTube's
+// suggested-video grid and offering a replay.
+function EndBookend({
   posterSrc,
   fallbackPosterSrc,
   label,
-  entering = false,
   onActivate
 }: {
   posterSrc: string;
   fallbackPosterSrc?: string;
   label: string;
-  /** Fade in on mount. Used by the end screen, which replaces a visible video. */
-  entering?: boolean;
   onActivate: () => void;
 }) {
   const [src, setSrc] = useState(posterSrc);
 
   return (
+    // facadeEntering fades it in, since it replaces a still-visible final frame.
     <button
       type="button"
-      className={`${styles.facade} ${entering ? styles.facadeEntering : ""}`}
+      className={`${styles.facade} ${styles.facadeEntering}`}
       onClick={onActivate}
       aria-label={label}
     >

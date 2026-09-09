@@ -9,6 +9,7 @@ const YT_PAUSED = 2;
 interface YouTubeMockProps {
   videoId: string;
   className?: string;
+  opts?: { playerVars?: Record<string, unknown> };
   onReady?: (event: { target: unknown }) => void;
   onStateChange?: (event: { data: number; target: unknown }) => void;
   onError?: () => void;
@@ -39,9 +40,8 @@ jest.mock("react-youtube", () => ({
   }
 }));
 
-/** Click the facade, then fire react-youtube's onReady with the fake player. */
-function activateAndReady() {
-  fireEvent.click(screen.getByRole("button"));
+/** Fire react-youtube's onReady with the fake player. */
+function ready() {
   act(() => {
     latestProps?.onReady?.({ target: fakePlayer });
   });
@@ -60,56 +60,38 @@ describe("JikiYouTubePlayer", () => {
     fakePlayer = createFakePlayer();
   });
 
-  describe("start facade", () => {
-    it("shows the facade and mounts no iframe until clicked", () => {
+  describe("mounting", () => {
+    it("mounts the iframe immediately, with no facade in the way", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
-
-      expect(screen.queryByTestId("yt-iframe")).not.toBeInTheDocument();
-      expect(screen.getByRole("button")).toBeInTheDocument();
-    });
-
-    it("mounts the iframe once the facade is clicked", () => {
-      render(<JikiYouTubePlayer videoId="abc123" />);
-
-      fireEvent.click(screen.getByRole("button"));
 
       expect(screen.getByTestId("yt-iframe")).toHaveAttribute("data-video-id", "abc123");
+      // Nothing of ours is clickable over the player, so the only play button
+      // present is YouTube's own - which is what makes the view count.
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
     });
 
-    it("falls back to hqdefault when the maxres poster fails to load", () => {
+    it("never asks YouTube to autoplay", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      const poster = screen.getByRole("button").querySelector("img")!;
-      expect(poster).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/maxresdefault.jpg");
-
-      fireEvent.error(poster);
-
-      expect(poster).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/hqdefault.jpg");
-    });
-
-    it("keeps an explicitly supplied poster even if it fails", () => {
-      render(<JikiYouTubePlayer videoId="abc123" poster="https://example.com/custom.jpg" />);
-
-      const poster = screen.getByRole("button").querySelector("img")!;
-      fireEvent.error(poster);
-
-      expect(poster).toHaveAttribute("src", "https://example.com/custom.jpg");
+      expect(latestProps?.opts?.playerVars?.autoplay).toBe(0);
     });
   });
 
   describe("playback", () => {
-    it("starts playback on ready, carrying the facade click gesture", () => {
+    it("does not start playback itself, so YouTube credits the view", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      activateAndReady();
+      ready();
 
-      expect(fakePlayer.playVideo).toHaveBeenCalled();
+      // A playback started by us (playVideo/autoplay) is not counted by YouTube,
+      // so the viewer has to press the player's own button.
+      expect(fakePlayer.playVideo).not.toHaveBeenCalled();
     });
 
-    it("mutes before playing when muted is set", () => {
+    it("mutes on ready when muted is set", () => {
       render(<JikiYouTubePlayer videoId="abc123" muted />);
 
-      activateAndReady();
+      ready();
 
       expect(fakePlayer.mute).toHaveBeenCalled();
     });
@@ -119,7 +101,7 @@ describe("JikiYouTubePlayer", () => {
       const onPause = jest.fn();
       render(<JikiYouTubePlayer videoId="abc123" onPlay={onPlay} onPause={onPause} />);
 
-      activateAndReady();
+      ready();
       fireState(YT_PLAYING);
       expect(onPlay).toHaveBeenCalledWith(10);
 
@@ -131,7 +113,7 @@ describe("JikiYouTubePlayer", () => {
       const onEnded = jest.fn();
       render(<JikiYouTubePlayer videoId="abc123" onEnded={onEnded} />);
 
-      activateAndReady();
+      ready();
       fireState(YT_ENDED);
 
       expect(onEnded).toHaveBeenCalled();
@@ -140,7 +122,6 @@ describe("JikiYouTubePlayer", () => {
     it("stops holding the frame behind the spinner when YouTube errors", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      fireEvent.click(screen.getByRole("button"));
       const iframe = screen.getByTestId("yt-iframe");
       expect(iframe).toHaveClass("iframeWrapperHidden");
 
@@ -158,7 +139,7 @@ describe("JikiYouTubePlayer", () => {
     it("is hidden during playback and shown once ended", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      activateAndReady();
+      ready();
       fireState(YT_PLAYING);
       expect(screen.queryByLabelText("Replay")).not.toBeInTheDocument();
 
@@ -169,7 +150,7 @@ describe("JikiYouTubePlayer", () => {
     it("seeks to the start AND resumes playback on replay", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      activateAndReady();
+      ready();
       fireState(YT_ENDED);
       fakePlayer.playVideo.mockClear();
 
@@ -183,17 +164,43 @@ describe("JikiYouTubePlayer", () => {
     it("shows the poster again on the end screen, covering YouTube's suggestions", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      activateAndReady();
+      ready();
       fireState(YT_ENDED);
 
       const replay = screen.getByLabelText("Replay");
       expect(replay.querySelector("img")).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/maxresdefault.jpg");
     });
 
+    it("falls back to hqdefault when the maxres poster fails to load", () => {
+      render(<JikiYouTubePlayer videoId="abc123" />);
+
+      ready();
+      fireState(YT_ENDED);
+
+      const poster = screen.getByLabelText("Replay").querySelector("img")!;
+      expect(poster).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/maxresdefault.jpg");
+
+      fireEvent.error(poster);
+
+      expect(poster).toHaveAttribute("src", "https://i.ytimg.com/vi/abc123/hqdefault.jpg");
+    });
+
+    it("keeps an explicitly supplied poster even if it fails", () => {
+      render(<JikiYouTubePlayer videoId="abc123" poster="https://example.com/custom.jpg" />);
+
+      ready();
+      fireState(YT_ENDED);
+
+      const poster = screen.getByLabelText("Replay").querySelector("img")!;
+      fireEvent.error(poster);
+
+      expect(poster).toHaveAttribute("src", "https://example.com/custom.jpg");
+    });
+
     it("hides the overlay once playback resumes", () => {
       render(<JikiYouTubePlayer videoId="abc123" />);
 
-      activateAndReady();
+      ready();
       fireState(YT_ENDED);
       fireEvent.click(screen.getByLabelText("Replay"));
       fireState(YT_PLAYING);
@@ -210,7 +217,7 @@ describe("JikiYouTubePlayer", () => {
       const onProgress = jest.fn();
       render(<JikiYouTubePlayer videoId="abc123" onProgress={onProgress} progressIntervalMs={500} />);
 
-      activateAndReady();
+      ready();
       fireState(YT_PLAYING);
 
       act(() => {
@@ -231,7 +238,7 @@ describe("JikiYouTubePlayer", () => {
       fakePlayer = createFakePlayer({ duration: 0 });
       render(<JikiYouTubePlayer videoId="abc123" onProgress={onProgress} />);
 
-      activateAndReady();
+      ready();
       fireState(YT_PLAYING);
       act(() => {
         jest.advanceTimersByTime(2000);
@@ -247,7 +254,7 @@ describe("JikiYouTubePlayer", () => {
       const onRawStateChange = jest.fn();
       render(<JikiYouTubePlayer videoId="abc123" onRawReady={onRawReady} onRawStateChange={onRawStateChange} />);
 
-      activateAndReady();
+      ready();
       expect(onRawReady).toHaveBeenCalledWith({ target: fakePlayer });
 
       fireState(YT_PLAYING);
