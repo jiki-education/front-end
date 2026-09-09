@@ -75,6 +75,12 @@ describe("JikiYouTubePlayer", () => {
 
       expect(latestProps?.opts?.playerVars?.autoplay).toBe(0);
     });
+
+    it("tells the IFrame API our origin, so its postMessages reach us", () => {
+      render(<JikiYouTubePlayer videoId="abc123" />);
+
+      expect(latestProps?.opts?.playerVars?.origin).toBe(window.location.origin);
+    });
   });
 
   describe("playback", () => {
