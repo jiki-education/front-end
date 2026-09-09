@@ -128,9 +128,9 @@ export function useWalkthroughProgress(
     }
   };
 
+  // Restore on PLAYING, not here: seeking a cued player starts playback.
   const handleYouTubeReady = (event: { target: YTPlayer }) => {
     ytPlayerRef.current = event.target;
-    restoreYouTubePosition(event.target);
   };
 
   const handleYouTubeStateChange = (event: { data: number; target: YTPlayer }) => {
