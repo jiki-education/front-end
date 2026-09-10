@@ -1,6 +1,7 @@
 {
   "slug": "owners-bouquets",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "owners-bouquets-deep-dive",
   "hints": [
     {
       "question": "hints.chooseGap.question",
