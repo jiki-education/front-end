@@ -383,6 +383,30 @@
       "uploadDate": "2026-09-04"
     }
   },
+  "owners-bouquets-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "WjKV00eSfZ8",
+      "durationSeconds": 734,
+      "uploadDate": "2026-09-10"
+    }
+  },
+  "golf-scenarios-deep-dive": {
+    "fallback": {
+      "provider": "youtube",
+      "id": "v-egFs3RCSw",
+      "durationSeconds": 549,
+      "uploadDate": "2026-09-10"
+    }
+  },
+  "cityscape-skyscraper-deep-dive": {
+    "fallback": {
+      "provider": "mux",
+      "id": "FCgLeASqWnNh1h2x32RjoX8yiVxuT5R5XipTcR01CuiQ",
+      "durationSeconds": 726,
+      "uploadDate": "2026-09-10"
+    }
+  },
   "fix-wall-intro": {
     "fallback": {
       "provider": "mux",
