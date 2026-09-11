@@ -88,6 +88,10 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
   const [isReady, setIsReady] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
 
+  // Read at render rather than module scope: the player is loaded with ssr:false,
+  // but a module-level read would still evaluate during any server pass.
+  const pageOrigin = typeof window === "undefined" ? undefined : window.location.origin;
+
   const posterSrc = poster ?? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
   // Only meaningful for the default poster; an explicit `poster` gets no fallback.
   const fallbackPosterSrc = poster ? undefined : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
@@ -189,6 +193,11 @@ const JikiYouTubePlayer = forwardRef<JikiYouTubePlayerHandle, JikiYouTubePlayerP
           height: "100%",
           host: "https://www.youtube-nocookie.com",
           playerVars: {
+            // Our own origin, which the IFrame API needs to address its
+            // postMessage traffic back at us. Without it the widget API posts to
+            // the nocookie host instead and the browser rejects every message
+            // ("target origin ... does not match the recipient window's origin").
+            ...(pageOrigin ? { origin: pageOrigin } : {}),
             // Must stay 0. A playback started by autoplay=1 (or by playVideo())
             // is not credited to the video's view count — YouTube only counts a
             // view when the viewer presses the player's own play button.
