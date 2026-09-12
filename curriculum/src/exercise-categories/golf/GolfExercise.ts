@@ -89,6 +89,9 @@ export default class GolfExercise extends VisualExercise {
   }
 
   fireFireworks(executionCtx: ExecutionContext) {
+    if (this.fireworksFired) {
+      return executionCtx.logicError(this.t("errors.fireworksAlreadyFired"));
+    }
     this.fireworksFired = true;
     fireFireworks(this.view, this.animations, executionCtx);
   }
