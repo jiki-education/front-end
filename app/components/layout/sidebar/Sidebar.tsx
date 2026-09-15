@@ -2,7 +2,6 @@
 
 import FolderIcon from "@/icons/folder.svg";
 import BrainLightningIcon from "@/icons/brain-lightning.svg";
-import LearningComputerIcon from "@/icons/learning-computer.svg";
 import MedalIcon from "@/icons/medal.svg";
 import ChallengesIcon from "@/icons/challenges.svg";
 import StudyBookIcon from "@/icons/study-book.svg";
@@ -31,7 +30,6 @@ interface SidebarProps {
 interface NavItem {
   id:
     | "learn"
-    | "build"
     | "challenges"
     | "concepts"
     | "achievements"
@@ -64,7 +62,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   };
 
   const navigationGroups: Array<{
-    id: "learnToCode" | "learnToBuild" | "community" | "more";
+    id: "learnToCode" | "community" | "more";
     items: NavItem[];
   }> = [
     {
@@ -72,13 +70,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       items: [
         { id: "learn", href: routes.dashboard(), icon: BrainLightningIcon },
         { id: "challenges", href: routes.challenges(), icon: ChallengesIcon },
-        { id: "concepts", href: routes.concepts(), icon: FolderIcon }
-      ]
-    },
-    {
-      id: "learnToBuild",
-      items: [
-        { id: "build", href: routes.build(), icon: LearningComputerIcon },
+        { id: "concepts", href: routes.concepts(), icon: FolderIcon },
         { id: "guides", href: routes.guides(), icon: StudyBookIcon }
       ]
     },

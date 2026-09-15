@@ -14,7 +14,7 @@ import { assetsUrl } from "@/lib/assets";
  *
  * Examples:
  *   staticAsset("images/logo.png")
- *   staticAsset(`images/projects/covers/${project.image}`)
+ *   staticAsset(`images/badges/${badge.slug}.svg`)
  *   staticAsset(`icons/lessons/${slug}.svg`)
  */
 export function staticAsset(path: string): string {

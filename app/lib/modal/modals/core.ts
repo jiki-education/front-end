@@ -11,7 +11,6 @@ const AuthErrorModal = dynamic(() => import("./AuthErrorModal").then((m) => m.Au
 const InfoModal = dynamic(() => import("./InfoModal").then((m) => m.InfoModal));
 const SessionExpiredModal = dynamic(() => import("./SessionExpiredModal").then((m) => m.SessionExpiredModal));
 const RateLimitModal = dynamic(() => import("./RateLimitModal").then((m) => m.RateLimitModal));
-const CalendarSubscribeModal = dynamic(() => import("./CalendarSubscribeModal").then((m) => m.CalendarSubscribeModal));
 
 export const coreModals = {
   "example-modal": ExampleModal,
@@ -20,6 +19,5 @@ export const coreModals = {
   "auth-error-modal": AuthErrorModal,
   "info-modal": InfoModal,
   "session-expired-modal": SessionExpiredModal,
-  "rate-limit-modal": RateLimitModal,
-  "calendar-subscribe-modal": CalendarSubscribeModal
+  "rate-limit-modal": RateLimitModal
 };

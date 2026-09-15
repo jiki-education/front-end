@@ -26,9 +26,6 @@ export function ExternalFooter() {
             <Link href={routes.premium()} className={styles.link}>
               {t("about.premium")}
             </Link>
-            <Link href={routes.roadmap()} className={styles.link}>
-              {t("about.roadmap")}
-            </Link>
           </div>
         </div>
         <div className={styles.section}>

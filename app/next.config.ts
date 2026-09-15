@@ -89,6 +89,39 @@ const nextConfig: NextConfig = {
         source: "/help/how-projects-work",
         destination: "/help/how-challenges-work",
         permanent: false
+      },
+      {
+        // Learn to Build (the /build hub, its projects and the roadmap) was
+        // retired when Jiki became a single finite course. These URLs were
+        // indexed and are linked from blog posts, so send them somewhere useful.
+        source: "/build",
+        destination: "/",
+        permanent: true
+      },
+      {
+        source: "/:locale([a-z]{2}(?:-[A-Za-z0-9]{2,4})?)/build",
+        destination: "/:locale",
+        permanent: true
+      },
+      {
+        source: "/projects/:path*",
+        destination: "/",
+        permanent: true
+      },
+      {
+        source: "/:locale([a-z]{2}(?:-[A-Za-z0-9]{2,4})?)/projects/:path*",
+        destination: "/:locale",
+        permanent: true
+      },
+      {
+        source: "/roadmap",
+        destination: "/",
+        permanent: true
+      },
+      {
+        source: "/:locale([a-z]{2}(?:-[A-Za-z0-9]{2,4})?)/roadmap",
+        destination: "/:locale",
+        permanent: true
       }
     ]);
   },
