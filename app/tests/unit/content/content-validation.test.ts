@@ -9,9 +9,6 @@ import {
   validateAuthors,
   validateNoDuplicateSlugs,
   validateEnglishSource,
-  validateProjectConfigIsStructural,
-  validateProjectCopyCatalog,
-  validateEpisodeSummary,
   validateTestimonials
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
@@ -192,77 +189,6 @@ describe("Content Validation", () => {
               expect(() => {
                 validateFrontmatter(slug, locale, parsed.data);
               }).not.toThrow();
-            });
-          });
-        });
-      });
-    }
-  });
-
-  describe("Projects", () => {
-    const projectsDir = path.join(POSTS_DIR, "projects");
-
-    if (fs.existsSync(projectsDir)) {
-      const projectSlugs = fs.readdirSync(projectsDir).filter((item) => {
-        return fs.statSync(path.join(projectsDir, item)).isDirectory();
-      });
-
-      // Learner-facing project copy is a catalog, not per-project config: English
-      // here, every other locale published by the i18n repo.
-      it("should have a valid English copy catalog", () => {
-        const listedSlugs = JSON.parse(fs.readFileSync(path.join(projectsDir, "config.json"), "utf-8"))
-          .projects as string[];
-        const catalog = JSON.parse(fs.readFileSync(path.join(projectsDir, "messages.json"), "utf-8"));
-
-        expect(() => {
-          validateProjectCopyCatalog(catalog, listedSlugs);
-        }).not.toThrow();
-      });
-
-      projectSlugs.forEach((slug) => {
-        describe(`Project: ${slug}`, () => {
-          const projectDir = path.join(projectsDir, slug);
-
-          it("should have config.json file", () => {
-            const configFile = path.join(projectDir, "config.json");
-            expect(fs.existsSync(configFile)).toBe(true);
-          });
-
-          it("should have a config.json holding structure only", () => {
-            const configFile = path.join(projectDir, "config.json");
-            const config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
-
-            expect(() => {
-              validateProjectConfigIsStructural(slug, config);
-            }).not.toThrow();
-          });
-
-          // Episodes live in UUID-named subdirectories, each with a config.json.
-          const episodeDirs = fs.readdirSync(projectDir).filter((item) => {
-            const itemPath = path.join(projectDir, item);
-            return fs.statSync(itemPath).isDirectory() && fs.existsSync(path.join(itemPath, "config.json"));
-          });
-
-          episodeDirs.forEach((episodeId) => {
-            describe(`Episode: ${episodeId}`, () => {
-              const episodeDir = path.join(projectDir, episodeId);
-              const mdFiles = fs.readdirSync(episodeDir).filter((f) => f.endsWith(".md"));
-              const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
-
-              it("should have an English source file", () => {
-                expect(() => {
-                  validateEnglishSource("episode", episodeId, episodeDir, existingLocales);
-                }).not.toThrow();
-              });
-
-              it("should have a well-formed summary block if source.md has one", () => {
-                const parsed = matter(fs.readFileSync(path.join(episodeDir, "source.md"), "utf-8"));
-                const summary = (parsed.data as Record<string, unknown>).summary;
-
-                expect(() => {
-                  validateEpisodeSummary(episodeId, summary);
-                }).not.toThrow();
-              });
             });
           });
         });

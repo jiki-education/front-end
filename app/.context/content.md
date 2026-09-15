@@ -42,16 +42,6 @@ Articles are served under `/help` (the Help Center). Legacy `/articles/*` URLs 3
 - **`/[locale]/help/[slug]`** - Localized article (e.g., `/hu/help/about-jiki`)
 - **`/en/help/*`** - Redirects to naked `/help/*` URLs
 
-### Build / Project Routes
-
-The "Build with Jeremy" section. All routes are locale-routed like blog/help.
-
-- **`/build`** - Hub page: intro video, project portfolio, upcoming live streams sidebar
-- **`/projects/[slug]`** - Project page: summary, episode list, sidebar (project's streams + coming-soon projects). Projects with no episodes are "coming soon" and have no detail page.
-- **`/projects/[slug]/episodes/[episodeSlug]`** - Episode page: from→to summary box, video (Mux or YouTube), transcript, related-guides sidebar
-
-Content is authored in `content/src/posts/projects/` (see `content/AGENTS.md`). Loaders: `getAllProjects`, `getProject`, `getProjectEpisode` in `lib/content/`. Types: `ProjectMeta`, `EpisodeMeta`, `ProcessedEpisode`.
-
 ## Testimonials
 
 Student testimonials feed two surfaces: the landing page (a featured quote, a grid of trimmed
@@ -69,7 +59,7 @@ content/src/testimonials/messages.json    # the English copy catalog
 name and avatar filename), `quotes` (which person each quote key belongs to), `landing` (the
 `primary` quote key plus the ordered grid keys) and `page` (the ordered keys the `/testimonials` page
 shows). It rides inside the locale-invariant `/static/content/structure-{hash}.json` artifact under a
-`testimonials` key, alongside the structural half of posts and projects.
+`testimonials` key, alongside the structural half of posts.
 
 `messages.json` holds the copy: `heading`, `subheading` (a single sentence carrying one
 `<link>…</link>` span linking to the full testimonials page), `roles` keyed by person, `quotes` keyed
@@ -77,8 +67,8 @@ by quote key, and a `marquee` array of short blurbs. English is published to
 `/static/content/testimonials/en/meta-{hash}.json` by `scripts/generate-content-cache.js`; **every
 other locale's catalog is published by the `i18n` repo** to the same path shape, with a mutable
 pointer at `/static/content/testimonials/{locale}/current.json` that the i18n repo owns. This is the
-same split and the same mechanism project copy uses (`projectCopyPath` / `projectCopyPointerPath`,
-mirrored by `testimonialsCopyPath` / `testimonialsCopyPointerPath` in `lib/assets-paths.ts`).
+same split post copy uses (`testimonialsCopyPath` / `testimonialsCopyPointerPath` in
+`lib/assets-paths.ts`).
 
 A quote key is a person's slug, or that slug plus `-short` where the landing grid shows a trimmed
 form of the same testimonial the `/testimonials` page shows in full. Ownership therefore has to live

@@ -1,6 +1,6 @@
 /**
  * The second of this package's two Markdown pipelines: Jiki's **posts**, meaning
- * blog posts, articles, guides and project episodes.
+ * blog posts, articles and guides.
  *
  * ## Why this is not `renderMarkdown`
  *

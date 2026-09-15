@@ -1,9 +1,8 @@
-import { getGuide, getAllGuides, getAllProjects, getProject, getRelatedGuides } from "@/lib/content";
+import { getGuide, getAllGuides, getRelatedGuides } from "@/lib/content";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import GuideDetailContent from "./GuideDetailContent";
-import type { FeaturedInEpisode } from "./FeaturedInProjects";
 
 interface GuideDetailPageProps {
   slug: string;
@@ -30,33 +29,6 @@ export async function getGuideMetadata(slug: string, locale: string): Promise<Me
   }
 }
 
-/**
- * The project episodes that reference this guide in their `guides` list, in
- * project order then episode order.
- */
-async function getFeaturedInEpisodes(guideSlug: string, locale: string): Promise<FeaturedInEpisode[]> {
-  const featuredIn: FeaturedInEpisode[] = [];
-  for (const projectMeta of await getAllProjects(locale)) {
-    if (projectMeta.episodeCount === 0) {
-      continue;
-    }
-    const { project, episodes } = await getProject(projectMeta.slug, locale);
-    for (const episode of [...episodes].sort((a, b) => a.order - b.order)) {
-      if (episode.guides.includes(guideSlug)) {
-        featuredIn.push({
-          projectSlug: project.slug,
-          projectTitle: project.title,
-          episodeSlug: episode.slug,
-          episodeTitle: episode.title,
-          episodeImage: episode.image,
-          episodeExcerpt: episode.excerpt
-        });
-      }
-    }
-  }
-  return featuredIn;
-}
-
 export default async function GuideDetailPage({ slug, locale }: GuideDetailPageProps) {
   let guide;
   try {
@@ -67,14 +39,6 @@ export default async function GuideDetailPage({ slug, locale }: GuideDetailPageP
 
   const allGuides = await getAllGuides(locale);
   const relatedGuides = getRelatedGuides(slug, allGuides, 5);
-  const featuredInEpisodes = await getFeaturedInEpisodes(slug, locale);
 
-  return (
-    <GuideDetailContent
-      guide={guide}
-      relatedGuides={relatedGuides}
-      featuredInEpisodes={featuredInEpisodes}
-      locale={locale}
-    />
-  );
+  return <GuideDetailContent guide={guide} relatedGuides={relatedGuides} locale={locale} />;
 }
