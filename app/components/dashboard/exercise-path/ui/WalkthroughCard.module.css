@@ -7,6 +7,9 @@
     height: 90px;
     perspective: 400px;
     cursor: pointer;
+    /* Above the sibling lesson card, so the connector stub and the card's own
+       border clear the lesson card's border and shadow. */
+    z-index: 1;
 }
 
 /* Connecting line from lesson node to walkthrough card */

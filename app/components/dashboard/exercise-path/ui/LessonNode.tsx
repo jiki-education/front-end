@@ -104,53 +104,50 @@ export function LessonNode({
   };
 
   return (
-    <div
-      ref={ref}
-      className={getClassName()}
-      onClick={handleClick}
-      data-active-lesson={isActiveLesson ? "true" : undefined}
-    >
-      <div className={styles.statusBadge}>
-        {lesson.completed ? t("status.complete") : lesson.locked ? t("status.locked") : t("status.inProgress")}
-      </div>
-      <span className={styles.lessonConnector} />
-      <div className={`${styles.partIcon}${lesson.lesson.type === "video" ? ` ${styles.videoIcon}` : ""}`}>
-        {lesson.lesson.type === "video" ? (
-          <VideoLibIcon width={64} height={64} />
-        ) : lesson.lesson.type === "quiz" ? (
-          <QuizCardIcon width={64} height={64} />
-        ) : lesson.lesson.type === "choose_language" ? (
-          <ChooseLanguageIcon />
-        ) : (
-          <LessonIcon slug={lesson.lesson.slug} width={64} height={64} />
-        )}
-      </div>
-      <div className={styles.partContent}>
-        <div className={`${styles.partNumber} ${styles[lesson.lesson.type]}`}>
+    <div ref={ref} className={styles.lessonNode} data-active-lesson={isActiveLesson ? "true" : undefined}>
+      <div className={getClassName()} onClick={handleClick}>
+        <div className={styles.statusBadge}>
+          {lesson.completed ? t("status.complete") : lesson.locked ? t("status.locked") : t("status.inProgress")}
+        </div>
+        <span className={styles.lessonConnector} />
+        <div className={`${styles.partIcon}${lesson.lesson.type === "video" ? ` ${styles.videoIcon}` : ""}`}>
           {lesson.lesson.type === "video" ? (
-            <>
-              <VideoIcon className={styles.partNumberIcon} />
-              {t("type.video")}
-            </>
+            <VideoLibIcon width={64} height={64} />
           ) : lesson.lesson.type === "quiz" ? (
-            <>
-              <QuizIcon className={styles.partNumberIcon} />
-              {t("type.quiz")}
-            </>
+            <QuizCardIcon width={64} height={64} />
           ) : lesson.lesson.type === "choose_language" ? (
-            <>
-              <ChooseLanguageSmallIcon className={styles.partNumberIcon} />
-              {t("type.choice")}
-            </>
+            <ChooseLanguageIcon />
           ) : (
-            <>
-              <CodingIcon className={styles.partNumberIcon} />
-              {t("type.exercise")}
-            </>
+            <LessonIcon slug={lesson.lesson.slug} width={64} height={64} />
           )}
         </div>
-        <div className={styles.partTitle}>{lesson.lesson.title}</div>
-        <div className={styles.partDescription}>{lesson.lesson.description}</div>
+        <div className={styles.partContent}>
+          <div className={styles.partNumber}>
+            {lesson.lesson.type === "video" ? (
+              <>
+                <VideoIcon className={styles.partNumberIcon} />
+                {t("type.video")}
+              </>
+            ) : lesson.lesson.type === "quiz" ? (
+              <>
+                <QuizIcon className={styles.partNumberIcon} />
+                {t("type.quiz")}
+              </>
+            ) : lesson.lesson.type === "choose_language" ? (
+              <>
+                <ChooseLanguageSmallIcon className={styles.partNumberIcon} />
+                {t("type.choice")}
+              </>
+            ) : (
+              <>
+                <CodingIcon className={styles.partNumberIcon} />
+                {t("type.exercise")}
+              </>
+            )}
+          </div>
+          <div className={styles.partTitle}>{lesson.lesson.title}</div>
+          <div className={styles.partDescription}>{lesson.lesson.description}</div>
+        </div>
       </div>
       <WalkthroughCard lesson={lesson} isCompleting={isAnimatingComplete} />
     </div>
