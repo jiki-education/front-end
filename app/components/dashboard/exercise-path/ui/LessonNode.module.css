@@ -38,6 +38,18 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* A node with a walkthrough card grows away from it on hover. Scaling from the
+   centre advances the card's edge ~5px into the 25px connector stub and covers
+   it; anchoring the origin to the stub's side keeps that edge still.
+   transform-origin has no logical form, so RTL is a physical override. */
+.lessonNode:has([data-walkthrough-card]) .lessonPart {
+    transform-origin: right center;
+}
+
+:global([dir="rtl"]) .lessonNode:has([data-walkthrough-card]) .lessonPart {
+    transform-origin: left center;
+}
+
 /* ─── States ────────────────────────────────────────────────────────────── */
 
 .lessonPart.complete {

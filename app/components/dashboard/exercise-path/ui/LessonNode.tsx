@@ -122,7 +122,7 @@ export function LessonNode({
           )}
         </div>
         <div className={styles.partContent}>
-          <div className={`${styles.partNumber} ${styles[lesson.lesson.type]}`}>
+          <div className={styles.partNumber}>
             {lesson.lesson.type === "video" ? (
               <>
                 <VideoIcon className={styles.partNumberIcon} />

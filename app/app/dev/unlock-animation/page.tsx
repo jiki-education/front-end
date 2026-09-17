@@ -3,7 +3,8 @@
 import type { LessonDisplayData } from "@/components/dashboard/exercise-path/types";
 
 import { useState } from "react";
-import styles from "@/components/dashboard/exercise-path/ExercisePath.module.css";
+import pathStyles from "@/components/dashboard/exercise-path/ExercisePath.module.css";
+import styles from "@/components/dashboard/exercise-path/ui/LessonNode.module.css";
 import pageStyles from "./page.module.css";
 import { WalkthroughCard } from "@/components/dashboard/exercise-path/ui/WalkthroughCard";
 import VideoLibIcon from "@/icons/video-lib.svg";
@@ -140,7 +141,7 @@ export default function UnlockAnimationTest() {
         </div>
 
         {/* Lesson nodes with proper spacing */}
-        <div className={styles.learningPath}>
+        <div className={pathStyles.learningPath}>
           <div className={pageStyles.pathWrapper}>
             {/* Completing lesson */}
             <div className={styles.lessonNode}>
@@ -150,7 +151,7 @@ export default function UnlockAnimationTest() {
                   <VideoLibIcon width={64} height={64} />
                 </div>
                 <div className={styles.partContent}>
-                  <div className={`${styles.partNumber} ${styles.video}`}>Video</div>
+                  <div className={styles.partNumber}>Video</div>
                   <div className={styles.partTitle}>{completingLesson.lesson.title}</div>
                   <div className={styles.partDescription}>{completingLesson.lesson.description}</div>
                 </div>
@@ -166,7 +167,7 @@ export default function UnlockAnimationTest() {
                   <QuizCardIcon width={64} height={64} />
                 </div>
                 <div className={styles.partContent}>
-                  <div className={`${styles.partNumber} ${styles.quiz}`}>Quiz</div>
+                  <div className={styles.partNumber}>Quiz</div>
                   <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
                   <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
                 </div>
