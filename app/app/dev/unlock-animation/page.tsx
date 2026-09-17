@@ -143,29 +143,33 @@ export default function UnlockAnimationTest() {
         <div className={styles.learningPath}>
           <div className={pageStyles.pathWrapper}>
             {/* Completing lesson */}
-            <div className={getCompletingClassName()}>
-              <div className={styles.statusBadge}>{lessonCompleted ? "Complete" : "In Progress"}</div>
-              <div className={styles.partIcon}>
-                <VideoLibIcon width={64} height={64} />
-              </div>
-              <div className={styles.partContent}>
-                <div className={`${styles.partNumber} ${styles.video}`}>Video</div>
-                <div className={styles.partTitle}>{completingLesson.lesson.title}</div>
-                <div className={styles.partDescription}>{completingLesson.lesson.description}</div>
+            <div className={styles.lessonNode}>
+              <div className={getCompletingClassName()}>
+                <div className={styles.statusBadge}>{lessonCompleted ? "Complete" : "In Progress"}</div>
+                <div className={styles.partIcon}>
+                  <VideoLibIcon width={64} height={64} />
+                </div>
+                <div className={styles.partContent}>
+                  <div className={`${styles.partNumber} ${styles.video}`}>Video</div>
+                  <div className={styles.partTitle}>{completingLesson.lesson.title}</div>
+                  <div className={styles.partDescription}>{completingLesson.lesson.description}</div>
+                </div>
               </div>
               <WalkthroughCard lesson={completingLesson} isCompleting={animationState === "completing"} />
             </div>
 
             {/* Unlocking lesson with proper margin */}
-            <div className={getUnlockingClassName()} style={{ marginTop: "20px" }}>
-              <div className={styles.statusBadge}>{recentlyUnlocked ? "In Progress" : "Locked"}</div>
-              <div className={styles.partIcon}>
-                <QuizCardIcon width={64} height={64} />
-              </div>
-              <div className={styles.partContent}>
-                <div className={`${styles.partNumber} ${styles.quiz}`}>Quiz</div>
-                <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
-                <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
+            <div className={styles.lessonNode} style={{ marginTop: "20px" }}>
+              <div className={getUnlockingClassName()}>
+                <div className={styles.statusBadge}>{recentlyUnlocked ? "In Progress" : "Locked"}</div>
+                <div className={styles.partIcon}>
+                  <QuizCardIcon width={64} height={64} />
+                </div>
+                <div className={styles.partContent}>
+                  <div className={`${styles.partNumber} ${styles.quiz}`}>Quiz</div>
+                  <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
+                  <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
+                </div>
               </div>
               <WalkthroughCard lesson={unlockingLesson} />
             </div>
