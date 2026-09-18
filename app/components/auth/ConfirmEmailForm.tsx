@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { confirmEmail as confirmEmailApi } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { hardNavigate } from "@/lib/auth/hardNavigate";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { AuthErrorCard } from "./AuthErrorCard";
 import { AuthPendingMessage } from "./AuthPendingMessage";
@@ -16,7 +17,6 @@ export function ConfirmEmailForm() {
   const dashboardPath = routes.dashboard();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
   const [status, setStatus] = useState<"confirming" | "success" | "error">("confirming");
@@ -33,8 +33,10 @@ export function ConfirmEmailForm() {
         setUser(user);
         setStatus("success");
 
+        // A full load, not a push: this page was rendered anonymous, and the
+        // confirmation has just logged the user in (see hardNavigate).
         setTimeout(() => {
-          router.push(dashboardPath);
+          hardNavigate(dashboardPath);
         }, 2000);
       } catch {
         setStatus("error");
@@ -42,7 +44,7 @@ export function ConfirmEmailForm() {
     };
 
     void doConfirmEmail();
-  }, [token, router, setUser, dashboardPath]);
+  }, [token, setUser, dashboardPath]);
 
   if (status === "confirming") {
     return <AuthPendingMessage title={t("pendingTitle")} description={t("pendingDescription")} />;
