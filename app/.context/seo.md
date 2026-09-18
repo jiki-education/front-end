@@ -24,16 +24,14 @@ Two layers of SEO signal are emitted from the public `(hybrid)/[locale]` tree:
 | ------------------------------------------------- | --------------------------------------------------------------------------------- |
 | `(hybrid)/[locale]/layout.tsx` (all public pages) | `Organization` + `WebSite`, linked by `@id`                                       |
 | `concepts/[slug]`                                 | `LearningResource` + `BreadcrumbList`                                             |
-| `projects/[slug]`                                 | `Course` (free online `CourseInstance`, episodes as `hasPart`) + `BreadcrumbList` |
-| `projects/[slug]/episodes/[episodeSlug]`          | `VideoObject` + `BreadcrumbList`                                                  |
 | `blog/[slug]`                                     | `BlogPosting` + `BreadcrumbList`                                                  |
 | `guides/[slug]`                                   | `TechArticle` + `BreadcrumbList`                                                  |
 | `help/[slug]`                                     | `Article` + `BreadcrumbList`                                                      |
 | `exercises/[slug]`                                | `LearningResource` + `BreadcrumbList` (+ `VideoObject` when the exercise has one) |
 
-`VideoObject` on episodes is what populates Google Search Console's **Video indexing**
-report. `embedUrl`/`contentUrl` and the thumbnail are derived from
-`videoProvider` + `videoKey` (YouTube embed vs Mux player/stream).
+`VideoObject` is what populates Google Search Console's **Video indexing** report.
+`embedUrl`/`contentUrl` and the thumbnail are derived from the video's provider and key
+(YouTube embed vs Mux player/stream).
 
 ### Type choices
 
@@ -74,12 +72,11 @@ advertised to Google.
 
 ### What is listed
 
-Static routes, blog posts, listed help articles, non-premium guides, projects with
-episodes, concepts, and **published exercises**.
+Static routes, blog posts, listed help articles, non-premium guides, concepts, and
+**published exercises**.
 
-Deliberate omissions: premium guides and challenges (both premium-gated), unlisted
-articles, episode-less projects, and individual episode pages (the episode list
-lives on the project page).
+Deliberate omissions: premium guides and challenges (both premium-gated) and unlisted
+articles.
 
 ### Published exercises
 

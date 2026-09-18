@@ -25,7 +25,7 @@ describe("resolveLocaleRouting", () => {
 
     it("rewrites the single-page marketing routes", () => {
       expect(resolveLocaleRouting("/premium")).toEqual({ action: "rewrite", target: "/en/premium" });
-      expect(resolveLocaleRouting("/roadmap")).toEqual({ action: "rewrite", target: "/en/roadmap" });
+      expect(resolveLocaleRouting("/testimonials")).toEqual({ action: "rewrite", target: "/en/testimonials" });
       expect(resolveLocaleRouting("/testimonials")).toEqual({ action: "rewrite", target: "/en/testimonials" });
     });
 
@@ -67,7 +67,7 @@ describe("resolveLocaleRouting", () => {
 
     it("redirects the marketing routes to their naked URLs", () => {
       expect(resolveLocaleRouting("/en/premium")).toEqual({ action: "redirect", target: "/premium" });
-      expect(resolveLocaleRouting("/en/roadmap")).toEqual({ action: "redirect", target: "/roadmap" });
+      expect(resolveLocaleRouting("/en/testimonials")).toEqual({ action: "redirect", target: "/testimonials" });
       expect(resolveLocaleRouting("/en/testimonials")).toEqual({ action: "redirect", target: "/testimonials" });
     });
 

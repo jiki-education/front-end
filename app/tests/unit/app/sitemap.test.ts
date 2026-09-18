@@ -19,12 +19,6 @@ jest.mock("@/lib/content/getAllGuides", () => ({
     { slug: "paid", date: "2026-01-01", premium: true }
   ])
 }));
-jest.mock("@/lib/content/getAllProjects", () => ({
-  getAllProjects: jest.fn().mockResolvedValue([
-    { slug: "shipped", episodeCount: 3 },
-    { slug: "coming-soon", episodeCount: 0 }
-  ])
-}));
 jest.mock("@/lib/concepts/server-concepts", () => ({
   getAllConceptsServer: jest.fn().mockResolvedValue([{ slug: "variables" }])
 }));
@@ -69,12 +63,11 @@ describe("sitemap", () => {
     expect(listed).toHaveLength(published.length * SUPPORTED_LOCALES.length);
   });
 
-  it("omits premium guides, unlisted articles and episode-less projects", async () => {
+  it("omits premium guides and unlisted articles", async () => {
     const urls = new Set((await sitemap()).map((entry) => entry.url));
     expect(urls).toContain(`${SITE_URL}/guides/free`);
     expect(urls).not.toContain(`${SITE_URL}/guides/paid`);
     expect(urls).not.toContain(`${SITE_URL}/help/unlisted`);
-    expect(urls).not.toContain(`${SITE_URL}/projects/coming-soon`);
   });
 
   it("has no duplicate URLs", async () => {

@@ -6,8 +6,7 @@
         "aboutJiki": "About Jiki",
         "testimonials": "Testimonials",
         "ourTeam": "Our team",
-        "premium": "Jiki Premium",
-        "roadmap": "Roadmap"
+        "premium": "Jiki Premium"
       },
       "legal": {
         "heading": "Legal",
@@ -60,13 +59,11 @@
     "sidebar": {
       "groups": {
         "learnToCode": "Learn to Code",
-        "learnToBuild": "Learn to Build",
         "community": "Community",
         "more": "More"
       },
       "nav": {
         "learn": "Coding Fundamentals",
-        "build": "Projects",
         "challenges": "Challenges",
         "concepts": "Coding Concepts",
         "achievements": "Achievements",
@@ -171,17 +168,6 @@
       "shareOn": "Share on {network}",
       "copyLink": "Copy link",
       "copied": "Link copied"
-    }
-  },
-  "build": {
-    "upcomingStreams": {
-      "heading": "Upcoming Live Sessions",
-      "toBeAnnounced": "To be announced",
-      "subscribeButton": "Subscribe to Calendar"
-    },
-    "hub": {
-      "title": "Learn to Build - Projects",
-      "description": "Build real projects from scratch with Jeremy. Learn everything he knows!"
     }
   },
   "auth": {
@@ -784,13 +770,10 @@
     "values": {
       "oneConversation": "1 conversation",
       "unlimited": "Unlimited",
-      "firstEpisodes": "First episodes",
-      "fullAccess": "Full access",
-      "sampleEpisode": "Sample Episode"
+      "fullAccess": "Full access"
     },
     "categories": {
       "codingFundamentals": "Learn to Code",
-      "buildWithJeremy": "Learn to Build",
       "support": "Support",
       "certificates": "Certificates",
       "experience": "Experience"
@@ -804,16 +787,12 @@
       "jikiChallengesDesc": "Take on harder challenges that push your skills further.",
       "askJikiTitle": "Ask Jiki",
       "askJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
-      "buildingFundamentalsTitle": "Building Fundamentals series",
-      "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
-      "howThingsWorkTitle": "How Things Work series",
-      "howThingsWorkDesc": "Deep dives into the trickier bits of Exercism and Jiki, and why they're built that way.",
       "earlyAccessTitle": "Early access to new features",
       "earlyAccessDesc": "Try out new features before everyone else.",
       "communityForumsTitle": "Community forums",
       "communityForumsDesc": "Ask questions and learn alongside other Jiki students.",
       "livestreamsTitle": "Q&A livestreams with Jeremy",
-      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding and building questions.",
+      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding questions.",
       "certificatesTitle": "Earn certificates for courses",
       "certificatesDesc": "Show off what you've learned with shareable certificates.",
       "adFreeTitle": "Ad-free learning",
@@ -858,94 +837,6 @@
       "prioritySupportDescription": "Get faster responses when you need help",
       "earlyAccessTitle": "Early access",
       "earlyAccessDescription": "Be the first to try new features and content"
-    }
-  },
-  "roadmap": {
-    "page": {
-      "heading": "Roadmap",
-      "subheading": "Where Jiki is heading. A quarter-by-quarter view of what we're shipping, what's next, and what we're still dreaming up.",
-      "disclaimer": "This roadmap is a snapshot of our current plans. Priorities shift as we learn from our community, so dates and scope may change."
-    },
-    "status": {
-      "shipped": "Shipped",
-      "inProgress": "In progress",
-      "planned": "Planned"
-    },
-    "changelog": {
-      "title": "Changelog",
-      "subtitle": "Recent improvements we've shipped to Jiki.",
-      "learnToBuildLaunch": {
-        "date": "July 11, 2026",
-        "title": "Launched Learn to Build",
-        "description": "Jeremy's new series, where he builds real, useful projects from scratch alongside learners, is now live."
-      },
-      "milestones6To10": {
-        "date": "July 2026",
-        "title": "Launched Milestones 6-10 on Learn to Code",
-        "description": "Five new milestones are now live on the Learn to Code track, extending the journey well beyond the fundamentals."
-      },
-      "jikiLaunch": {
-        "date": "June 7, 2026",
-        "title": "Launched Jiki!",
-        "description": "Jiki is officially live (albeit in beta!)"
-      }
-    },
-    "phases": {
-      "now": {
-        "label": "Now",
-        "timeframe": "July 2026",
-        "summary": "What we're focused on this month.",
-        "learnToBuild": {
-          "title": "Launched Learn to Build",
-          "description": "Jeremy's brand new series is now live, where he builds real, useful projects from scratch alongside learners. Each project is broken into bite-sized lessons that show not just the code, but the thinking, mistakes, and decisions that go into shipping software."
-        },
-        "launchBugs": {
-          "title": "Ironing out launch bugs",
-          "description": "Now that Jiki is live, we're squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app."
-        },
-        "earlyFeedback": {
-          "title": "Responding to early feedback",
-          "description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week."
-        },
-        "foundations": {
-          "title": "Stabilising the foundations",
-          "description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now."
-        }
-      },
-      "next": {
-        "label": "Next",
-        "timeframe": "Q3 2026",
-        "summary": "Designed and queued up.",
-        "betaToLive": {
-          "title": "Move from Beta to Fully Live",
-          "description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners."
-        },
-        "deepDiveVideos": {
-          "title": "Add Deep Dive Videos",
-          "description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming."
-        },
-        "newLanguages": {
-          "title": "Launch multiple new languages",
-          "description": "Starting in August, we're bringing Jiki to learners in their own language, translating the whole interface and curriculum, not just the marketing pages. It kicks off with our <link>community translatathon</link> over the weekend of July 31st to August 2nd."
-        },
-        "pythonVersion": {
-          "title": "Launch Python version",
-          "description": "Arriving in September, a fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction."
-        }
-      },
-      "future": {
-        "label": "Future",
-        "timeframe": "Q4 2026",
-        "summary": "On the horizon. Subject to change as we learn.",
-        "moreLanguages": {
-          "title": "Add more languages",
-          "description": "Building on August's first wave, we'll keep translating Jiki into more spoken languages through the rest of the year, so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
-        },
-        "sql": {
-          "title": "Launch SQL",
-          "description": "Later in the year, we'll add SQL to Jiki, giving learners a hands-on way to understand databases and querying with the same step-through, learn-by-doing approach as the rest of the curriculum."
-        }
-      }
     }
   },
   "misc": {
@@ -1046,10 +937,6 @@
       "title": "Achievements - Jiki",
       "description": "Track your progress and unlock achievements as you learn to code."
     },
-    "build": {
-      "title": "Learn to Build - Jiki",
-      "description": "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
-    },
     "dashboard": {
       "title": "Dashboard - Jiki",
       "description": "Track your learning progress, continue coding exercises, and view your achievements."
@@ -1096,15 +983,11 @@
     },
     "home": {
       "title": "Jiki - Learn to Code the Fun Way",
-      "description": "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
+      "description": "The best way to learn to code in the LLM-era! By the team behind Exercism"
     },
     "premium": {
       "title": "Premium - Jiki",
       "description": "Accelerate your road to job-ready with Jiki Premium. Full access to courses, projects, AI support, and more."
-    },
-    "roadmap": {
-      "title": "Roadmap - Jiki",
-      "description": "What we're building next on Jiki. A quarter-by-quarter look at upcoming courses, projects, and features."
     },
     "testimonials": {
       "title": "Testimonials - Jiki",
@@ -1306,7 +1189,7 @@
   "modals": {
     "welcomeToPremium": {
       "badge": "Premium Member",
-      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!",
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki and every Challenge.",
       "title": "Welcome to <highlight>Premium!</highlight>"
     },
     "subscriptionSuccess": {
@@ -1506,7 +1389,6 @@
       "userAvatarAlt": "User",
       "upgrade": "Upgrade to Premium",
       "planName": "Jiki Premium",
-      "featureLearnToBuild": "Full access to <strong>Learn to Build</strong>",
       "featureChallenges": "Take on harder <strong>Challenges</strong>",
       "featureAi": "Unlimited <strong>AI support</strong> from Jiki",
       "featureLivestreams": "Regular <strong>Q&A livestreams</strong> you can join",
@@ -1537,15 +1419,6 @@
       "perMonthShort": "/mo",
       "securedBy": "Secured by <stripe>stripe</stripe>",
       "error": "Error: {message}"
-    },
-    "calendarSubscribe": {
-      "title": "Subscribe to Calendar",
-      "description": "Add Jiki's live sessions to your calendar. New sessions appear automatically as they're scheduled.",
-      "apple": "Subscribe on Apple",
-      "google": "Subscribe on Google",
-      "otherLabel": "Outlook & other calendars",
-      "otherHelp": "Copy this link and add it as a subscribed calendar.",
-      "copied": "Copied"
     },
     "exerciseIntroVideo": {
       "title": "Welcome to your First Drawing Exercise",
@@ -1914,31 +1787,6 @@
       "finishTooltip": "Finish watching to continue"
     }
   },
-  "projects": {
-    "projectCard": {
-      "comingSoon": "Coming Soon",
-      "comingSoonLabel": "Coming soon"
-    },
-    "episodeCard": {
-      "premium": "Premium"
-    },
-    "episodeSummary": {
-      "heading": "Episode in Brief",
-      "whereWeStart": "Where we start",
-      "whereWeEnd": "Where we end up",
-      "whatWeCover": "What we cover"
-    },
-    "projectPage": {
-      "backToAllProjects": "← Back to <strong>All Projects</strong>"
-    },
-    "episodePage": {
-      "backToProject": "← Back to <strong>{title}</strong>",
-      "relevantGuidesDescription": "Guides that might be useful to you when solving this step in the process."
-    },
-    "relevantGuides": {
-      "heading": "Relevant Guides"
-    }
-  },
   "guides": {
     "guidesContent": {
       "pageHeading": "Guides and how-tos",
@@ -1966,9 +1814,6 @@
     },
     "relatedGuides": {
       "heading": "Related Guides"
-    },
-    "featuredInProjects": {
-      "heading": "Featured in Projects"
     },
     "metadata": {
       "notFoundTitle": "Guide Not Found"
