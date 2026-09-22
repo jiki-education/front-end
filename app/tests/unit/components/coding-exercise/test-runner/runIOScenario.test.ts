@@ -626,6 +626,52 @@ describe("runIOScenario", () => {
     });
   });
 
+  describe("diff", () => {
+    it("keeps a whitespace-only difference out of the Expected side", () => {
+      (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value: ["Fresh", " Bread"],
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const scenario: IOScenario = {
+        slug: "double-space",
+        name: "Double Space",
+        description: "Test description",
+        taskId: "task-1",
+        functionName: "sign_words",
+        args: ["Fresh  Bread"],
+        expected: ["Fresh", "Bread"]
+      };
+
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "javascript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
+      const diff = result.expects[0].diff;
+
+      const expectedSide = diff
+        .filter((part) => !part.added)
+        .map((part) => part.value)
+        .join("");
+      const actualSide = diff
+        .filter((part) => !part.removed)
+        .map((part) => part.value)
+        .join("");
+      expect(expectedSide).not.toContain(" Bread");
+      expect(actualSide).toContain(" Bread");
+      expect(diff.some((part) => part.added && part.value === " ")).toBe(true);
+    });
+  });
+
   describe("backward compatibility", () => {
     it("should work correctly when scenario has no code checks", () => {
       (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
