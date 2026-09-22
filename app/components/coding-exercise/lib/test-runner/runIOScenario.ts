@@ -11,7 +11,7 @@ import { resolveCodeCheckError } from "./resolveCodeCheckError";
 import { editorMessage } from "../i18n/editorMessages";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
-import { diffChars, diffWords, type Change } from "diff";
+import { diffChars, diffWordsWithSpace, type Change } from "diff";
 import type { Frame } from "@jiki/interpreters/shared";
 import { formatInterpreterObject } from "./formatInterpreterObject";
 import type { Interpreter } from "./getInterpreter";
@@ -63,8 +63,10 @@ function generateDiff(expected: any, actual: any): Change[] {
     return diffChars(expectedStr, actualStr);
   }
 
-  // Use word-level diff for other types
-  return diffWords(expectedStr, actualStr);
+  // Use word-level diff for other types. diffWords ignores whitespace and
+  // takes unchanged text from actual, so a whitespace-only difference would
+  // render the actual value in the Expected row too.
+  return diffWordsWithSpace(expectedStr, actualStr);
 }
 
 export function runIOScenario(
