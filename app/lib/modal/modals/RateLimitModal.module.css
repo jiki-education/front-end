@@ -245,3 +245,10 @@
 .helpText strong {
     color: var(--color-gray-700);
 }
+
+/* The manual reload, offered once the modal has already used its one automatic
+   refresh (see rateLimitReload.ts). It sits under the status line rather than
+   beside it, where the timer ring would otherwise be. */
+.reload {
+    margin-top: 12px;
+}
