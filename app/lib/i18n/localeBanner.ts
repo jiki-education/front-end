@@ -144,7 +144,12 @@ const LANGUAGE_VARIANTS: Record<
   { bare: string; regions: Record<string, string>; fallback: string } | undefined
 > = {
   pt: { bare: "pt-BR", regions: { BR: "pt-BR" }, fallback: "pt-PT" },
-  es: { bare: "es-419", regions: { ES: "es-ES" }, fallback: "es-419" }
+  es: { bare: "es-419", regions: { ES: "es-ES" }, fallback: "es-419" },
+  // Chinese splits by script, so the Traditional-writing regions (Taiwan, Hong
+  // Kong, Macau) are listed and everything else, including a bare "zh", gets
+  // Simplified. zh-TW resolves to nothing until it is a supported locale, so
+  // those readers fall through to their next preference.
+  zh: { bare: "zh-CN", regions: { TW: "zh-TW", HK: "zh-TW", MO: "zh-TW" }, fallback: "zh-CN" }
 };
 
 /** Resolve one Accept-Language tag to a supported locale, or undefined. */

@@ -5,7 +5,25 @@
 import { BUILD_DEPLOY_ENV } from "./env";
 import productionLocales from "./production-locales.json";
 
-export const ALL_LOCALES = ["en", "bn", "el", "es-419", "es-ES", "fr", "hu", "it", "pt-PT", "pt-BR", "uk"] as const;
+export const ALL_LOCALES = [
+  "en",
+  "bn",
+  "el",
+  "es-419",
+  "es-ES",
+  "fa",
+  "fr",
+  "hi",
+  "hu",
+  "it",
+  "ja",
+  "ko",
+  "pt-PT",
+  "pt-BR",
+  "sr",
+  "uk",
+  "zh-CN"
+] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
@@ -60,10 +78,10 @@ if (unknownProductionLocales.length > 0) {
 export const SUPPORTED_LOCALES: readonly Locale[] =
   process.env.NODE_ENV !== "production" || BUILD_DEPLOY_ENV === "staging" ? ALL_LOCALES : PRODUCTION_LOCALES;
 
-// Locales that read right-to-left. Empty today: both en and hu are LTR. When an
-// RTL locale (e.g. Arabic "ar", Hebrew "he") is added to ALL_LOCALES, add it
-// here too so `<html dir>` flips to "rtl" for it.
-export const RTL_LOCALES: ReadonlySet<Locale> = new Set([]);
+// Locales that read right-to-left. Persian ("fa") is the only one known today.
+// When another RTL locale (e.g. Arabic "ar", Hebrew "he", Urdu "ur") is added to
+// ALL_LOCALES, add it here too so `<html dir>` flips to "rtl" for it.
+export const RTL_LOCALES: ReadonlySet<Locale> = new Set<Locale>(["fa"]);
 
 // Text direction for a locale: "rtl" for locales in RTL_LOCALES, "ltr" otherwise
 // (including any unknown/unsupported string). Drives `dir` on `<html>` (server via
