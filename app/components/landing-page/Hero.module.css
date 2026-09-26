@@ -56,7 +56,7 @@
 
     h1 {
         /* Sized against the column (see .headlineBox) so it tracks the copy beside it. */
-        font-size: 9.4cqw;
+        font-size: 11.8cqw;
         line-height: 1.05;
         font-weight: 800;
         padding-block-start: 20px;
@@ -68,12 +68,14 @@
 .headlineHighlight {
     display: inline;
     color: var(--color-purple-400);
+    /* Keep the phrase whole: it drops to the next line as a unit rather than splitting. */
+    white-space: nowrap;
 }
 
 .tagline {
     font-size: 16px;
     line-height: 1.6;
-    margin-block-end: 16px;
+    margin-block-end: 24px;
     font-weight: 300;
     color: var(--color-gray-200);
 

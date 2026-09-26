@@ -11,9 +11,7 @@ export function LearnToCodeCard() {
   return (
     <div className={styles.card}>
       <div className={styles.inner}>
-        <h3 className={styles.heading}>
-          {t.rich("heading", { word: (chunks) => <span className={styles.codeWord}>{chunks}</span> })}
-        </h3>
+        <h3 className={styles.heading}>{t("heading")}</h3>
 
         <p className={styles.intro}>
           {t.rich("intro", {
