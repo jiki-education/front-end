@@ -352,6 +352,8 @@
     position: absolute;
     bottom: calc(100% + 20px);
     inset-inline: 0;
+    width: 70%;
+    margin-inline: auto;
     height: 4px;
     border-radius: 2px;
     background: var(--color-gray-200);

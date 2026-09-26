@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import styles from "./Hero.module.css";
 import { SignupButton } from "./SignupButton";
 import { AudienceChecks } from "./hero/AudienceChecks";
+import { DrawnMark } from "./hero/DrawnMark";
 import { HeroVideo } from "./hero/HeroVideo";
 import { WatchPrompt } from "./hero/WatchPrompt";
 import { ScrollingTestimonials } from "./hero/ScrollingTestimonials";
@@ -27,8 +28,8 @@ export function Hero({ marquee }: { marquee: string[] }) {
 
           <p className={styles.tagline}>
             {t.rich("tagline", {
-              year: new Date().getFullYear(),
-              strong: (chunks) => <strong>{chunks}</strong>
+              strong: (chunks) => <strong>{chunks}</strong>,
+              free: (chunks) => <DrawnMark type="highlight">{chunks}</DrawnMark>
             })}
           </p>
 

@@ -533,14 +533,14 @@
   },
   "landing": {
     "hero": {
-      "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
+      "tagline": "<strong>Tutorials</strong> you'll actually watch. <strong>Exercises</strong> you'll actually enjoy. Zero to competent in <strong>3 months</strong>. And <free>it's free.</free>",
       "loadingVideo": "Loading video",
       "playVideo": "Play video",
       "watchPrompt": "Reading not your thing? <strong>Hit play</strong> and I'll tell you everything you need to know!",
-      "headline": "The modern way to learn to <highlight>code & build</highlight>",
-      "audienceBeginners": "<name>Beginners</name> trying to find the best and fastest way to learn",
-      "audienceJuniors": "<name>Junior Devs</name> who want to accelerate their knowledge",
-      "audienceEntrepreneurs": "<name>Entrepreneurs & Vibe Coders</name> who want to build before they hire"
+      "headline": "The fun way to <highlight>learn to code</highlight>",
+      "audienceAbsoluteBeginners": "<name>Absolute Beginners</name> who want to <u>get started fast</u>.",
+      "audienceRepeatBeginners": "<name>Repeat Starters</name> who wish it would <u>just make sense</u>.",
+      "audienceJuniors": "<name>Junior Devs</name> who want to <u>reinforce the fundamentals</u>."
     },
     "twoHalves": {
       "eyebrow": "Your two core skills",
@@ -553,8 +553,8 @@
       "techLabel": "Learn technologies including:"
     },
     "learnToCode": {
-      "heading": "Learn to <word>Code</word>",
-      "intro": "Master coding, the core skill we use to communicate our desires to a computer. We'll help you <highlight>build rock solid coding foundations</highlight>.",
+      "heading": "Master Coding Fundamentals",
+      "intro": "Learning should feel like <highlight>play, not work</highlight>. At Jiki, you'll solve puzzles, make games, and learn through practice.",
       "demo": {
         "stageDescription": "An animation of the Jiki app: a learner runs a space-invaders exercise, the code moves the laser cannon off the edge of the grid, they ask Jiki for help, correct the boundary from 20 to 11, and the exercise passes.",
         "run": "Run Code",
