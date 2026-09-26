@@ -73,6 +73,20 @@ describe("firstSupportedLanguage", () => {
     expect(firstSupportedLanguage("hu-hu")).toBe("hu");
   });
 
+  it.each([
+    ["zh-CN", "zh-CN"],
+    ["zh", "zh-CN"],
+    ["zh-SG", "zh-CN"],
+    ["zh-US", "zh-CN"],
+    ["zh-Hans-CN", "zh-CN"]
+  ])("collapses the Simplified-writing Chinese tag %s to %s", (header, expected) => {
+    expect(firstSupportedLanguage(header)).toBe(expected);
+  });
+
+  it.each(["zh-TW", "zh-HK", "zh-MO"])("never serves Simplified Chinese to the Traditional-writing tag %s", (tag) => {
+    expect(firstSupportedLanguage(`${tag},en;q=0.5`)).not.toBe("zh-CN");
+  });
+
   // "xx"/"zz" rather than a real language tag: these assert the NO-MATCH path, so a
   // real tag here is a test that passes until that language launches and then fails
   // for no reason connected to what it is testing. "fr" sat here until fr launched.
