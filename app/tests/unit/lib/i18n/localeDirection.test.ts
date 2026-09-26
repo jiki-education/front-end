@@ -5,7 +5,7 @@
  */
 import { ALL_LOCALES, getLocaleDirection, RTL_LOCALES } from "@/lib/locales";
 
-const EXPECTED_RTL = ["fa"];
+const EXPECTED_RTL = ["ar", "fa"];
 
 describe("getLocaleDirection", () => {
   it("returns rtl for every right-to-left locale", () => {

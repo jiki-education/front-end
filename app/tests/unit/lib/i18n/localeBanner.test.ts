@@ -87,6 +87,12 @@ describe("firstSupportedLanguage", () => {
     expect(firstSupportedLanguage(`${tag},en;q=0.5`)).not.toBe("zh-CN");
   });
 
+  // Arabic ships one variant, so every region (and the UN M.49 "ar-001") collapses
+  // to it, as it does in the API's User::NormalizeLocaleTags.
+  it.each(["ar", "ar-SA", "ar-EG", "ar-AE", "ar-MA", "ar-001", "ar-sa"])("collapses the Arabic tag %s to ar", (tag) => {
+    expect(firstSupportedLanguage(tag)).toBe("ar");
+  });
+
   // "xx"/"zz" rather than a real language tag: these assert the NO-MATCH path, so a
   // real tag here is a test that passes until that language launches and then fails
   // for no reason connected to what it is testing. "fr" sat here until fr launched.
