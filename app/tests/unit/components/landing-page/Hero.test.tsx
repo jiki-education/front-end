@@ -4,7 +4,7 @@ import { Hero } from "@/components/landing-page/Hero";
 
 // Hero is a client component with animation/video side-effects that are
 // irrelevant to the marquee copy under test — stub them so the render is stable.
-jest.mock("rough-notation", () => ({ annotate: () => ({ show: jest.fn(), hide: jest.fn() }) }));
+jest.mock("rough-notation", () => ({ annotate: () => ({ show: jest.fn(), hide: jest.fn(), remove: jest.fn() }) }));
 jest.mock("animejs", () => ({ animate: () => ({ pause: jest.fn() }) }));
 jest.mock("@/components/landing-page/hooks/useHamster", () => ({
   useHamster: () => ({ hamsterRef: { current: null }, smokeRef: { current: null }, containerRef: { current: null } })

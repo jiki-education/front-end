@@ -91,18 +91,10 @@ content/
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
 │       │       └── source.md
-│       ├── guides/           # Guides (see Guides section)
-│       │   └── [slug]/
-│       │       ├── config.json
-│       │       └── source.md
-│       └── projects/         # Build with Jeremy projects + episodes
-│           ├── config.json   # { "projects": [ordered slugs] }
-│           ├── messages.json # English copy: { slug: { title, description, tags } }
-│           └── [project-slug]/
-│               ├── config.json  # Project structure + episodes: [uuid, ...] (ordered)
-│               └── [episode-uuid]/
-│                   ├── config.json  # Episode metadata (video, premium, guides)
-│                   └── source.md    # Frontmatter + transcript body (English source)
+│       └── guides/           # Guides (see Guides section)
+│           └── [slug]/
+│               ├── config.json
+│               └── source.md
 ├── images/
 │   ├── blog/                 # Blog post images
 │   ├── articles/             # Article images
@@ -207,17 +199,6 @@ For guides that explain how to install a piece of software, follow this conventi
 - **Prefer official binaries and installers** over package managers where a binary is available.
 - If a step requires installing something else first (for example Homebrew), **do not inline those instructions**. Write a separate dedicated guide or article for that product and link to it.
 
-### Projects
-
-**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, a top-level `messages.json` holds every project's English copy, each project directory has a `config.json` (`image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
-
-- **Learner-facing project copy lives in `projects/messages.json`, never in a project's `config.json`.** It is a catalog keyed by project slug, each entry holding `title`, `description` and `tags`. English is authored here; every translation is published by the `i18n` repo. A `title`/`description`/`tags` key left in a project's `config.json` is a build error, because it would read as the place to translate and nothing would consume it.
-- A project with an **empty `episodes` array is "coming soon"**: it renders as a non-clickable teaser and has no detail page. There is no explicit status field.
-- Episode **config.json** holds structural metadata: `slug` (used in the URL), `date`, `author`, `videoProvider` (`youtube` or `mux`), `videoKey`, `durationSeconds`, `premium`, `image`, and `guides` (an array of guide slugs shown as a sidebar on the episode page).
-- Episode **markdown** frontmatter has `title`, `excerpt`, `seo`, and an optional `summary` block (`from`, `to`, `keyConcepts` — freeform prose describing the episode's journey). The markdown body is the episode's **transcript**, rendered below the video.
-
-URLs: the hub is `/build`; projects are `/projects/{slug}`; episodes are `/projects/{slug}/episodes/{episode-slug}`.
-
 ### Testimonials
 
 **Testimonials** are the student quotes shown on the landing page, the hero marquee blurbs, and the
@@ -234,7 +215,7 @@ the line that decides who publishes what:
 - **`messages.json`** is the English copy catalog: `heading`, `subheading` (carrying one
   `<link>…</link>` span), `roles` keyed by person, `quotes` keyed by quote key, and a `marquee` array
   of short blurbs. English is authored here and **every other locale's catalog is published by the
-  `i18n` repo**, exactly as project copy is. No `<lang>.json` is ever added here.
+  `i18n` repo**. No `<lang>.json` is ever added here.
 
 A quote key is a person's slug, or that slug plus `-short` where the landing grid shows a trimmed
 form of the same testimonial the `/testimonials` page shows in full. That is why ownership lives in
