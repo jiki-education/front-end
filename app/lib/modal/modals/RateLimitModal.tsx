@@ -2,32 +2,58 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { hasRecentlyAutoReloaded, recordAutoReload } from "./rateLimitReload";
 import styles from "./RateLimitModal.module.css";
 
 interface RateLimitModalProps {
   retryAfterSeconds?: number;
 }
 
-export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) {
+/**
+ * Matches the API client's own fallback for a 429 with no Retry-After header
+ * (see parseRetryAfter). They used to disagree, and this one was shorter, so the
+ * modal reloaded back into a block that had not expired yet.
+ */
+const DEFAULT_RETRY_AFTER_SECONDS = 60;
+
+/**
+ * The "you have been rate limited" gate: count down whatever the server asked
+ * for, then get the visitor moving again.
+ *
+ * It reloads the page ONCE. A reload is a hundred-odd requests, so a modal that
+ * reloads on every countdown spends the budget it is waiting for and blocks the
+ * load it just triggered, refreshing forever and holding the limit open. After
+ * that one attempt the visitor gets a button instead, so the next reload is
+ * theirs to time. See rateLimitReload.ts.
+ */
+export function RateLimitModal({ retryAfterSeconds = DEFAULT_RETRY_AFTER_SECONDS }: RateLimitModalProps) {
   const t = useTranslations("modals.rateLimit");
+  const tCommon = useTranslations("common");
   const [timeLeft, setTimeLeft] = useState(retryAfterSeconds);
+  // Read once, on mount. Read during the countdown instead and the marker this
+  // very modal is about to write would flip the answer under it.
+  const [canAutoReload] = useState(() => !hasRecentlyAutoReloaded());
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          // Auto-refresh the page when countdown reaches 0
-          window.location.reload();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
+    const interval = setInterval(() => setTimeLeft((prev) => Math.max(prev - 1, 0)), 1000);
     return () => clearInterval(interval);
   }, [retryAfterSeconds]);
 
+  // Acting on the countdown lives outside the tick, so the tick stays a pure
+  // state update and reloading can never be a side effect of a re-run updater.
+  useEffect(() => {
+    if (timeLeft > 0 || !canAutoReload) {
+      return;
+    }
+    recordAutoReload();
+    window.location.reload();
+  }, [timeLeft, canAutoReload]);
+
+  // A manual reload is the visitor's own decision and is deliberately NOT
+  // recorded: what is bounded here is what the page does on its own.
+  const reloadNow = () => window.location.reload();
+
+  const waitedOut = timeLeft === 0 && !canAutoReload;
   const dashOffset = 125.6 - (125.6 * timeLeft) / retryAfterSeconds;
 
   return (
@@ -39,32 +65,43 @@ export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) 
       </div>
 
       <h1 className={styles.title}>{t("title")}</h1>
-      <p className={styles.subtitle}>{t("subtitle")}</p>
+      <p className={styles.subtitle}>{waitedOut ? t("manualSubtitle") : t("subtitle")}</p>
 
-      <div className={styles.statusCard}>
-        <div className={styles.timerRing}>
-          <svg width="48" height="48" viewBox="0 0 48 48">
-            <circle className={styles.bg} cx="24" cy="24" r="20" fill="none" strokeWidth="4" />
-            <circle
-              className={styles.progress}
-              cx="24"
-              cy="24"
-              r="20"
-              fill="none"
-              strokeWidth="4"
-              strokeDasharray="125.6"
-              strokeDashoffset={dashOffset}
-            />
-          </svg>
-          <span className={styles.timerNumber}>{timeLeft}</span>
-        </div>
-        <div>
-          <div className={styles.statusText}>
-            {t.rich("reconnecting", { count: timeLeft, timer: (chunks) => <span>{chunks}</span> })}
+      {waitedOut ? (
+        <div className={styles.statusCard}>
+          <div>
+            <div className={styles.statusText}>{t("manualRefresh")}</div>
+            <button type="button" onClick={reloadNow} className={`ui-btn ui-btn-small ui-btn-primary ${styles.reload}`}>
+              {tCommon("reloadPage")}
+            </button>
           </div>
-          <div className={styles.statusSubtext}>{t("autoRefresh")}</div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.statusCard}>
+          <div className={styles.timerRing}>
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle className={styles.bg} cx="24" cy="24" r="20" fill="none" strokeWidth="4" />
+              <circle
+                className={styles.progress}
+                cx="24"
+                cy="24"
+                r="20"
+                fill="none"
+                strokeWidth="4"
+                strokeDasharray="125.6"
+                strokeDashoffset={dashOffset}
+              />
+            </svg>
+            <span className={styles.timerNumber}>{timeLeft}</span>
+          </div>
+          <div>
+            <div className={styles.statusText}>
+              {t.rich("reconnecting", { count: timeLeft, timer: (chunks) => <span>{chunks}</span> })}
+            </div>
+            <div className={styles.statusSubtext}>{t("autoRefresh")}</div>
+          </div>
+        </div>
+      )}
 
       <p className={styles.helpText}>
         <strong>{t("noteLabel")}</strong> {t("noteText")}
