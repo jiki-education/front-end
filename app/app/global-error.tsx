@@ -52,6 +52,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "একটি অপ্রত্যাশিত সমস্যা হয়েছে। দুঃখিত!",
     actionLabel: "আবার চেষ্টা করুন"
   },
+  de: {
+    title: "Etwas ist schiefgelaufen",
+    message: "Es ist ein unerwarteter Fehler aufgetreten. Das tut uns leid!",
+    actionLabel: "Noch einmal versuchen"
+  },
   hu: {
     title: "Valami hiba történt",
     message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
@@ -126,6 +131,11 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "出了点问题",
     message: "我们遇到了意外错误，很抱歉！",
     actionLabel: "重试"
+  },
+  "zh-TW": {
+    title: "發生錯誤",
+    message: "我們遇到了非預期的錯誤。很抱歉！",
+    actionLabel: "再試一次"
   }
 };
 

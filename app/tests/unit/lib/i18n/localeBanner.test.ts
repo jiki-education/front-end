@@ -34,7 +34,7 @@ describe("resolveBannerOffer", () => {
     });
 
     it("shows nothing on an English page when their languages are unsupported", () => {
-      expect(resolveBannerOffer({ ...anon, pathname: "/blog/x", acceptLanguage: "de" })).toBeNull();
+      expect(resolveBannerOffer({ ...anon, pathname: "/blog/x", acceptLanguage: "xx" })).toBeNull();
     });
   });
 
@@ -61,7 +61,7 @@ describe("resolveBannerOffer", () => {
 
 describe("firstSupportedLanguage", () => {
   it("honours q-value ordering and skips unsupported tags", () => {
-    expect(firstSupportedLanguage("de;q=0.9,hu;q=0.8")).toBe("hu");
+    expect(firstSupportedLanguage("xx;q=0.9,hu;q=0.8")).toBe("hu");
   });
 
   it("matches a base language (pt-BR -> unsupported, hu-HU -> hu)", () => {
@@ -77,14 +77,46 @@ describe("firstSupportedLanguage", () => {
     ["zh-CN", "zh-CN"],
     ["zh", "zh-CN"],
     ["zh-SG", "zh-CN"],
+    ["zh-MY", "zh-CN"],
     ["zh-US", "zh-CN"],
-    ["zh-Hans-CN", "zh-CN"]
+    ["zh-Hans", "zh-CN"],
+    ["zh-Hans-CN", "zh-CN"],
+    ["zh-cn", "zh-CN"]
   ])("collapses the Simplified-writing Chinese tag %s to %s", (header, expected) => {
     expect(firstSupportedLanguage(header)).toBe(expected);
   });
 
-  it.each(["zh-TW", "zh-HK", "zh-MO"])("never serves Simplified Chinese to the Traditional-writing tag %s", (tag) => {
-    expect(firstSupportedLanguage(`${tag},en;q=0.5`)).not.toBe("zh-CN");
+  it.each([
+    ["zh-TW", "zh-TW"],
+    ["zh-HK", "zh-TW"],
+    ["zh-MO", "zh-TW"],
+    ["zh-Hant", "zh-TW"],
+    ["zh-Hant-TW", "zh-TW"],
+    ["zh-Hant-HK", "zh-TW"],
+    ["zh-tw", "zh-TW"],
+    ["ZH-HANT", "zh-TW"]
+  ])("collapses the Traditional-writing Chinese tag %s to %s", (header, expected) => {
+    expect(firstSupportedLanguage(header)).toBe(expected);
+  });
+
+  // The script names the writing system outright, so it outranks the region.
+  it.each([
+    ["zh-Hans-TW", "zh-CN"],
+    ["zh-Hans-HK", "zh-CN"],
+    ["zh-Hant-CN", "zh-TW"],
+    ["zh-Hant-SG", "zh-TW"],
+    ["zh-Hant-US", "zh-TW"]
+  ])("lets the script in %s decide over its region (%s)", (header, expected) => {
+    expect(firstSupportedLanguage(header)).toBe(expected);
+  });
+
+  it("keeps the header's order across the two Chinese variants", () => {
+    expect(firstSupportedLanguage("zh-TW,zh-CN;q=0.9,zh;q=0.8")).toBe("zh-TW");
+    expect(firstSupportedLanguage("zh-CN,zh-TW;q=0.9")).toBe("zh-CN");
+  });
+
+  it.each(["de", "de-DE", "de-AT", "de-CH", "de-LI", "de-de"])("collapses the German tag %s to de", (tag) => {
+    expect(firstSupportedLanguage(tag)).toBe("de");
   });
 
   // Arabic ships one variant, so every region (and the UN M.49 "ar-001") collapses

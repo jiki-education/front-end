@@ -2,6 +2,7 @@
   "en",
   "ar",
   "bn",
+  "de",
   "el",
   "es-419",
   "es-ES",
@@ -16,5 +17,6 @@
   "pt-BR",
   "sr",
   "uk",
-  "zh-CN"
+  "zh-CN",
+  "zh-TW"
 ]

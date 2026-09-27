@@ -56,7 +56,7 @@ describe("resolveLocale", () => {
   });
 
   it("ignores an unsupported URL locale header and falls through", async () => {
-    setup({ urlLocale: "de", hasAuthCookie: false, localeCookie: "hu" });
+    setup({ urlLocale: "xx", hasAuthCookie: false, localeCookie: "hu" });
     await expect(resolveLocale()).resolves.toBe("en");
   });
 });
