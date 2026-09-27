@@ -132,24 +132,30 @@ export function firstSupportedLanguage(acceptLanguage: string): Locale | undefin
  * - `bare`: the variant for a region-less tag (e.g. "pt" -> pt-BR)
  * - `regions`: explicit region -> variant overrides
  * - `fallback`: the variant for any region not listed above
+ * - `scripts`: optional script -> variant overrides, which win over the region
  *
  * Chromium sends "es-419" directly, but Firefox and Safari send country codes
  * ("es-CL", "es-AR"), so every non-ES region must collapse to the Latin American
  * variant. A language absent here simply collapses to its base language.
  *
- * Mirrors the API's User::DetermineLocale LANGUAGE_VARIANTS — keep them in sync.
+ * Mirrors the API's User::NormalizeLocaleTags LANGUAGE_VARIANTS — keep them in sync.
  */
 const LANGUAGE_VARIANTS: Record<
   string,
-  { bare: string; regions: Record<string, string>; fallback: string } | undefined
+  { bare: string; regions: Record<string, string>; fallback: string; scripts?: Record<string, string> } | undefined
 > = {
   pt: { bare: "pt-BR", regions: { BR: "pt-BR" }, fallback: "pt-PT" },
   es: { bare: "es-419", regions: { ES: "es-ES" }, fallback: "es-419" },
   // Chinese splits by script, so the Traditional-writing regions (Taiwan, Hong
   // Kong, Macau) are listed and everything else, including a bare "zh", gets
-  // Simplified. zh-TW resolves to nothing until it is a supported locale, so
-  // those readers fall through to their next preference.
-  zh: { bare: "zh-CN", regions: { TW: "zh-TW", HK: "zh-TW", MO: "zh-TW" }, fallback: "zh-CN" }
+  // Simplified. A script subtag says which one the reader wants outright, so it
+  // wins over the region: "zh-Hant" gets Traditional and "zh-Hans-TW" Simplified.
+  zh: {
+    bare: "zh-CN",
+    regions: { TW: "zh-TW", HK: "zh-TW", MO: "zh-TW" },
+    fallback: "zh-CN",
+    scripts: { Hans: "zh-CN", Hant: "zh-TW" }
+  }
 };
 
 /** Resolve one Accept-Language tag to a supported locale, or undefined. */
@@ -157,6 +163,10 @@ function resolveTag(tag: string): Locale | undefined {
   const parsed = parseTag(tag);
   if (parsed == null) {
     return undefined;
+  }
+  const scripted = parsed.script != null ? LANGUAGE_VARIANTS[parsed.language]?.scripts?.[parsed.script] : undefined;
+  if (scripted != null) {
+    return isSupportedLocale(scripted) ? scripted : undefined;
   }
   if (isSupportedLocale(parsed.canonical)) {
     return parsed.canonical;
@@ -181,21 +191,24 @@ function collapseTag(language: string, region: string | undefined): string {
 }
 
 /**
- * Split a tag into language/region/canonical, normalizing case since
- * Accept-Language isn't case-stable ("pt-br", "ES"): language lowercased, region
- * uppercased. Region is the first 2-alpha or 3-digit subtag, so script subtags
- * (the "Latn" in "es-Latn-MX") are skipped. Undefined for a language-less tag.
+ * Split a tag into language/script/region/canonical, normalizing case since
+ * Accept-Language isn't case-stable ("pt-br", "ES", "zh-HANT"): language
+ * lowercased, script titlecased, region uppercased. Script is the first 4-alpha
+ * subtag (the "Latn" in "es-Latn-MX") and region the first 2-alpha or 3-digit
+ * one; canonical leaves the script out. Undefined for a language-less tag.
  */
-function parseTag(tag: string): { language: string; region: string | undefined; canonical: string } | undefined {
+function parseTag(
+  tag: string
+): { language: string; script: string | undefined; region: string | undefined; canonical: string } | undefined {
   const parts = tag.split("-");
   const language = parts[0]?.toLowerCase();
   if (!language) {
     return undefined;
   }
-  const region = parts
-    .slice(1)
-    .find((part) => /^([A-Za-z]{2}|\d{3})$/.test(part))
-    ?.toUpperCase();
+  const subtags = parts.slice(1);
+  const rawScript = subtags.find((part) => /^[A-Za-z]{4}$/.test(part));
+  const script = rawScript != null ? rawScript[0].toUpperCase() + rawScript.slice(1).toLowerCase() : undefined;
+  const region = subtags.find((part) => /^([A-Za-z]{2}|\d{3})$/.test(part))?.toUpperCase();
   const canonical = region != null ? `${language}-${region}` : language;
-  return { language, region, canonical };
+  return { language, script, region, canonical };
 }

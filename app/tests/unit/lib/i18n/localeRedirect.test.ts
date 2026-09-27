@@ -10,7 +10,7 @@ describe("resolveLocaleRedirect", () => {
   // crawling and deep links when they regress.
   const HU_FIRST = "hu,en-US;q=0.9,en;q=0.8";
   const EN_FIRST = "en-GB,en;q=0.9";
-  const UNSUPPORTED = "de-DE,de;q=0.9";
+  const UNSUPPORTED = "xx-XX,xx;q=0.9";
 
   it.each`
     pathname | localePref | acceptLanguage | expected | why

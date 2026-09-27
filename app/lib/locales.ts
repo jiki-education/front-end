@@ -9,6 +9,7 @@ export const ALL_LOCALES = [
   "en",
   "ar",
   "bn",
+  "de",
   "el",
   "es-419",
   "es-ES",
@@ -23,7 +24,8 @@ export const ALL_LOCALES = [
   "pt-BR",
   "sr",
   "uk",
-  "zh-CN"
+  "zh-CN",
+  "zh-TW"
 ] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
