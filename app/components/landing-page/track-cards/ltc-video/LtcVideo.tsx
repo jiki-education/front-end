@@ -35,7 +35,12 @@ export function LtcVideo({ frozenState }: { frozenState?: VideoState } = {}) {
 
   return (
     <div className={styles.root} ref={rootRef}>
-      <div className={demoClasses}>
+      {/* Pinned LTR as a unit. Every callout is anchored to a fixed region of the stage below,
+          which is itself LTR because it is a picture of an English-chrome app; letting the rails
+          mirror under RTL swaps them over and each leader line then points at the wrong thing.
+          The cards' own copy is flipped back to the page direction in CSS, so it still reads
+          right-to-left inside a rail that does not move. */}
+      <div className={demoClasses} dir="ltr">
         <div className={`${styles.rail} ${styles.railLeft}`}>
           {LEFT_CALLOUTS.map((id) => (
             <Callout
