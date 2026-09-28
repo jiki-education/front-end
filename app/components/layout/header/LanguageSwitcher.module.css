@@ -13,6 +13,14 @@
     height: 100%;
     gap: 6px;
     padding-inline: 12px;
+    /* Tertiary is white, which gives a white-ground flag (Japan is a red disc on
+       white) nothing to sit on - the disc floats and the flag reads as half a
+       shape. A tinted ground bounds every flag in the set. */
+    background: var(--color-gray-100);
+}
+
+.toggle:hover {
+    background: var(--color-gray-200);
 }
 
 .chevron {
@@ -28,6 +36,13 @@
     flex-shrink: 0;
     object-fit: cover;
     border-radius: 2px;
+    /* Flags that are white to their own edge (Japan is a red disc on white)
+       otherwise dissolve into the white button and the white dropdown, leaving a
+       floating mark with no flag around it. The ring is a spread shadow rather
+       than a border or an inset shadow: the SVGs paint an opaque field over their
+       whole viewBox, so an inset ring would be covered, and a border would grow
+       the 24x17 box the rail is aligned on. */
+    box-shadow: 0 0 0 1px var(--color-gray-200);
 }
 
 .dropdown {
