@@ -3,9 +3,13 @@ import styles from "./PuzzlePieces.module.css";
 // The Code and Build strands as interlocking puzzle pieces: Code carries the knob on its
 // right edge, Build the matching socket on its left. Decorative — the same words are in
 // the headings either side, so this is hidden from assistive tech.
+//
+// Pinned LTR: the knob and socket are baked into the two paths, and the labels are the
+// untranslated product words. Mirroring the pair under RTL reverses their order, so the
+// socket no longer meets the knob and the pieces read "Build Code".
 export function PuzzlePieces({ lit }: { lit: boolean }) {
   return (
-    <div className={`${styles.pieces} ${lit ? styles.lit : ""}`} aria-hidden="true">
+    <div className={`${styles.pieces} ${lit ? styles.lit : ""}`} aria-hidden="true" dir="ltr">
       <svg className={styles.code} viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M14,4 H90 A10,10 0 0 1 100,14 V42 C118,32 118,88 100,78 V106 A10,10 0 0 1 90,116 H14 A10,10 0 0 1 4,106 V14 A10,10 0 0 1 14,4 Z"
