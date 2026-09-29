@@ -126,7 +126,8 @@ app.post("/chat", async (c) => {
       language,
       proseHash,
       codeHash,
-      locale = "en"
+      locale = "en",
+      currentCodeDiff
     } = body;
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
@@ -178,7 +179,8 @@ app.post("/chat", async (c) => {
       nextTaskId,
       language,
       proseUrl,
-      codeUrl
+      codeUrl,
+      currentCodeDiff
     });
 
     // 4. Stream from Gemini and collect the full response. The stream is opened
