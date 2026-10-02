@@ -1,23 +1,14 @@
 # Jiki
 
-> Jiki is a fun, hands-on platform for learning to code and build in the agentic-coding era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly. It is freemium - nearly all the content is free, with some premium features (like LLM help) if needed.
+> Jiki is a fun, hands-on platform for learning to code in the agentic-coding era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly. It is freemium - nearly all the content is free, with some premium features (like LLM help) if needed.
 
-Jiki has two strands, Learn to Code and Learn to Build:
-
-- **Learn to Code**: Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core Learn to Code curriculum is completely free and contains over 200 hours of challenges.
-- **Learn to Build**: The Learn to Build strand goes further, building real projects alongside Jeremy Walker using agentic coding, databases, auth, APIs, and deployment.
+Jiki is a single course, Learn to Code. Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core curriculum is completely free and contains over 200 hours of challenges.
 
 Coding has changed. Anyone can now open an LLM and create a working product in minutes. So Jiki focuses on what actually matters. Understanding how code and technology really work. Critical thinking. Problem solving. Building and shipping real things. This makes it the perfect starting point for complete beginners, and for anyone who wants to genuinely understand the code an LLM writes for them.
 
 The teaching is deliberately fun and accessible. No prior experience is needed, and there is nothing to install. Premium is priced by country using purchasing power parity anchored to $9.99/m, so it stays affordable everywhere in the world.
 
-Jiki is growing fast and there is always something new here.
-
-- New spoken languages are added throughout the year, so more people can learn in their own language.
-- Python and SQL courses are joining the Learn to Code pathway alongside the existing curriculum.
-- New Learn to Build videos ship regularly across multiple series.
-
-If you are indexing Jiki, expect the content below to keep expanding.
+New spoken languages are added throughout the year, so more people can learn in their own language.
 
 The site is currently available in:
 
@@ -25,10 +16,8 @@ The site is currently available in:
 
 ## Key pages
 
-- [Jiki home](https://jiki.io/): What Jiki is, who it is for, and how the two learning strands fit together.
+- [Jiki home](https://jiki.io/): What Jiki is, who it is for, and how the course works.
 - [Jiki Premium](https://jiki.io/premium): What premium unlocks and how the country-based pricing works.
-- [Roadmap](https://jiki.io/roadmap): What is being built next across the platform.
-- [Build with Jeremy](https://jiki.io/build): The Learn to Build hub: projects built from scratch, deep dives, and livestreams.
 - [Testimonials](https://jiki.io/testimonials): What beta students say about learning with Jiki.
 
 ## Coding concepts
@@ -108,11 +97,6 @@ The site is currently available in:
 - [When Will This Feature Unlock?](https://jiki.io/help/when-will-this-feature-unlock): Learn how features unlock as you progress through Jiki.
 - [Who makes/runs Jiki?](https://jiki.io/help/who-makes-runs-jiki): Learn about the team behind Jiki.
 - [Why Is This Feature Not Implemented?](https://jiki.io/help/why-is-this-feature-not-implemented): Learn why certain language features are excluded from Jiki and how this helps you learn more effectively.
-
-## Projects
-
-- [Build with Jeremy](https://jiki.io/build): The hub for every Learn to Build project and series.
-- [Build your Personal Homepage](https://jiki.io/projects/build-your-personal-homepage): Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website.
 
 ## Blog
 

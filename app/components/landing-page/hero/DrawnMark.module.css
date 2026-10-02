@@ -1,0 +1,44 @@
+.highlight,
+.underline {
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    animation: wipe 0.6s ease-out forwards;
+    animation-delay: var(--mark-delay, 0s);
+}
+
+.highlight {
+    display: inline;
+    padding-inline: 6px;
+    margin-inline-start: -2px;
+    font-weight: 600;
+    color: #fff;
+    background-image: linear-gradient(var(--color-purple-500), var(--color-purple-500));
+    /* Keeps the padding box, not just the glyphs, in the coloured area on wrapped lines. */
+    box-decoration-break: clone;
+}
+
+.underline {
+    display: inline;
+    background-image: linear-gradient(#fff, #fff);
+    background-size: 0% 1.5px;
+    background-position: left bottom;
+}
+
+@keyframes wipe {
+    to {
+        background-size: 100% var(--mark-height, 100%);
+    }
+}
+
+.underline {
+    --mark-height: 1.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .highlight,
+    .underline {
+        animation: none;
+        background-size: 100% var(--mark-height, 100%);
+    }
+}

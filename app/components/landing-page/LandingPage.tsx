@@ -10,7 +10,6 @@ import { PrintRow } from "./PrintRow";
 import styles from "./LandingPage.module.css";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { TrackCardsSection } from "./TrackCardsSection";
-import { TwoHalves } from "./TwoHalves";
 
 interface LandingPageProps {
   latestPosts?: BlogPostMeta[];
@@ -31,7 +30,6 @@ export function LandingPage({ latestPosts = [], testimonials }: LandingPageProps
     <div className={styles.page}>
       <HeaderLayout>
         <Hero marquee={marquee} />
-        <TwoHalves />
         <TrackCardsSection />
         <OutcomesSection />
         <MeetJeremy />

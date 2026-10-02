@@ -28,7 +28,7 @@
  * - **Exercise instructions** are cached as Markdown inside a JSON prose file
  *   and rendered by the browser at runtime, so the build-time step is only the
  *   inline-tag strip. `prepareInstructions` is that pipeline.
- * - **Posts** (blog, articles, guides, project episodes) are rendered to HTML at
+ * - **Posts** (blog, articles, guides) are rendered to HTML at
  *   build time like concepts, but with footnotes, a different grammar set and
  *   image fingerprinting. `renderPost`, in `posts.ts`, is that pipeline, and the
  *   comment there explains at length why it is a second renderer and not a flag

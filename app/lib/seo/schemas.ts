@@ -61,7 +61,7 @@ export function organizationSchema() {
     name: "Jiki",
     url: SITE_URL,
     logo: `${SITE_URL}/static/images/logo-peeking.webp`,
-    description: "Learn to code and build in the LLM-era. Fun, effective and free.",
+    description: "Learn to code in the LLM-era. Fun, effective and free.",
     sameAs: ["https://www.youtube.com/@jiki-coding"]
   };
 }
@@ -129,7 +129,7 @@ export function articleSchema(article: ArticleInput) {
   };
 }
 
-// -- Videos (episodes) -----------------------------------------------------------
+// -- Videos -----------------------------------------------------------
 
 interface VideoInput {
   path: string;
@@ -167,51 +167,6 @@ export function videoObjectSchema(video: VideoInput) {
     isFamilyFriendly: true,
     ...(video.isAccessibleForFree === undefined ? {} : { isAccessibleForFree: video.isAccessibleForFree }),
     publisher: ORG_REF
-  };
-}
-
-// -- Courses (projects) ----------------------------------------------------------
-
-interface CourseInput {
-  path: string;
-  locale: string;
-  name: string;
-  description: string;
-  image?: string;
-  episodes: { name: string; path: string; description?: string }[];
-}
-
-export function courseSchema(course: CourseInput) {
-  const url = canonicalUrl(course.path, course.locale);
-  return {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: course.name,
-    description: course.description,
-    url,
-    inLanguage: course.locale,
-    ...(course.image ? { image: absolute(course.image) } : {}),
-    provider: ORG_REF,
-    isAccessibleForFree: true,
-    // Google's Course rich result needs a delivery instance + an offer; the whole
-    // platform is free, so a single free online instance covers every project.
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "online",
-      inLanguage: course.locale,
-      offers: {
-        "@type": "Offer",
-        price: 0,
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock"
-      }
-    },
-    hasPart: course.episodes.map((episode) => ({
-      "@type": "CreativeWork",
-      name: episode.name,
-      url: canonicalUrl(episode.path, course.locale),
-      ...(episode.description ? { description: episode.description } : {})
-    }))
   };
 }
 

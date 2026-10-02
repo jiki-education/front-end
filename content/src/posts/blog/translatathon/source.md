@@ -43,7 +43,7 @@ This is how it'll work:
 
 Once a language gets to that point, I can bulk translate the whole of Jiki into it: every lesson, every exercise, every error message, and subtitles for every video. That's the goal for each language by Sunday evening.
 
-If you watched [Episode 1 of Learn to Build](https://jiki.io/projects/build-your-personal-homepage), you saw a bit of this in action when I bootstrapped European Portuguese live on stream.
+If you watched the first Learn to Build livestream, you saw a bit of this in action when I bootstrapped European Portuguese live on stream.
 
 ### What if my language isn't listed yet?
 

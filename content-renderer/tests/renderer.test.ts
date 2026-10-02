@@ -113,7 +113,7 @@ describe("contentHash", () => {
 });
 
 describe("posts", () => {
-  // The post pipeline is the blog/articles/guides/episodes one. It is a SECOND
+  // The post pipeline is the blog/articles/guides one. It is a SECOND
   // renderer on purpose, and these assertions are the differences that make it
   // one; if any of them starts matching the concept renderer, one of the two
   // corpora has silently had its bytes rewritten.
