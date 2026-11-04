@@ -1,7 +1,7 @@
-import { handleSubscribe } from "../handlers";
+import { handlePurchasePremium } from "../handlers";
 import styles from "./actions.module.css";
 
-export function NeverSubscribedActions({ userEmail }: { userEmail: string }) {
+export function NeverSubscribedActions() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -9,12 +9,8 @@ export function NeverSubscribedActions({ userEmail }: { userEmail: string }) {
         <p className={styles.description}>Choose a plan to unlock premium features</p>
       </div>
 
-      <button
-        onClick={() => handleSubscribe({ interval: "monthly", userEmail })}
-        className={styles.button}
-        data-variant="blue"
-      >
-        Subscribe to Premium - $3/month
+      <button onClick={() => handlePurchasePremium()} className={styles.button} data-variant="blue">
+        Buy Premium (one-time)
       </button>
 
       <div className={styles.footer}>

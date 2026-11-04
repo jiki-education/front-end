@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { staticAsset } from "@/lib/static-asset";
 import styles from "./PremiumUpgradeModal.module.css";
 
@@ -12,7 +12,7 @@ interface PremiumPlanSectionProps {
 
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
   const t = useTranslations("modals.premiumUpgrade");
-  const tCommon = useTranslations("common");
+  const isPending = user?.premium_purchase_pending === true;
 
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   const premiumFeatures: React.ReactNode[] = [
@@ -30,30 +30,19 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       <h2 className={styles.premiumName}>{t("planName")}</h2>
       <div className={styles.premiumPrice}>
         <span className={styles.amount}>
-          <PremiumPrice interval="monthly" />
+          <PremiumPrice />
         </span>
-        <span className={styles.period}>{tCommon("perMonth")}</span>
+        <span className={styles.period}>{t("oneTime")}</span>
       </div>
-      <p className={styles.annualNote}>
-        {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
-      </p>
+      <p className={styles.priceNote}>{t("lifetimeNote")}</p>
 
-      <button
-        className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${styles.upgradeButtonLayout} ${isLoading ? "ui-btn-loading" : ""}`}
-        onClick={onUpgrade}
-        disabled={isLoading}
-      >
-        {!isLoading && (
-          <Image
-            src={user?.avatar || staticAsset("icons/user-fallback.svg")}
-            alt={t("userAvatarAlt")}
-            className={styles.buttonAvatar}
-            width={24}
-            height={24}
-          />
-        )}
-        {isLoading ? tCommon("processing") : t("upgrade")}
-      </button>
+      {isPending ? (
+        <p className={styles.pendingNote} role="status">
+          {t("pendingNote")}
+        </p>
+      ) : (
+        <UpgradeButton user={user} isLoading={isLoading} onUpgrade={onUpgrade} />
+      )}
 
       <ul className={styles.premiumFeatures}>
         {premiumFeatures.map((feature, index) => (
@@ -64,6 +53,30 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
         ))}
       </ul>
     </div>
+  );
+}
+
+function UpgradeButton({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
+  const t = useTranslations("modals.premiumUpgrade");
+  const tCommon = useTranslations("common");
+
+  return (
+    <button
+      className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${styles.upgradeButtonLayout} ${isLoading ? "ui-btn-loading" : ""}`}
+      onClick={onUpgrade}
+      disabled={isLoading}
+    >
+      {!isLoading && (
+        <Image
+          src={user?.avatar || staticAsset("icons/user-fallback.svg")}
+          alt={t("userAvatarAlt")}
+          className={styles.buttonAvatar}
+          width={24}
+          height={24}
+        />
+      )}
+      {isLoading ? tCommon("processing") : t("upgrade")}
+    </button>
   );
 }
 

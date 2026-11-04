@@ -2,15 +2,17 @@
  * Unit tests for subscription handlers
  */
 import * as subscriptionApi from "@/lib/api/subscriptions";
+import * as purchaseApi from "@/lib/api/premiumPurchases";
 import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
-import { showSubscriptionCheckout } from "@/lib/modal/app";
+import { showPremiumCheckout } from "@/lib/modal/app";
 import { toastError, toastSuccess } from "@/lib/toast";
 import { toastApiError } from "@/lib/api/apiErrors";
 import { ApiError } from "@/lib/api/client";
 
 // Mock the external dependencies
 jest.mock("@/lib/api/subscriptions");
+jest.mock("@/lib/api/premiumPurchases");
 jest.mock("@/lib/subscriptions/checkout");
 jest.mock("@/lib/modal");
 jest.mock("@/lib/modal/app");
@@ -19,8 +21,9 @@ jest.mock("@/lib/api/apiErrors");
 jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;
+const mockPurchaseApi = purchaseApi as jest.Mocked<typeof purchaseApi>;
 const mockCheckoutUtils = checkoutUtils as jest.Mocked<typeof checkoutUtils>;
-const mockShowSubscriptionCheckout = showSubscriptionCheckout as jest.MockedFunction<typeof showSubscriptionCheckout>;
+const mockShowPremiumCheckout = showPremiumCheckout as jest.MockedFunction<typeof showPremiumCheckout>;
 const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
 const mockToastSuccess = toastSuccess as jest.MockedFunction<typeof toastSuccess>;
 const mockToastApiError = toastApiError as jest.MockedFunction<typeof toastApiError>;
@@ -37,42 +40,45 @@ describe("Subscription handlers", () => {
     jest.restoreAllMocks();
   });
 
-  describe("handleSubscribe", () => {
-    const mockParams = {
-      interval: "monthly" as const,
-      userEmail: "test@example.com"
-    };
-
-    it("creates checkout session successfully", async () => {
+  describe("handlePurchasePremium", () => {
+    it("creates a purchase checkout session and opens checkout", async () => {
       const mockResponse = { client_secret: "cs_test_123" };
       mockCheckoutUtils.createCheckoutReturnUrl.mockReturnValue(
         "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}"
       );
-      mockSubscriptionApi.createCheckoutSession.mockResolvedValue(mockResponse);
+      mockPurchaseApi.createPurchaseCheckoutSession.mockResolvedValue(mockResponse);
 
-      await handlers.handleSubscribe(mockParams);
+      await handlers.handlePurchasePremium();
 
       expect(mockCheckoutUtils.createCheckoutReturnUrl).toHaveBeenCalledWith("/settings");
-      expect(mockSubscriptionApi.createCheckoutSession).toHaveBeenCalledWith(
-        "monthly",
-        "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}",
-        "test@example.com"
+      expect(mockPurchaseApi.createPurchaseCheckoutSession).toHaveBeenCalledWith(
+        "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}"
       );
-      expect(mockShowSubscriptionCheckout).toHaveBeenCalledWith({
+      expect(mockShowPremiumCheckout).toHaveBeenCalledWith({
         clientSecret: "cs_test_123",
         selectedTier: "premium",
         onCancel: expect.any(Function)
       });
     });
 
-    it("handles checkout session creation failure", async () => {
+    it("shows the generic failure for an unexpected error", async () => {
       const mockError = new Error("Network error");
-      mockSubscriptionApi.createCheckoutSession.mockRejectedValue(mockError);
+      mockPurchaseApi.createPurchaseCheckoutSession.mockRejectedValue(mockError);
 
-      await expect(handlers.handleSubscribe(mockParams)).rejects.toThrow("Network error");
+      await expect(handlers.handlePurchasePremium()).rejects.toThrow("Network error");
 
       expect(mockToastError).toHaveBeenCalledWith("subscription.checkoutSessionFailed");
-      expect(console.error).toHaveBeenCalledWith(mockError);
+      expect(mockToastApiError).not.toHaveBeenCalled();
+    });
+
+    it.each(["already_premium", "purchase_pending"])("shows the API's own copy for %s", async (type) => {
+      const mockError = new ApiError(400, "Bad Request", { error: { type } });
+      mockPurchaseApi.createPurchaseCheckoutSession.mockRejectedValue(mockError);
+
+      await expect(handlers.handlePurchasePremium()).rejects.toBe(mockError);
+
+      expect(mockToastApiError).toHaveBeenCalledWith(mockError, "subscriptions");
+      expect(mockToastError).not.toHaveBeenCalled();
     });
   });
 

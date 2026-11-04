@@ -185,9 +185,19 @@
     color: var(--color-gray-600);
 }
 
-.annualNote {
+.priceNote {
     font-size: 15px;
     color: var(--color-purple-500);
+    margin-bottom: 24px;
+}
+
+.pendingNote {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-gray-700);
+    background: var(--color-purple-50);
+    border-radius: 10px;
+    padding: 12px 16px;
     margin-bottom: 24px;
 }
 
@@ -394,7 +404,8 @@
         font-size: 14px;
     }
 
-    .annualNote {
+    .priceNote,
+    .pendingNote {
         font-size: 14px;
         margin-bottom: 20px;
     }

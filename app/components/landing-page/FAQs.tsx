@@ -1,11 +1,10 @@
 import { useTranslations } from "next-intl";
-import { MonthlyPrice } from "./MonthlyPrice";
+import { LifetimePrice } from "./LifetimePrice";
 import { FAQItem } from "./faqs/FAQItem";
 import styles from "./FAQs.module.css";
 
 export function FAQs() {
   const t = useTranslations("landing.faqs");
-  const tCommon = useTranslations("common");
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
   return (
@@ -29,8 +28,7 @@ export function FAQs() {
               strong,
               price: () => (
                 <strong>
-                  <MonthlyPrice />
-                  {tCommon("perMonth")}
+                  <LifetimePrice />
                 </strong>
               )
             })}

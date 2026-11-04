@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
-import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./PremiumUpsell.module.css";
 
 interface PremiumUpsellProps {
@@ -60,13 +60,10 @@ export default function PremiumUpsell({
           <div className={styles.premiumUpsellPricing}>
             <div className={styles.premiumUpsellPrice}>
               <span className={styles.amount}>
-                <PremiumPrice interval="monthly" />
+                <PremiumPrice />
               </span>
-              <span className={styles.period}>{tCommon("perMonth")}</span>
             </div>
-            <p className={styles.premiumUpsellNote}>
-              {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
-            </p>
+            <p className={styles.premiumUpsellNote}>{t("lifetimeNote")}</p>
           </div>
         </div>
         <button

@@ -1,9 +1,10 @@
 /**
- * Subscription Types
- * Type definitions for subscription and payment system
+ * Subscription and Premium purchase types
+ *
+ * New members buy Premium once (a lifetime purchase). Members who subscribed
+ * before that keep their monthly or annual Stripe subscription, so the
+ * subscription types here describe those legacy subscribers only.
  */
-
-import type { BillingInterval } from "@/lib/pricing";
 
 export type SubscriptionStatus =
   | "active"
@@ -14,7 +15,16 @@ export type SubscriptionStatus =
   | "cancelling"
   | "payment_failed";
 
+export type SubscriptionInterval = "monthly" | "annual";
+
+// Present on the user while a legacy subscription is live (active, incomplete,
+// payment_failed or cancelling), and null otherwise.
 export interface SubscriptionDetails {
+  interval: SubscriptionInterval;
+  // What Stripe will charge on the next renewal, in the subscription's own
+  // currency. Null until the API has backfilled it for that subscription.
+  amount_in_cents: number | null;
+  currency: string | null;
   in_grace_period: boolean;
   grace_period_ends_at: string | null; // ISO 8601 date string
   subscription_valid_until: string; // ISO 8601 date string
@@ -28,13 +38,6 @@ export interface PortalSessionResponse {
   url: string;
 }
 
-export interface UpdateSubscriptionResponse {
-  success: boolean;
-  interval: BillingInterval;
-  effective_at: string; // ISO 8601 date string
-  subscription_valid_until: string; // ISO 8601 date string
-}
-
 export interface CancelSubscriptionResponse {
   success: boolean;
   cancels_at: string; // ISO 8601 date string
@@ -45,22 +48,11 @@ export interface ReactivateSubscriptionResponse {
   subscription_valid_until: string; // ISO 8601 date string
 }
 
-export type CheckoutPaymentState = "paid" | "processing" | "failed";
+// "processing" means a delayed payment method (e.g. a bank debit) is still
+// clearing. The API grants Premium by webhook once it settles.
+export type CheckoutPaymentState = "paid" | "processing";
 
-export interface VerifyCheckoutResponse {
+export interface VerifyPurchaseResponse {
   success: boolean;
-  interval: BillingInterval;
-  /** @deprecated raw Stripe value, kept during transition — branch on `payment_state` instead. */
-  payment_status: "paid" | "unpaid";
-  // Derived server-side from the first invoice's PaymentIntent. Best-effort: falls back
-  // to "processing" (never "failed") when the PaymentIntent can't be read.
   payment_state: CheckoutPaymentState;
-  subscription_status: "active" | "incomplete";
-  // Stripe's stable decline code (`insufficient_funds`, `expired_card`, …), only set when
-  // payment_state === "failed" (may still be null). Never rendered directly: the copy for
-  // it lives under `checkout.declineCodes` in the catalog.
-  decline_code?: string | null;
-  // Informational — the currency the session used. Currency is derived server-side from
-  // the user on checkout creation, so the FE doesn't echo this back.
-  currency?: string;
 }

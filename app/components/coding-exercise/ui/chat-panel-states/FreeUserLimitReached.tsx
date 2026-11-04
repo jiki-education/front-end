@@ -10,7 +10,6 @@ import StuckHeader from "./StuckHeader";
 // They've used their free conversation limit
 export default function FreeUserLimitReached() {
   const t = useTranslations("codingExercise.freeUserLimitReached");
-  const tCommon = useTranslations("common");
   const handleUpgradeClick = () => {
     showPremiumUpgradeModal("assistant_limit_reached");
   };
@@ -28,16 +27,7 @@ export default function FreeUserLimitReached() {
           </button>
         </div>
 
-        <p className={styles.subtleText}>
-          {t.rich("price", {
-            price: () => (
-              <>
-                <PremiumPrice interval="monthly" />
-                {tCommon("perMonth")}
-              </>
-            )
-          })}
-        </p>
+        <p className={styles.subtleText}>{t.rich("oneTimePrice", { price: () => <PremiumPrice /> })}</p>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useExternalPremiumPrices } from "@/lib/hooks/useExternalPremiumPrices";
-import { formatMonthlyPrice } from "@/lib/pricing";
+import { formatPremiumPrice } from "@/lib/pricing";
 
 export function PublicPremiumPrice() {
   const t = useTranslations("premium.publicPrice");
@@ -17,5 +17,5 @@ export function PublicPremiumPrice() {
     return <>{t("unavailable")}</>;
   }
 
-  return <>{formatMonthlyPrice(prices)}</>;
+  return <>{formatPremiumPrice(prices)}</>;
 }

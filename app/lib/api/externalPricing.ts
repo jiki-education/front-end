@@ -11,7 +11,7 @@ let cached: Promise<ExternalPricingResponse> | null = null;
  * Fetch public (unauthenticated) Premium pricing for the visitor.
  * Country is detected by Cloudflare on the API side; falls back to USD.
  *
- * The result is memoised so that multiple <MonthlyPrice /> instances on the
+ * The result is memoised so that multiple <LifetimePrice /> instances on the
  * same page share a single request. A failed request is not cached, so a later
  * mount can retry.
  */

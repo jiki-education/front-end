@@ -1,26 +1,94 @@
-import type { MembershipTier } from "@/lib/pricing";
-import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useTranslations } from "next-intl";
-import type { SubscriptionStatus as SubscriptionStatusType } from "../subscription/types";
+import type { User } from "@/types/auth";
+import { getMembershipKind } from "../subscription/membership";
+import { useSubscriptionPrice } from "../subscription/useSubscriptionPrice";
 import styles from "../Settings.module.css";
 import statusStyles from "./SubscriptionStatus.module.css";
 
 interface SubscriptionStatusProps {
-  tier: MembershipTier;
-  status: SubscriptionStatusType;
+  user: User;
   nextBillingDate: string | null;
   className?: string;
 }
 
-export default function SubscriptionStatus({ tier, status, nextBillingDate, className = "" }: SubscriptionStatusProps) {
+export default function SubscriptionStatus({ user, nextBillingDate, className = "" }: SubscriptionStatusProps) {
   const t = useTranslations("settings.subscriptionStatus");
-  const tCommon = useTranslations("common");
-  const tTiers = useTranslations("subscription.tiers");
-  const tierName = tTiers(`${tier}.name`);
-  const isActiveSubscription = tier !== "standard" && status === "active";
-  const isCancelling = tier !== "standard" && status === "cancelling";
+  const kind = getMembershipKind(user);
+  const plan = (chunks: React.ReactNode) => <span className={styles.gradientText}>{chunks}</span>;
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
-  // Status badge text (colors are driven by [data-status] in the CSS module)
+  if (kind === "lifetime") {
+    return (
+      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
+        <h3>{t("currentPlan")}</h3>
+        <p>{t.rich("lifetime", { plan })}</p>
+      </div>
+    );
+  }
+
+  if (kind === "premium") {
+    return (
+      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
+        <h3>{t("currentPlan")}</h3>
+        <p>{t.rich("premiumIncluded", { plan })}</p>
+      </div>
+    );
+  }
+
+  if (kind === "free") {
+    return (
+      <div className={`${styles.settingItem} ${className}`}>
+        <h3>{t("currentPlan")}</h3>
+        <p className={statusStyles.freeText}>{t.rich("free", { strong })}</p>
+      </div>
+    );
+  }
+
+  return <LegacySubscriptionStatus user={user} nextBillingDate={nextBillingDate} className={className} />;
+}
+
+// A member who subscribed before Premium became a one-off purchase.
+function LegacySubscriptionStatus({ user, nextBillingDate, className = "" }: SubscriptionStatusProps) {
+  const t = useTranslations("settings.subscriptionStatus");
+  const tTiers = useTranslations("subscription.tiers");
+  const price = useSubscriptionPrice(user.subscription);
+  const tierName = tTiers(`${user.membership_type}.name`);
+  const status = user.subscription_status;
+  const plan = (chunks: React.ReactNode) => <span className={styles.gradientText}>{chunks}</span>;
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
+
+  if (user.membership_type === "premium" && status === "active") {
+    return (
+      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
+        <div className={statusStyles.planRow}>
+          <h3>{t("currentPlan")}</h3>
+        </div>
+        <p>
+          {price
+            ? t.rich("subscribedWithPrice", { tier: tierName, price, plan, strong })
+            : t.rich("subscribed", { tier: tierName, plan })}
+          {nextBillingDate && <> {t.rich("nextBillingDate", { date: nextBillingDate, strong })}</>}
+        </p>
+      </div>
+    );
+  }
+
+  if (status === "cancelling") {
+    const daysRemaining = calculateDaysRemaining(nextBillingDate);
+
+    return (
+      <div className={`${styles.settingItem} ${styles.currentPlanItemCancelled} ${className}`}>
+        <h3>{t("currentPlan")}</h3>
+        <p>
+          {t("cancellingMessage")}
+          {daysRemaining !== null && <> {t.rich("cancellingRemaining", { count: daysRemaining, strong })}</>}
+          {nextBillingDate && <> {t.rich("cancellingEnds", { date: nextBillingDate, strong })}</>}
+        </p>
+      </div>
+    );
+  }
+
+  // A live subscription that isn't healthy: payment failed or setup incomplete.
   const statusText = {
     active: t("statusActive"),
     canceled: t("statusCanceled"),
@@ -29,80 +97,13 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
     incomplete: t("statusIncomplete"),
     incomplete_expired: t("statusSessionExpired"),
     never_subscribed: t("statusNotSubscribed")
-  };
+  }[status];
 
-  const statusInfo = { text: statusText[status] };
-
-  // Show Current Plan section for all users
-  if (isActiveSubscription) {
-    // Active paid subscription
-    return (
-      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
-        <div className={statusStyles.planRow}>
-          <h3>{t("currentPlan")}</h3>
-        </div>
-        <p>
-          {t.rich(nextBillingDate ? "activeWithBilling" : "active", {
-            tier: tierName,
-            date: nextBillingDate ?? "",
-            plan: (chunks) => <span className={styles.gradientText}>{chunks}</span>,
-            strong: (chunks) => <strong>{chunks}</strong>,
-            price: () => <PremiumPrice interval="monthly" />
-          })}
-        </p>
-      </div>
-    );
-  }
-
-  // Cancelling subscription
-  if (isCancelling) {
-    const daysRemaining = calculateDaysRemaining(nextBillingDate);
-
-    return (
-      <div className={`${styles.settingItem} ${styles.currentPlanItemCancelled} ${className}`}>
-        <h3>{t("currentPlan")}</h3>
-        <p>
-          {t("cancellingMessage")}
-          {daysRemaining !== null && (
-            <>
-              {" "}
-              {t.rich("cancellingRemaining", {
-                count: daysRemaining,
-                strong: (chunks) => <strong>{chunks}</strong>
-              })}
-            </>
-          )}
-          {nextBillingDate && (
-            <>
-              {" "}
-              {t.rich("cancellingEnds", {
-                date: nextBillingDate,
-                strong: (chunks) => <strong>{chunks}</strong>
-              })}
-            </>
-          )}
-        </p>
-      </div>
-    );
-  }
-
-  // Free plan (not subscribed)
-  if (tier === "standard" || status === "never_subscribed") {
-    return (
-      <div className={`${styles.settingItem} ${className}`}>
-        <h3>{t("currentPlan")}</h3>
-        <p style={{ marginBottom: 0 }}>{t.rich("free", { strong: (chunks) => <strong>{chunks}</strong> })}</p>
-      </div>
-    );
-  }
-
-  // Show simple status for inactive/expired Premium subscriptions
-  // At this point, tier must be "premium" with an inactive status
   return (
     <div
       className={`${statusStyles.statusCard} ${className}`}
       role="region"
-      aria-label={t("statusAriaLabel", { status: statusInfo.text })}
+      aria-label={t("statusAriaLabel", { status: statusText })}
     >
       <div className={statusStyles.statusHeader}>
         <div className={statusStyles.badgeGroup}>
@@ -117,27 +118,18 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
             className={statusStyles.statusBadge}
             data-status={status}
             role="status"
-            aria-label={t("statusAriaLabel", { status: statusInfo.text })}
+            aria-label={t("statusAriaLabel", { status: statusText })}
           >
-            {statusInfo.text}
+            {statusText}
           </div>
         </div>
       </div>
 
       <div className={statusStyles.statusDetails}>
-        <p>
-          <PremiumPrice interval="monthly" />
-          {tCommon("perMonth")}
-        </p>
+        {price && <p>{price}</p>}
 
-        {/* Status-specific messages */}
-        {status === "canceled" && <p className={statusStyles.statusMessage}>{t("messageCanceled")}</p>}
         {status === "payment_failed" && <p className={statusStyles.statusMessageError}>{t("messagePaymentFailed")}</p>}
-        {status === "cancelling" && <p className={statusStyles.statusMessage}>{t("messageCancelling")}</p>}
         {status === "incomplete" && <p className={statusStyles.statusMessageWarning}>{t("messageIncomplete")}</p>}
-        {status === "incomplete_expired" && (
-          <p className={statusStyles.statusMessageError}>{t("messageIncompleteExpired")}</p>
-        )}
       </div>
     </div>
   );
