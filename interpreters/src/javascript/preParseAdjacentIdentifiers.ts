@@ -15,6 +15,11 @@ export function preParseAdjacentIdentifiers(tokens: Token[], index: number, tran
     return;
   }
 
+  // `foo(x y)` and `[x y]` are missing commas, which the parser reports itself
+  if (startsArgumentOrElement(tokens, index)) {
+    return;
+  }
+
   const suggestion = suggestDeclarationKeyword(current.lexeme);
   if (suggestion !== null) {
     throwSyntaxError("MissingDeclarationKeywordWithSuggestion", current.location, translator, {
@@ -38,6 +43,50 @@ function nextSignificantToken(tokens: Token[], from: number): Token | null {
       continue;
     }
     return token;
+  }
+  return null;
+}
+
+// True when the token at `index` is the first token of a function argument or
+// array element: it follows a `,`, a `[`, or the `(` of a call. The `(` of
+// `for (`, `if (` or a function declaration does not count, so
+// `for (cons x of xs)` still gets a suggestion.
+function startsArgumentOrElement(tokens: Token[], index: number): boolean {
+  const previousIndex = previousSignificantIndex(tokens, index - 1);
+  if (previousIndex === null) {
+    return false;
+  }
+
+  const previous = tokens[previousIndex];
+  if (previous.type === "COMMA" || previous.type === "LEFT_BRACKET") {
+    return true;
+  }
+  if (previous.type !== "LEFT_PAREN") {
+    return false;
+  }
+
+  const beforeParenIndex = previousSignificantIndex(tokens, previousIndex - 1);
+  if (beforeParenIndex === null) {
+    return false;
+  }
+  const beforeParen = tokens[beforeParenIndex].type;
+  if (beforeParen === "RIGHT_PAREN" || beforeParen === "RIGHT_BRACKET") {
+    return true;
+  }
+  if (beforeParen !== "IDENTIFIER") {
+    return false;
+  }
+
+  // `function foo(a b)` is a parameter list, not a call
+  const beforeNameIndex = previousSignificantIndex(tokens, beforeParenIndex - 1);
+  return beforeNameIndex === null || tokens[beforeNameIndex].type !== "FUNCTION";
+}
+
+function previousSignificantIndex(tokens: Token[], from: number): number | null {
+  for (let i = from; i >= 0; i--) {
+    if (!SKIPPABLE_TOKENS.has(tokens[i].type)) {
+      return i;
+    }
   }
   return null;
 }
