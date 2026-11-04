@@ -20,6 +20,7 @@ import {
   NewExpression,
 } from "./expression";
 import { Location } from "../shared/location";
+import { suggestSimilarName } from "../shared/suggestSimilarName";
 import type { Statement } from "./statement";
 import {
   ExpressionStatement,
@@ -47,7 +48,7 @@ import { createBaseExecutionContext } from "../shared/executionContext";
 import type { EvaluationContext } from "./interpreter";
 import { describeFrame } from "./frameDescribers";
 import cloneDeep from "lodash.clonedeep";
-import { JSCallable, ReturnValue } from "./functions";
+import { JSCallable, ReturnValue, isCallable } from "./functions";
 
 // Import individual executors
 import { executeAssignmentExpression } from "./executor/executeAssignmentExpression";
@@ -110,6 +111,7 @@ export type ExecutionContext = SharedExecutionContext & {
 export type RuntimeErrorType =
   | "UpdateOperatorRequiresNumber"
   | "VariableNotDeclared"
+  | "VariableNotDeclaredWithSimilarNameSuggestion"
   | "VariableAlreadyDeclared"
   | "ShadowingDisabled"
   | "AssignmentToConstant"
@@ -138,6 +140,7 @@ export type RuntimeErrorType =
   | "MethodUsedWithoutParentheses"
   | "NodeNotAllowed"
   | "FunctionNotFound"
+  | "FunctionNotFoundWithSimilarNameSuggestion"
   | "InvalidNumberOfArguments"
   | "FunctionExecutionError"
   | "LogicErrorInExecution"
@@ -346,6 +349,18 @@ export class Executor {
     }
     const defining = this.environment.getDefiningEnvironment(name);
     return defining === this.globalEnvironment;
+  }
+
+  // Suggests a name in scope that is close to one the student used but that
+  // doesn't exist, for "did you mean" errors. A function call only suggests
+  // callables and a variable read only suggests non-callables. Secret constants
+  // are never suggested, since doing so would reveal their names.
+  public suggestSimilarName(name: string, kind: "function" | "variable"): string | null {
+    const candidates = Object.entries(this.environment.getAllVariables())
+      .filter(([, value]) => (kind === "function") === isCallable(value))
+      .filter(([candidate]) => !this.isSecretConstantBinding(candidate))
+      .map(([candidate]) => candidate);
+    return suggestSimilarName(name, candidates);
   }
 
   private assertNodeAllowed(node: Statement | Expression): void {
