@@ -42,7 +42,7 @@ describe("SubscriptionSection", () => {
   it("renders a loading state when user is null", () => {
     render(<SubscriptionSection user={null} {...defaultProps} />);
 
-    expect(screen.getByText("Loading your Premium details...")).toBeInTheDocument();
+    expect(screen.getByText("Loading your billing details...")).toBeInTheDocument();
   });
 
   describe("free user", () => {

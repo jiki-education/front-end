@@ -317,7 +317,7 @@
       "title": "Settings",
       "description": "Manage your account and preferences.",
       "tabAccount": "Account",
-      "tabSubscription": "Premium",
+      "tabSubscription": "Billing",
       "tabNotifications": "Notifications",
       "tabLearning": "Learning",
       "tabDanger": "Danger Zone"
@@ -394,7 +394,7 @@
       "columnMethod": "Method",
       "downloadReceipt": "Download Receipt",
       "typeRecurring": "Recurring",
-      "typeOneTime": "One-time",
+      "typePremiumUpgrade": "Premium Upgrade",
       "refunded": "Refunded",
       "disputed": "Disputed",
       "dateUnavailable": "Date unavailable"
@@ -436,9 +436,9 @@
       "helpTranslate": "Help translate Jiki"
     },
     "subscriptionSection": {
-      "loadingCardTitle": "Premium",
+      "loadingCardTitle": "Billing",
       "loadingCardDescription": "Manage your Premium membership and payments",
-      "loadingData": "Loading your Premium details..."
+      "loadingData": "Loading your billing details..."
     },
     "benefits": {
       "activeSubtitle": "Here's what you're unlocking every day",
@@ -468,8 +468,8 @@
       "description": "We're waiting for your payment provider to confirm your Premium purchase. Bank payments can take a few days. We'll unlock Premium and email you as soon as it clears."
     },
     "errorBoundary": {
-      "title": "Premium Details Error",
-      "messagePart1": "We're having trouble loading your Premium details. This might be a temporary problem with our payment system.",
+      "title": "Billing Details Error",
+      "messagePart1": "We're having trouble loading your billing details. This might be a temporary problem with our payment system.",
       "messagePart2": "Please try refreshing the page, or contact support if the issue persists.",
       "refresh": "Refresh Page",
       "detailsSummary": "Error Details (Development)"
