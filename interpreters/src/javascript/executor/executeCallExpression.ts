@@ -10,6 +10,7 @@ import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from 
 import { LogicError, InterpreterInternalError } from "../error";
 import { Environment } from "../environment";
 import { StdlibError } from "../stdlib";
+import { Location } from "../../shared/location";
 
 export function executeCallExpression(executor: Executor, expression: CallExpression): EvaluationResultCallExpression {
   // Evaluate the callee
@@ -34,7 +35,7 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
   }
 
   // Check arity
-  checkArity(executor, callable.arity, argJikiObjects.length, expression, callable.name);
+  checkArity(executor, callable.arity, expression, callable.name);
 
   // Handle user-defined functions differently from external functions
   if (callable instanceof JSUserDefinedFunction) {
@@ -98,14 +99,9 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
   }
 }
 
-function checkArity(
-  executor: Executor,
-  arity: Arity,
-  argCount: number,
-  expression: CallExpression,
-  functionName: string
-): void {
+function checkArity(executor: Executor, arity: Arity, expression: CallExpression, functionName: string): void {
   const [minArity, maxArity] = typeof arity === "number" ? [arity, arity] : arity;
+  const argCount = expression.args.length;
 
   if (argCount < minArity || argCount > maxArity) {
     // Pass only structured data to the translation layer. All grammar
@@ -113,7 +109,12 @@ function checkArity(
     // files via i18next's `context` + `count` machinery, so that languages
     // with different rules (e.g. Hungarian, where nouns stay singular after
     // numerals) can render this correctly without any code changes here.
-    const context = minArity === maxArity ? "exact" : maxArity === Infinity ? "atLeast" : "range";
+    //
+    // A function with no input slots gets its own `none` variant. Students meet
+    // functions like `move()` long before they learn about input slots, so that
+    // message quotes back what they put inside the brackets instead.
+    const context =
+      maxArity === 0 ? "none" : minArity === maxArity ? "exact" : maxArity === Infinity ? "atLeast" : "range";
 
     executor.error("InvalidNumberOfArguments", expression.location, {
       function: functionName,
@@ -122,8 +123,17 @@ function checkArity(
       got: argCount,
       min: minArity,
       max: maxArity,
+      args: context === "none" ? argsSource(executor, expression) : undefined,
     });
   }
+}
+
+// The source text from the start of the first argument to the end of the
+// last, e.g. `2` for `move(2)` or `2, 3` for `move(2, 3)`.
+function argsSource(executor: Executor, expression: CallExpression): string {
+  const first = expression.args[0];
+  const last = expression.args[expression.args.length - 1];
+  return executor.sourceFor(Location.between(first, last));
 }
 
 function executeUserDefinedFunction(

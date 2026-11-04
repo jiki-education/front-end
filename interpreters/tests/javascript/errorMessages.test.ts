@@ -2,6 +2,7 @@ import { interpret } from "@javascript/interpreter";
 import { parse } from "@javascript/parser";
 import enMessages from "@javascript/locales/en/translation.json";
 import { describe, test, expect } from "vitest";
+import type { ExternalFunction } from "@shared/interfaces";
 
 // No locale injected → the interpreter resolves in the `system` pseudo-locale.
 function errorFrame(code: string) {
@@ -10,8 +11,8 @@ function errorFrame(code: string) {
 }
 
 // English is injected the same way the app injects the active locale's dict.
-function errorFrameEn(code: string) {
-  const { frames } = interpret(code, { localeMessages: enMessages });
+function errorFrameEn(code: string, externalFunctions: ExternalFunction[] = []) {
+  const { frames } = interpret(code, { localeMessages: enMessages, externalFunctions });
   return frames.find(f => f.status === "ERROR");
 }
 
@@ -94,6 +95,39 @@ describe("reworked error messages", () => {
       expect(f?.error?.message).toBe(
         "The `push` property does not exist on arrays. Did you mean to use the `push` method? If so, remember you need to add brackets like you would with a normal function."
       );
+    });
+  });
+
+  describe("InvalidNumberOfArguments for a function with no input slots", () => {
+    const move: ExternalFunction = { name: "move", func: () => undefined, description: "moves", arity: 0 };
+    const rectangle: ExternalFunction = { name: "rectangle", func: () => undefined, description: "draws", arity: 4 };
+
+    test("quotes back the input the student put in the brackets", () => {
+      const f = errorFrameEn("move(2);", [move]);
+      expect(f?.error?.type).toBe("InvalidNumberOfArguments");
+      expect(f?.error?.message).toBe(
+        "The `move()` function doesn't expect anything inside its brackets, so you can't put `2` there. Try just writing `move()`."
+      );
+    });
+
+    test("quotes every input when there are several", () => {
+      const f = errorFrameEn('move(2, "left");', [move]);
+      expect(f?.error?.message).toBe(
+        "The `move()` function doesn't expect anything inside its brackets, so you can't put `2, \"left\"` there. Try just writing `move()`."
+      );
+    });
+
+    test("keeps the input-slots wording for functions that take inputs", () => {
+      const f = errorFrameEn("rectangle(1, 2);", [rectangle]);
+      expect(f?.error?.message).toBe(
+        "This function has 4 input slots but you provided 2 inputs for Jiki to use with it."
+      );
+    });
+
+    test("system format is unchanged", () => {
+      const { frames } = interpret("move(2);", { externalFunctions: [move] });
+      const f = frames.find(fr => fr.status === "ERROR");
+      expect(f?.error?.message).toBe("InvalidNumberOfArguments: function: move: expected: 0: got: 1");
     });
   });
 });

@@ -1,5 +1,11 @@
 # JavaScript Interpreter Evolution
 
+## 2026-11-04: Zero-slot functions get their own `InvalidNumberOfArguments_none` message
+
+Students meet no-input functions like `move()` in the first maze exercise, before they have learned about input slots. `move(2)` used to say "This function has no input slots but you provided 1 input for Jiki to use with it.", which leans on exactly that vocabulary, and students were giving up on it.
+
+`checkArity` (in `executor/executeCallExpression.ts`) now passes the i18next context `none` whenever a function's maximum arity is 0, along with `args`, the source text from the first argument to the last (via `Executor.sourceFor(location)`). The English copy names the function and quotes back what the student wrote: "The `move()` function doesn't expect anything inside its brackets, so you can't put `2` there. Try just writing `move()`." Functions that take inputs keep the `_exact`/`_atLeast`/`_range` input-slot wording, and `new` expressions are unchanged. The `system` locale has a single unsuffixed key, so its output is unchanged too.
+
 ## 2026-08-28: `countNestingDepth` assertor
 
 `assertMaxLoopNestingDepth` counts loops alone and treats `if` as transparent, so `for → if → if → if` reports depth 1 and passes a limit of 1. That is the right measure for "how many loops deep is this", but it cannot express "this code is too deeply indented", which is what an exercise wants when it asks a student to flatten their logic.
