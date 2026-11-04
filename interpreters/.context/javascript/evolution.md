@@ -1,5 +1,20 @@
 # JavaScript Interpreter Evolution
 
+## 2026-11-04: Missing commas in calls and arrays get their own errors
+
+A student wrote `triangle(10,5, 10,40,50,40 "orange")` and was asked whether they had forgotten the closing parenthesis, with `triangle` underlined. The argument loop in `finishCallExpression` stops at the first token that is not a comma, and anything other than `)` was reported as `MissingRightParenthesisAfterFunctionCall`. `parseArray` had the same shape, so `[1, 2 3]` reported `MissingRightBracketInArray`.
+
+Both now look at the token after the last argument or element. If it is in `EXPRESSION_START_TOKENS` (a literal, identifier, template literal, `!` or `new`), the parser raises `MissingCommaBetweenFunctionArguments` (with the function name) or `MissingCommaBetweenArrayElements`, placed on that token. An end of line, `;` or anything else keeps the missing-paren/bracket error. When both a comma and the closer are missing (`foo(1 2`), the comma is reported first.
+
+The token list leaves out three tokens on purpose:
+
+- `(` and `[` continue the previous value, so `foo(x (2))` and `foo(x [0])` are valid JS (a call and an index) and still parse.
+- `{` after a missing `)` is far more likely to open a block (`if (foo(1 {`).
+
+Operators need no handling, because `foo(1 -2)` parses as subtraction. A line break after an argument stays a missing paren, since call arguments cannot span lines. A line break between array elements (which can span lines) also stays a missing bracket, since `[1, 2` followed by a new statement is just as plausible as a missing comma.
+
+`preParseAdjacentIdentifiers` used to claim `foo(x y)` and `[x y]` as `UnexpectedDoubleIdentifier` before the parser ran. It now skips the pair when the first identifier starts an argument or element (it follows a `,`, a `[`, or the `(` of a call). The `(` of `for`, `if` and a function declaration does not count, so `for (cons x of xs)` still gets its `const` suggestion and `function foo(a b)` still reports `UnexpectedDoubleIdentifier`.
+
 ## 2026-11-04: Zero-slot functions get their own `InvalidNumberOfArguments_none` message
 
 Students meet no-input functions like `move()` in the first maze exercise, before they have learned about input slots. `move(2)` used to say "This function has no input slots but you provided 1 input for Jiki to use with it.", which leans on exactly that vocabulary, and students were giving up on it.

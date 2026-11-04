@@ -20,6 +20,7 @@ export type SyntaxErrorType =
   | "MissingRightBraceAfterBlock"
   | "MissingRightBraceInTemplateLiteral"
   | "MissingRightBracketInArray"
+  | "MissingCommaBetweenArrayElements"
   | "MissingRightBracketInMemberAccess"
   | "MissingRightParenthesisAfterExpression"
   | "MissingRightParenthesisAfterIfCondition"
@@ -71,6 +72,7 @@ export type SyntaxErrorType =
   | "FunctionDeclarationNotAllowed"
   | "ReturnStatementNotAllowed"
   | "MissingRightParenthesisAfterFunctionCall"
+  | "MissingCommaBetweenFunctionArguments"
   // Function-related errors
   | "NestedFunctionDeclaration"
   | "MissingFunctionName"

@@ -47,6 +47,23 @@ interface SkipOptions {
   skipEOL?: boolean;
 }
 
+// Tokens that can only begin a new value. Seeing one straight after a complete
+// argument or array element means the student left out a comma. `(` and `[` are
+// absent because after a value they continue it (a call or an index), and `{` is
+// absent because it is far more likely to be a block after a missing `)`.
+const EXPRESSION_START_TOKENS: TokenType[] = [
+  "NUMBER",
+  "STRING",
+  "IDENTIFIER",
+  "TRUE",
+  "FALSE",
+  "NULL",
+  "UNDEFINED",
+  "BACKTICK",
+  "NOT",
+  "NEW",
+];
+
 export class Parser {
   private readonly scanner: Scanner;
   private current: number = 0;
@@ -853,6 +870,14 @@ export class Parser {
       } while (this.match("COMMA"));
     }
 
+    // A value straight after an argument means a comma is missing (e.g. `foo(1 2)`).
+    // Anything else (end of line, `;`, etc) means the call was never closed.
+    if (this.check(...EXPRESSION_START_TOKENS)) {
+      this.error("MissingCommaBetweenFunctionArguments", this.peek().location, {
+        function: functionName,
+      });
+    }
+
     // Use specific error with function name context
     if (!this.check("RIGHT_PAREN")) {
       this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
@@ -1240,6 +1265,11 @@ export class Parser {
 
       elements.push(this.assignment());
     } while (this.match("COMMA"));
+
+    // A value straight after an element means a comma is missing (e.g. `[1 2]`)
+    if (this.check(...EXPRESSION_START_TOKENS)) {
+      this.error("MissingCommaBetweenArrayElements", this.peek().location);
+    }
 
     this.consume("RIGHT_BRACKET", "MissingRightBracketInArray", { skipEOL: true });
     const rightBracket = this.previous();
