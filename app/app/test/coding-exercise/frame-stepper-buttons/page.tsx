@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { FrameInfo } from "../ui-utils/FrameInfo";
 import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
 import styles from "../harness.module.css";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 // Create test frames similar to mockFrames
 function mockFrames(): Frame[] {
@@ -67,6 +68,9 @@ export default function FrameStepperButtonsTestPage() {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
+        exercise: buildStubExercise(),
+        result: buildStubInterpretResult(),
+        isolatedRuns: [],
         frames,
         logLines: [],
         lintErrors: [],
