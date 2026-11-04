@@ -5,17 +5,17 @@
 
 import {
   devHandlers,
-  type SubscribeParams,
+  type PurchaseParams,
   type CheckoutCancelParams,
   type RefreshUserFn,
   type DeleteStripeHistoryParams
 } from "@/lib/subscriptions/handlers";
 
 // Re-export types for backward compatibility
-export type { SubscribeParams, CheckoutCancelParams, RefreshUserFn, DeleteStripeHistoryParams };
+export type { PurchaseParams, CheckoutCancelParams, RefreshUserFn, DeleteStripeHistoryParams };
 
 // Re-export all dev handlers
-export const handleSubscribe = devHandlers.subscribe;
+export const handlePurchasePremium = devHandlers.purchase;
 export const handleCheckoutCancel = devHandlers.cancel;
 export const handleOpenPortal = devHandlers.openPortal;
 export const handleCancelSubscription = devHandlers.cancelSubscription;

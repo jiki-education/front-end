@@ -23,6 +23,17 @@ export default function CtaSection() {
     );
   }
 
+  if (user?.premium_purchase_pending) {
+    return (
+      <div className={styles["cta-wrapper"]}>
+        <div className={styles["cta-banner"]}>
+          <h2 className={styles["cta-title"]}>{t("pendingTitle")}</h2>
+          <p className={styles["cta-desc"]}>{t("pendingDesc")}</p>
+        </div>
+      </div>
+    );
+  }
+
   if (user) {
     return (
       <div className={styles["cta-wrapper"]}>

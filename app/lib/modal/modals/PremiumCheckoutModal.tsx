@@ -4,21 +4,16 @@ import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
 import { stripePromise } from "@/lib/stripe";
 import type { MembershipTier } from "@/lib/pricing";
 import { hideModal } from "../store";
-import { ModalBody } from "./SubscriptionCheckoutModal/ModalBody";
+import { ModalBody } from "./PremiumCheckoutModal/ModalBody";
 
-interface SubscriptionCheckoutModalProps {
+interface PremiumCheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
   priorError?: string | null;
   onCancel?: () => void;
 }
 
-export function SubscriptionCheckoutModal({
-  clientSecret,
-  selectedTier,
-  priorError,
-  onCancel
-}: SubscriptionCheckoutModalProps) {
+export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, onCancel }: PremiumCheckoutModalProps) {
   const handleCancel = () => {
     onCancel?.();
     hideModal();

@@ -41,11 +41,6 @@
     line-height: 1;
 }
 
-.orderPrice .period {
-    font-size: 14px;
-    color: var(--color-gray-500);
-}
-
 /* Security & Terms */
 .footerText {
     font-size: 14px;

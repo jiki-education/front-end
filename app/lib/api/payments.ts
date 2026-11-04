@@ -12,6 +12,10 @@ export interface ApiPayment {
   amount_in_cents: number;
   currency: string;
   product: "premium";
+  // "subscription" for a legacy subscription invoice, "lifetime" for a one-off purchase
+  purchase_type: "subscription" | "lifetime";
+  // Set once a lifetime purchase has been refunded or disputed
+  revoked_reason: "refunded" | "disputed" | null;
   external_receipt_url?: string;
   paid_at: string;
 }

@@ -4,6 +4,7 @@ export interface Payment {
   amountInCents: number;
   currency: string;
   type: "Recurring" | "One-time";
+  revokedReason: "refunded" | "disputed" | null;
   method: "Stripe" | "PayPal" | "Other";
   receiptUrl?: string;
 }

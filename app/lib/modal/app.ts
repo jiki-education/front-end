@@ -28,7 +28,7 @@ import type { ModalTrigger } from "@/lib/analytics";
 import type { VideoSource } from "@/types/lesson";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
 import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
-import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
+import premiumCheckoutStyles from "./modals/PremiumCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import welcomeStyles from "./modals/WelcomeModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
@@ -37,46 +37,15 @@ import exerciseIntroVideoStyles from "./modals/ExerciseIntroVideoModal.module.cs
 import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 import { showModal } from "./store";
 
-// Convenience function for subscription modals
-export const showSubscriptionModal = (props: {
-  triggerContext?: "chat-gate" | "feature-gate" | "general" | "settings";
-  suggestedTier?: "premium" | "max";
-  headline?: string;
-  description?: string;
-  featuresContext?: {
-    feature: string;
-    benefits: string[];
-  };
-  onSuccess?: (tier: MembershipTier) => void;
-  onCancel?: () => void;
-}) => {
-  showModal("subscription-modal", props);
-};
-
-// Convenience function for subscription success modals
-export const showSubscriptionSuccess = (props: {
-  tier: MembershipTier;
-  triggerContext?: string;
-  nextSteps?: {
-    title: string;
-    description: string;
-    action?: () => void;
-    buttonText?: string;
-  };
-  onClose?: () => void;
-}) => {
-  showModal("subscription-success-modal", props);
-};
-
-// Convenience function for subscription checkout modal
-export const showSubscriptionCheckout = (props: {
+// Convenience function for the Premium purchase checkout modal
+export const showPremiumCheckout = (props: {
   clientSecret: string;
   selectedTier: MembershipTier;
   priorError?: string | null;
   onCancel?: () => void;
   onSuccess?: () => void;
 }) => {
-  showModal("subscription-checkout-modal", props, undefined, subscriptionCheckoutStyles.modal);
+  showModal("premium-checkout-modal", props, undefined, premiumCheckoutStyles.modal);
 };
 
 // Convenience function for payment processing modal

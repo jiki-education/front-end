@@ -3,7 +3,7 @@ title: "FAQs"
 excerpt: "Frequently asked questions about Jiki, our courses, and Jiki Premium."
 tags: ["support"]
 seo:
-  description: "Frequently asked questions about Jiki, our learn-to-code platform, courses, and Jiki Premium subscription."
+  description: "Frequently asked questions about Jiki, our learn-to-code platform, courses, and Jiki Premium."
   keywords: ["faqs", "frequently asked questions", "jiki", "support", "premium"]
 ---
 
@@ -13,7 +13,7 @@ seo:
 
 The Learn to Code exercises, which form the core learn-to-code curriculum, are completely free. No card, no trial, no catch.
 
-Jiki Premium is priced by country and unlocks full access to Learn to Build, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
+Jiki Premium is a one-time payment, priced by country, and unlocks full access to Learn to Build, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
 
 ### How much time will I need to spend each week on the course?
 
@@ -43,21 +43,25 @@ As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. Thi
 
 Yes! You can sign up for free and use the Basic plan for as long as you like. Upgrade to Premium whenever you need full access, there's no obligation.
 
-### Is there a minimum contract length?
+### Is Premium a subscription?
 
-No minimum contract. Premium is billed monthly and you can cancel at any time from your account settings.
+No. Premium is a one-time payment. You pay once and keep Premium for life, with no renewals and nothing to cancel.
 
-### What happens if I cancel my Premium subscription?
+### What does lifetime access mean?
 
-You'll keep Premium access until the end of your current billing period, and then your account will move back to the Basic plan. You don't lose any of your progress, you just lose access to Premium-only features.
+Your Premium access never expires and you won't be charged again. You keep every Premium feature, including the ones we add later.
+
+### I already subscribe to Premium. What happens to my subscription?
+
+Nothing changes. Your subscription carries on exactly as it is, and you can manage or cancel it from your account settings whenever you like.
 
 ### Do you offer discounts for students or those who can't afford Premium?
 
 We want Jiki to be accessible to everyone. If cost is a barrier, please [get in touch](/articles/support) and we'll do what we can to help.
 
-### Can I upgrade or downgrade later?
+### Can I upgrade later?
 
-Absolutely. You can upgrade to Premium at any time from your account, and you can cancel just as easily whenever you'd like.
+Absolutely. You can upgrade to Premium at any time from your account.
 
 ## Still have questions?
 

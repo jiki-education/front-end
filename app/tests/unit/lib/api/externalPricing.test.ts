@@ -5,7 +5,7 @@ jest.mock("@/lib/api/config", () => ({
 }));
 
 const PRICING = {
-  premium_prices: { currency: "gbp", monthly: 799, annual: 7900, country_code: "GB" }
+  premium_prices: { currency: "gbp", lifetime: 2499, country_code: "GB" }
 };
 
 function jsonResponse(body: unknown, ok = true, status = 200): Response {

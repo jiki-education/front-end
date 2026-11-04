@@ -3,147 +3,124 @@
  */
 import { render, screen } from "@testing-library/react";
 import SubscriptionStatus from "@/components/settings/ui/SubscriptionStatus";
+import { createMockUser } from "@/tests/mocks/user";
+import type { SubscriptionDetails } from "@/types/subscription";
 
 // Pin locale to en-US so tests don't depend on the developer's system locale
 const _OriginalNumberFormat = Intl.NumberFormat;
 jest.spyOn(Intl, "NumberFormat").mockImplementation((_, options) => new _OriginalNumberFormat("en-US", options));
 
-// Mock the auth store so PremiumPrice can render
-jest.mock("@/lib/auth/authStore", () => {
-  const state = {
-    user: {
-      premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null }
-    }
-  };
+function subscription(overrides?: Partial<SubscriptionDetails>): SubscriptionDetails {
   return {
-    useAuthStore: (selector: (s: typeof state) => unknown) => selector(state)
+    interval: "monthly",
+    amount_in_cents: 999,
+    currency: "usd",
+    in_grace_period: false,
+    grace_period_ends_at: null,
+    subscription_valid_until: "2030-12-31T00:00:00Z",
+    ...overrides
   };
-});
+}
 
 describe("SubscriptionStatus", () => {
-  describe("Tier display", () => {
-    it("displays Standard Plan correctly", () => {
-      render(<SubscriptionStatus tier="standard" status="never_subscribed" nextBillingDate={null} />);
+  it("shows the free plan", () => {
+    render(<SubscriptionStatus user={createMockUser()} nextBillingDate={null} />);
 
-      expect(screen.getByText(/Free/)).toBeInTheDocument();
-      expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
-    });
-
-    it("displays Premium Plan correctly", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
-
-      expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
-      expect(screen.getByText(/\/month/)).toBeInTheDocument();
-    });
-
-    // Max tier removed - only standard and premium now
+    expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
   });
 
-  describe("Status display", () => {
-    it("displays active premium subscription", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
+  it("shows a former subscriber whose subscription has ended as free", () => {
+    const user = createMockUser({ subscription_status: "canceled" });
+    render(<SubscriptionStatus user={user} nextBillingDate={null} />);
 
-      expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
-      expect(screen.getByText(/\/month/)).toBeInTheDocument();
+    expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
+  });
+
+  it("shows lifetime Premium", () => {
+    const user = createMockUser({ membership_type: "premium", lifetime_premium: true });
+    render(<SubscriptionStatus user={user} nextBillingDate={null} />);
+
+    expect(screen.getByText(/for life\. There's nothing to renew\./)).toBeInTheDocument();
+  });
+
+  it("shows Premium that comes from elsewhere without a price", () => {
+    const user = createMockUser({ membership_type: "premium" });
+    render(<SubscriptionStatus user={user} nextBillingDate={null} />);
+
+    expect(screen.getByText("Jiki Premium")).toBeInTheDocument();
+    expect(screen.queryByText(/\$/)).not.toBeInTheDocument();
+  });
+
+  describe("legacy subscriber", () => {
+    it("shows the subscription's own price and next billing date", () => {
+      const user = createMockUser({
+        membership_type: "premium",
+        subscription_status: "active",
+        subscription: subscription({ amount_in_cents: 799, currency: "gbp" })
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate="Dec 31, 2030" />);
+
+      expect(screen.getByText("£7.99/month")).toBeInTheDocument();
+      expect(screen.getByText("Dec 31, 2030")).toBeInTheDocument();
     });
 
-    it("displays Canceled status", () => {
-      render(<SubscriptionStatus tier="premium" status="canceled" nextBillingDate={null} />);
+    it("shows an annual price per year", () => {
+      const user = createMockUser({
+        membership_type: "premium",
+        subscription_status: "active",
+        subscription: subscription({ interval: "annual", amount_in_cents: 9900 })
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate={null} />);
 
-      expect(screen.getByText("Canceled")).toBeInTheDocument();
-      expect(screen.getByText("Service continues until period end")).toBeInTheDocument();
+      expect(screen.getByText("$99/year")).toBeInTheDocument();
     });
 
-    it("displays Payment Failed status", () => {
-      render(<SubscriptionStatus tier="premium" status="payment_failed" nextBillingDate={null} />);
+    it("leaves the price out when the API hasn't stored it", () => {
+      const user = createMockUser({
+        membership_type: "premium",
+        subscription_status: "active",
+        subscription: subscription({ amount_in_cents: null, currency: null })
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate={null} />);
+
+      expect(screen.getByText("Jiki Premium")).toBeInTheDocument();
+      expect(screen.queryByText(/\/month/)).not.toBeInTheDocument();
+    });
+
+    it("shows a scheduled cancellation", () => {
+      const user = createMockUser({
+        membership_type: "premium",
+        subscription_status: "cancelling",
+        subscription: subscription()
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate="Dec 31, 2030" />);
+
+      expect(screen.getByText(/Your Jiki Premium subscription has been cancelled\./)).toBeInTheDocument();
+    });
+
+    it("shows a failed payment with the renewal price", () => {
+      const user = createMockUser({
+        membership_type: "premium",
+        subscription_status: "payment_failed",
+        subscription: subscription()
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate={null} />);
 
       expect(screen.getByText("Payment Failed")).toBeInTheDocument();
       expect(screen.getByText("Payment failed - please update payment method")).toBeInTheDocument();
+      expect(screen.getByText("$9.99/month")).toBeInTheDocument();
     });
 
-    it("displays cancelling status with end date", () => {
-      render(<SubscriptionStatus tier="premium" status="cancelling" nextBillingDate="2024-12-31" />);
-
-      expect(screen.getByText(/Your Jiki Premium subscription has been cancelled/)).toBeInTheDocument();
-      expect(screen.getByText(/Your Premium plan will end on/)).toBeInTheDocument();
-      expect(screen.getByText("2024-12-31")).toBeInTheDocument();
-    });
-
-    it("displays Incomplete status", () => {
-      render(<SubscriptionStatus tier="premium" status="incomplete" nextBillingDate={null} />);
+    it("shows an incomplete subscription", () => {
+      const user = createMockUser({
+        membership_type: "standard",
+        subscription_status: "incomplete",
+        subscription: subscription()
+      });
+      render(<SubscriptionStatus user={user} nextBillingDate={null} />);
 
       expect(screen.getByText("Incomplete")).toBeInTheDocument();
       expect(screen.getByText("Payment setup incomplete - please complete setup")).toBeInTheDocument();
-    });
-
-    it("displays never_subscribed status for premium tier", () => {
-      render(<SubscriptionStatus tier="premium" status="never_subscribed" nextBillingDate={null} />);
-
-      // For premium tier with never_subscribed, it shows the Free plan message
-      expect(screen.getByText(/Free/)).toBeInTheDocument();
-      expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
-    });
-  });
-
-  describe("Billing information", () => {
-    it("displays next billing date for active subscriptions", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
-
-      expect(screen.getByText(/Your next billing date is/)).toBeInTheDocument();
-      expect(screen.getByText("2024-12-31")).toBeInTheDocument();
-    });
-
-    it("does not display billing date for non-active subscriptions", () => {
-      render(<SubscriptionStatus tier="premium" status="canceled" nextBillingDate="2024-12-31" />);
-
-      expect(screen.queryByText(/Your next billing date is/)).not.toBeInTheDocument();
-    });
-
-    it("does not display billing date when not provided", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate={null} />);
-
-      expect(screen.queryByText(/Your next billing date is/)).not.toBeInTheDocument();
-    });
-  });
-
-  describe("Standard tier behavior", () => {
-    it("does not show status badge for standard tier", () => {
-      render(<SubscriptionStatus tier="standard" status="never_subscribed" nextBillingDate={null} />);
-
-      // Should show free plan message but not status for standard
-      expect(screen.getByText(/Free/)).toBeInTheDocument();
-      expect(screen.queryByText("Not Subscribed")).not.toBeInTheDocument();
-    });
-
-    it("shows premium plan details for premium tier", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
-
-      expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
-      expect(screen.getByText(/\/month/)).toBeInTheDocument();
-    });
-
-    // Max tier removed - only standard and premium now
-  });
-
-  describe("Custom styling", () => {
-    it("applies custom className", () => {
-      const { container } = render(
-        <SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" className="custom-class" />
-      );
-
-      expect(container.firstChild).toHaveClass("custom-class");
-    });
-  });
-
-  describe("Accessibility", () => {
-    it("renders accessible heading for current plan", () => {
-      render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
-
-      // Component provides heading for current plan section
-      expect(screen.getByRole("heading", { name: "Current Plan" })).toBeInTheDocument();
     });
   });
 });
