@@ -76,6 +76,11 @@
     text-align: start;
 }
 
+.mainSubheading strong {
+    font-weight: 600;
+    color: var(--color-purple-600);
+}
+
 .planSection {
     background: transparent;
     border-radius: 12px;
@@ -162,27 +167,15 @@
     font-size: 24px;
     font-weight: 600;
     color: var(--color-gray-900);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .premiumPrice {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 1px;
-    line-height: 1.2;
-}
-
-.premiumPrice .amount {
     font-family: var(--font-baloo-2, "Baloo 2", sans-serif);
-    font-size: 44px;
+    font-size: 52px;
     font-weight: 800;
+    line-height: 1;
     color: var(--color-gray-900);
-}
-
-.premiumPrice .period {
-    font-size: 16px;
-    color: var(--color-gray-600);
 }
 
 .priceNote {
@@ -266,6 +259,7 @@
 
 .premiumFeatures li strong {
     font-weight: 500;
+    color: var(--color-gray-800);
 }
 
 .premiumFeatures li svg {
@@ -396,12 +390,8 @@
         font-size: 20px;
     }
 
-    .premiumPrice .amount {
+    .premiumPrice {
         font-size: 36px;
-    }
-
-    .premiumPrice .period {
-        font-size: 14px;
     }
 
     .priceNote,
@@ -439,7 +429,7 @@
         font-size: 20px;
     }
 
-    .premiumPrice .amount {
+    .premiumPrice {
         font-size: 32px;
     }
 
