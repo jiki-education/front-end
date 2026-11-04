@@ -1,5 +1,11 @@
 # JavaScript Interpreter Evolution
 
+## 2026-11-04: Call errors name methods instead of saying "null"
+
+`finishCallExpression` only took a function name from an `IdentifierExpression` callee and passed `null` for everything else, so `console.log(1` read "Did you forget the closing parenthesis `)` when calling the null function?".
+
+The module-level `calleeName` helper in `parser.ts` now names the callee by its dotted path (`console.log`, `a.b.c`). A method on something without a dotted name (`"abc".repeat`, `arr[0].push`, `foo().bar`) is named by the method alone. Callees with no name at all (`foo()(`, `arr[0](`, `(foo)(`) pass the i18next context `unnamed`, which selects `MissingRightParenthesisAfterFunctionCall_unnamed` or `MissingCommaBetweenFunctionArguments_unnamed` ("...when calling this function?"). Both call errors share the same name and context. The `system` locale has only the unsuffixed key, so its output is unchanged apart from the name.
+
 ## 2026-11-04: Missing commas in calls and arrays get their own errors
 
 A student wrote `triangle(10,5, 10,40,50,40 "orange")` and was asked whether they had forgotten the closing parenthesis, with `triangle` underlined. The argument loop in `finishCallExpression` stops at the first token that is not a comma, and anything other than `)` was reported as `MissingRightParenthesisAfterFunctionCall`. `parseArray` had the same shape, so `[1, 2 3]` reported `MissingRightBracketInArray`.
