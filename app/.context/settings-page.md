@@ -2,14 +2,14 @@
 
 ## Overview
 
-The settings page (`/settings`) has tabs for account, Premium, notifications, learning and the danger zone. This document covers the Premium tab, which shows a user how they hold Premium and lets them buy it or manage a legacy subscription. See [stripe.md](./stripe.md) for the payment flows and the user fields involved.
+The settings page (`/settings`) has tabs for account, billing, notifications, learning and the danger zone. This document covers the Billing tab, which shows a user how they hold Premium and lets them buy it or manage a legacy subscription. See [stripe.md](./stripe.md) for the payment flows and the user fields involved.
 
 ## Component Organization
 
 ```
 components/settings/
 ├── SettingsPage.tsx                 # Tabs, auth integration
-├── tabs/SubscriptionTab.tsx         # The Premium tab, wrapped in an error boundary
+├── tabs/SubscriptionTab.tsx         # The Billing tab, wrapped in an error boundary
 ├── subscription/
 │   ├── SubscriptionSection.tsx      # Picks what to show for each kind of member
 │   ├── membership.ts                # getMembershipKind(): lifetime / subscription / premium / free

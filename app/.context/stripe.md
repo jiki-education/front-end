@@ -48,7 +48,7 @@ Account deletion cancels a live subscription first. The API reports a failure th
 
 ## Payment History
 
-`GET /internal/payments` lists both kinds of payment. `purchase_type` (`subscription` or `lifetime`) labels each row "Recurring" or "One-time", and `revoked_reason` (`refunded` or `disputed`) marks a lifetime purchase that has been reversed.
+`GET /internal/payments` lists both kinds of payment. `purchase_type` (`subscription` or `lifetime`) labels each row "Recurring" or "Premium Upgrade", and `revoked_reason` (`refunded` or `disputed`) marks a lifetime purchase that has been reversed.
 
 ## Formatting Prices
 

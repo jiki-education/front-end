@@ -28,7 +28,7 @@ export default function PaymentHistoryRow({ payment, onDownloadReceipt }: Paymen
       <td className={styles.paymentDate}>{formatDate(payment.date)}</td>
       <td className={styles.paymentAmount}>{formatCurrency(payment.amountInCents, payment.currency)}</td>
       <td className={styles.paymentType}>
-        {payment.type === "Recurring" ? t("typeRecurring") : t("typeOneTime")}
+        {payment.type === "Recurring" ? t("typeRecurring") : t("typePremiumUpgrade")}
         {payment.revokedReason && (
           <span className={styles.revokedNote}>
             {payment.revokedReason === "refunded" ? t("refunded") : t("disputed")}
