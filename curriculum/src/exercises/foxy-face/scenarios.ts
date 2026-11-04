@@ -29,28 +29,28 @@ export const scenarios: VisualScenario[] = [
 
       return [
         {
-          pass: ex.hasTriangleAtWithColor(10, 40, 5, 60, 50, 95, "white"),
-          errorHtml: ex.t("checks.leftCheek")
-        },
-        {
-          pass: ex.hasTriangleAtWithColor(90, 40, 95, 60, 50, 95, "white"),
-          errorHtml: ex.t("checks.rightCheek")
-        },
-        {
           pass: ex.hasTriangleAtWithColor(10, 40, 10, 5, 50, 40, "brown"),
           errorHtml: ex.t("checks.leftEar")
-        },
-        {
-          pass: ex.hasTriangleAtWithColor(90, 40, 90, 5, 50, 40, "brown"),
-          errorHtml: ex.t("checks.rightEar")
         },
         {
           pass: ex.hasTriangleAtWithColor(50, 30, 50, 95, 10, 40, "orange"),
           errorHtml: ex.t("checks.leftFace")
         },
         {
+          pass: ex.hasTriangleAtWithColor(10, 40, 5, 60, 50, 95, "white"),
+          errorHtml: ex.t("checks.leftCheek")
+        },
+        {
+          pass: ex.hasTriangleAtWithColor(90, 40, 90, 5, 50, 40, "brown"),
+          errorHtml: ex.t("checks.rightEar")
+        },
+        {
           pass: ex.hasTriangleAtWithColor(50, 30, 50, 95, 90, 40, "orange"),
           errorHtml: ex.t("checks.rightFace")
+        },
+        {
+          pass: ex.hasTriangleAtWithColor(90, 40, 95, 60, 50, 95, "white"),
+          errorHtml: ex.t("checks.rightCheek")
         },
         {
           pass:
