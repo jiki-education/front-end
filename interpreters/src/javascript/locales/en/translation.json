@@ -131,6 +131,7 @@
       "UnaryTypeCoercionNotAllowed": "Type coercion is not allowed: the `{{operator}}` operator can't be applied to a {{operand}}.",
       "ComparisonRequiresNumber": "The `{{operator}}` operator requires both values to be numbers.",
       "NodeNotAllowed": "{{nodeType}} is not allowed at your current learning level.",
+      "InvalidNumberOfArguments_none": "The `{{function}}()` function doesn't expect anything inside its brackets, so you can't put `{{args}}` there. Try just writing `{{function}}()`.",
       "InvalidNumberOfArguments_exact": "This function has $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
       "InvalidNumberOfArguments_atLeast": "This function needs at least $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
       "InvalidNumberOfArguments_range": "This function has between {{min}} and {{max}} input slots but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",

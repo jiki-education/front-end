@@ -860,6 +860,12 @@ export class Executor {
     this.logLines.push({ time: this.time, timeInMs: timeToMs(this.time), output });
   }
 
+  // The student's source text for a location, used where an error message
+  // quotes back exactly what they wrote.
+  public sourceFor(location: Location): string {
+    return location.toCode(this.sourceCode);
+  }
+
   public getExecutionContext(): ExecutionContext {
     return {
       ...createBaseExecutionContext.call(this),
