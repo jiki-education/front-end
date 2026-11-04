@@ -47,7 +47,7 @@ describe("evaluateFunction", () => {
 
   test("missing function", () => {
     const code = `
-      function m0ve() {
+      function jump() {
       }
     `;
     const { value, frames, error } = evaluateFunction(code, {}, "move");
