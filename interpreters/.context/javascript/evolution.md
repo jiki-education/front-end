@@ -6,6 +6,19 @@ Students meet no-input functions like `move()` in the first maze exercise, befor
 
 `checkArity` (in `executor/executeCallExpression.ts`) now passes the i18next context `none` whenever a function's maximum arity is 0, along with `args`, the source text from the first argument to the last (via `Executor.sourceFor(location)`). The English copy names the function and quotes back what the student wrote: "The `move()` function doesn't expect anything inside its brackets, so you can't put `2` there. Try just writing `move()`." Functions that take inputs keep the `_exact`/`_atLeast`/`_range` input-slot wording, and `new` expressions are unchanged. The `system` locale has a single unsuffixed key, so its output is unchanged too.
 
+## 2026-11-03: "Did you mean" suggestions for unknown names
+
+Calling `turnright()` when the exercise provides `turnRight` used to raise a plain `FunctionNotFound`, with nothing pointing at the capitalisation. JikiScript has long offered a suggestion here, and JavaScript now does too.
+
+`Executor.suggestSimilarName(name, kind)` gathers every name in scope (`environment.getAllVariables()`, which includes external functions and classes, built-ins and the student's own declarations) and passes them to the shared `suggestSimilarName` helper (`src/shared/suggestSimilarName.ts`). The helper compares names case-insensitively with `levenshtein`, so a case-only mismatch always matches, and otherwise allows one edit per three characters (at most two), so short names like `x` never suggest `y`.
+
+- **Function calls** (`executeCalleeIdentifierExpression`) only suggest callables and raise `FunctionNotFoundWithSimilarNameSuggestion`.
+- **Variable reads** (`executeIdentifierExpression`) only suggest non-callables and raise `VariableNotDeclaredWithSimilarNameSuggestion`. A callable there would already trip `UnexpectedUncalledFunction`.
+- **Secret constants are never suggested**, since that would reveal their names. A student variable that shadows one is still a candidate.
+- With no close match, the plain `FunctionNotFound` / `VariableNotDeclared` errors are unchanged.
+
+The test runner's synthetic call goes through the callee path, so when a test calls `move` and the student wrote `m0ve`, the error suggests `m0ve`.
+
 ## 2026-08-28: `countNestingDepth` assertor
 
 `assertMaxLoopNestingDepth` counts loops alone and treats `if` as transparent, so `for → if → if → if` reports depth 1 and passes a limit of 1. That is the right measure for "how many loops deep is this", but it cannot express "this code is too deeply indented", which is what an exercise wants when it asks a student to flatten their logic.

@@ -10,7 +10,12 @@ export function executeIdentifierExpression(
   const value = executor.environment.get(expression.name.lexeme);
 
   if (value === undefined) {
-    executor.error("VariableNotDeclared", expression.location, { name: expression.name.lexeme });
+    const name = expression.name.lexeme;
+    const suggestion = executor.suggestSimilarName(name, "variable");
+    if (suggestion !== null) {
+      executor.error("VariableNotDeclaredWithSimilarNameSuggestion", expression.location, { name, suggestion });
+    }
+    executor.error("VariableNotDeclared", expression.location, { name });
   }
 
   if (isCallable(value)) {
