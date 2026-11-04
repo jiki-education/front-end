@@ -13,7 +13,7 @@ export const progressionMetrics: ProgressionMetrics = {
       points: 3,
       score: (runs) => (runs.anyResult()?.assertors.assertOperatorUsed("%") === true ? 1 : 0)
     },
-    // Matches the exercise's "solve in 6 lines" bonus target (JavaScript).
-    locMetric({ target: 6, points: 3 })
+    // Matches the exercise's "solve in 6 lines (4 for Python)" bonus target.
+    locMetric({ target: { javascript: 6, jikiscript: 6, python: 4 }, points: 3 })
   ]
 };

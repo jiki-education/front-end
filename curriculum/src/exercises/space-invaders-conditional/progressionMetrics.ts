@@ -1,30 +1,9 @@
-import type { ExecutionContext } from "@jiki/interpreters";
-import type { ProgressionMetrics, ScenarioRun } from "../types";
-import type SpaceInvadersConditionalExercise from "./Exercise";
+import { aliensShotRatio } from "../../exercise-categories/space-invaders/progression";
+import { averageOverRuns } from "../progressionStdlib";
+import type { ProgressionMetrics } from "../types";
 
 // Names is_alien_above appears under across languages.
 const SENSING_CALL_NAMES = ["is_alien_above", "isAlienAbove"];
-
-// Fraction of the starting aliens shot down. A miss halts the run before the
-// call is logged, so every logged shoot() is a kill; the alien count comes
-// from the exercise instance the scenario set up. Candidate for the
-// progression stdlib once shared-file edits are possible - space-invaders
-// exercises duplicate this helper for now.
-function aliensShotRatio(run: ScenarioRun | undefined): number {
-  const ex = run?.exercise as SpaceInvadersConditionalExercise | undefined;
-  if (!run?.result || !ex) {
-    return 0;
-  }
-  const totalAliens = ex
-    .getStartingAliens(null as unknown as ExecutionContext)
-    .flat()
-    .filter(Boolean).length;
-  if (totalAliens === 0) {
-    return 0;
-  }
-  const kills = run.result.meta.functionCallLog.filter((entry) => entry.name === "shoot").length;
-  return Math.min(kills / totalAliens, 1);
-}
 
 export const progressionMetrics: ProgressionMetrics = {
   version: 1,
@@ -36,13 +15,7 @@ export const progressionMetrics: ProgressionMetrics = {
       name: "aliens_shot",
       maxScore: 1,
       points: 4,
-      score: (runs) => {
-        const primary = runs.all.filter((run) => run.isolated !== true && run.bonus !== true);
-        if (primary.length === 0) {
-          return 0;
-        }
-        return primary.reduce((sum, run) => sum + aliensShotRatio(run), 0) / primary.length;
-      }
+      score: (runs) => averageOverRuns(runs, aliensShotRatio)
     },
     {
       // The exercise's headline concept: checking is_alien_above() before

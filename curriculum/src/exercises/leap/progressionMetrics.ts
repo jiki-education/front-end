@@ -21,7 +21,7 @@ export const progressionMetrics: ProgressionMetrics = {
       }
     },
     // Matches the "solve in one line" bonus scenario (3 lines including the
-    // function wrapper in Jikiscript/JavaScript).
-    locMetric({ target: 3, points: 3 })
+    // function wrapper in Jikiscript/JavaScript, 2 in Python).
+    locMetric({ target: { javascript: 3, jikiscript: 3, python: 2 }, points: 3 })
   ]
 };

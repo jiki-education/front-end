@@ -56,7 +56,21 @@ Do NOT write metrics that re-derive scenario pass/fail (each run's `passed` is a
 
 **Principle: an exercise's `progressionMetrics.ts` contains ONLY what is unique to that exercise. Anything two exercises would write identically belongs in the stdlib** (`curriculum/src/exercises/progressionStdlib.ts`).
 
-- `locMetric({ target, points })`: for exercises with a line-count bonus scenario. Scores 0 until the exercise is solved (`runs.allPassed()`); from then on `clamp(target / countLinesOfCode(), 0, 1)` of `points` - points scale up as the code shrinks, full points at or under the target. even-or-odd uses `locMetric({ target: 6, points: 3 })`, matching its six-line bonus check. Exercises without a LOC bonus don't use it.
+- `locMetric({ target, points })`: for exercises with a line-count bonus scenario. Scores 0 until the exercise is solved (`runs.allPassed()`); from then on `clamp(target / countLinesOfCode(), 0, 1)` of `points` - points scale up as the code shrinks, full points at or under the target. `target` is a number or a `Record<Language, number>`; use the record whenever the bonus check's limit differs by language, and copy the limits from that check in `scenarios.ts`. even-or-odd uses `locMetric({ target: { javascript: 6, jikiscript: 6, python: 4 }, points: 3 })`, matching its bonus check. Exercises without a LOC bonus don't use it.
+- `trustedResult(runs)`: the first `InterpretResult` without `result.error`. A parse error sets `error` and carries placeholder assertors that answer true to everything, so code-shape metrics read assertors from this. Runtime errors leave `error` empty and their assertors are real.
+- `primaryRuns(runs)`: the runs that are neither isolated re-runs nor bonus scenarios.
+- `averageOverRuns(runs, perRun)`: the mean of `perRun` over the primary runs. A run scored `undefined` is left out of the mean; no scored runs gives 0.
+- `loopIterations(run, language)`: how many times a run's for-each loops iterated (loop-statement frames, minus Python's extra loop-start frame).
+- `methodCalls(run, names)` and `PUSH_METHODS`: the call-log entries for the given methods, matching JavaScript's `"<receiver>.push"` and the bare Jikiscript/Python names. `methodCalls(run, PUSH_METHODS)` finds array pushes in every language.
+- `helperCalls(runs, entryFunction)` / `helperCallsIn(run, entryFunction)`: runtime calls to functions the student wrote, other than the entry function (matched in any spelling via `normalizeName`) and dotted method calls. Use these to find helpers by the shape of their calls, since students name them freely.
+- `takesStrings(entry, count)`: a logged call took exactly `count` string arguments.
+- `balancedRate(items, isPositive, isCorrect)`: the share correct, averaged over the positive and negative groups separately, so a common case can't drown out a rare one.
+- `answersDiffer(runs, slugA, slugB)`: 1 when two scenarios returned different booleans. Pair scenarios whose inputs differ in one detail so a constant answer can't earn it.
+- `stringProgress(input, expected, actual)`: how far a returned string moved from the input toward the expected output (0 to 1), or `undefined` when the expected output equals the input.
+- `trailingNumber(value)` and `TRAILING_NUMBER`: the number at the end of a returned message (a bare number counts as itself).
+- `unwrap(value)`, `lettersOnly(text)`, `containsEitherWay(a, b)`, `normalizeName(name)`: small value helpers for reading call-log values, comparing text by its letters, haystack/needle searches in either order, and comparing function names across spellings.
+
+Helpers that depend on an exercise category's internals live with that category: `aliensShotRatio(run)` in `curriculum/src/exercise-categories/space-invaders/progression.ts`, and `simpleState(target, guess, idx)` (the pre-duplicate-letters colouring rule) beside `scoreGuess` in `curriculum/src/exercise-categories/wordle/WordleExercise.ts`.
 
 `ScenarioRuns` provides generic helpers so metrics stay declarative:
 
