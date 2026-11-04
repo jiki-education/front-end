@@ -10,6 +10,7 @@ export { createMockOrchestrator } from "./orchestrator";
 export { createMockOrchestratorStore } from "./orchestrator-store";
 export { createMockScenario } from "./scenario";
 export { createMockTask } from "./task";
+export { createMockInterpretResult } from "./interpret-result";
 export { createMockTestResult } from "./test-result";
 export { createMockTestSuiteResult } from "./test-suite-result";
 export { createMockUser } from "./user";

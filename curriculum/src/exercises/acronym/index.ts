@@ -1,6 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
+import { progressionMetrics } from "./progressionMetrics";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
 // No stdlib functions: at this level string methods aren't available yet, so the
@@ -14,6 +15,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
+  progressionMetrics,
   conceptSlugs: [
     "string-iteration",
     "string-indexing",

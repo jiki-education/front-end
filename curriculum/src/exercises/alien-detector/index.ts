@@ -1,6 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
+import { progressionMetrics } from "./progressionMetrics";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
@@ -45,6 +46,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  progressionMetrics,
   conceptSlugs: ["arrays", "variables", "if", "repeat", "using-functions-with-return-values"],
   // Nested loop (for inside the game repeat); bootcamp's 100-tick game-over cap maps to
   // ~1214 cumulative iterations here, so allow headroom for suboptimal solutions.

@@ -1,6 +1,8 @@
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { createMockInterpretResult } from "@/tests/mocks";
+import { TestExercise } from "@jiki/curriculum";
 
 // Mock modal system
 jest.mock("@/lib/modal", () => ({
@@ -32,6 +34,9 @@ describe("Store Animation Replay Bug", () => {
     status: "pass" as const,
     expects: [],
     view: document.createElement("div"),
+    exercise: new TestExercise(),
+    result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames,
     logLines: [],
     lintErrors: [],

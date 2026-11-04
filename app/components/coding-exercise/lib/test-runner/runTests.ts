@@ -1,11 +1,20 @@
+import type { ProgressionScores } from "@/lib/api/exerciseSubmissions";
 import type { ExerciseDefinition, Language, Messages as CurriculumMessages } from "@jiki/curriculum";
-import { getLanguageFeatures } from "@jiki/curriculum";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { bonusScenarioSlugs } from "../bonusScenarios";
+import { buildLanguageFeatures, getAvailableFunctions } from "./executeStudentCode";
+import { evaluateProgression } from "./progression";
 import { runIOScenario } from "./runIOScenario";
 import { runVisualScenario } from "./runVisualScenario";
 import { getInterpreter } from "./getInterpreter";
+
+export interface TestRunOutcome {
+  testSuiteResult: TestSuiteResult;
+  // Hidden progression scores for this run, evaluated from the scenario runs
+  // above. Feeds the submission payload only - never the store or the UI.
+  progressionScores: ProgressionScores;
+}
 
 export async function runTests(
   studentCode: string,
@@ -13,7 +22,7 @@ export async function runTests(
   language: Language,
   interpreterLocaleMessages: InterpreterMessages,
   exerciseLocaleMessages: CurriculumMessages
-): Promise<TestSuiteResult> {
+): Promise<TestRunOutcome> {
   const interpreter = await getInterpreter(language);
 
   // Curriculum-owned message dict for the active UI locale, injected into each
@@ -22,19 +31,11 @@ export async function runTests(
   // en-fallback) when the exercise has no catalog for this locale.
   const messages = exerciseLocaleMessages;
 
-  // Get available functions by instantiating the exercise (uniform for visual and IO),
-  // with names formatted for the target language.
-  const tempExercise = new exercise.ExerciseClass();
-  const availableFunctions: Array<{ name: string; func: any; description: string }> =
-    tempExercise.getExternalFunctions(language);
+  // Get available functions, with names formatted for the target language
+  const availableFunctions = getAvailableFunctions(exercise, language);
 
   // Build language features: level features + exercise overrides
-  const levelFeatures = getLanguageFeatures(exercise.levelId, language);
-  const languageFeatures = {
-    timePerFrame: 1,
-    ...levelFeatures,
-    ...exercise.interpreterOptions
-  };
+  const languageFeatures = buildLanguageFeatures(exercise, language);
 
   // Compile ONCE before running any scenarios to catch syntax errors early
   const compilationResult = interpreter.compile(studentCode, {
@@ -48,7 +49,9 @@ export async function runTests(
     throw compilationResult.error;
   }
 
-  // Compilation succeeded, run all scenarios
+  // Compilation succeeded, run all scenarios. Each test result carries its
+  // run artifacts (exercise instance, interpreter result) for the
+  // progression evaluator below.
   const tests: TestResult[] = [];
 
   if (exercise.type === "visual") {
@@ -89,10 +92,14 @@ export async function runTests(
   const bonusSlugs = bonusScenarioSlugs(exercise);
   const requiredTests = bonusSlugs.size > 0 ? tests.filter((t) => !bonusSlugs.has(t.slug)) : tests;
 
-  const result: TestSuiteResult = {
+  const testSuiteResult: TestSuiteResult = {
     tests,
     passed: requiredTests.every((t) => t.status === "pass")
   };
 
-  return result;
+  // Evaluate the hidden progression metrics against the artifacts attached to
+  // the test results. The store and the UI never read those artifacts.
+  const progressionScores = evaluateProgression(exercise, language, tests);
+
+  return { testSuiteResult, progressionScores };
 }

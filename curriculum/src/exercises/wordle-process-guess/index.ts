@@ -1,6 +1,7 @@
 import "../../exercise-categories/wordle/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -34,6 +35,7 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
+  progressionMetrics,
   functions,
   conceptSlugs: ["arrays", "building-arrays", "string-indexing", "if", "creating-functions-with-return-values"]
 };

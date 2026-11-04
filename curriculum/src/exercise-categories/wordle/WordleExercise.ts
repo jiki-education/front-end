@@ -239,6 +239,17 @@ export function scoreGuess(target: string, guess: string): LetterState[] {
   return states;
 }
 
+// The simplified colouring rule taught before duplicate letters: the right
+// letter in the right place is correct, a letter found anywhere else in the
+// target is present, and anything else is absent. Unlike scoreGuess, a
+// repeated letter can be marked present more often than the target holds it.
+export function simpleState(target: string, guess: string, idx: number): LetterState {
+  if (target[idx] === guess[idx]) {
+    return "correct";
+  }
+  return target.includes(guess[idx]) ? "present" : "absent";
+}
+
 export default class WordleExercise extends VisualExercise {
   protected get slug() {
     return "wordle";

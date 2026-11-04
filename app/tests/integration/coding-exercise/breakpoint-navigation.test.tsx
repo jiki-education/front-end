@@ -6,6 +6,8 @@ import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { createMockInterpretResult } from "@/tests/mocks";
+import { TestExercise } from "@jiki/curriculum";
 
 // Helper to setup orchestrator with test data
 function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLines: number[] = []) {
@@ -24,6 +26,9 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: new TestExercise(),
+      result: createMockInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

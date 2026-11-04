@@ -1,6 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
+import { progressionMetrics } from "./progressionMetrics";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
@@ -27,6 +28,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
+  progressionMetrics,
   conceptSlugs: ["methods", "string-iteration", "if"],
   // The stub carries the student's hand-written pangram code forward
   // ({{LESSON:pangram}}), which scans the alphabet per character and runs ~2200
