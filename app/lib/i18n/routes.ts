@@ -83,7 +83,6 @@ export function makeRoutes(locale: Locale) {
 
     // Public marketing/content sections (localized)
     premium: () => path("/premium"),
-    roadmap: () => path("/roadmap"),
     testimonials: () => path("/testimonials"),
     blog: () => path("/blog"),
     blogPost: (slug: string) => path(`/blog/${slug}`),
@@ -97,7 +96,6 @@ export function makeRoutes(locale: Locale) {
     // The public teaser for one exercise. Signed-in users are redirected from it
     // into the exercise itself at /lesson/<slug>.
     exercise: (slug: string) => path(`/exercises/${slug}`),
-    build: () => path("/build"),
 
     // Auth-gated app routes (no [locale] tree -> always naked; locale ignored)
     dashboard: () => path("/dashboard"),

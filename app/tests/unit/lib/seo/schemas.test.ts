@@ -3,7 +3,6 @@ import {
   breadcrumbSchema,
   canonicalUrl,
   conceptLearningResourceSchema,
-  courseSchema,
   organizationSchema,
   videoObjectSchema,
   websiteSchema
@@ -146,37 +145,10 @@ describe("videoObjectSchema", () => {
       uploadDate: "2026-01-01",
       provider: "mux",
       videoKey: "K",
-      thumbnailUrl: "https://jiki.io/static/images/projects/episodes/poster.webp"
+      thumbnailUrl: "https://jiki.io/static/images/videos/poster.webp"
     });
-    expect(schema.thumbnailUrl).toBe("https://jiki.io/static/images/projects/episodes/poster.webp");
+    expect(schema.thumbnailUrl).toBe("https://jiki.io/static/images/videos/poster.webp");
     expect(schema).not.toHaveProperty("duration");
-  });
-});
-
-describe("courseSchema", () => {
-  it("describes a free online course made of its episodes", () => {
-    const schema = courseSchema({
-      path: "/projects/maze",
-      locale: "en",
-      name: "Maze",
-      description: "Build a maze solver",
-      image: "https://jiki.io/static/images/projects/covers/maze.png",
-      episodes: [
-        { name: "Intro", path: "/projects/maze/episodes/intro", description: "e1" },
-        { name: "Loops", path: "/projects/maze/episodes/loops" }
-      ]
-    });
-    expect(schema["@type"]).toBe("Course");
-    expect(schema.provider).toEqual({ "@id": ORG_ID });
-    expect(schema.hasCourseInstance.offers.price).toBe(0);
-    expect(schema.hasPart).toHaveLength(2);
-    expect(schema.hasPart[0]).toEqual({
-      "@type": "CreativeWork",
-      name: "Intro",
-      url: `${SITE}/projects/maze/episodes/intro`,
-      description: "e1"
-    });
-    expect(schema.hasPart[1]).not.toHaveProperty("description");
   });
 });
 

@@ -3,37 +3,25 @@ import { getAllConceptsServer } from "@/lib/concepts/server-concepts";
 import { getAllArticles } from "@/lib/content/getAllArticles";
 import { getAllBlogPosts } from "@/lib/content/getAllBlogPosts";
 import { getAllGuides } from "@/lib/content/getAllGuides";
-import { getAllProjects } from "@/lib/content/getAllProjects";
 import { publishedExerciseSlugs } from "@/lib/exercises/published";
 import { SUPPORTED_LOCALES } from "@/lib/i18n/config";
 import { swapLocaleInPath } from "@/lib/i18n/localeBanner";
 import { alternateLanguages } from "@/lib/seo/alternates";
 import { SITE_URL } from "@/lib/site";
 
-const STATIC_ROUTES = [
-  "/",
-  "/blog",
-  "/help",
-  "/guides",
-  "/concepts",
-  "/build",
-  "/testimonials",
-  "/premium",
-  "/roadmap"
-];
+const STATIC_ROUTES = ["/", "/blog", "/help", "/guides", "/concepts", "/testimonials", "/premium"];
 
 // Async because every content list it enumerates is now fetched rather than
 // bundled. Next supports an async sitemap; what it does not support is a sitemap
 // that silently omits a locale's content because the data shipped with the build.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [blog, articles, guides, projects, concepts] = await Promise.all([
+  const [blog, articles, guides, concepts] = await Promise.all([
     blogEntries(),
     articleEntries(),
     guideEntries(),
-    projectEntries(),
     conceptEntries()
   ]);
-  return [...staticEntries(), ...blog, ...articles, ...guides, ...projects, ...concepts, ...exerciseEntries()];
+  return [...staticEntries(), ...blog, ...articles, ...guides, ...concepts, ...exerciseEntries()];
 }
 
 /**
@@ -80,14 +68,6 @@ async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   return (await getAllGuides("en"))
     .filter((guide) => !guide.premium)
     .flatMap((guide) => entries(`/guides/${guide.slug}`, { lastModified: guide.date }));
-}
-
-async function projectEntries(): Promise<MetadataRoute.Sitemap> {
-  // Coming-soon projects (no episodes) have no detail page. Episode pages are
-  // not listed individually — the episode list lives on the project page.
-  return (await getAllProjects("en"))
-    .filter((project) => project.episodeCount > 0)
-    .flatMap((project) => entries(`/projects/${project.slug}`));
 }
 
 async function conceptEntries(): Promise<MetadataRoute.Sitemap> {

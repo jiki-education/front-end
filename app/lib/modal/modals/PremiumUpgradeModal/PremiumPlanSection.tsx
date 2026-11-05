@@ -16,7 +16,6 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
 
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   const premiumFeatures: React.ReactNode[] = [
-    t.rich("featureLearnToBuild", { strong }),
     t.rich("featureChallenges", { strong }),
     t.rich("featureAi", { strong }),
     t.rich("featureLivestreams", { strong }),

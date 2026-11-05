@@ -11,7 +11,7 @@ import { PUBLIC_PAGES, PUBLIC_SECTIONS, stripLocalePrefix } from "@/lib/i18n/con
  * Check if a route is publicly cacheable at the edge.
  *
  * True for anonymously-viewable public pages (landing, blog, articles, concepts,
- * premium, roadmap, testimonials), in both naked and locale-prefixed form. The
+ * premium, testimonials), in both naked and locale-prefixed form. The
  * locale prefix is stripped via SUPPORTED_LOCALES, so this stays correct for any
  * locale (including region subtags like pt-BR) and never caches an unsupported
  * "/xx/..." path. These are the only routes the edge cache (worker-wrapper) and
