@@ -47,7 +47,7 @@ describe("UnsubscribeContent", () => {
       // Mock API call to not resolve immediately
       mockedApiPost.mockImplementation(() => new Promise(() => {}));
 
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       expect(screen.getByText("Unsubscribing...")).toBeInTheDocument();
       expect(screen.getByText("Please wait while we process your request.")).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockResolvedValue({ data: {}, status: 200, headers: {} } as any);
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       expect(mockedApiPost).toHaveBeenCalledWith("/auth/unsubscribe/valid-token-123");
@@ -72,7 +72,7 @@ describe("UnsubscribeContent", () => {
 
       let container: HTMLElement;
       act(() => {
-        const rendered = render(<UnsubscribeContent />);
+        const rendered = render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
         container = rendered.container;
       });
 
@@ -92,7 +92,7 @@ describe("UnsubscribeContent", () => {
 
       let container: HTMLElement;
       act(() => {
-        const rendered = render(<UnsubscribeContent />);
+        const rendered = render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
         container = rendered.container;
       });
 
@@ -112,13 +112,13 @@ describe("UnsubscribeContent", () => {
 
       let rerender: any;
       act(() => {
-        const rendered = render(<UnsubscribeContent />);
+        const rendered = render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
         rerender = rendered.rerender;
       });
 
       // Re-render should not trigger another API call
       act(() => {
-        rerender(<UnsubscribeContent />);
+        rerender(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       expect(mockedApiPost).toHaveBeenCalledTimes(1);
@@ -131,14 +131,14 @@ describe("UnsubscribeContent", () => {
     });
 
     it("should render error state immediately when token is missing", () => {
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       expect(screen.getByText("Unsubscribe Failed")).toBeInTheDocument();
       expect(screen.getByText("No unsubscribe token provided.")).toBeInTheDocument();
     });
 
     it("should not make API call when token is missing", () => {
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       expect(mockedApiPost).not.toHaveBeenCalled();
     });
@@ -150,14 +150,14 @@ describe("UnsubscribeContent", () => {
     });
 
     it("should render error state immediately when token is empty", () => {
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       expect(screen.getByText("Unsubscribe Failed")).toBeInTheDocument();
       expect(screen.getByText("No unsubscribe token provided.")).toBeInTheDocument();
     });
 
     it("should not make API call when token is empty", () => {
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       expect(mockedApiPost).not.toHaveBeenCalled();
     });
@@ -171,7 +171,7 @@ describe("UnsubscribeContent", () => {
     it("should have proper heading hierarchy", () => {
       mockedApiPost.mockImplementation(() => new Promise(() => {}));
 
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       const heading = screen.getByText("Unsubscribing...");
       expect(heading).toBeInTheDocument();
@@ -182,7 +182,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockResolvedValue({ data: {}, status: 200, headers: {} } as any);
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -196,7 +196,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new Error("API Error"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -216,7 +216,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new Error("Network connection failed"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -230,7 +230,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new ApiError(422, "Unprocessable Entity"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -244,7 +244,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new ApiError(404, "Not Found"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -258,7 +258,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new ApiError(429, "Too Many Requests"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -272,7 +272,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new ApiError(500, "Internal Server Error"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -286,7 +286,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(new ApiError(401, "Unauthorized"));
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -302,7 +302,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue("Unknown error");
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -318,7 +318,7 @@ describe("UnsubscribeContent", () => {
       mockedApiPost.mockRejectedValue(testError);
 
       act(() => {
-        render(<UnsubscribeContent />);
+        render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
       });
 
       await waitFor(() => {
@@ -342,7 +342,7 @@ describe("UnsubscribeContent", () => {
     it("should render within AuthLayout", () => {
       mockedApiPost.mockImplementation(() => new Promise(() => {}));
 
-      const { container } = render(<UnsubscribeContent />);
+      const { container } = render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       // Check for AuthLayout structure - should contain the main layout
       expect(container.firstChild).toBeInTheDocument();
@@ -351,7 +351,7 @@ describe("UnsubscribeContent", () => {
     it("should render content in left side container", () => {
       mockedApiPost.mockImplementation(() => new Promise(() => {}));
 
-      render(<UnsubscribeContent />);
+      render(<UnsubscribeContent panel={{ marquee: [], fromExercism: false }} />);
 
       const leftSideElement = document.querySelector('[class*="leftSide"]');
       expect(leftSideElement).toBeInTheDocument();

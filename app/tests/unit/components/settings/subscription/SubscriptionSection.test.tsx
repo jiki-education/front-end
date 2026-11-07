@@ -49,7 +49,7 @@ describe("SubscriptionSection", () => {
     it("offers the one-off purchase", async () => {
       render(<SubscriptionSection user={createMockUser()} {...defaultProps} />);
 
-      expect(screen.getByText("One-time payment. Yours for life.")).toBeInTheDocument();
+      expect(screen.getByText("One-off payment. Yours for life.")).toBeInTheDocument();
       fireEvent.click(screen.getByRole("button", { name: "Upgrade to Premium" }));
 
       await waitFor(() => expect(mockHandlers.handlePurchasePremium).toHaveBeenCalled());

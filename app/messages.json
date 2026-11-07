@@ -305,11 +305,18 @@
       "verificationFailed": "Verification failed. Please try again."
     },
     "layout": {
-      "logoAlt": "Jiki",
-      "tagline": "Your coding journey starts here",
-      "description": "Join millions of learners transforming their careers through hands-on coding practice.",
-      "createdBy": "Created By",
-      "brand": "The team behind Exercism"
+      "asideLabel": "About Jiki",
+      "logoAlt": "Jiki, by the team at Exercism",
+      "tagline": "Master the <emphasis>fundamentals first</emphasis>, then fly!",
+      "description": "Start with the very basics and build up to writing complex programs. Get expert teaching, hands-on projects and instant feedback.",
+      "stepsLabel": "How it works",
+      "stepJiki": "Start with <strong>Jiki</strong>",
+      "stepJikiDetail": "Master the fundamentals",
+      "stepExercism": "Continue with <strong>Exercism</strong>",
+      "stepExercismDetail": "Practise in 85 languages",
+      "free": "Best of all, it's free!",
+      "testimonialsLabel": "What learners say about Jiki",
+      "testimonialStars": "5 out of 5 stars"
     }
   },
   "settings": {
@@ -461,7 +468,7 @@
       "planName": "Jiki Premium",
       "upgrade": "Upgrade to Premium",
       "headline": "Unlock a <highlight>better</highlight> way to learn",
-      "lifetimeNote": "One-time payment. Yours for life."
+      "lifetimeNote": "One-off payment. Yours for life."
     },
     "purchasePending": {
       "title": "Your payment is on its way",
@@ -755,7 +762,7 @@
       "q5a1": "Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!",
       "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Learn to Code course and future courses.",
       "intro": "These are the questions we get asked the most. Your question not answered here? <link>Ping us an email!</link>",
-      "q1a2": "<strong>Jiki Premium</strong> is a one-time payment of <price></price> (priced by country) and unlocks:"
+      "q1a2": "<strong>Jiki Premium</strong> is a one-off payment of <price></price> (priced by country) and unlocks:"
     },
     "latestNews": {
       "heading": "Our latest news",
@@ -772,7 +779,7 @@
       "basic": "Basic",
       "premium": "Premium",
       "free": "Free",
-      "oneTime": "one-time payment"
+      "oneTime": "one-off payment"
     },
     "planBadge": {
       "free": "Free",
@@ -826,7 +833,7 @@
       "q1": "Can I try Jiki for free?",
       "a1": "Yes! You can sign up for free and use the Basic plan for as long as you like. Upgrade to Premium whenever you need full access — there's no obligation.",
       "q2": "Is Premium a subscription?",
-      "a2": "No. Premium is a one-time payment. You pay once and keep Premium for life, with no renewals and nothing to cancel.",
+      "a2": "No. Premium is a one-off payment. You pay once and keep Premium for life, with no renewals and nothing to cancel.",
       "q3": "What does lifetime access mean?",
       "a3": "Your Premium access never expires and you won't be charged again. You keep every Premium feature, including the ones we add later.",
       "q4": "Do you offer discounts for students or those who can't afford Premium?",
@@ -1525,7 +1532,7 @@
       "paymentInfoAriaLabel": "Payment information",
       "pay": "Pay",
       "orderTitle": "Jiki {tier}",
-      "orderBilling": "One-time payment. Premium for life.",
+      "orderBilling": "One-off payment. Premium for life.",
       "securedBy": "Secured by <stripe>stripe</stripe>",
       "error": "Error: {message}"
     },

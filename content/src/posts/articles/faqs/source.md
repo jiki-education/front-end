@@ -13,7 +13,7 @@ seo:
 
 The Learn to Code exercises, which form the core learn-to-code curriculum, are completely free. No card, no trial, no catch.
 
-Jiki Premium is a one-time payment, priced by country, and unlocks full access to Learn to Build, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
+Jiki Premium is a one-off payment, priced by country, and unlocks full access to Learn to Build, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
 
 ### How much time will I need to spend each week on the course?
 
@@ -45,7 +45,7 @@ Yes! You can sign up for free and use the Basic plan for as long as you like. Up
 
 ### Is Premium a subscription?
 
-No. Premium is a one-time payment. You pay once and keep Premium for life, with no renewals and nothing to cancel.
+No. Premium is a one-off payment. You pay once and keep Premium for life, with no renewals and nothing to cancel.
 
 ### What does lifetime access mean?
 
