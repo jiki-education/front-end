@@ -12,24 +12,33 @@ import { formatCurrency } from "./formatCurrency";
 
 export type MembershipTier = "standard" | "premium";
 
-export type BillingInterval = "monthly" | "annual";
-
+// What a new member pays for Premium: one lifetime amount in the visitor's
+// local currency. The API also still sends `monthly` and `annual` for the
+// legacy subscription Prices, but nothing displays them: a subscriber's own
+// price comes from `user.subscription` (see `SubscriptionDetails`).
 export interface PremiumPrices {
   currency: string;
-  monthly: number;
-  annual: number;
+  lifetime: number;
   country_code: string | null;
 }
 
 /**
- * Formats the monthly Premium price in the visitor's locale, e.g. "£6" or
- * "$9.99", using the currency's narrow symbol and no trailing zeroes.
+ * Formats the one-off Premium price in the visitor's locale, e.g. "£24.99" or
+ * "$29.99", using the currency's narrow symbol and no trailing zeroes.
  *
  * Prices arrive as Stripe minor units (e.g. cents/pence); formatCurrency owns
  * the conversion to display units.
  */
-export function formatMonthlyPrice(prices: PremiumPrices): string {
-  return formatCurrency(prices.monthly, prices.currency, {
+export function formatPremiumPrice(prices: PremiumPrices): string {
+  return formatPrice(prices.lifetime, prices.currency);
+}
+
+/**
+ * Formats any Premium amount (a lifetime price or a legacy subscription's
+ * renewal amount) the same way as `formatPremiumPrice`.
+ */
+export function formatPrice(amountInMinorUnits: number, currency: string): string {
+  return formatCurrency(amountInMinorUnits, currency, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
   });

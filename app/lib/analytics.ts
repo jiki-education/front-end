@@ -17,7 +17,8 @@ export type ModalTrigger =
   | "assistant_limit_reached"
   | "upgrade_cta_nav"
   | "upgrade_cta_challenges_sidebar"
-  | "upgrade_cta_premium_page";
+  | "upgrade_cta_premium_page"
+  | "exercise_completion";
 
 /**
  * Feature values for `premium_feature_blocked` — fired when a locked

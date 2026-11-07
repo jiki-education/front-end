@@ -82,7 +82,7 @@ export function GlobalModalProvider() {
 
   // Check if this modal should not close on overlay click
   const shouldNotCloseOnOverlayClick =
-    modalName === "subscription-checkout-modal" ||
+    modalName === "premium-checkout-modal" ||
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
@@ -91,7 +91,7 @@ export function GlobalModalProvider() {
 
   // Check if this modal should not close on ESC key
   const shouldNotCloseOnEsc =
-    modalName === "subscription-checkout-modal" ||
+    modalName === "premium-checkout-modal" ||
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||

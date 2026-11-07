@@ -8,8 +8,8 @@ import { render, waitFor } from "@testing-library/react";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { CheckoutIncompleteError } from "@/lib/api/client";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
-import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { handleSubscribe } from "@/lib/subscriptions/handlers";
+import { verifyPurchaseCheckout } from "@/lib/api/premiumPurchases";
+import { handlePurchasePremium } from "@/lib/subscriptions/handlers";
 import {
   showWelcomeToPremium,
   showPaymentProcessing,
@@ -18,13 +18,13 @@ import {
 } from "@/lib/modal/app";
 
 // Mock the API call
-jest.mock("@/lib/api/subscriptions", () => ({
-  verifyCheckoutSession: jest.fn()
+jest.mock("@/lib/api/premiumPurchases", () => ({
+  verifyPurchaseCheckout: jest.fn()
 }));
 
-// Mock the subscribe handler (used to reopen checkout on a failed return)
+// Mock the purchase handler (used to reopen checkout on a failed return)
 jest.mock("@/lib/subscriptions/handlers", () => ({
-  handleSubscribe: jest.fn().mockResolvedValue(undefined)
+  handlePurchasePremium: jest.fn().mockResolvedValue(undefined)
 }));
 
 // Mock the verification utilities
@@ -43,8 +43,8 @@ jest.mock("@/lib/modal/app", () => ({
 const mockExtractAndClearCheckoutSessionId = extractAndClearCheckoutSessionId as jest.MockedFunction<
   typeof extractAndClearCheckoutSessionId
 >;
-const mockVerifyCheckoutSession = verifyCheckoutSession as jest.MockedFunction<typeof verifyCheckoutSession>;
-const mockHandleSubscribe = handleSubscribe as jest.MockedFunction<typeof handleSubscribe>;
+const mockVerifyCheckoutSession = verifyPurchaseCheckout as jest.MockedFunction<typeof verifyPurchaseCheckout>;
+const mockHandlePurchase = handlePurchasePremium as jest.MockedFunction<typeof handlePurchasePremium>;
 const mockShowWelcomeToPremium = showWelcomeToPremium as jest.MockedFunction<typeof showWelcomeToPremium>;
 const mockShowPaymentProcessing = showPaymentProcessing as jest.MockedFunction<typeof showPaymentProcessing>;
 const mockShowPaymentConfirming = showPaymentConfirming as jest.MockedFunction<typeof showPaymentConfirming>;
@@ -71,7 +71,7 @@ describe("Payment Verification Integration", () => {
 
   it("opens the confirming modal synchronously before verify resolves", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_confirming");
-    let resolveVerify: (value: Awaited<ReturnType<typeof verifyCheckoutSession>>) => void;
+    let resolveVerify: (value: Awaited<ReturnType<typeof verifyPurchaseCheckout>>) => void;
     mockVerifyCheckoutSession.mockReturnValue(
       new Promise((resolve) => {
         resolveVerify = resolve;
@@ -85,13 +85,7 @@ describe("Payment Verification Integration", () => {
     expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
     expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
 
-    resolveVerify!({
-      success: true,
-      interval: "monthly",
-      payment_status: "paid",
-      payment_state: "paid",
-      subscription_status: "active"
-    });
+    resolveVerify!({ success: true, payment_state: "paid" });
 
     await waitFor(() => {
       expect(mockShowWelcomeToPremium).toHaveBeenCalled();
@@ -100,13 +94,7 @@ describe("Payment Verification Integration", () => {
 
   it("shows success modal for paid status", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_success123");
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      interval: "monthly",
-      payment_status: "paid",
-      payment_state: "paid",
-      subscription_status: "active"
-    });
+    mockVerifyCheckoutSession.mockResolvedValue({ success: true, payment_state: "paid" });
 
     render(<CheckoutReturnHandler />);
 
@@ -120,13 +108,7 @@ describe("Payment Verification Integration", () => {
 
   it("shows processing modal for unpaid status", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_processing");
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      interval: "monthly",
-      payment_status: "unpaid",
-      payment_state: "processing",
-      subscription_status: "incomplete"
-    });
+    mockVerifyCheckoutSession.mockResolvedValue({ success: true, payment_state: "processing" });
 
     render(<CheckoutReturnHandler />);
 
@@ -138,7 +120,7 @@ describe("Payment Verification Integration", () => {
     expect(mockRefreshUser).toHaveBeenCalled();
   });
 
-  it("shows verification-failed modal when verifyCheckoutSession rejects", async () => {
+  it("shows verification-failed modal when verifyPurchaseCheckout rejects", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_error");
     mockVerifyCheckoutSession.mockRejectedValue(new Error("network down"));
 
@@ -153,44 +135,17 @@ describe("Payment Verification Integration", () => {
     expect(mockRefreshUser).not.toHaveBeenCalled();
   });
 
-  it("reopens checkout (not the failure modal) for a failed payment, carrying the decline + interval", async () => {
-    mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_failed");
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      interval: "annual",
-      payment_status: "unpaid",
-      payment_state: "failed",
-      subscription_status: "incomplete",
-      decline_code: "insufficient_funds"
-    });
-
-    render(<CheckoutReturnHandler />);
-
-    await waitFor(() => {
-      expect(mockHandleSubscribe).toHaveBeenCalledWith(
-        expect.objectContaining({
-          interval: "annual",
-          priorError: "Your card hasn't got enough funds. Please try a different card."
-        })
-      );
-    });
-    expect(mockShowPaymentVerificationFailed).not.toHaveBeenCalled();
-    expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
-    expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
-  });
-
   it("reopens checkout for a declined session (CheckoutIncompleteError) without reporting", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_incomplete");
     mockVerifyCheckoutSession.mockRejectedValue(
-      new CheckoutIncompleteError("Unprocessable Entity", {}, "expired_card", "monthly")
+      new CheckoutIncompleteError("Unprocessable Entity", {}, "expired_card")
     );
 
     render(<CheckoutReturnHandler />);
 
     await waitFor(() => {
-      expect(mockHandleSubscribe).toHaveBeenCalledWith(
+      expect(mockHandlePurchase).toHaveBeenCalledWith(
         expect.objectContaining({
-          interval: "monthly",
           priorError: "Your card has expired. Please try a different card."
         })
       );
@@ -202,14 +157,12 @@ describe("Payment Verification Integration", () => {
     // Stripe advises never distinguishing the fraud-signalling codes from a plain
     // decline, so `stolen_card` has no catalog entry and falls through.
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_fraud");
-    mockVerifyCheckoutSession.mockRejectedValue(
-      new CheckoutIncompleteError("Unprocessable Entity", {}, "stolen_card", "monthly")
-    );
+    mockVerifyCheckoutSession.mockRejectedValue(new CheckoutIncompleteError("Unprocessable Entity", {}, "stolen_card"));
 
     render(<CheckoutReturnHandler />);
 
     await waitFor(() => {
-      expect(mockHandleSubscribe).toHaveBeenCalledWith(
+      expect(mockHandlePurchase).toHaveBeenCalledWith(
         expect.objectContaining({
           priorError: "Your last payment didn't go through. Please try again with a different card."
         })

@@ -1,11 +1,10 @@
 "use client";
 
 import type { MembershipTier } from "@/lib/pricing";
-import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
 import { PaymentForm } from "./PaymentForm";
-import styles from "../SubscriptionCheckoutModal.module.css";
+import styles from "../PremiumCheckoutModal.module.css";
 
 export function ModalBody({
   selectedTier,
@@ -43,12 +42,6 @@ export function ModalBody({
         <div>
           <div className={styles.orderTitle}>{t("orderTitle", { tier: tierName })}</div>
           <div className={styles.orderBilling}>{t("orderBilling")}</div>
-        </div>
-        <div className={styles.orderPrice}>
-          <span className={styles.amount}>
-            <PremiumPrice interval="monthly" />
-          </span>
-          <span className={styles.period}>{t("perMonthShort")}</span>
         </div>
       </div>
 

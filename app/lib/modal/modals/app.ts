@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 // (app)-only modals: triggered exclusively from authenticated routes
-// (exercise flows, premium upgrade, subscription/payment, settings,
+// (exercise flows, premium upgrade, purchase/payment, settings,
 // badges, welcome). Registered by (app)/layout.tsx via AppModalRegistrar
 // so the corresponding JS chunks aren't shipped to /blog, /articles,
 // /, /premium etc.
@@ -11,13 +11,7 @@ const ExerciseCompletionModal = dynamic(() =>
   import("./ExerciseCompletionModal").then((m) => m.ExerciseCompletionModal)
 );
 const LevelMilestoneModal = dynamic(() => import("./LevelMilestoneModal").then((m) => m.LevelMilestoneModal));
-const SubscriptionModal = dynamic(() => import("./SubscriptionModal").then((m) => m.SubscriptionModal));
-const SubscriptionSuccessModal = dynamic(() =>
-  import("./SubscriptionSuccessModal").then((m) => m.SubscriptionSuccessModal)
-);
-const SubscriptionCheckoutModal = dynamic(() =>
-  import("./SubscriptionCheckoutModal").then((m) => m.SubscriptionCheckoutModal)
-);
+const PremiumCheckoutModal = dynamic(() => import("./PremiumCheckoutModal").then((m) => m.PremiumCheckoutModal));
 const BadgeModal = dynamic(() => import("./BadgeModal").then((m) => m.BadgeModal));
 const ChangeEmailModal = dynamic(() =>
   import("@/components/settings/modals/ChangeEmailModal").then((m) => m.ChangeEmailModal)
@@ -39,6 +33,13 @@ const PaymentConfirmingModal = dynamic(() => import("./PaymentConfirmingModal").
 const PaymentVerificationFailedModal = dynamic(() =>
   import("./PaymentVerificationFailedModal").then((m) => m.PaymentVerificationFailedModal)
 );
+const NeverGetStuckModal = dynamic(() =>
+  import("./PremiumUpsellModals/NeverGetStuckModal").then((m) => m.NeverGetStuckModal)
+);
+const PremiumChallengesModal = dynamic(() =>
+  import("./PremiumUpsellModals/PremiumChallengesModal").then((m) => m.PremiumChallengesModal)
+);
+const DeepDivesModal = dynamic(() => import("./PremiumUpsellModals/DeepDivesModal").then((m) => m.DeepDivesModal));
 const PremiumUpgradeModal = dynamic(() => import("./PremiumUpgradeModal").then((m) => m.PremiumUpgradeModal));
 const WelcomeToPremiumModal = dynamic(() => import("./WelcomeToPremiumModal").then((m) => m.WelcomeToPremiumModal));
 const ExerciseIntroVideoModal = dynamic(() =>
@@ -55,9 +56,7 @@ export const appModals = {
   "exercise-success-modal": ExerciseSuccessModal,
   "exercise-completion-modal": ExerciseCompletionModal,
   "level-milestone-modal": LevelMilestoneModal,
-  "subscription-modal": SubscriptionModal,
-  "subscription-success-modal": SubscriptionSuccessModal,
-  "subscription-checkout-modal": SubscriptionCheckoutModal,
+  "premium-checkout-modal": PremiumCheckoutModal,
   "badge-modal": BadgeModal,
   "change-email-modal": ChangeEmailModal,
   "cancel-subscription-confirm-modal": CancelSubscriptionConfirmModal,
@@ -68,6 +67,9 @@ export const appModals = {
   "payment-confirming-modal": PaymentConfirmingModal,
   "payment-verification-failed-modal": PaymentVerificationFailedModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
+  "premium-upsell-never-get-stuck-modal": NeverGetStuckModal,
+  "premium-upsell-premium-challenges-modal": PremiumChallengesModal,
+  "premium-upsell-deep-dives-modal": DeepDivesModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
   "video-walkthrough-modal": VideoWalkthroughModal,
   "exercise-intro-video-modal": ExerciseIntroVideoModal,

@@ -5,9 +5,10 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { api, ApiError } from "@/lib/api/client";
 import { AuthLayout } from "@/components/ui/AuthLayout";
+import type { AuthPanelProps } from "@/lib/content/getAuthPanelProps";
 import styles from "./AuthForm.module.css";
 
-export function UnsubscribeContent() {
+export function UnsubscribeContent({ panel }: { panel: AuthPanelProps }) {
   const t = useTranslations("auth.unsubscribe");
   const params = useParams();
   const token = params.token as string;
@@ -75,7 +76,7 @@ export function UnsubscribeContent() {
   }, [token]);
 
   return (
-    <AuthLayout>
+    <AuthLayout {...panel}>
       <div className={styles.leftSide}>
         <div className={styles.formContainer}>
           {status === "processing" && (

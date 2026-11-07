@@ -85,7 +85,7 @@ describe("SettingsPage", () => {
     render(<SettingsPage />);
 
     expect(screen.getByRole("button", { name: /account/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /subscription/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /billing/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /notifications/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /danger zone/i })).toBeInTheDocument();
   });

@@ -6,7 +6,7 @@ import ShieldIcon from "@/icons/shield.svg";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import styles from "../SubscriptionCheckoutModal.module.css";
+import styles from "../PremiumCheckoutModal.module.css";
 
 export function PaymentForm({ priorError }: { priorError?: string | null }) {
   const t = useTranslations("modals.subscriptionCheckout");
@@ -98,7 +98,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
           tCommon("processing")
         ) : (
           <>
-            {t("pay")} <PremiumPrice interval="monthly" />
+            {t("pay")} <PremiumPrice />
           </>
         )}
       </button>

@@ -24,7 +24,8 @@ function mapApiPaymentToPayment(apiPayment: ApiPayment): Payment {
     date: apiPayment.paid_at,
     amountInCents: sanitizeAmount(apiPayment.amount_in_cents),
     currency: apiPayment.currency,
-    type: "Recurring",
+    type: apiPayment.purchase_type === "lifetime" ? "One-time" : "Recurring",
+    revokedReason: apiPayment.revoked_reason,
     method: "Stripe",
     receiptUrl: apiPayment.external_receipt_url
   };

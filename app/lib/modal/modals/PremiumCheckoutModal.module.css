@@ -10,6 +10,7 @@
     margin-bottom: 16px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--color-gray-100);
+    text-align: start;
 }
 
 .orderTitle {
@@ -24,24 +25,6 @@
 }
 
 .orderBilling {
-    font-size: 14px;
-    color: var(--color-gray-500);
-}
-
-.orderPrice {
-    text-align: end;
-    align-self: flex-end;
-}
-
-.orderPrice .amount {
-    font-family: "Baloo 2", sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--color-gray-900);
-    line-height: 1;
-}
-
-.orderPrice .period {
     font-size: 14px;
     color: var(--color-gray-500);
 }

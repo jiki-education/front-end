@@ -9,7 +9,7 @@ jest.mock("@/lib/reportError");
 const mockFetchExternalPricing = fetchExternalPricing as jest.MockedFunction<typeof fetchExternalPricing>;
 const mockReportError = reportError as jest.MockedFunction<typeof reportError>;
 
-const PRICES = { currency: "gbp", monthly: 799, annual: 7900, country_code: "GB" };
+const PRICES = { currency: "gbp", lifetime: 2499, country_code: "GB" };
 
 describe("useExternalPremiumPrices", () => {
   beforeEach(() => {

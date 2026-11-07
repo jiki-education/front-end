@@ -1,8 +1,8 @@
 "use client";
 
 import { showConfirmation, showInfo, showModal } from "@/lib/modal";
-import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
 import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
+import { showDeepDivesUpsell, showNeverGetStuckUpsell, showPremiumChallengesUpsell } from "@/lib/modal/app";
 import styles from "./page.module.css";
 
 export default function TestGlobalModals() {
@@ -127,6 +127,33 @@ export default function TestGlobalModals() {
         </div>
 
         <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Premium Upsell Modals</h2>
+          <div className={styles.buttonGroup}>
+            <button
+              onClick={() => showNeverGetStuckUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Never Get Stuck
+            </button>
+            <button
+              onClick={() => showPremiumChallengesUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Premium Challenges
+            </button>
+            <button
+              onClick={() => showDeepDivesUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Deep Dives
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.card}>
           <h2 className={styles.cardTitle}>Exercise Completion Modal</h2>
           <div className={styles.buttonGroup}>
             <button
@@ -205,85 +232,6 @@ export default function TestGlobalModals() {
             🆕 Test the new combined rating step! Click through the full flow: Success → Confirmation → Rate Experience
             (Difficulty + Fun) → Completed
           </p>
-          <h2 className={styles.cardTitle}>Subscription Modals</h2>
-          <div className={styles.buttonGroup}>
-            <button
-              onClick={() =>
-                showSubscriptionModal({
-                  triggerContext: "chat-gate",
-                  suggestedTier: "premium",
-                  featuresContext: {
-                    feature: "AI Chat Assistant",
-                    benefits: [
-                      "Get instant help with coding exercises",
-                      "Ask questions and receive explanations",
-                      "Personalized hints and guidance"
-                    ]
-                  },
-                  onSuccess: (tier) => {
-                    showSubscriptionSuccess({
-                      tier,
-                      triggerContext: "chat-gate",
-                      nextSteps: {
-                        title: "Start Chatting",
-                        description: "Your AI assistant is ready to help with your coding exercises.",
-                        buttonText: "Try Chat Now"
-                      }
-                    });
-                  },
-                  onCancel: () => console.debug("Subscription cancelled")
-                })
-              }
-              className={styles.modalButton}
-              data-color="blue"
-            >
-              Chat Gate Modal
-            </button>
-
-            <button
-              onClick={() =>
-                showSubscriptionModal({
-                  triggerContext: "feature-gate",
-                  suggestedTier: "max",
-                  featuresContext: {
-                    feature: "Advanced Features",
-                    benefits: ["Unlimited AI assistance", "Priority support", "Advanced coding exercises"]
-                  }
-                })
-              }
-              className={styles.modalButton}
-              data-color="purple"
-            >
-              Feature Gate Modal
-            </button>
-
-            <button
-              onClick={() =>
-                showSubscriptionModal({
-                  triggerContext: "general",
-                  headline: "Custom Headline",
-                  description: "Custom description for general upgrade."
-                })
-              }
-              className={styles.modalButton}
-              data-color="indigo"
-            >
-              General Modal
-            </button>
-
-            <button
-              onClick={() =>
-                showSubscriptionSuccess({
-                  tier: "premium",
-                  triggerContext: "general"
-                })
-              }
-              className={styles.modalButton}
-              data-color="green"
-            >
-              Success Modal
-            </button>
-          </div>
         </div>
       </div>
 
@@ -291,7 +239,6 @@ export default function TestGlobalModals() {
         <h3 className={styles.usageTitle}>Usage Example:</h3>
         <pre className={styles.usagePre}>
           {`import { showModal, showConfirmation, showInfo } from '@/lib/modal';
-import { showSubscriptionModal, showSubscriptionSuccess } from '@/lib/modal/app';
 
 // Anywhere in your component:
 showModal('example-modal', { title: 'Hello!' });
@@ -305,22 +252,6 @@ await showConfirmation({
 showInfo({
   title: 'Success',
   content: 'Operation completed!'
-});
-
-// Subscription modals:
-showSubscriptionModal({
-  triggerContext: 'chat-gate',
-  suggestedTier: 'premium',
-  featuresContext: {
-    feature: 'AI Chat Assistant',
-    benefits: ['Ask questions', 'Get explanations']
-  },
-  onSuccess: (tier) => {
-    showSubscriptionSuccess({ 
-      tier, 
-      triggerContext: 'chat-gate' 
-    });
-  }
 });`}
         </pre>
       </div>

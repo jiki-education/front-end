@@ -2,7 +2,7 @@
  * Tests for pricing configuration
  */
 
-import { tierIncludes, formatMonthlyPrice, type MembershipTier, type PremiumPrices } from "@/lib/pricing";
+import { tierIncludes, formatPremiumPrice, type MembershipTier, type PremiumPrices } from "@/lib/pricing";
 
 describe("tierIncludes", () => {
   it("standard tier includes standard features", () => {
@@ -35,8 +35,8 @@ describe("tierIncludes", () => {
   });
 });
 
-describe("formatMonthlyPrice", () => {
-  // formatMonthlyPrice formats in the runtime's default locale (Intl locale
+describe("formatPremiumPrice", () => {
+  // formatPremiumPrice formats in the runtime's default locale (Intl locale
   // `undefined`). Pin it to en-US here so the dot-decimal assertions below don't
   // depend on the machine's system locale (e.g. hu-HU renders "7,99 £").
   const OriginalNumberFormat = Intl.NumberFormat;
@@ -50,45 +50,45 @@ describe("formatMonthlyPrice", () => {
   });
 
   function prices(overrides: Partial<PremiumPrices>): PremiumPrices {
-    return { currency: "usd", monthly: 999, annual: 9900, country_code: "US", ...overrides };
+    return { currency: "usd", lifetime: 2999, country_code: "US", ...overrides };
   }
 
   it("formats a two-decimal currency by scaling minor units", () => {
     // 799 pence -> £7.99
-    const result = formatMonthlyPrice(prices({ currency: "gbp", monthly: 799 }));
+    const result = formatPremiumPrice(prices({ currency: "gbp", lifetime: 799 }));
     expect(result).toContain("£");
     expect(result).toContain("7.99");
   });
 
   it("formats a zero-decimal currency without dividing by 100", () => {
     // JPY has no minor unit, so 500 stays 500, not 5.00
-    const result = formatMonthlyPrice(prices({ currency: "jpy", monthly: 500 }));
+    const result = formatPremiumPrice(prices({ currency: "jpy", lifetime: 500 }));
     expect(result).toContain("500");
     expect(result).not.toContain("5.00");
   });
 
   it("drops trailing zeroes on a whole amount", () => {
     // £6, not £6.00
-    const result = formatMonthlyPrice(prices({ currency: "gbp", monthly: 600 }));
+    const result = formatPremiumPrice(prices({ currency: "gbp", lifetime: 600 }));
     expect(result).toContain("6");
     expect(result).not.toContain(".00");
   });
 
   it("scales a currency Intl reports as zero-decimal but Stripe bills in 1/100ths", () => {
     // 39900 para -> RSD 399, not RSD 39,900
-    const result = formatMonthlyPrice(prices({ currency: "rsd", monthly: 39900, country_code: "RS" }));
+    const result = formatPremiumPrice(prices({ currency: "rsd", lifetime: 39900, country_code: "RS" }));
     expect(result).toContain("399");
     expect(result).not.toContain("39,900");
   });
 
   it("accepts a lowercase currency code", () => {
     // 1050 cents -> €10.50
-    const result = formatMonthlyPrice(prices({ currency: "eur", monthly: 1050 }));
+    const result = formatPremiumPrice(prices({ currency: "eur", lifetime: 1050 }));
     expect(result).toContain("10.5");
   });
 
   it("uses the narrow currency symbol rather than the code", () => {
-    const result = formatMonthlyPrice(prices({ currency: "usd", monthly: 999 }));
+    const result = formatPremiumPrice(prices({ currency: "usd", lifetime: 999 }));
     expect(result).toContain("$");
     expect(result).not.toContain("USD");
   });
