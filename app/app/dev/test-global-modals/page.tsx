@@ -2,6 +2,7 @@
 
 import { showConfirmation, showInfo, showModal } from "@/lib/modal";
 import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
+import { showDeepDivesUpsell, showNeverGetStuckUpsell, showPremiumChallengesUpsell } from "@/lib/modal/app";
 import styles from "./page.module.css";
 
 export default function TestGlobalModals() {
@@ -123,6 +124,33 @@ export default function TestGlobalModals() {
           <button onClick={() => showModal("auth-error-modal")} className={styles.modalButton} data-color="red">
             Show Auth Error Modal
           </button>
+        </div>
+
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Premium Upsell Modals</h2>
+          <div className={styles.buttonGroup}>
+            <button
+              onClick={() => showNeverGetStuckUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Never Get Stuck
+            </button>
+            <button
+              onClick={() => showPremiumChallengesUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Premium Challenges
+            </button>
+            <button
+              onClick={() => showDeepDivesUpsell({ trigger: "exercise_completion" })}
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Deep Dives
+            </button>
+          </div>
         </div>
 
         <div className={styles.card}>

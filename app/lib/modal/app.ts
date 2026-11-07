@@ -26,8 +26,12 @@
 import type { MembershipTier } from "@/lib/pricing";
 import type { ModalTrigger } from "@/lib/analytics";
 import type { VideoSource } from "@/types/lesson";
+import type { PremiumUpsellProps } from "./modals/PremiumUpsellModals/usePremiumUpsell";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
 import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import neverGetStuckStyles from "./modals/PremiumUpsellModals/NeverGetStuckModal.module.css";
+import premiumChallengesStyles from "./modals/PremiumUpsellModals/PremiumChallengesModal.module.css";
+import deepDivesStyles from "./modals/PremiumUpsellModals/DeepDivesModal.module.css";
 import premiumCheckoutStyles from "./modals/PremiumCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import welcomeStyles from "./modals/WelcomeModal.module.css";
@@ -90,6 +94,20 @@ export const showPremiumUpgradeModal = (
     premiumUpgradeStyles.premiumModalOverlay,
     premiumUpgradeStyles.premiumModalWidth
   );
+};
+
+// Premium upsells shown after an exercise. Each one leads with a different
+// reason to upgrade, so repeat prompts stay varied.
+export const showNeverGetStuckUpsell = (props: PremiumUpsellProps = {}) => {
+  showModal("premium-upsell-never-get-stuck-modal", props, undefined, neverGetStuckStyles.modal);
+};
+
+export const showPremiumChallengesUpsell = (props: PremiumUpsellProps = {}) => {
+  showModal("premium-upsell-premium-challenges-modal", props, undefined, premiumChallengesStyles.modal);
+};
+
+export const showDeepDivesUpsell = (props: PremiumUpsellProps = {}) => {
+  showModal("premium-upsell-deep-dives-modal", props, undefined, deepDivesStyles.modal);
 };
 
 // Convenience function for video walkthrough modal
