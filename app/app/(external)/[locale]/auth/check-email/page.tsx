@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { getAuthPanelProps, type AuthSearchParams } from "@/lib/content/getAuthPanelProps";
 import CheckEmailClient from "./CheckEmailClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -7,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title"), description: t("description") };
 }
 
-export default function CheckEmailPage() {
-  return <CheckEmailClient />;
+export default async function CheckEmailPage({ searchParams }: { searchParams: AuthSearchParams }) {
+  const panel = await getAuthPanelProps(searchParams);
+  return <CheckEmailClient panel={panel} />;
 }
