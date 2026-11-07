@@ -1,4 +1,6 @@
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./PremiumUpgradeModal.module.css";
 
 export function BasicPlanSection() {
@@ -7,9 +9,21 @@ export function BasicPlanSection() {
 
   return (
     <div className={styles.leftSide}>
-      <h1 className={styles.mainHeading}>
-        {t.rich("headline", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
-      </h1>
+      <div className={styles.headingRow}>
+        <Image
+          className={styles.headingJiki}
+          src={staticAsset("images/misc/jiki-flying.webp")}
+          alt=""
+          width={71}
+          height={69}
+        />
+        <h1 className={styles.mainHeading}>
+          {t.rich("headline", {
+            highlight: (chunks) => <span className={styles.highlight}>{chunks}</span>,
+            br: () => <br />
+          })}
+        </h1>
+      </div>
       <p className={styles.mainSubheading}>{t.rich("subheading", { strong: (chunks) => <strong>{chunks}</strong> })}</p>
 
       <div className={styles.planSection}>

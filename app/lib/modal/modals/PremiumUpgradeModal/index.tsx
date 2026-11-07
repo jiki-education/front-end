@@ -6,11 +6,10 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { trackEvent, type ModalTrigger } from "@/lib/analytics";
 import { BasicPlanSection } from "./BasicPlanSection";
 import { PremiumPlanSection } from "./PremiumPlanSection";
+import { Testimonials } from "./Testimonials";
 import { useUpgradeFlow } from "./useUpgradeFlow";
 import styles from "./PremiumUpgradeModal.module.css";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { staticAsset } from "@/lib/static-asset";
 
 interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
@@ -65,19 +64,12 @@ export function PremiumUpgradeModal({
 
   return (
     <div className={styles.modalContent}>
-      <Image
-        className={styles.arrowDecoration}
-        src={staticAsset("images/misc/arrow.png")}
-        alt=""
-        width={150}
-        height={150}
-        priority
-      />
-
       <div className={styles.plansContainer}>
         <BasicPlanSection />
         <PremiumPlanSection user={user} isLoading={isLoading} onUpgrade={handleUpgrade} />
       </div>
+
+      <Testimonials />
 
       <button className={styles.skipLink} onClick={handleClose}>
         {t("skipLink")}

@@ -1458,24 +1458,63 @@
       "skipLink": "Not now, maybe later",
       "userAvatarAlt": "User",
       "upgrade": "Upgrade to Premium",
-      "planName": "Jiki Premium",
+      "planName": "Upgrade to <premium>Premium</premium>",
       "lifetimeNote": "One-off payment. No subscription.",
       "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
-      "featureChallenges": "Unlock <strong>Premium Challenges</strong>",
-      "featureAi": "Unlimited <strong>AI support</strong> from Jiki",
-      "featureLivestreams": "Regular <strong>Q&A livestreams</strong> you can join",
-      "featureCertificates": "Get an official <strong>completion certificate</strong>",
-      "featureAdFree": "<strong>Ad-free</strong> learning experience",
-      "featureEarlyAccess": "<strong>Early access</strong> to new features",
+      "featureChallenges": "<strong>Push yourself further</strong> with Premium challenges",
+      "featureAi": "<strong>Never get stuck</strong> with unlimited Ask Jiki support",
+      "featureLivestreams": "<strong>Be part of the community</strong> with regular livestreams",
+      "featureCertificates": "<strong>Showcase your skills</strong> with an official certificate",
+      "featureDeepDives": "<strong>Dig deeper</strong> with our full walkthroughs catalog",
+      "featureAdFree": "<strong>Stay focussed</strong> with an ad-free learning experience",
+      "featureEarlyAccess": "<strong>Get early access</strong> to new features",
       "basic": {
-        "subheading": "Premium users are <strong>26 times more likely to finish</strong>. Don't get stuck and quit!",
-        "planName": "Basic Plan",
+        "subheading": "Premium users are <strong>26 times more likely to finish</strong>. Never get stuck again!",
+        "planName": "Your basic account",
         "planPrice": "Free forever",
         "feature1": "Over 80 Coding Exercises",
         "feature2": "Full Concept Library",
         "feature3": "Ask Jiki on one exercise",
         "note": "+ Access to public YouTube videos and community forums for additional learning resources.",
-        "headline": "<highlight>Accelerate</highlight> your learning!"
+        "headline": "<highlight>Accelerate</highlight><br></br>your learning!"
+      },
+      "testimonialsLabel": "What learners say",
+      "testimonialStars": "5 out of 5 stars",
+      "testimonials": {
+        "challenge": "Perfect mixture of challenge and fun",
+        "master": "An opportunity to learn from a bonafide master",
+        "community": "Fantastic community",
+        "supportive": "Very supportive community!",
+        "confidence": "It's massively increased my confidence and motivation",
+        "value": "Amazing value",
+        "investment": "The best investment I made in myself this year"
+      }
+    },
+    "premiumUpsells": {
+      "subheading": "Premium users are <strong>26 times more likely to complete the course</strong>.",
+      "neverGetStuck": {
+        "heading": "<highlight>Never</highlight> get stuck again",
+        "text": "Everyone gets stuck. What matters is getting unstuck. With Premium, Jiki is there on every exercise to nudge you in the right direction, so you keep moving.",
+        "plus": "<strong>Plus:</strong> Premium Challenges, Unlimited Deep Dives, an Official Certificate, Ad-free learning, Regular livestreams, early access to new features, and more!",
+        "price": "Only <strong><price></price></strong> (one-off, no subscription)",
+        "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
+        "upgrade": "Upgrade to Premium"
+      },
+      "premiumChallenges": {
+        "heading": "Ready for a <highlight>challenge</highlight>?",
+        "text": "You've just shown you can do this. Premium Challenges take what you've learned and <strong>push it further</strong>, with harder problems that make it really stick.",
+        "plus": "<strong>Plus:</strong> Unlimited AI support, Unlimited Deep Dives, an Official Certificate, Ad-free learning, Regular livestreams, early access to new features, and more!",
+        "price": "Only <strong><price></price></strong> (one-off, no subscription)",
+        "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
+        "upgrade": "Upgrade to Premium"
+      },
+      "deepDives": {
+        "heading": "Unlimited <highlight>Deep Dives</highlight>",
+        "text": "Ever wondered how Jeremy would have solved it? Deep Dives walk you through every exercise step by step, so you see <strong>the thinking behind the code</strong> as well as the answer.",
+        "plus": "<strong>Plus:</strong> Unlimited AI support, Premium Challenges, an Official Certificate, Ad-free learning, Regular livestreams, early access to new features, and more!",
+        "price": "Only <strong><price></price></strong> (one-off, no subscription)",
+        "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
+        "upgrade": "Upgrade to Premium"
       }
     },
     "subscriptionCheckout": {

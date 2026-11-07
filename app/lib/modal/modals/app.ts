@@ -33,6 +33,13 @@ const PaymentConfirmingModal = dynamic(() => import("./PaymentConfirmingModal").
 const PaymentVerificationFailedModal = dynamic(() =>
   import("./PaymentVerificationFailedModal").then((m) => m.PaymentVerificationFailedModal)
 );
+const NeverGetStuckModal = dynamic(() =>
+  import("./PremiumUpsellModals/NeverGetStuckModal").then((m) => m.NeverGetStuckModal)
+);
+const PremiumChallengesModal = dynamic(() =>
+  import("./PremiumUpsellModals/PremiumChallengesModal").then((m) => m.PremiumChallengesModal)
+);
+const DeepDivesModal = dynamic(() => import("./PremiumUpsellModals/DeepDivesModal").then((m) => m.DeepDivesModal));
 const PremiumUpgradeModal = dynamic(() => import("./PremiumUpgradeModal").then((m) => m.PremiumUpgradeModal));
 const WelcomeToPremiumModal = dynamic(() => import("./WelcomeToPremiumModal").then((m) => m.WelcomeToPremiumModal));
 const ExerciseIntroVideoModal = dynamic(() =>
@@ -60,6 +67,9 @@ export const appModals = {
   "payment-confirming-modal": PaymentConfirmingModal,
   "payment-verification-failed-modal": PaymentVerificationFailedModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
+  "premium-upsell-never-get-stuck-modal": NeverGetStuckModal,
+  "premium-upsell-premium-challenges-modal": PremiumChallengesModal,
+  "premium-upsell-deep-dives-modal": DeepDivesModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
   "video-walkthrough-modal": VideoWalkthroughModal,
   "exercise-intro-video-modal": ExerciseIntroVideoModal,
