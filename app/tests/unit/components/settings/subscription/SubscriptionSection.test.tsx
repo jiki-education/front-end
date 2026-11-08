@@ -84,7 +84,7 @@ describe("SubscriptionSection", () => {
 
       render(<SubscriptionSection user={user} {...defaultProps} />);
 
-      expect(screen.getByText(/for life\. There's nothing to renew\./)).toBeInTheDocument();
+      expect(screen.getByText(/for life\. Thanks for supporting our mission!/)).toBeInTheDocument();
       expect(screen.queryByText("Cancel Subscription")).not.toBeInTheDocument();
       expect(screen.queryByRole("button", { name: "Upgrade to Premium" })).not.toBeInTheDocument();
     });
