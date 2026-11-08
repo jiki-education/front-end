@@ -67,7 +67,6 @@ public/static/hashed/
 lib/generated/
 
 # generated icon types (build-time generation)
-components/ui-kit/icon-types.ts
 
 # cloudflare workers
 .open-next/

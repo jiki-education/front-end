@@ -1,7 +1,10 @@
 "use client";
 
 import { PageTabs } from "@/components/ui-kit";
-import { Icon } from "@/components/ui-kit/Icon";
+import AllIcon from "@/icons/all.svg";
+import CompleteIcon from "@/icons/complete.svg";
+import InProgressIcon from "@/icons/in-progress.svg";
+import LockedIcon from "@/icons/locked.svg";
 import styles from "./page.module.css";
 
 export default function UIKitDemoPage() {
@@ -30,8 +33,8 @@ export default function UIKitDemoPage() {
                 <div className={styles.variantLabel}>Blue Active (Default)</div>
                 <PageTabs
                   tabs={[
-                    { id: "all", label: "All", icon: <Icon name="all" size={16} /> },
-                    { id: "not-started", label: "Not started", icon: <Icon name="in-progress" size={16} /> }
+                    { id: "all", label: "All", icon: <AllIcon width={16} height={16} /> },
+                    { id: "not-started", label: "Not started", icon: <InProgressIcon width={16} height={16} /> }
                   ]}
                   activeTabId="all"
                   onTabChange={() => {}}
@@ -46,7 +49,7 @@ export default function UIKitDemoPage() {
                     {
                       id: "in-progress",
                       label: "In Progress",
-                      icon: <Icon name="in-progress" size={16} color="purple" />
+                      icon: <InProgressIcon width={16} height={16} />
                     },
                     { id: "other", label: "Other Tab" }
                   ]}
@@ -63,7 +66,7 @@ export default function UIKitDemoPage() {
                     {
                       id: "complete",
                       label: "Complete",
-                      icon: <Icon name="complete" size={16} color="green" />,
+                      icon: <CompleteIcon width={16} height={16} />,
                       color: "green"
                     },
                     { id: "other2", label: "Other Tab" }
@@ -81,7 +84,7 @@ export default function UIKitDemoPage() {
                     {
                       id: "locked",
                       label: "Locked",
-                      icon: <Icon name="locked" size={16} color="gray-500" />,
+                      icon: <LockedIcon width={16} height={16} />,
                       color: "gray"
                     },
                     { id: "other3", label: "Other Tab" }
@@ -90,51 +93,6 @@ export default function UIKitDemoPage() {
                   onTabChange={() => {}}
                 />
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Icons Section */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Icons</h2>
-
-          <div className={styles.panelSpaced}>
-            <h3 className={styles.panelTitle}>Default Icons</h3>
-            <p className={styles.panelDescription}>
-              Icons without color override inherit from parent or use currentColor.
-            </p>
-            <div className={styles.iconRow}>
-              <Icon name="email" size={24} />
-              <Icon name="password" size={24} />
-              <Icon name="complete" size={24} />
-              <Icon name="in-progress" size={24} />
-              <Icon name="locked" size={24} />
-            </div>
-          </div>
-
-          <div className={styles.panelSpaced}>
-            <h3 className={styles.panelTitle}>Custom Colors</h3>
-            <p className={styles.panelDescription}>Icons with a custom color.</p>
-            <div className={styles.iconRow}>
-              <Icon name="email" size={24} color="red-500" />
-              <Icon name="password" size={24} color="blue-500" />
-              <Icon name="complete" size={24} color="orange-500" />
-              <Icon name="in-progress" size={24} color="purple-500" />
-              <Icon name="locked" size={24} color="gray-500" />
-            </div>
-          </div>
-
-          <div className={styles.panel}>
-            <h3 className={styles.panelTitle}>Different Sizes</h3>
-            <p className={styles.panelDescription}>Icons in various sizes with custom colors.</p>
-            <div className={styles.iconRow}>
-              <Icon name="email" size={12} color="blue-600" />
-              <Icon name="email" size={16} color="blue-600" />
-              <Icon name="email" size={20} color="blue-600" />
-              <Icon name="email" size={24} color="blue-600" />
-              <Icon name="email" size={32} color="blue-600" />
-              <Icon name="email" size={40} color="blue-600" />
-              <Icon name="email" size={48} color="blue-600" />
             </div>
           </div>
         </section>
