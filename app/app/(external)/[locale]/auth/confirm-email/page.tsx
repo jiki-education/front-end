@@ -1,5 +1,6 @@
 import { ConfirmEmailForm } from "@/components/auth/ConfirmEmailForm";
 import { AuthLayout } from "@/components/ui/AuthLayout";
+import { getAuthPanelProps, type AuthSearchParams } from "@/lib/content/getAuthPanelProps";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -9,9 +10,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title"), description: t("description") };
 }
 
-export default function ConfirmEmailPage() {
+export default async function ConfirmEmailPage({ searchParams }: { searchParams: AuthSearchParams }) {
+  const panel = await getAuthPanelProps(searchParams);
   return (
-    <AuthLayout>
+    <AuthLayout {...panel}>
       <Suspense>
         <ConfirmEmailForm />
       </Suspense>

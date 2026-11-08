@@ -1,260 +1,58 @@
-# Stripe Subscription Implementation
+# Stripe Payments
 
-This document outlines the 9 different subscription states and the actions that should be available to users in each state.
+Jiki Premium is sold as a one-off lifetime purchase. Members who subscribed before that keep their monthly or annual Stripe subscription, so the front-end supports two things:
 
-## Subscription States
+- **Buying Premium** for anyone who doesn't have it.
+- **Managing a legacy subscription** (cancel, reactivate, customer portal) for members who still have one. Nothing in the front-end can start a new subscription.
 
-### Never Subscribed
+## Who Has What
 
-This is the state for users who have never had a premium or max subscription.
+The `/internal/me` user object carries everything the UI branches on (see `types/auth.ts` and `types/subscription.ts`):
 
-They need the ability to "Upgrade To Premium From Standard" or "Upgrade To Max From Standard". Provide a button for each.
+| Field                      | Meaning                                                                                                           |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `membership_type`          | `standard` or `premium`. Every feature gate reads this through `tierIncludes()` in `lib/pricing.ts`.              |
+| `lifetime_premium`         | The user bought Premium outright.                                                                                 |
+| `can_purchase_premium`     | The user may start a purchase. False while they have Premium by any route, or while a purchase is still clearing. |
+| `premium_purchase_pending` | A purchase paid by a delayed method (e.g. a bank debit) hasn't cleared yet.                                       |
+| `subscription_status`      | The legacy subscription's state.                                                                                  |
+| `subscription`             | Present only while a legacy subscription is live (`active`, `incomplete`, `payment_failed`, `cancelling`).        |
+| `premium_prices`           | `{ currency, lifetime, country_code }`: the one-off price for the user's country.                                 |
 
-### Incomplete Payment
+`getMembershipKind()` in `components/settings/subscription/membership.ts` turns these into one of four kinds: `lifetime`, `subscription` (a live legacy subscription), `premium` (Premium from elsewhere, e.g. an Exercism membership) or `free`. A former subscriber whose subscription has ended is `free`.
 
-Users in this state have started a payment that can take more time to complete (e.g. PayPal or a BACS payment). Stripe is awaiting confirmation that the payment has completed successfully. When that happens, the subscription state will update.
+## Buying Premium
 
-The user needs to be informed that we're awaiting payment confirmation.
+1. A gate opens the premium upgrade modal (`showPremiumUpgradeModal`), or the user clicks the upsell in settings.
+2. `handlePurchasePremium()` in `lib/subscriptions/handlers.ts` calls `createPurchaseCheckoutSession()` (`POST /internal/premium_purchases/checkout_session`) with a return URL built by `lib/subscriptions/checkout.ts`. The API picks the currency and the Stripe Price from the user's country.
+3. The client secret opens `PremiumCheckoutModal`, which embeds Stripe Checkout (`CheckoutProvider` + `PaymentElement`). On confirm, Stripe redirects to the return URL.
+4. `CheckoutReturnHandler` (mounted in `app/(app)/layout.tsx`) reads the session id, shows the confirming modal and calls `verifyPurchaseCheckout()` (`POST /internal/premium_purchases/verify_checkout`):
+   - `payment_state: "paid"` shows the welcome modal. The API has already granted Premium.
+   - `payment_state: "processing"` shows the processing modal. The API marks the purchase pending and grants Premium by webhook once the payment clears.
+   - A `checkout_payment_incomplete` error becomes a `CheckoutIncompleteError`, and checkout reopens with the decline message from `checkout.declineCodes`.
+5. The user object is refreshed in every case.
 
-### Active Premium
+While `premium_purchase_pending` is true, every place that would offer the purchase shows a "payment on its way" notice instead: the upgrade modal, the settings upsell and the premium page CTA. If a purchase is attempted anyway, the API rejects it with `purchase_pending`, and `already_premium` if the user already has Premium. `handlePurchasePremium()` shows the catalog copy for both.
 
-Users in this state have an active Premium subscription with full access to premium features.
+## Legacy Subscriptions
 
-They need the ability to:
+Members with a live subscription see the subscription UI in settings: their renewal price and next billing date, a scheduled cancellation with the days remaining, or a failed/incomplete payment. Their actions live in `lib/subscriptions/handlers.ts` and call `lib/api/subscriptions.ts`:
 
-- "Upgrade To Max From Premium" (direct tier change via API)
-- "Cancel Subscription" (schedule cancellation at period end)
-- "Manage Subscription Via Customer Portal" (change payment method, view billing history)
+- **Cancel** (`cancelSubscription()`): scheduled for the end of the billing period, behind `CancelSubscriptionConfirmModal`.
+- **Reactivate** (`reactivateSubscription()`): clears a scheduled cancellation.
+- **Customer portal** (`createPortalSession()`): payment methods and invoices, managed by Stripe.
 
-### Active Max
+The renewal price comes from `subscription.amount_in_cents` and `subscription.currency`, with `subscription.interval` deciding "/month" or "/year" (`useSubscriptionPrice()`). These describe what Stripe will actually charge, which can differ from today's price for the user's country. The amount is null until the API has stored it, and the UI then leaves the price out.
 
-Users in this state have an active Max subscription with full access to all features (highest tier).
+Account deletion cancels a live subscription first. The API reports a failure there as `stripe_error`, which `DeleteAccountConfirmContent` shows.
 
-They need the ability to:
+## Payment History
 
-- "Downgrade To Premium From Max" (direct tier change via API)
-- "Cancel Subscription" (schedule cancellation at period end)
-- "Manage Subscription Via Customer Portal" (change payment method, view billing history)
-
-### Cancelling Scheduled
-
-Users in this state have an active subscription that is scheduled for cancellation at the end of the current billing period. They continue to have access until that date.
-
-The user needs to be informed that their subscription will end at the period end. They should have the ability to:
-
-- "Resume Subscription" (cancel the cancellation)
-- "Manage Subscription Via Customer Portal"
-
-### Payment Failed - Grace Period
-
-Users in this state have had a payment failure but are still within the 7-day grace period. They maintain access to their subscription features during this time.
-
-The user needs to be clearly informed that:
-
-- Their payment failed
-- They have 7 days remaining to fix the issue
-- They still have access during the grace period
-
-They should have the ability to:
-
-- "Manage Subscription Via Customer Portal" to update their payment method
-- Retry the payment (happens automatically when payment method is updated)
-- "Cancel Subscription" (if they want to cancel instead of fixing payment)
-
-### Payment Failed - Grace Expired
-
-Users in this state have had a payment failure and the 7-day grace period has expired. They have been downgraded to the standard (free) tier and no longer have access to premium features.
-
-The user needs to be informed that:
-
-- Their payment failed and grace period expired
-- They have been downgraded to standard tier
-- Access to premium features has been revoked
-
-They should have the ability to:
-
-- "Manage Subscription Via Customer Portal" to update their payment method and resume their subscription
-- "Start Fresh Subscription To Premium" or "Start Fresh Subscription To Max" (new checkout flow)
-
-### Previously Subscribed
-
-Users in this state previously had a subscription that has ended (canceled, expired, or otherwise terminated). They are currently on the standard (free) tier with no active subscription.
-
-The user needs to be informed that their previous subscription has ended. They should have the ability to:
-
-- "Start Fresh Subscription To Premium"
-- "Start Fresh Subscription To Max"
-
-### Incomplete Expired
-
-Users in this state started a checkout session but abandoned it or the payment method authorization expired before completion.
-
-The user needs to be informed that their previous checkout session expired. They should have the ability to:
-
-- "Start Fresh Subscription To Premium"
-- "Start Fresh Subscription To Max"
-
-## Actions
-
-### Upgrade To Premium From Standard
-
-Create a checkout session for the Premium tier and redirect the user to the Stripe-hosted checkout page.
-
-**Implementation:**
-
-1. Call `createCheckoutSession('premium', returnUrl)` API
-2. Use the Stripe Checkout SDK with the returned `client_secret`
-3. Display the checkout form in-app or redirect to Stripe-hosted page
-4. Handle the return URL with session verification
-
-### Upgrade To Max From Standard
-
-Create a checkout session for the Max tier and redirect the user to the Stripe-hosted checkout page.
-
-**Implementation:**
-Same as "Upgrade To Premium From Standard" but use `'max'` as the tier parameter.
-
-### Upgrade To Max From Premium
-
-Directly upgrade an existing Premium subscription to Max tier.
-
-**Implementation:**
-
-1. Call `updateSubscription('max')` API
-2. Handle the immediate tier change response
-3. Update UI to reflect new tier
-4. Show success message
-
-The tier change happens immediately. If the subscription is in "cancelling" status, the upgrade will automatically resume the subscription.
-
-### Manage Subscription Via Customer Portal
-
-Open the Stripe Customer Portal where users can manage all aspects of their subscription.
-
-**Implementation:**
-
-1. Call `createPortalSession()` API
-2. Redirect user to the returned portal URL
-3. User can:
-   - Update payment method
-   - Change subscription tier (upgrade/downgrade)
-   - Cancel subscription
-   - View billing history
-   - Download invoices
-
-The Customer Portal is managed by Stripe and requires no additional UI implementation.
-
-### Cancel Subscription
-
-Allow users to cancel their active subscription. Cancellation is scheduled for the end of the current billing period (not immediate).
-
-**Implementation:**
-
-1. Call `cancelSubscription()` API
-2. Handle the response with cancellation status and access end date
-3. Update UI to show "cancelling" status
-4. Display message about keeping access until period end
-
-**Important UX Notes:**
-
-- Cancellation happens at period end (not immediate)
-- User keeps full access until `access_until` date
-- No refunds for unused time
-- Only available for users with status: "active", "payment_failed", or "incomplete"
-- Show confirmation modal before canceling with features they'll lose
-- Consider retention messaging (discounts, feature highlights)
-
-### Resume Subscription (Reactivate)
-
-Allow users to cancel their scheduled cancellation and resume their subscription.
-
-**Implementation:**
-
-1. Call `reactivateSubscription()` API
-2. Handle the response with updated subscription status
-3. Update UI to show active status
-4. Display success message
-
-The subscription resumes immediately and the scheduled cancellation is cleared. Users can also resume by upgrading/downgrading their tier, which automatically clears the cancellation.
-
-### Start Fresh Subscription To Premium
-
-Create a new checkout session for users who previously had a subscription or had an incomplete checkout.
-
-**Implementation:**
-Same as "Upgrade To Premium From Standard". The checkout flow handles both new and returning subscribers.
-
-### Start Fresh Subscription To Max
-
-Create a new checkout session for the Max tier for returning or incomplete users.
-
-**Implementation:**
-Same as "Upgrade To Max From Standard". The checkout flow handles both new and returning subscribers.
-
-### Downgrade To Premium From Max
-
-Directly downgrade an existing Max subscription to Premium tier.
-
-**Implementation:**
-
-1. Call `updateSubscription('premium')` API
-2. Handle the immediate tier change response
-3. Update UI to reflect new tier
-4. Show success message
-
-The tier change happens immediately and the user loses Max features right away. If the subscription is in "cancelling" status, the downgrade will automatically resume the subscription.
-
-## Subscription Data Source
-
-Subscription status and details are provided through the `/internal/me` endpoint as part of the authenticated user object, not through a separate subscription endpoint.
-
-### User Object Structure
-
-```typescript
-{
-  id: number;
-  handle: string;
-  email: string;
-  name: string | null;
-  created_at: string;
-  membership_type: "standard" | "premium" | "max";
-  subscription_status: "never_subscribed" | "incomplete" | "active" | "cancelling" | "payment_failed" | "canceled";
-  subscription: {
-    in_grace_period: boolean;
-    grace_period_ends_at: string | null;
-    subscription_valid_until: string;
-  } | null;
-}
-```
-
-### Subscription Object Presence
-
-The `subscription` object is **present** when there is an active Stripe subscription:
-
-- `incomplete` - Payment pending confirmation
-- `active` - Active subscription
-- `payment_failed` - Failed payment (user in grace period)
-- `cancelling` - Scheduled for cancellation at period end
-
-The `subscription` object is **null** when there is no Stripe subscription:
-
-- `never_subscribed` - User has never subscribed
-- `canceled` - Subscription was canceled and period has ended
-
-### Usage in Frontend
-
-After any subscription operation (checkout, upgrade, downgrade, cancel), refresh the user data to get updated subscription status:
-
-```typescript
-// After subscription operation
-await refreshUser(); // Refreshes user object from /internal/me endpoint
-```
-
-The user's `membership_type` reflects their current tier, while `subscription_status` indicates the state of their Stripe subscription.
+`GET /internal/payments` lists both kinds of payment. `purchase_type` (`subscription` or `lifetime`) labels each row "Recurring" or "Premium Upgrade", and `revoked_reason` (`refunded` or `disputed`) marks a lifetime purchase that has been reversed.
 
 ## Formatting Prices
 
-All amounts from the API (`premium_prices`, payment history) are Stripe minor units. `lib/formatCurrency.ts` owns the conversion to display units, and everything that renders a price goes through it (`formatCurrency`, or `formatMonthlyPrice` in `lib/pricing.ts` which wraps it).
+All amounts from the API (`premium_prices`, `subscription.amount_in_cents`, payment history) are Stripe minor units. `lib/formatCurrency.ts` owns the conversion to display units, and everything that renders a price goes through it (`formatCurrency`, or `formatPremiumPrice`/`formatPrice` in `lib/pricing.ts`, which wrap it).
 
 Two separate questions, two separate functions, and they deliberately disagree for some currencies:
 
@@ -262,3 +60,7 @@ Two separate questions, two separate functions, and they deliberately disagree f
 - **How many decimal places to show** (`currencyFractionDigits`) is Intl-driven, with HUF/TWD/UGX forced to 0.
 
 Never derive a divisor from `Intl.NumberFormat(...).resolvedOptions().minimumFractionDigits`.
+
+## Development
+
+`/dev/stripe-test` shows the current user's raw subscription and purchase fields, starts a purchase, and drives the legacy subscription actions. `/dev/subscription-modal-test` shows the confirming, processing, verification-failed and welcome modals.

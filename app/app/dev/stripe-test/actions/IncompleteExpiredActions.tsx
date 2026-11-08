@@ -1,7 +1,7 @@
-import { handleSubscribe } from "../handlers";
+import { handlePurchasePremium } from "../handlers";
 import styles from "./actions.module.css";
 
-export function IncompleteExpiredActions({ userEmail }: { userEmail: string }) {
+export function IncompleteExpiredActions() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -11,11 +11,7 @@ export function IncompleteExpiredActions({ userEmail }: { userEmail: string }) {
         <p className={styles.description}>Your previous checkout session expired. Start a new checkout</p>
       </div>
 
-      <button
-        onClick={() => handleSubscribe({ interval: "monthly", userEmail })}
-        className={styles.button}
-        data-variant="blue"
-      >
+      <button onClick={() => handlePurchasePremium()} className={styles.button} data-variant="blue">
         Start Fresh Checkout - Premium
       </button>
 

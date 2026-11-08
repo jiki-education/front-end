@@ -1,28 +1,22 @@
 /**
- * Shared Subscription Handlers
- * Centralized handlers for subscription actions across the app
+ * Shared Premium Handlers
+ * Centralized handlers for buying Premium and for managing legacy
+ * subscriptions across the app
  */
 
-import type { BillingInterval } from "@/lib/pricing";
-import {
-  createCheckoutSession,
-  createPortalSession,
-  cancelSubscription,
-  reactivateSubscription
-} from "@/lib/api/subscriptions";
+import { createPortalSession, cancelSubscription, reactivateSubscription } from "@/lib/api/subscriptions";
+import { createPurchaseCheckoutSession } from "@/lib/api/premiumPurchases";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
 import { getApiErrorType } from "@/lib/api/client";
 import { toastApiError } from "@/lib/api/apiErrors";
 import { hideModal } from "@/lib/modal";
-import { showSubscriptionCheckout } from "@/lib/modal/app";
+import { showPremiumCheckout } from "@/lib/modal/app";
 import toast from "react-hot-toast";
 import { toastError, toastSuccess } from "@/lib/toast";
 
 // Types for handler functions
-export interface SubscribeParams {
-  interval: BillingInterval;
-  userEmail?: string;
+export interface PurchaseParams {
   returnPath?: string; // Optional return path, defaults to current location
   priorError?: string | null; // A previous attempt's failure, shown in the checkout error banner
 }
@@ -42,17 +36,17 @@ export interface DeleteStripeHistoryParams {
   setDeletingStripeHistory: (deleting: boolean) => void;
 }
 
-// Core subscription handlers
-export async function handleSubscribe({ interval, userEmail, returnPath, priorError }: SubscribeParams) {
+// Buying Premium (a one-off lifetime purchase)
+export async function handlePurchasePremium({ returnPath, priorError }: PurchaseParams = {}) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
-    const response = await createCheckoutSession(interval, returnUrl, userEmail);
+    const response = await createPurchaseCheckoutSession(returnUrl);
 
     // Hide any currently open modal before showing checkout
     hideModal();
 
     // Show the checkout modal using the global modal system
-    showSubscriptionCheckout({
+    showPremiumCheckout({
       clientSecret: response.client_secret,
       selectedTier: "premium",
       priorError,
@@ -61,11 +55,19 @@ export async function handleSubscribe({ interval, userEmail, returnPath, priorEr
       }
     });
   } catch (error) {
-    toastError("subscription.checkoutSessionFailed");
+    // `already_premium` and `purchase_pending` have their own copy. Anything
+    // else gets the generic checkout failure.
+    if (isKnownPurchaseRejection(error)) {
+      toastApiError(error, "subscriptions");
+    } else {
+      toastError("subscription.checkoutSessionFailed");
+    }
     console.error(error);
     throw error; // Re-throw so caller can handle loading state
   }
 }
+
+// Legacy subscription management
 
 export async function handleOpenPortal() {
   try {
@@ -163,7 +165,8 @@ export async function handleDeleteStripeHistory({
 
 // Convenience functions for specific contexts
 export const settingsHandlers = {
-  subscribe: (params: Omit<SubscribeParams, "returnPath">) => handleSubscribe({ ...params, returnPath: "/settings" }),
+  purchase: (params: Omit<PurchaseParams, "returnPath"> = {}) =>
+    handlePurchasePremium({ ...params, returnPath: "/settings" }),
   openPortal: handleOpenPortal,
   cancel: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
@@ -171,7 +174,7 @@ export const settingsHandlers = {
 };
 
 export const devHandlers = {
-  subscribe: handleSubscribe,
+  purchase: handlePurchasePremium,
   cancel: handleCheckoutCancel,
   openPortal: handleOpenPortal,
   cancelSubscription: handleCancelSubscription,
@@ -179,3 +182,8 @@ export const devHandlers = {
   retryPayment: handleRetryPayment,
   deleteStripeHistory: handleDeleteStripeHistory
 };
+
+function isKnownPurchaseRejection(error: unknown): boolean {
+  const type = getApiErrorType(error);
+  return type === "already_premium" || type === "purchase_pending";
+}

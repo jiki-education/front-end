@@ -1,7 +1,7 @@
-import { handleSubscribe, handleOpenPortal } from "../handlers";
+import { handlePurchasePremium, handleOpenPortal } from "../handlers";
 import styles from "./actions.module.css";
 
-export function PaymentFailedGraceExpiredActions({ userEmail }: { userEmail: string }) {
+export function PaymentFailedGraceExpiredActions() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -15,11 +15,7 @@ export function PaymentFailedGraceExpiredActions({ userEmail }: { userEmail: str
         Update Payment Method
       </button>
 
-      <button
-        onClick={() => handleSubscribe({ interval: "monthly", userEmail })}
-        className={styles.button}
-        data-variant="blue"
-      >
+      <button onClick={() => handlePurchasePremium()} className={styles.button} data-variant="blue">
         Start New Premium Subscription
       </button>
 

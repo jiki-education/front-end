@@ -62,9 +62,9 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
           </div>
           <div className={styles.priceColumn}>
             <p className={styles.price}>
-              <PremiumPrice interval="monthly" />
+              <PremiumPrice />
             </p>
-            <p className={styles.perMonth}>per month</p>
+            <p className={styles.perMonth}>one-time</p>
           </div>
         </div>
       </div>
@@ -104,9 +104,7 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
       </div>
 
       {/* Additional Info */}
-      <p className={styles.disclaimer}>
-        By subscribing, you agree to our terms and authorize recurring monthly charges.
-      </p>
+      <p className={styles.disclaimer}>By paying, you agree to our terms. This is a one-time charge.</p>
     </form>
   );
 }

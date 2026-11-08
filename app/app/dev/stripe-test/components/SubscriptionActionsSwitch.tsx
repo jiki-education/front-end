@@ -30,7 +30,7 @@ export function SubscriptionActionsSwitch({ user, refreshUser }: SubscriptionAct
 
   switch (state) {
     case "never_subscribed":
-      return <NeverSubscribedActions userEmail={user.email} />;
+      return <NeverSubscribedActions />;
     case "incomplete_payment":
       return <IncompletePaymentActions />;
     case "active_premium":
@@ -40,13 +40,13 @@ export function SubscriptionActionsSwitch({ user, refreshUser }: SubscriptionAct
     case "payment_failed_grace":
       return <PaymentFailedGracePeriodActions refreshUser={refreshUser} />;
     case "payment_failed_expired":
-      return <PaymentFailedGraceExpiredActions userEmail={user.email} />;
+      return <PaymentFailedGraceExpiredActions />;
     case "previously_subscribed":
-      return <PreviouslySubscribedActions userEmail={user.email} />;
+      return <PreviouslySubscribedActions />;
     case "incomplete_expired":
-      return <IncompleteExpiredActions userEmail={user.email} />;
+      return <IncompleteExpiredActions />;
     default:
-      return <NeverSubscribedActions userEmail={user.email} />;
+      return <NeverSubscribedActions />;
   }
 }
 

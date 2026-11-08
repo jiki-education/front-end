@@ -95,3 +95,9 @@
         transform: rotate(360deg);
     }
 }
+
+.revokedNote {
+    display: block;
+    font-size: 13px;
+    color: var(--color-gray-500);
+}

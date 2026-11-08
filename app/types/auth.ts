@@ -12,6 +12,15 @@ export interface User {
   name: string | null;
   avatar_url: string | null;
   membership_type: MembershipTier;
+  // True when the user bought Premium outright. False for legacy subscribers
+  // and for members whose Premium comes from elsewhere (e.g. Exercism).
+  lifetime_premium: boolean;
+  // Whether the user may start a Premium purchase. False while they already
+  // have Premium (by any route) or a purchase is still clearing.
+  can_purchase_premium: boolean;
+  // A purchase paid by a delayed method (e.g. a bank debit) that hasn't
+  // cleared yet. Premium arrives once it does.
+  premium_purchase_pending: boolean;
   subscription_status: SubscriptionStatus;
   subscription: SubscriptionDetails | null;
   premium_prices: PremiumPrices;

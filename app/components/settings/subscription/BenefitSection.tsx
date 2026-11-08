@@ -4,18 +4,25 @@ import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { staticAsset } from "@/lib/static-asset";
-import { PremiumPrice } from "@/components/common/PremiumPrice";
+import type { SubscriptionDetails } from "@/types/subscription";
+import { useSubscriptionPrice } from "./useSubscriptionPrice";
 import styles from "./BenefitSection.module.css";
 
 interface BenefitSectionProps {
   isCancelling?: boolean;
+  subscription?: SubscriptionDetails | null;
   onResubscribe?: () => void;
   className?: string;
 }
 
-export default function BenefitSection({ isCancelling = false, onResubscribe, className = "" }: BenefitSectionProps) {
+export default function BenefitSection({
+  isCancelling = false,
+  subscription = null,
+  onResubscribe,
+  className = ""
+}: BenefitSectionProps) {
   if (isCancelling) {
-    return <CancellingBenefitSection onResubscribe={onResubscribe} className={className} />;
+    return <CancellingBenefitSection subscription={subscription} onResubscribe={onResubscribe} className={className} />;
   }
 
   return <ActiveBenefitSection className={className} />;
@@ -59,15 +66,19 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
   );
 }
 
+// A legacy subscriber who has scheduled a cancellation. Resubscribing
+// reactivates the same subscription at its own price.
 function CancellingBenefitSection({
+  subscription,
   onResubscribe,
   className = ""
 }: {
+  subscription: SubscriptionDetails | null;
   onResubscribe?: () => void;
   className?: string;
 }) {
   const t = useTranslations("settings.benefits");
-  const tCommon = useTranslations("common");
+  const price = useSubscriptionPrice(subscription);
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
@@ -85,14 +96,12 @@ function CancellingBenefitSection({
         <div className={styles.resubscribeCtaContent}>
           <h4>{t("resubscribeTitle")}</h4>
           <p>
-            {t.rich("resubscribe", {
-              price: () => (
-                <span className={styles.price}>
-                  <PremiumPrice interval="monthly" />
-                  {tCommon("perMonth")}
-                </span>
-              )
-            })}
+            {price
+              ? t.rich("resubscribeAtPrice", {
+                  price,
+                  strong: (chunks) => <span className={styles.price}>{chunks}</span>
+                })
+              : t("resubscribeWithoutPrice")}
           </p>
         </div>
         <button
