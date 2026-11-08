@@ -169,9 +169,11 @@ content-hashed assets from older builds survive and old pages keep working.
   Because every file in those trees is content-hashed, immutable is safe; a missed
   CSS ref degrades to the short-TTL `public/static` copy rather than breaking.
 - **Cache-Control** is set per object at upload and honoured by a Cloudflare cache
-  rule on `assets.jiki.io` (`terraform/cloudflare/cache_rules.tf`). The bucket has a
-  **CORS** policy allowing `GET` from `jiki.io` (required: fonts and, with
-  `crossOrigin`, all chunks are fetched in CORS mode).
+  rule on `assets.jiki.io` (`terraform/cloudflare/cache_rules.tf`). A Cloudflare
+  response transform rule (`terraform/cloudflare/transform_rules.tf`) sets
+  `Access-Control-Allow-Origin: *` on every `assets.jiki.io` response. Fonts and,
+  with `crossOrigin`, all chunks are fetched in CORS mode, and Stripe's checkout
+  iframes on `js.stripe.com` load our Poppins files from there too.
 
 **Dev/prod parity:** the fingerprinting and PostCSS rewrite run in both `next dev`
 (turbopack) and `next build` (webpack), so CSS references the same hashed URLs in

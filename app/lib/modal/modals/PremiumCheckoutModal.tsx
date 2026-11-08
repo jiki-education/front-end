@@ -2,6 +2,7 @@
 
 import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
 import { stripePromise } from "@/lib/stripe";
+import { staticAsset } from "@/lib/static-asset";
 import type { MembershipTier } from "@/lib/pricing";
 import { hideModal } from "../store";
 import { ModalBody } from "./PremiumCheckoutModal/ModalBody";
@@ -53,7 +54,7 @@ export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, o
   const options = {
     clientSecret,
     elementsOptions: {
-      fonts: [{ cssSrc: "https://fonts.googleapis.com/css?family=Poppins" }],
+      fonts: stripeFonts(),
       appearance,
       loader: "always" as const
     }
@@ -64,4 +65,25 @@ export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, o
       <ModalBody selectedTier={selectedTier} priorError={priorError} onCancel={handleCancel} />
     </CheckoutProvider>
   );
+}
+
+const POPPINS_WEIGHTS = ["400", "500", "600"] as const;
+
+// Stripe renders the payment fields in iframes on js.stripe.com, so our
+// next/font copy of Poppins doesn't reach them and Stripe has to load the
+// files itself. We give it our own copies on assets.jiki.io, which allows
+// cross-origin font loads. Development has no https asset host, and Stripe's
+// https iframe would block an http font as mixed content, so dev falls back to
+// the system fonts listed after Poppins in the appearance.
+function stripeFonts() {
+  if (process.env.NODE_ENV !== "production") {
+    return [];
+  }
+
+  return POPPINS_WEIGHTS.map((weight) => ({
+    family: "Poppins",
+    src: `url(${staticAsset(`fonts/poppins-latin-${weight}.woff2`)})`,
+    weight,
+    display: "swap" as const
+  }));
 }
