@@ -265,6 +265,64 @@
     top: calc(164px * var(--ltc-k));
 }
 
+/* ===== RTL: hold the rails in place =====
+   The demo is pinned `dir="ltr"` (see LtcVideo.tsx) so the grid columns and the stage keep their
+   order, but that is not enough on its own: Lightning CSS lowers logical properties to a `:lang()`
+   list, which tracks `lang` on <html> rather than the `dir` pinned here. Under a RTL locale every
+   inset above therefore still resolves mirrored, and each leader line ends up pointing at the
+   region on the opposite side of the stage.
+
+   So they are restated physically here — logical overrides would be folded into that same
+   `:lang()` branch and mirror straight back. The values are what the properties above already
+   give in LTR: the rails and their leaders do not move between directions, because the stage they
+   annotate does not either. Only the card copy flips, at the end. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .railLeft .callout {
+    left: auto;
+    right: 0;
+}
+
+:global([dir="rtl"]) .railLeft .callout::after {
+    left: 100%;
+    right: auto;
+    margin-left: 4px;
+    margin-right: 0;
+    transform-origin: left center;
+    background-position:
+        0 0,
+        0 50%;
+}
+
+:global([dir="rtl"]) .railRight .callout {
+    left: 0;
+    right: auto;
+}
+
+:global([dir="rtl"]) .railRight .callout::after {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 4px;
+    transform-origin: right center;
+    background-position:
+        0 0,
+        100% 50%;
+}
+
+:global([dir="rtl"]) .callout_tested,
+:global([dir="rtl"]) .callout_rewind {
+    left: auto;
+    right: 15px;
+}
+/* stylelint-enable property-disallowed-list */
+
+/* The cards are page copy rather than part of the picture, so their text reads in the page's
+   direction inside rails that do not move. */
+:global([dir="rtl"]) .callout {
+    direction: rtl;
+    text-align: start;
+}
+
 /* ===== Finale: every callout on screen at once, stacked and centred against the video =====
    The cards keep their annotation styling; their leaders straighten out and stop on the edge of
    the video rather than reaching for a particular region. */
@@ -336,6 +394,20 @@
     .finale .railRight .callout {
         margin-inline-start: 15px;
     }
+
+    /* Same reason as the anchors above: the `:lang()` lowering mirrors these under a RTL locale,
+       which would pull both rails towards the same side of the video. */
+    /* stylelint-disable property-disallowed-list */
+    :global([dir="rtl"]) .finale .railLeft .callout {
+        margin-left: auto;
+        margin-right: 15px;
+    }
+
+    :global([dir="rtl"]) .finale .railRight .callout {
+        margin-left: 15px;
+        margin-right: auto;
+    }
+    /* stylelint-enable property-disallowed-list */
 }
 
 /* ===== Progress through the video itself, above the frame ===== */

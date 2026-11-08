@@ -1,5 +1,6 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
@@ -11,6 +12,7 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
+  progressionMetrics,
   functions,
   conceptSlugs: ["creating-functions", "creating-functions-with-return-values", "modulo", "logical-and", "logical-or"]
 };

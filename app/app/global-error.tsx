@@ -6,7 +6,13 @@ import { ErrorPageContent } from "../components/error-page/ErrorPage";
 // so it must import globals.css directly to have any styles
 import "./globals.css";
 import styles from "../components/error-page/ErrorPage.module.css";
-import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isSupportedLocale, type Locale } from "@/lib/i18n/config";
+import {
+  DEFAULT_LOCALE,
+  LOCALE_COOKIE_NAME,
+  getLocaleDirection,
+  isSupportedLocale,
+  type Locale
+} from "@/lib/i18n/config";
 
 // This page replaces the entire HTML tree when the app crashes hard, so it must
 // render with ZERO loadable dependencies: no NextIntlClientProvider, no message
@@ -36,10 +42,20 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "We encountered an unexpected error. Sorry about that!",
     actionLabel: "Try again"
   },
+  ar: {
+    title: "حدث خطأ ما",
+    message: "واجهنا خطأ غير متوقع. نعتذر عن ذلك!",
+    actionLabel: "أعد المحاولة"
+  },
   bn: {
     title: "কিছু একটা গোলমাল হয়েছে",
     message: "একটি অপ্রত্যাশিত সমস্যা হয়েছে। দুঃখিত!",
     actionLabel: "আবার চেষ্টা করুন"
+  },
+  de: {
+    title: "Etwas ist schiefgelaufen",
+    message: "Es ist ein unerwarteter Fehler aufgetreten. Das tut uns leid!",
+    actionLabel: "Noch einmal versuchen"
   },
   hu: {
     title: "Valami hiba történt",
@@ -61,15 +77,35 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "Encontramos un error inesperado. ¡Lo sentimos!",
     actionLabel: "Inténtalo de nuevo"
   },
+  fa: {
+    title: "مشکلی پیش آمد",
+    message: "با خطایی غیرمنتظره روبه‌رو شدیم. بابت این موضوع متأسفیم!",
+    actionLabel: "دوباره تلاش کنید"
+  },
   fr: {
     title: "Une erreur s'est produite",
     message: "Nous avons rencontré une erreur inattendue. Désolé !",
     actionLabel: "Réessaie"
   },
+  hi: {
+    title: "कुछ गड़बड़ हो गई",
+    message: "हमें एक अनपेक्षित एरर मिली। इसके लिए खेद है!",
+    actionLabel: "फिर से कोशिश करें"
+  },
   it: {
     title: "Qualcosa è andato storto",
     message: "Si è verificato un errore imprevisto. Ci dispiace!",
     actionLabel: "Riprova"
+  },
+  ja: {
+    title: "問題が発生しました",
+    message: "予期しないエラーが発生しました。申し訳ありません！",
+    actionLabel: "再試行"
+  },
+  ko: {
+    title: "문제가 발생했어요",
+    message: "예상치 못한 오류가 발생했어요. 죄송해요!",
+    actionLabel: "다시 시도"
   },
   "pt-PT": {
     title: "Algo correu mal",
@@ -81,10 +117,25 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "Encontramos um erro inesperado. Sentimos muito!",
     actionLabel: "Tente novamente"
   },
+  sr: {
+    title: "Nešto je pošlo naopako",
+    message: "Naišli smo na neočekivanu grešku. Izvini zbog toga!",
+    actionLabel: "Probaj ponovo"
+  },
   uk: {
     title: "Щось пішло не так",
     message: "Сталася неочікувана помилка. Перепрошуємо!",
     actionLabel: "Спробуйте ще раз"
+  },
+  "zh-CN": {
+    title: "出了点问题",
+    message: "我们遇到了意外错误，很抱歉！",
+    actionLabel: "重试"
+  },
+  "zh-TW": {
+    title: "發生錯誤",
+    message: "我們遇到了非預期的錯誤。很抱歉！",
+    actionLabel: "再試一次"
   }
 };
 
@@ -105,7 +156,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
   const copy = getGlobalErrorCopy(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={getLocaleDirection(locale)}>
       <body className={styles.wrapper}>
         <div className={styles.container}>
           <ErrorPageContent

@@ -20,8 +20,7 @@ export function SubscriptionStatus({ user }: SubscriptionStatusProps) {
 
       {/* Use the advanced subscription status component */}
       <AdvancedSubscriptionStatus
-        tier={user.membership_type}
-        status={user.subscription_status}
+        user={user}
         nextBillingDate={
           user.subscription?.subscription_valid_until
             ? new Date(user.subscription.subscription_valid_until).toLocaleDateString()
@@ -37,6 +36,14 @@ export function SubscriptionStatus({ user }: SubscriptionStatusProps) {
           <div>
             <dt className={styles.term}>Raw Status:</dt>
             <dd className={styles.value}>{user.subscription_status}</dd>
+          </div>
+          <div>
+            <dt className={styles.term}>Lifetime Premium:</dt>
+            <dd className={styles.value}>{String(user.lifetime_premium)}</dd>
+          </div>
+          <div>
+            <dt className={styles.term}>Purchase Pending:</dt>
+            <dd className={styles.value}>{String(user.premium_purchase_pending)}</dd>
           </div>
           <div>
             <dt className={styles.term}>In Grace Period:</dt>

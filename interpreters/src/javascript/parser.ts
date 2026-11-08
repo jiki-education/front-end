@@ -47,6 +47,23 @@ interface SkipOptions {
   skipEOL?: boolean;
 }
 
+// Tokens that can only begin a new value. Seeing one straight after a complete
+// argument or array element means the student left out a comma. `(` and `[` are
+// absent because after a value they continue it (a call or an index), and `{` is
+// absent because it is far more likely to be a block after a missing `)`.
+const EXPRESSION_START_TOKENS: TokenType[] = [
+  "NUMBER",
+  "STRING",
+  "IDENTIFIER",
+  "TRUE",
+  "FALSE",
+  "NULL",
+  "UNDEFINED",
+  "BACKTICK",
+  "NOT",
+  "NEW",
+];
+
 export class Parser {
   private readonly scanner: Scanner;
   private current: number = 0;
@@ -834,14 +851,17 @@ export class Parser {
   }
 
   private finishCallExpression(callee: Expression): CallExpression {
-    // Extract function name for better error messages
-    const functionName = callee instanceof IdentifierExpression ? (callee as any).name.lexeme : null;
+    // Name the function in error messages. Callees with no name (e.g. `foo()(`)
+    // use the `unnamed` wording, which doesn't mention one.
+    const functionName = calleeName(callee);
+    const nameContext = functionName === null ? { context: "unnamed" } : {};
 
     // Check if we immediately encounter EOL or semicolon after opening paren
     // This is a common mistake: move( followed by newline or move(;
     if (this.check("EOL", "SEMICOLON")) {
       this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
         function: functionName,
+        ...nameContext,
       });
     }
 
@@ -853,10 +873,20 @@ export class Parser {
       } while (this.match("COMMA"));
     }
 
+    // A value straight after an argument means a comma is missing (e.g. `foo(1 2)`).
+    // Anything else (end of line, `;`, etc) means the call was never closed.
+    if (this.check(...EXPRESSION_START_TOKENS)) {
+      this.error("MissingCommaBetweenFunctionArguments", this.peek().location, {
+        function: functionName,
+        ...nameContext,
+      });
+    }
+
     // Use specific error with function name context
     if (!this.check("RIGHT_PAREN")) {
       this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
         function: functionName,
+        ...nameContext,
       });
     }
 
@@ -1241,6 +1271,11 @@ export class Parser {
       elements.push(this.assignment());
     } while (this.match("COMMA"));
 
+    // A value straight after an element means a comma is missing (e.g. `[1 2]`)
+    if (this.check(...EXPRESSION_START_TOKENS)) {
+      this.error("MissingCommaBetweenArrayElements", this.peek().location);
+    }
+
     this.consume("RIGHT_BRACKET", "MissingRightBracketInArray", { skipEOL: true });
     const rightBracket = this.previous();
 
@@ -1335,4 +1370,30 @@ export class Parser {
 
 export function parse(sourceCode: string, context: EvaluationContext = {}): Statement[] {
   return new Parser(context).parse(sourceCode);
+}
+
+// The name to show for a callee: `move`, `console.log`, `obj.foo`. A method on
+// something without a dotted name (`"abc".repeat`, `arr[0].push`) is named by
+// the method alone. Anything else (`foo()(`, `arr[0](`) has no name.
+function calleeName(callee: Expression): string | null {
+  if (callee instanceof IdentifierExpression) {
+    return callee.name.lexeme;
+  }
+  if (callee instanceof MemberExpression && !callee.computed) {
+    const property = String((callee.property as LiteralExpression).value);
+    const objectName = dottedName(callee.object);
+    return objectName === null ? property : `${objectName}.${property}`;
+  }
+  return null;
+}
+
+function dottedName(expression: Expression): string | null {
+  if (expression instanceof IdentifierExpression) {
+    return expression.name.lexeme;
+  }
+  if (expression instanceof MemberExpression && !expression.computed) {
+    const objectName = dottedName(expression.object);
+    return objectName === null ? null : `${objectName}.${String((expression.property as LiteralExpression).value)}`;
+  }
+  return null;
 }

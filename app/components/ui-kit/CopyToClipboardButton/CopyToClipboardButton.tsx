@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { copyToClipboard } from "@/lib/clipboard";
-import { Icon } from "../Icon";
+import ClipboardIcon from "@/icons/clipboard.svg";
 import styles from "./CopyToClipboardButton.module.css";
 
 interface CopyToClipboardButtonProps {
@@ -39,7 +39,7 @@ export function CopyToClipboardButton({ textToCopy, className }: CopyToClipboard
     >
       <div className={styles.text}>{textToCopy}</div>
       <span className={styles.icon}>
-        <Icon name="clipboard" size={24} alt={t("label")} />
+        <ClipboardIcon width={24} height={24} aria-hidden="true" />
       </span>
       {justCopied ? <span className={styles.message}>{t("copied")}</span> : null}
     </button>

@@ -1,5 +1,45 @@
 # JavaScript Interpreter Evolution
 
+## 2026-11-04: Call errors name methods instead of saying "null"
+
+`finishCallExpression` only took a function name from an `IdentifierExpression` callee and passed `null` for everything else, so `console.log(1` read "Did you forget the closing parenthesis `)` when calling the null function?".
+
+The module-level `calleeName` helper in `parser.ts` now names the callee by its dotted path (`console.log`, `a.b.c`). A method on something without a dotted name (`"abc".repeat`, `arr[0].push`, `foo().bar`) is named by the method alone. Callees with no name at all (`foo()(`, `arr[0](`, `(foo)(`) pass the i18next context `unnamed`, which selects `MissingRightParenthesisAfterFunctionCall_unnamed` or `MissingCommaBetweenFunctionArguments_unnamed` ("...when calling this function?"). Both call errors share the same name and context. The `system` locale has only the unsuffixed key, so its output is unchanged apart from the name.
+
+## 2026-11-04: Missing commas in calls and arrays get their own errors
+
+A student wrote `triangle(10,5, 10,40,50,40 "orange")` and was asked whether they had forgotten the closing parenthesis, with `triangle` underlined. The argument loop in `finishCallExpression` stops at the first token that is not a comma, and anything other than `)` was reported as `MissingRightParenthesisAfterFunctionCall`. `parseArray` had the same shape, so `[1, 2 3]` reported `MissingRightBracketInArray`.
+
+Both now look at the token after the last argument or element. If it is in `EXPRESSION_START_TOKENS` (a literal, identifier, template literal, `!` or `new`), the parser raises `MissingCommaBetweenFunctionArguments` (with the function name) or `MissingCommaBetweenArrayElements`, placed on that token. An end of line, `;` or anything else keeps the missing-paren/bracket error. When both a comma and the closer are missing (`foo(1 2`), the comma is reported first.
+
+The token list leaves out three tokens on purpose:
+
+- `(` and `[` continue the previous value, so `foo(x (2))` and `foo(x [0])` are valid JS (a call and an index) and still parse.
+- `{` after a missing `)` is far more likely to open a block (`if (foo(1 {`).
+
+Operators need no handling, because `foo(1 -2)` parses as subtraction. A line break after an argument stays a missing paren, since call arguments cannot span lines. A line break between array elements (which can span lines) also stays a missing bracket, since `[1, 2` followed by a new statement is just as plausible as a missing comma.
+
+`preParseAdjacentIdentifiers` used to claim `foo(x y)` and `[x y]` as `UnexpectedDoubleIdentifier` before the parser ran. It now skips the pair when the first identifier starts an argument or element (it follows a `,`, a `[`, or the `(` of a call). The `(` of `for`, `if` and a function declaration does not count, so `for (cons x of xs)` still gets its `const` suggestion and `function foo(a b)` still reports `UnexpectedDoubleIdentifier`.
+
+## 2026-11-04: Zero-slot functions get their own `InvalidNumberOfArguments_none` message
+
+Students meet no-input functions like `move()` in the first maze exercise, before they have learned about input slots. `move(2)` used to say "This function has no input slots but you provided 1 input for Jiki to use with it.", which leans on exactly that vocabulary, and students were giving up on it.
+
+`checkArity` (in `executor/executeCallExpression.ts`) now passes the i18next context `none` whenever a function's maximum arity is 0, along with `args`, the source text from the first argument to the last (via `Executor.sourceFor(location)`). The English copy names the function and quotes back what the student wrote: "The `move()` function doesn't expect anything inside its brackets, so you can't put `2` there. Try just writing `move()`." Functions that take inputs keep the `_exact`/`_atLeast`/`_range` input-slot wording, and `new` expressions are unchanged. The `system` locale has a single unsuffixed key, so its output is unchanged too.
+
+## 2026-11-03: "Did you mean" suggestions for unknown names
+
+Calling `turnright()` when the exercise provides `turnRight` used to raise a plain `FunctionNotFound`, with nothing pointing at the capitalisation. JikiScript has long offered a suggestion here, and JavaScript now does too.
+
+`Executor.suggestSimilarName(name, kind)` gathers every name in scope (`environment.getAllVariables()`, which includes external functions and classes, built-ins and the student's own declarations) and passes them to the shared `suggestSimilarName` helper (`src/shared/suggestSimilarName.ts`). The helper compares names case-insensitively with `levenshtein`, so a case-only mismatch always matches, and otherwise allows one edit per three characters (at most two), so short names like `x` never suggest `y`.
+
+- **Function calls** (`executeCalleeIdentifierExpression`) only suggest callables and raise `FunctionNotFoundWithSimilarNameSuggestion`.
+- **Variable reads** (`executeIdentifierExpression`) only suggest non-callables and raise `VariableNotDeclaredWithSimilarNameSuggestion`. A callable there would already trip `UnexpectedUncalledFunction`.
+- **Secret constants are never suggested**, since that would reveal their names. A student variable that shadows one is still a candidate.
+- With no close match, the plain `FunctionNotFound` / `VariableNotDeclared` errors are unchanged.
+
+The test runner's synthetic call goes through the callee path, so when a test calls `move` and the student wrote `m0ve`, the error suggests `m0ve`.
+
 ## 2026-08-28: `countNestingDepth` assertor
 
 `assertMaxLoopNestingDepth` counts loops alone and treats `if` as transparent, so `for → if → if → if` reports depth 1 and passes a limit of 1. That is the right measure for "how many loops deep is this", but it cannot express "this code is too deeply indented", which is what an exercise wants when it asks a student to flatten their logic.

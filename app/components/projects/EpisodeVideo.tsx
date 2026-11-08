@@ -87,8 +87,8 @@ export default function EpisodeVideo({ uuid, projectPath, videoProvider, videoKe
         />
       )}
 
-      {/* The YouTube player renders its own facade and spinner, so it's never
-          waiting behind this one. */}
+      {/* The YouTube player renders its own spinner, so it's never waiting
+          behind this one. */}
       {videoProvider === "mux" && !isReady && (
         <div className={styles.spinnerOverlay}>
           <div className={styles.spinner} />

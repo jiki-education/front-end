@@ -9,7 +9,12 @@ export function executeCalleeIdentifierExpression(
   const value = executor.environment.get(expression.name.lexeme);
 
   if (value === undefined) {
-    executor.error("FunctionNotFound", expression.location, { name: expression.name.lexeme });
+    const name = expression.name.lexeme;
+    const suggestion = executor.suggestSimilarName(name, "function");
+    if (suggestion !== null) {
+      executor.error("FunctionNotFoundWithSimilarNameSuggestion", expression.location, { name, suggestion });
+    }
+    executor.error("FunctionNotFound", expression.location, { name });
   }
 
   return {

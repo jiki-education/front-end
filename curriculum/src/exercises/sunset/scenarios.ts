@@ -36,12 +36,12 @@ export const scenarios: VisualScenario[] = [
           errorHtml: ex.t("checks.sunWrongEnd")
         },
         {
-          pass: ex.checkUniqueColoredRectangles(10),
-          errorHtml: ex.t("checks.skyNotChangingColor")
-        },
-        {
           pass: ex.checkUniqueColoredCircles(10),
           errorHtml: ex.t("checks.sunNotChangingColor")
+        },
+        {
+          pass: ex.checkUniqueColoredRectangles(10),
+          errorHtml: ex.t("checks.skyNotChangingColor")
         }
       ];
     }

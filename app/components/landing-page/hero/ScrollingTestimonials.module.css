@@ -18,6 +18,19 @@
     }
 }
 
+/* The strip is pinned `dir="ltr"` (see ScrollingTestimonials.tsx), but that alone will not hold
+   this: Lightning CSS lowers logical properties to a `:lang()` list tracking `lang` on <html>
+   rather than the `dir` pinned here, so `inset-inline-end` above still resolves to the left under
+   a RTL locale. The override has to be physical for the same reason — written logically it would
+   be folded into that same `:lang()` branch and mirror right back. The hamster is drawn facing
+   its wheel, so it stays on the right in every locale. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .hamster {
+    left: auto;
+    right: 30px;
+}
+/* stylelint-enable property-disallowed-list */
+
 .inner {
     background: var(--color-gray-900);
     min-width: 100%;
@@ -44,5 +57,17 @@
             padding-inline-end: 95px;
             margin-inline-end: 20px;
         }
+
+        /* The stars are painted on the right by a physical background-position, so their gap has
+           to stay on the right too; mirrored, the padding opens on the left and the stars land
+           on top of the blurb. Physical for the same reason as .hamster above. */
+        /* stylelint-disable property-disallowed-list */
+        :global([dir="rtl"]) & li {
+            padding-left: 0;
+            padding-right: 95px;
+            margin-left: 0;
+            margin-right: 20px;
+        }
+        /* stylelint-enable property-disallowed-list */
     }
 }

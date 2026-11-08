@@ -11,7 +11,10 @@ export function ScrollingTestimonials({ marquee }: { marquee: string[] }) {
   const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials(hamsterRef);
 
   return (
-    <div className={styles.scrollingTestimonials} ref={hamsterContainerRef}>
+    // The hamster runs the way it is drawn and the belt is animated leftward, so the strip keeps
+    // its own direction in RTL rather than mirroring. Bidi still orders the glyphs inside each
+    // blurb, so RTL copy reads correctly; only the belt's travel is pinned.
+    <div className={styles.scrollingTestimonials} ref={hamsterContainerRef} dir="ltr">
       <div className={styles.hamster} ref={hamsterRef}></div>
       <div ref={smokeRef}></div>
       <div className={styles.inner} ref={marqueeContainerRef}>

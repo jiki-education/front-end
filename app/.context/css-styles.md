@@ -279,3 +279,44 @@ In product-code CSS Modules, use `z-index: var(--z-index-<name>)`. The available
 - **Always use the predefined utility classes** for consistent layering
 - **Choose the appropriate semantic class** for your use case
 - **Don't create custom z-index values** without adding them to the central system
+
+## RTL and logical properties
+
+Logical properties (`margin-inline-end`, `inset-inline-start`, …) are the default, and stylelint
+blocks their physical counterparts so layout mirrors under `dir="rtl"`. `<html>` carries both
+`lang` and `dir` from the locale (see `lib/locales.ts`).
+
+### Pinning a subtree to LTR
+
+Some things must NOT mirror: a picture of an English-chrome app, a graphic whose geometry is baked
+into an SVG path, an animation that travels one way, or an untranslated product word. Pin those
+with `dir="ltr"` on the element — `LtcVideo`'s stage, `PuzzlePieces` and the hero's
+`ScrollingTestimonials` strip all do this.
+
+**`dir="ltr"` alone is not enough.** Lightning CSS (via Turbopack) lowers logical properties to a
+`:lang()` list, so they track `lang` on `<html>`, not the `dir` you just pinned. Under a RTL locale
+every logical property inside the pinned subtree still resolves mirrored. `dir` does still fix flex
+and grid order, bidi text and `background-position`, which is why it is the starting point.
+
+So the properties themselves have to be restated **physically** inside a `[dir="rtl"]` guard:
+
+```css
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .hamster {
+  left: auto;
+  right: 30px;
+}
+/* stylelint-enable property-disallowed-list */
+```
+
+Writing that override logically (`inset-inline: auto 30px`) does not work — it is folded into the
+same `:lang()` branch and mirrors straight back. The `stylelint-disable` is the intended escape
+hatch here; see also the scrubber in `components/coding-exercise/CodingExercise.module.css`.
+
+`:dir()` is not an option for the same reason: it is lowered to the same `:lang()` list.
+
+### Checking a fix
+
+Compare the computed geometry in a RTL locale against the same elements in an LTR one. For a
+pinned subtree the two should be **identical** — if the annotation is pinned but its anchor moved,
+the leader lines end up pointing at nothing.

@@ -152,8 +152,10 @@ button.item:disabled {
     flex-shrink: 0;
     object-fit: cover;
     border-radius: var(--radius-3);
-    /* White-ground flags (Japan, Greece) would otherwise dissolve into the row. */
-    box-shadow: inset 0 0 0 1px var(--color-gray-400-30);
+    /* White-ground flags (Japan, Greece) would otherwise dissolve into the row.
+       Not inset: the SVGs paint an opaque field over their whole viewBox, so an
+       inset ring is covered by the flag itself and never shows. */
+    box-shadow: 0 0 0 1px var(--color-gray-400-30);
 }
 
 .names {

@@ -11,8 +11,9 @@ import { resolveCodeCheckError } from "./resolveCodeCheckError";
 import { editorMessage } from "../i18n/editorMessages";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
-import { diffChars, diffWords, type Change } from "diff";
+import { diffChars, diffWordsWithSpace, type Change } from "diff";
 import type { Frame } from "@jiki/interpreters/shared";
+import { evaluateIOFunction } from "./executeStudentCode";
 import { formatInterpreterObject } from "./formatInterpreterObject";
 import type { Interpreter } from "./getInterpreter";
 
@@ -63,8 +64,10 @@ function generateDiff(expected: any, actual: any): Change[] {
     return diffChars(expectedStr, actualStr);
   }
 
-  // Use word-level diff for other types
-  return diffWords(expectedStr, actualStr);
+  // Use word-level diff for other types. diffWords ignores whitespace and
+  // takes unchanged text from actual, so a whitespace-only difference would
+  // render the actual value in the Expected row too.
+  return diffWordsWithSpace(expectedStr, actualStr);
 }
 
 export function runIOScenario(
@@ -83,42 +86,23 @@ export function runIOScenario(
   exercise.setMessages(exerciseLocaleMessages);
   const availableFunctions = exercise.getExternalFunctions(language);
 
-  let actual: any;
-  let errorHtml: string | undefined;
   let functionalPass = false;
-  let frames: Frame[] = [];
-  let logLines: Array<{ time: number; output: string }> = [];
 
-  let interpretResult: any;
+  const { interpretResult, actual, errorMessage } = evaluateIOFunction(studentCode, {
+    interpreter,
+    availableFunctions,
+    languageFeatures,
+    interpreterLocaleMessages,
+    functionName: scenario.functionName,
+    args: scenario.args
+  });
 
-  try {
-    interpretResult = interpreter.evaluateFunction(
-      studentCode,
-      {
-        externalFunctions: availableFunctions,
-        languageFeatures: languageFeatures ?? { timePerFrame: 1 },
-        localeMessages: interpreterLocaleMessages
-      },
-      interpreter.formatIdentifier(scenario.functionName),
-      ...scenario.args
-    );
+  const errorHtml =
+    errorMessage === undefined ? undefined : editorMessage("testResults.ioError", { message: errorMessage });
 
-    if (interpretResult.error) {
-      errorHtml = editorMessage("testResults.ioError", { message: interpretResult.error.message });
-      actual = undefined;
-    } else {
-      actual = interpretResult.value;
-    }
-
-    // Capture frames and logs from execution
-    frames = interpretResult.frames;
-    logLines = interpretResult.logLines;
-  } catch (error) {
-    errorHtml = editorMessage("testResults.ioError", {
-      message: error instanceof Error ? error.message : String(error)
-    });
-    actual = undefined;
-  }
+  // Capture frames and logs from execution
+  const frames: Frame[] = interpretResult?.frames ?? [];
+  const logLines: Array<{ time: number; output: string }> = interpretResult?.logLines ?? [];
 
   // Compare actual vs expected
   const matcher = scenario.matcher || "toEqual";
@@ -193,6 +177,8 @@ export function runIOScenario(
   const lintErrors = interpretResult?.lintErrors ?? [];
   const status = overallPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
+  // `result` is a run artifact for the progression evaluator (absent when
+  // the interpreter threw); the store and the UI never read it.
   return {
     type: "io",
     slug: scenario.slug,
@@ -203,6 +189,7 @@ export function runIOScenario(
     args: scenario.args,
     frames,
     logLines,
-    lintErrors
+    lintErrors,
+    result: interpretResult
   };
 }

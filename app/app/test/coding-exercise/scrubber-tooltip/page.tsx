@@ -8,6 +8,7 @@ import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 import styles from "../harness.module.css";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -58,6 +59,9 @@ export default function ScrubberTooltipTestPage() {
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: buildStubExercise(),
+      result: buildStubInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],
@@ -147,6 +151,9 @@ export default function ScrubberTooltipTestPage() {
                   status: "pass" as const,
                   expects: [],
                   view: document.createElement("div"),
+                  exercise: buildStubExercise(),
+                  result: buildStubInterpretResult(),
+                  isolatedRuns: [],
                   frames: [singleFrame],
                   logLines: [],
                   lintErrors: [],

@@ -30,7 +30,7 @@ export default function PlanPrice({ variant }: Props) {
         </div>
       )}
 
-      {!isFree && <div className={styles["price-period"]}>{t("perMonth")}</div>}
+      {!isFree && <div className={styles["price-period"]}>{t("oneTime")}</div>}
     </>
   );
 }

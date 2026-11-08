@@ -25,6 +25,17 @@
     margin-inline-start: -47px;
 }
 
+/* The pair is pinned `dir="ltr"` (see PuzzlePieces.tsx), but Lightning CSS lowers the logical
+   margin above to a `:lang()` list tracking `lang` on <html>, so under a RTL locale it is taken
+   off Build's right edge instead and the socket stops overlapping the knob. Physical for the
+   same reason: a logical override lands in that same branch and mirrors straight back. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .build {
+    margin-left: -47px;
+    margin-right: 0;
+}
+/* stylelint-enable property-disallowed-list */
+
 .pieces text {
     font-family: var(--font-sans);
     font-size: 20px;
@@ -88,4 +99,11 @@
     .build {
         margin-inline-start: -35px;
     }
+
+    /* stylelint-disable property-disallowed-list */
+    :global([dir="rtl"]) .build {
+        margin-left: -35px;
+        margin-right: 0;
+    }
+    /* stylelint-enable property-disallowed-list */
 }

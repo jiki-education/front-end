@@ -1,6 +1,7 @@
 {
   "slug": "golf-scenarios",
   "levelId": "functions-that-return-things",
+  "deepDiveVideo": "golf-scenarios-deep-dive",
   "hints": [
     {
       "question": "hints.notSureWhereToStart.question",

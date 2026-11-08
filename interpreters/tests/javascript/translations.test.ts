@@ -71,9 +71,9 @@ function flatten(node: unknown, prefix = ""): Record<string, string> {
 
 // i18next encodes plural/context/ordinal variants as key suffixes. For key-tree
 // comparison we compare the base keys, ignoring which variants each locale spells
-// out (e.g. `InvalidNumberOfArguments` vs its `_exact`/`_atLeast`/`_range` forms),
+// out (e.g. `InvalidNumberOfArguments` vs its `_none`/`_exact`/`_atLeast`/`_range` forms),
 // since which plural categories a language needs is a property of the language.
-const SUFFIX = /_(zero|one|two|few|many|other|exact|atLeast|range|ordinal)$/;
+const SUFFIX = /_(zero|one|two|few|many|other|none|exact|atLeast|range|ordinal)$/;
 function baseKeys(catalog: unknown): Set<string> {
   return new Set(Object.keys(flatten(catalog)).map(k => k.replace(SUFFIX, "")));
 }

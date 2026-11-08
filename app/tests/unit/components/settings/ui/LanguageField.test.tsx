@@ -75,8 +75,8 @@ describe("LanguageField", () => {
 
     expect(screen.getByText("Coming soon")).toBeInTheDocument();
     // Present as text, but not a control — nothing to tab to that can't act.
-    expect(screen.getByText("Deutsch")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /Deutsch/ })).not.toBeInTheDocument();
+    expect(screen.getByText("Nederlands")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Nederlands/ })).not.toBeInTheDocument();
   });
 
   // The disclosure toggle replaces a paired Cancel: an open picker has nothing
@@ -139,16 +139,16 @@ describe("LanguageField", () => {
       expect(screen.queryByRole("button", { name: /français/i })).not.toBeInTheDocument();
     });
 
-    // The coming-soon set is 27 of the 33 rows. Searching is the only way to
+    // The coming-soon set is 14 of the 34 rows. Searching is the only way to
     // reach one, so it has to match them too.
     it("searches the coming-soon languages as well as the live ones", async () => {
       const user = userEvent.setup();
       render(<LanguageField value="en" onSave={jest.fn()} />);
       await openPicker(user);
 
-      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "Deutsch");
+      await user.type(screen.getByRole("searchbox", { name: "Search languages" }), "Nederlands");
 
-      expect(screen.getByText("Deutsch")).toBeInTheDocument();
+      expect(screen.getByText("Nederlands")).toBeInTheDocument();
       expect(screen.getByText("Coming soon")).toBeInTheDocument();
     });
 

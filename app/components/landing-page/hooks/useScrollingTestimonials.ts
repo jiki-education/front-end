@@ -2,10 +2,16 @@
 
 import { useEffect, useRef, type RefObject } from "react";
 import { animate } from "animejs";
+import { useLocale } from "next-intl";
+import { getLocaleDirection } from "@/lib/locales";
 
 export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement | null>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
+  // The belt runs the way the locale reads, so the blurbs arrive in reading order. Taken from the
+  // locale rather than the strip's own `dir`, which is pinned to "ltr" to hold the hamster and the
+  // stars in place (see ScrollingTestimonials.tsx) and so cannot answer this.
+  const direction = getLocaleDirection(useLocale());
 
   useEffect(() => {
     const container = containerRef.current;
@@ -21,6 +27,12 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
     const clonedItems = marqueeElement.innerHTML;
     marqueeElement.innerHTML = clonedItems + clonedItems;
 
+    // LTR runs 0 -> -width, so the content leaves to the left and the second copy follows it in.
+    // RTL is the mirror image: the belt is parked one copy-width to the left and runs -width -> 0,
+    // so blurbs enter from the left and leave to the right. Both travel exactly one copy before
+    // wrapping, which is why the same `animationPosition` drives either.
+    const startOffset = direction === "rtl" ? -marqueeWidth : 0;
+    const sign = direction === "rtl" ? 1 : -1;
     const speed = { current: 1, max: 5, min: 1 };
     const velocityScale = 0.1;
     let animationPosition = 0;
@@ -38,7 +50,7 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
         animationPosition = animationPosition % marqueeWidth;
       }
 
-      marqueeElement!.style.transform = `translateX(${-animationPosition}px)`;
+      marqueeElement!.style.transform = `translateX(${startOffset + sign * animationPosition}px)`;
       rafId = requestAnimationFrame(animateMarquee);
     }
 
@@ -66,7 +78,7 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
       extra?.removeEventListener("mouseenter", handleMouseEnter);
       extra?.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [extraHoverRef]);
+  }, [extraHoverRef, direction]);
 
   return { containerRef, ulRef };
 }

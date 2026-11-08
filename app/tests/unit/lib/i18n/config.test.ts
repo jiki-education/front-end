@@ -17,7 +17,7 @@ describe("stripLocalePrefix", () => {
   });
 
   it("does not strip an unsupported segment (it isn't a locale)", () => {
-    expect(stripLocalePrefix("/de/blog")).toBe("/de/blog");
+    expect(stripLocalePrefix("/zz/blog")).toBe("/zz/blog");
     expect(stripLocalePrefix("/xx")).toBe("/xx");
     // Region subtags only strip once supported; pt-BR isn't yet, so it's left as-is.
     expect(stripLocalePrefix("/xx-YY/blog")).toBe("/xx-YY/blog");

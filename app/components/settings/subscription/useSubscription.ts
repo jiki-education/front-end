@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import { showModal } from "@/lib/modal";
 import { toastError } from "@/lib/toast";
-import { getSubscriptionState } from "./utils";
 import * as handlers from "./handlers";
-import type { User, SubscriptionData } from "./types";
+import type { User } from "./types";
 
 interface UseSubscriptionProps {
   user: User | null;
@@ -16,24 +15,8 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
   const t = useTranslations("settings.cancelConfirm");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get subscription state and data
-  const subscriptionState = user ? getSubscriptionState(user) : null;
-  const currentTier = user?.membership_type || "standard";
-  const subscriptionStatus = user?.subscription_status || "never_subscribed";
-
-  // Create subscription data from user data
-  const subscriptionData: SubscriptionData | null = user
-    ? {
-        tier: user.membership_type,
-        status: user.subscription_status,
-        nextBillingDate: user.subscription?.subscription_valid_until,
-        graceEndDate: user.subscription?.grace_period_ends_at || undefined,
-        previousTier: undefined // This would need to come from API
-      }
-    : null;
-
-  // Helper function to format date in the active locale (respects the
-  // request-configured time zone via next-intl's formatter).
+  // Format a date in the active locale (respects the request-configured time
+  // zone via next-intl's formatter).
   const formatBillingDate = (dateString: string | null | undefined) => {
     if (!dateString) {
       return null;
@@ -45,9 +28,9 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
     });
   };
 
-  const nextBillingDate = formatBillingDate(subscriptionData?.nextBillingDate);
+  // Only legacy subscribers have a billing date
+  const nextBillingDate = formatBillingDate(user?.subscription?.subscription_valid_until);
 
-  // Helper function to handle async operations with loading state
   const handleAsyncOperation = async (operation: () => Promise<void>) => {
     setIsLoading(true);
     try {
@@ -60,30 +43,22 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
     }
   };
 
-  // Event handlers for all subscription actions
-  const handleUpgradeToPremium = () =>
+  const handlePurchasePremium = () =>
     handleAsyncOperation(async () => {
       if (!user) {
         return;
       }
 
-      if (user.membership_type === "standard") {
-        // New subscription - use checkout flow
-        await handlers.handleSubscribe({
-          interval: "monthly",
-          userEmail: user.email
-        });
-      } else {
-        // Already on premium - this shouldn't happen if UI is correct
+      if (!user.can_purchase_premium) {
+        // The UI only offers the purchase when it's allowed, so this is a stale page
         toastError("subscription.alreadyPremium");
+        return;
       }
+
+      await handlers.handlePurchasePremium();
     });
 
-  const handleUpdatePayment = () =>
-    handleAsyncOperation(async () => {
-      await handlers.handleOpenPortal();
-    });
-
+  // Legacy subscription management
   const handleCancel = () => {
     const premiumEndDate = nextBillingDate || t("defaultBillingPeriodEnd");
 
@@ -100,57 +75,11 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
       await handlers.handleReactivateSubscription(refreshUser);
     });
 
-  const handleRetryPayment = () =>
-    handleAsyncOperation(async () => {
-      await handlers.handleRetryPayment(refreshUser);
-    });
-
-  const handleResubscribeToPremium = () =>
-    handleAsyncOperation(async () => {
-      if (!user) {
-        return;
-      }
-      await handlers.handleSubscribe({
-        interval: "monthly",
-        userEmail: user.email
-      });
-    });
-
-  const handleCompletePayment = () =>
-    handleAsyncOperation(async () => {
-      // For incomplete payment, direct to portal to complete setup
-      await handlers.handleOpenPortal();
-    });
-
-  const handleTryPremiumAgain = () =>
-    handleAsyncOperation(async () => {
-      if (!user) {
-        return;
-      }
-      await handlers.handleSubscribe({
-        interval: "monthly",
-        userEmail: user.email
-      });
-    });
-
   return {
-    // State
     isLoading,
-    user,
-    subscriptionState,
-    currentTier,
-    subscriptionStatus,
-    subscriptionData,
     nextBillingDate,
-
-    // Handlers
-    handleUpgradeToPremium,
-    handleUpdatePayment,
+    handlePurchasePremium,
     handleCancel,
-    handleReactivate,
-    handleRetryPayment,
-    handleResubscribeToPremium,
-    handleCompletePayment,
-    handleTryPremiumAgain
+    handleReactivate
   };
 }

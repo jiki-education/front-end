@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import { toastError } from "@/lib/toast";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { storeReturnTo, getPostAuthRedirect } from "@/lib/auth/return-to";
+import { hardNavigate } from "@/lib/auth/hardNavigate";
 import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
 import type { LoginResponse } from "@/types/auth";
 import { TwoFactorSetupForm } from "@/components/auth/TwoFactorSetupForm";
@@ -22,7 +23,6 @@ interface UseAuthReturn {
 }
 
 export function useAuth(): UseAuthReturn {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const activeLocale = useLocale();
   const { googleLogin } = useAuthStore();
@@ -37,18 +37,12 @@ export function useAuth(): UseAuthReturn {
     storeReturnTo(returnTo);
   }, [returnTo]);
 
+  // A full document load, for an external return_to and for /dashboard alike.
+  // This page was rendered for an anonymous visitor in the URL's locale; the
+  // login has just changed both, and a client-side push would keep that shell
+  // (see hardNavigate).
   const redirectAfterAuth = () => {
-    const redirectTo = getPostAuthRedirect(returnTo);
-    if (redirectTo.startsWith("http")) {
-      try {
-        window.location.href = redirectTo;
-      } catch (redirectErr) {
-        console.error("Redirect failed:", redirectErr);
-        router.push("/dashboard");
-      }
-    } else {
-      router.push(redirectTo);
-    }
+    hardNavigate(getPostAuthRedirect(returnTo));
   };
 
   const handleAuthResponse = (result: LoginResponse) => {
