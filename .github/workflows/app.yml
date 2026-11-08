@@ -75,10 +75,6 @@ jobs:
         working-directory: app
         run: pnpm run curriculum-copy:generate
 
-      - name: Generate icon types
-        working-directory: app
-        run: pnpm run icons:generate
-
       - name: Generate asset cache
         working-directory: app
         run: pnpm run asset-cache:generate
@@ -130,10 +126,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Generate icon types
-        working-directory: app
-        run: pnpm run icons:generate
 
       - name: Generate asset cache
         working-directory: app
@@ -198,10 +190,6 @@ jobs:
         working-directory: app
         run: pnpm run curriculum-copy:generate
 
-      - name: Generate icon types
-        working-directory: app
-        run: pnpm run icons:generate
-
       - name: Generate asset cache
         working-directory: app
         run: pnpm run asset-cache:generate
@@ -265,10 +253,6 @@ jobs:
       - name: Generate curriculum copy cache
         working-directory: app
         run: pnpm run curriculum-copy:generate
-
-      - name: Generate icon types
-        working-directory: app
-        run: pnpm run icons:generate
 
       - name: Generate asset cache
         working-directory: app

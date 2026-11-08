@@ -5,8 +5,8 @@ import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useTranslations } from "next-intl";
 import { showAvatarEditModal } from "@/lib/modal/app";
 import UserAvatar from "@/components/common/UserAvatar";
-import { Icon } from "@/components/ui-kit/Icon";
 import PencilIcon from "@/icons/pencil.svg";
+import PremiumStarIcon from "@/icons/premium-star.svg";
 import style from "./UserProfile.module.css";
 import { Badges } from "./UserProfile/Badges";
 import { Streak } from "./UserProfile/Streak";
@@ -64,7 +64,7 @@ export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremi
           {isPremium && (
             <div className={style.starBadge}>
               <div className={style.starTooltip}>{t("premiumMember")}</div>
-              <Icon name="premium-star" size={17} />
+              <PremiumStarIcon width={17} height={17} aria-hidden="true" />
             </div>
           )}
         </button>
