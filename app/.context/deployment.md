@@ -74,6 +74,15 @@ This runs (see the `deploy` / `static:upload` scripts in `package.json`):
 The upload runs **before** `wrangler deploy` so new assets are on the CDN before
 the new Worker goes live; if the sync fails the deploy aborts before switching.
 
+`opennextjs-cloudflare build` refuses to build a Next.js major that it considers
+out of support. The check compares the wall clock against a table of Next.js
+release dates inside `@opennextjs/aws` (`checkNextVersionSupport` in
+`dist/build/helper.js`), so it can start failing on a date with no change in
+this repo. When it does, upgrade `@opennextjs/cloudflare` (whose peer range
+also sets the minimum `next` and `wrangler` versions) or Next.js itself. Avoid
+the `--dangerouslyUseUnsupportedNextVersion` flag, because it silences the
+check for every future release too.
+
 **Required environment variables:**
 
 - `CLOUDFLARE_API_TOKEN` - API token with Workers Routes permission
