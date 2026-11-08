@@ -16,7 +16,7 @@
  *   <span className={styles.icon}><Icon name="lock" size={24} /></span>
  */
 
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, type ComponentType, type LazyExoticComponent, type SVGProps } from "react";
 import type { IconName } from "./icon-types";
 
 export interface IconProps {
@@ -28,8 +28,7 @@ export interface IconProps {
 }
 
 export function Icon({ name, size, className = "", alt, color }: IconProps) {
-  // Lazy load the icon component for code-splitting (memoized by name)
-  const IconComponent = useMemo(() => lazy(() => import(`@/icons/${name}.svg`)), [name]);
+  const IconComponent = lazyIcon(name);
 
   // Color is a palette token name (e.g. "blue-500") applied via currentColor.
   const ariaLabel = alt || `${name} icon`;
@@ -49,4 +48,22 @@ export function Icon({ name, size, className = "", alt, color }: IconProps) {
       <IconComponent {...iconProps} />
     </Suspense>
   );
+}
+
+type LazyIcon = LazyExoticComponent<ComponentType<SVGProps<SVGSVGElement>>>;
+
+// Each icon's lazy component is created once per name and shared by every
+// mount. A lazy component created during render (e.g. in useMemo) is thrown
+// away if the render suspends before the Icon first commits, so React's retry
+// would build a new lazy with a new pending import and suspend again. In a
+// sync render that cycle runs in microtasks and freezes the page.
+const lazyIcons = new Map<IconName, LazyIcon>();
+
+function lazyIcon(name: IconName): LazyIcon {
+  let icon = lazyIcons.get(name);
+  if (!icon) {
+    icon = lazy(() => import(`@/icons/${name}.svg`));
+    lazyIcons.set(name, icon);
+  }
+  return icon;
 }

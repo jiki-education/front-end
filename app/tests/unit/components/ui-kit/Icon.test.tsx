@@ -2,6 +2,11 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Icon } from "@/components/ui-kit/Icon";
 
+jest.mock("@/icons/premium-star.svg", () => ({
+  __esModule: true,
+  default: (props: React.SVGProps<SVGSVGElement>) => <svg data-testid="loaded-icon" {...props} />
+}));
+
 describe("Icon", () => {
   it("renders with correct size", async () => {
     render(<Icon name="email" size={24} />);
@@ -55,5 +60,17 @@ describe("Icon", () => {
     const fallback = screen.getByRole("img");
     expect(fallback).toHaveAttribute("width", "20");
     expect(fallback).toHaveAttribute("height", "20");
+  });
+
+  // A lazy component created per mount suspends again on every fresh mount. If
+  // that mount is retried in a sync render, each retry creates another pending
+  // import and the page freezes, so a loaded icon must render without suspending.
+  it("renders an already-loaded icon on a fresh mount without suspending", async () => {
+    const first = render(<Icon name="premium-star" size={17} />);
+    await waitFor(() => expect(screen.getByTestId("loaded-icon")).toBeInTheDocument());
+    first.unmount();
+
+    render(<Icon name="premium-star" size={17} />);
+    expect(screen.getByTestId("loaded-icon")).toBeInTheDocument();
   });
 });
