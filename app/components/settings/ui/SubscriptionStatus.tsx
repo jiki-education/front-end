@@ -20,7 +20,7 @@ export default function SubscriptionStatus({ user, nextBillingDate, className = 
   if (kind === "lifetime") {
     return (
       <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
-        <h3>{t("currentPlan")}</h3>
+        <h3>{t("lifetimeHeading")}</h3>
         <p>{t.rich("lifetime", { plan })}</p>
       </div>
     );

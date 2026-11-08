@@ -40,7 +40,7 @@ describe("SubscriptionStatus", () => {
     const user = createMockUser({ membership_type: "premium", lifetime_premium: true });
     render(<SubscriptionStatus user={user} nextBillingDate={null} />);
 
-    expect(screen.getByText(/for life\. There's nothing to renew\./)).toBeInTheDocument();
+    expect(screen.getByText(/for life\. Thanks for supporting our mission!/)).toBeInTheDocument();
   });
 
   it("shows Premium that comes from elsewhere without a price", () => {
