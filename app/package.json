@@ -71,7 +71,7 @@
     "@jiki/interpreters": "workspace:*",
     "@lezer/common": "^1.5.0",
     "@lezer/highlight": "^1.2.3",
-    "@opennextjs/cloudflare": "^1.20.1",
+    "@opennextjs/cloudflare": "^1.20.16",
     "@react-oauth/google": "^0.13.4",
     "@sentry/nextjs": "^10",
     "@stripe/react-stripe-js": "^5.4.1",
@@ -93,7 +93,7 @@
     "lunr": "^2.3.9",
     "marked": "^17.0.1",
     "marked-footnote": "^1.4.0",
-    "next": "15.5.19",
+    "next": "15.5.29",
     "next-intl": "^4.13.1",
     "posthog-js": "^1.386.1",
     "qrcode.react": "^4.2.0",
@@ -143,6 +143,6 @@
     "raw-loader": "^4.0.2",
     "stylelint": "^17.14.1",
     "typescript": "^5.9.3",
-    "wrangler": "^4.59.2"
+    "wrangler": "^4.148.0"
   }
 }
