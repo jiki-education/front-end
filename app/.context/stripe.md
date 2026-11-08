@@ -32,6 +32,8 @@ The `/internal/me` user object carries everything the UI branches on (see `types
    - A `checkout_payment_incomplete` error becomes a `CheckoutIncompleteError`, and checkout reopens with the decline message from `checkout.declineCodes`.
 5. The user object is refreshed in every case.
 
+`PremiumCheckoutModal` gives Stripe its fonts as URLs, because the payment fields render in iframes on `js.stripe.com` and our `next/font` Poppins doesn't reach them. The files live in `public/static/fonts/poppins-latin-{400,500,600}.woff2`, are fingerprinted by `scripts/generate-asset-cache.js`, and are resolved with `staticAsset()`, so production serves them from `assets.jiki.io`. Development passes no fonts, since Stripe's https iframe would block an http font, and the fields use the system fonts listed after Poppins.
+
 While `premium_purchase_pending` is true, every place that would offer the purchase shows a "payment on its way" notice instead: the upgrade modal, the settings upsell and the premium page CTA. If a purchase is attempted anyway, the API rejects it with `purchase_pending`, and `already_premium` if the user already has Premium. `handlePurchasePremium()` shows the catalog copy for both.
 
 ## Legacy Subscriptions

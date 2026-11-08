@@ -40,7 +40,16 @@ const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 // Whole source directories under public/static to fingerprint.
 const SOURCE_DIRS = ["images", "sounds"];
 // Individual loose files under public/static referenced by URL.
-const SOURCE_FILES = ["robot.png", "icons/move.svg", "icons/user-fallback.svg"];
+// The Poppins files are for Stripe's checkout fields, which render in iframes on
+// js.stripe.com and so can't use the next/font copy (see PremiumCheckoutModal).
+const SOURCE_FILES = [
+  "robot.png",
+  "icons/move.svg",
+  "icons/user-fallback.svg",
+  "fonts/poppins-latin-400.woff2",
+  "fonts/poppins-latin-500.woff2",
+  "fonts/poppins-latin-600.woff2"
+];
 // Slug-addressed icon sets from app/icons/{dir}, emitted under "icons/{dir}/".
 const ICON_SETS = ["lessons", "badges", "challenges"];
 
