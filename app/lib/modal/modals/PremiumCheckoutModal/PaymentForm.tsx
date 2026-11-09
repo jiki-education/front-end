@@ -3,12 +3,13 @@
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import ShieldIcon from "@/icons/shield.svg";
+import { checkoutEventProperties, trackEvent, type CheckoutTrigger } from "@/lib/analytics";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import styles from "../PremiumCheckoutModal.module.css";
 
-export function PaymentForm({ priorError }: { priorError?: string | null }) {
+export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger; priorError?: string | null }) {
   const t = useTranslations("modals.subscriptionCheckout");
   const tCommon = useTranslations("common");
   // Seed the error banner with a previous attempt's failure (e.g. a declined retry);
@@ -50,18 +51,24 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
 
     setIsLoading(true);
     setMessage(null);
+    trackEvent("checkout_submitted", checkoutEventProperties(trigger));
 
     try {
       // Confirm the payment - AddressElement data is automatically included
       const confirmResult = await checkout.confirm();
 
       if (confirmResult.type === "error") {
+        trackEvent("checkout_failed", {
+          ...checkoutEventProperties(trigger),
+          ...confirmErrorProperties(confirmResult.error)
+        });
         setMessage(confirmResult.error.message || t("paymentFailed"));
         setIsLoading(false);
       }
       // If successful, Stripe will redirect automatically
     } catch (error) {
       console.error("Payment error:", error);
+      trackEvent("checkout_failed", { ...checkoutEventProperties(trigger), error_code: "exception" });
       setMessage(t("unexpectedError"));
       setIsLoading(false);
     }
@@ -109,4 +116,15 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
       </p>
     </form>
   );
+}
+
+// Stripe gives a code and decline reason only for a failed payment. Anything
+// else (an incomplete form, a network error) arrives with a null code, which is
+// recorded as "other".
+function confirmErrorProperties(error: { code: string | null; paymentFailed?: { declineCode: string | null } }) {
+  const declineCode = error.paymentFailed?.declineCode;
+  return {
+    error_code: error.code ?? "other",
+    ...(declineCode && { decline_code: declineCode })
+  };
 }

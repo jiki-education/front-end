@@ -52,6 +52,7 @@ export function PremiumUpgradeModal({
   }, [trigger, contextType, contextSlug, contextUuid]);
 
   const { handleUpgrade } = useUpgradeFlow({
+    trigger,
     setIsLoading,
     onSuccess,
     onCancel

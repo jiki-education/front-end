@@ -1,5 +1,6 @@
 "use client";
 
+import type { CheckoutTrigger } from "@/lib/analytics";
 import type { MembershipTier } from "@/lib/pricing";
 import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
@@ -8,10 +9,12 @@ import styles from "../PremiumCheckoutModal.module.css";
 
 export function ModalBody({
   selectedTier,
+  trigger,
   priorError,
   onCancel
 }: {
   selectedTier: MembershipTier;
+  trigger?: CheckoutTrigger;
   priorError?: string | null;
   onCancel: () => void;
 }) {
@@ -45,7 +48,7 @@ export function ModalBody({
         </div>
       </div>
 
-      <PaymentForm priorError={priorError} />
+      <PaymentForm trigger={trigger} priorError={priorError} />
     </div>
   );
 }

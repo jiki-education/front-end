@@ -38,7 +38,7 @@ export function usePremiumUpsell({ trigger, contextSlug, onContinue }: PremiumUp
     setIsLoading(true);
     try {
       // Shows the checkout modal in place of this one
-      await handlePurchasePremium({ returnPath: window.location.pathname });
+      await handlePurchasePremium({ trigger, returnPath: window.location.pathname });
     } catch {
       // handlePurchasePremium has already toasted the reason
       setIsLoading(false);

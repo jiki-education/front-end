@@ -9,6 +9,7 @@ import { createPurchaseCheckoutSession } from "@/lib/api/premiumPurchases";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
 import { getApiErrorType } from "@/lib/api/client";
+import type { CheckoutTrigger } from "@/lib/analytics";
 import { toastApiError } from "@/lib/api/apiErrors";
 import { hideModal } from "@/lib/modal";
 import { showPremiumCheckout, type CheckoutBackdrop } from "@/lib/modal/app";
@@ -17,6 +18,7 @@ import { toastError, toastSuccess } from "@/lib/toast";
 
 // Types for handler functions
 export interface PurchaseParams {
+  trigger?: CheckoutTrigger; // What opened checkout, recorded on every checkout funnel event
   returnPath?: string; // Optional return path, defaults to current location
   priorError?: string | null; // A previous attempt's failure, shown in the checkout error banner
   onCancel?: () => void; // Called after the checkout modal is dismissed, e.g. to reopen the modal it replaced
@@ -39,10 +41,16 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Buying Premium (a one-off lifetime purchase)
-export async function handlePurchasePremium({ returnPath, priorError, onCancel, backdrop }: PurchaseParams = {}) {
+export async function handlePurchasePremium({
+  trigger,
+  returnPath,
+  priorError,
+  onCancel,
+  backdrop
+}: PurchaseParams = {}) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
-    const response = await createPurchaseCheckoutSession(returnUrl);
+    const response = await createPurchaseCheckoutSession(returnUrl, trigger);
 
     // Hide any currently open modal before showing checkout
     hideModal();
@@ -51,6 +59,7 @@ export async function handlePurchasePremium({ returnPath, priorError, onCancel, 
     showPremiumCheckout({
       clientSecret: response.client_secret,
       selectedTier: "premium",
+      trigger,
       priorError,
       onCancel,
       backdrop
@@ -167,7 +176,7 @@ export async function handleDeleteStripeHistory({
 // Convenience functions for specific contexts
 export const settingsHandlers = {
   purchase: (params: Omit<PurchaseParams, "returnPath"> = {}) =>
-    handlePurchasePremium({ ...params, returnPath: "/settings" }),
+    handlePurchasePremium({ ...params, trigger: "upgrade_cta_settings", returnPath: "/settings" }),
   openPortal: handleOpenPortal,
   cancel: handleCancelSubscription,
   reactivate: handleReactivateSubscription,

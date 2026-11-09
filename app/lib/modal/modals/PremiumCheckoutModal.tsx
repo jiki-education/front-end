@@ -2,6 +2,7 @@
 
 import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
 import { CloseButton } from "@/components/ui-kit";
+import { checkoutEventProperties, trackEvent, type CheckoutTrigger } from "@/lib/analytics";
 import { stripePromise } from "@/lib/stripe";
 import { staticAsset } from "@/lib/static-asset";
 import type { MembershipTier } from "@/lib/pricing";
@@ -12,13 +13,22 @@ import modalStyles from "@/app/styles/components/modals.module.css";
 interface PremiumCheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
+  trigger?: CheckoutTrigger;
   priorError?: string | null;
   onCancel?: () => void;
 }
 
-export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, onCancel }: PremiumCheckoutModalProps) {
-  // Hides first, so onCancel can open the modal this one replaced
+export function PremiumCheckoutModal({
+  clientSecret,
+  selectedTier,
+  trigger,
+  priorError,
+  onCancel
+}: PremiumCheckoutModalProps) {
+  // Hides first, so onCancel can open the modal this one replaced. The overlay
+  // and Escape don't close checkout, so every dismissal comes through here.
   const handleCancel = () => {
+    trackEvent("checkout_closed", checkoutEventProperties(trigger));
     hideModal();
     onCancel?.();
   };
@@ -65,7 +75,7 @@ export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, o
 
   return (
     <CheckoutProvider stripe={stripePromise} options={options}>
-      <ModalBody selectedTier={selectedTier} priorError={priorError} onCancel={handleCancel} />
+      <ModalBody selectedTier={selectedTier} trigger={trigger} priorError={priorError} onCancel={handleCancel} />
       {/* Our own close button, as BaseModal's would hide the modal without calling onCancel */}
       <div className={modalStyles.modalCloseButton}>
         <CloseButton onClick={handleCancel} variant="light" />

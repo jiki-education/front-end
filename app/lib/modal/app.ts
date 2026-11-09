@@ -24,7 +24,7 @@
  */
 
 import type { MembershipTier } from "@/lib/pricing";
-import type { ModalTrigger } from "@/lib/analytics";
+import type { CheckoutTrigger, ModalTrigger } from "@/lib/analytics";
 import type { VideoSource } from "@/types/lesson";
 import type { PremiumUpsellProps } from "./modals/PremiumUpsellModals/usePremiumUpsell";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
@@ -52,6 +52,7 @@ export const showPremiumCheckout = ({
 }: {
   clientSecret: string;
   selectedTier: MembershipTier;
+  trigger?: CheckoutTrigger;
   priorError?: string | null;
   onCancel?: () => void;
   onSuccess?: () => void;

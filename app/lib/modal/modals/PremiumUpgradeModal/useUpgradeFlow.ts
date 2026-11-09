@@ -1,14 +1,21 @@
+import type { ModalTrigger } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { handlePurchasePremium } from "@/lib/subscriptions/handlers";
 import { toastError } from "@/lib/toast";
 
 interface UseUpgradeFlowProps {
+  trigger?: ModalTrigger;
   setIsLoading: (loading: boolean) => void;
   onSuccess?: () => void;
   onCancel?: () => void;
 }
 
-export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: _onCancel }: UseUpgradeFlowProps) {
+export function useUpgradeFlow({
+  trigger,
+  setIsLoading,
+  onSuccess: _onSuccess,
+  onCancel: _onCancel
+}: UseUpgradeFlowProps) {
   const user = useAuthStore((state: any) => state.user);
 
   const handleUpgrade = async () => {
@@ -20,7 +27,7 @@ export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: 
     setIsLoading(true);
     try {
       // handlePurchasePremium shows the checkout modal, hiding this one first
-      await handlePurchasePremium({ returnPath: window.location.pathname, backdrop: "dark" });
+      await handlePurchasePremium({ trigger, returnPath: window.location.pathname, backdrop: "dark" });
     } catch (error) {
       // handlePurchasePremium has already toasted the reason
       console.error("Purchase error:", error);
