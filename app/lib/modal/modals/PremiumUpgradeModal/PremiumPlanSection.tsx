@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import UserAvatar from "@/components/common/UserAvatar";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { staticAsset } from "@/lib/static-asset";
 import styles from "./PremiumUpgradeModal.module.css";
 
@@ -70,6 +71,9 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
 function UpgradeButton({ isLoading, onUpgrade }: Omit<PremiumPlanSectionProps, "user">) {
   const t = useTranslations("modals.premiumUpgrade");
   const tCommon = useTranslations("common");
+  // The button shows the user's picture only when they have one. The generic
+  // placeholder adds nothing to the call to action.
+  const hasAvatar = useAuthStore((state) => Boolean(state.user?.avatar_url));
 
   return (
     <button
@@ -77,7 +81,7 @@ function UpgradeButton({ isLoading, onUpgrade }: Omit<PremiumPlanSectionProps, "
       onClick={onUpgrade}
       disabled={isLoading}
     >
-      {!isLoading && <UserAvatar alt={t("userAvatarAlt")} className={styles.buttonAvatar} />}
+      {!isLoading && hasAvatar && <UserAvatar alt={t("userAvatarAlt")} className={styles.buttonAvatar} />}
       {isLoading ? tCommon("processing") : t("upgrade")}
     </button>
   );
