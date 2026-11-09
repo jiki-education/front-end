@@ -51,7 +51,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
             height={117}
             priority
           />
-          <UpgradeButton isLoading={isLoading} onUpgrade={onUpgrade} />
+          <UpgradeButton user={user} isLoading={isLoading} onUpgrade={onUpgrade} />
         </div>
       )}
 
@@ -67,9 +67,10 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
   );
 }
 
-function UpgradeButton({ isLoading, onUpgrade }: Omit<PremiumPlanSectionProps, "user">) {
+function UpgradeButton({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
   const t = useTranslations("modals.premiumUpgrade");
   const tCommon = useTranslations("common");
+  const hasAvatar = Boolean(user?.avatar_url);
 
   return (
     <button
@@ -77,7 +78,7 @@ function UpgradeButton({ isLoading, onUpgrade }: Omit<PremiumPlanSectionProps, "
       onClick={onUpgrade}
       disabled={isLoading}
     >
-      {!isLoading && <UserAvatar alt={t("userAvatarAlt")} className={styles.buttonAvatar} />}
+      {!isLoading && hasAvatar && <UserAvatar alt={t("userAvatarAlt")} className={styles.buttonAvatar} />}
       {isLoading ? tCommon("processing") : t("upgrade")}
     </button>
   );
