@@ -46,7 +46,11 @@ export function AskJikiUpsellStep({ exerciseSlug, onContinue, onCheckoutCancel }
     try {
       // Replaces the completion modal with the checkout modal. The lesson was
       // already saved before this step could appear.
-      await handlePurchasePremium({ returnPath: window.location.pathname, onCancel: onCheckoutCancel });
+      await handlePurchasePremium({
+        trigger: "exercise_completion",
+        returnPath: window.location.pathname,
+        onCancel: onCheckoutCancel
+      });
     } catch {
       // handlePurchasePremium has already toasted the reason
       setIsLoading(false);

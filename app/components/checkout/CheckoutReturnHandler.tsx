@@ -43,7 +43,7 @@ export function CheckoutReturnHandler() {
     const reopenCheckout = async (declineCode: string | null) => {
       try {
         await refreshUser();
-        await handlePurchasePremium({ priorError: declineMessage(t, declineCode) });
+        await handlePurchasePremium({ trigger: "checkout_retry", priorError: declineMessage(t, declineCode) });
       } catch {
         // handlePurchasePremium already toasted + logged; fall back to the failure modal
         // so the confirming spinner doesn't hang.

@@ -31,6 +31,17 @@ describe("createPurchaseCheckoutSession", () => {
     expect(result).toEqual({ client_secret: "cs_test_secret_123" });
   });
 
+  it("sends the trigger when there is one", async () => {
+    mockedApiPost.mockResolvedValue({ data: { client_secret: "cs_test_secret_123" }, status: 200, headers: {} } as any);
+
+    await createPurchaseCheckoutSession("https://example.com", "assistant_limit_reached");
+
+    expect(mockedApiPost).toHaveBeenCalledWith("/internal/premium_purchases/checkout_session", {
+      return_url: "https://example.com",
+      trigger: "assistant_limit_reached"
+    });
+  });
+
   it("propagates API errors", async () => {
     mockedApiPost.mockRejectedValue(new Error("Network error"));
 

@@ -4,16 +4,22 @@
  */
 
 import { ApiError, CheckoutIncompleteError, api } from "./client";
+import type { CheckoutTrigger } from "@/lib/analytics";
 import type { CheckoutSessionResponse, VerifyPurchaseResponse } from "@/types/subscription";
 
 /**
  * Create a Stripe checkout session for a lifetime Premium purchase.
  * The API picks the currency and price from the user's country.
  * @param returnUrl - Where Stripe sends the user once payment completes
+ * @param trigger - What opened checkout. The API records it on `checkout_started`.
  */
-export async function createPurchaseCheckoutSession(returnUrl: string): Promise<CheckoutSessionResponse> {
+export async function createPurchaseCheckoutSession(
+  returnUrl: string,
+  trigger?: CheckoutTrigger
+): Promise<CheckoutSessionResponse> {
   const response = await api.post<CheckoutSessionResponse>("/internal/premium_purchases/checkout_session", {
-    return_url: returnUrl
+    return_url: returnUrl,
+    ...(trigger && { trigger })
   });
   return response.data;
 }

@@ -21,6 +21,14 @@ export type ModalTrigger =
   | "exercise_completion";
 
 /**
+ * Trigger values for the checkout funnel (`checkout_started`, `checkout_submitted`,
+ * `checkout_failed`, `checkout_closed`). A checkout opened from a Premium modal
+ * reuses that modal's trigger so the two funnels join up. The extra values cover
+ * the places that open checkout without a modal first.
+ */
+export type CheckoutTrigger = ModalTrigger | "upgrade_cta_settings" | "checkout_retry";
+
+/**
  * Feature values for `premium_feature_blocked` — fired when a locked
  * surface renders (passive view, no click required).
  */
@@ -48,4 +56,12 @@ export function trackEvent(event: string, properties: Record<string, unknown> = 
   } catch {
     // swallow synchronous fetch construction errors (e.g. malformed URL)
   }
+}
+
+/**
+ * The base properties for a checkout funnel event. An absent trigger is left
+ * out, because PostHog shows a null value as a literal "null".
+ */
+export function checkoutEventProperties(trigger: CheckoutTrigger | undefined): Record<string, unknown> {
+  return trigger ? { trigger } : {};
 }
