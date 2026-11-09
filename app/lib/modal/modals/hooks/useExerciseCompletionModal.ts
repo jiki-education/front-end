@@ -6,7 +6,17 @@ import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
 import { rateLesson } from "@/lib/api/lessons";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
-export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "challenge-unlocked";
+export type ModalStep =
+  | "success"
+  | "difficulty-rating"
+  | "completed"
+  | "concept-unlocked"
+  | "challenge-unlocked"
+  | "ask-jiki-upsell";
+
+// The steps that follow rating, in order. Each one except "completed" only
+// appears when the completion response carries its event.
+const STEPS_AFTER_RATING: ModalStep[] = ["concept-unlocked", "challenge-unlocked", "ask-jiki-upsell", "completed"];
 
 interface UseExerciseCompletionModalProps {
   onTidyCode?: () => void;
@@ -53,6 +63,23 @@ export function useExerciseCompletionModal({
       cleanupCanvas();
     };
   }, [step]);
+
+  // Shows this modal again on the given step, e.g. after checkout replaced it
+  const reshow = (atStep: ModalStep) => {
+    showModal("exercise-completion-modal", {
+      onTidyCode,
+      onSolveBonuses,
+      outstandingBonusCount,
+      onCompleteExercise,
+      onGoToDashboard,
+      exerciseTitle,
+      exerciseSlug,
+      isChallenge,
+      unlockedChallenge,
+      completionResponse: completionResponseRef.current,
+      initialStep: atStep
+    });
+  };
 
   // Update overlay class when step changes to challenge-unlocked
   useEffect(() => {
@@ -103,18 +130,7 @@ export function useExerciseCompletionModal({
     // Wait for the completion API call to finish before reading the response,
     // in case the user advances before onCompleteExercise has resolved.
     const events = completionPromiseRef.current ? await completionPromiseRef.current : completionResponseRef.current;
-
-    const conceptEvent = events.find((item) => item.type === "concept_unlocked");
-    const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
-    const unlockedChallengeData = events.find((item) => item.type === "challenge_unlocked")?.data.challenge;
-
-    if (unlockedConcept) {
-      setStep("concept-unlocked");
-    } else if (unlockedChallengeData) {
-      setStep("challenge-unlocked");
-    } else {
-      setStep("completed");
-    }
+    setStep(nextStepAfter("difficulty-rating", events));
   };
 
   const handleCompleteExercise = async () => {
@@ -142,18 +158,20 @@ export function useExerciseCompletionModal({
   };
 
   const handleContinueFromConcept = () => {
-    const unlockedChallengeData = completionResponseRef.current.find((item) => item.type === "challenge_unlocked")?.data
-      .challenge;
-
-    if (unlockedChallengeData) {
-      setStep("challenge-unlocked");
-    } else {
-      setStep("completed");
-    }
+    setStep(nextStepAfter("concept-unlocked", completionResponseRef.current));
   };
 
   const handleContinueFromChallenge = () => {
+    setStep(nextStepAfter("challenge-unlocked", completionResponseRef.current));
+  };
+
+  const handleContinueFromUpsell = () => {
     setStep("completed");
+  };
+
+  // Checkout replaces this modal, so dismissing checkout brings it back on the step the student left
+  const handleCheckoutCancel = () => {
+    reshow(step);
   };
 
   const handleContinue = () => {
@@ -171,7 +189,34 @@ export function useExerciseCompletionModal({
       handleRatingsSubmit,
       handleContinueFromConcept,
       handleContinueFromChallenge,
+      handleContinueFromUpsell,
+      handleCheckoutCancel,
       handleContinue
     }
   };
+}
+
+// Picks the first step after `current` whose event is in the completion
+// response, falling back to "completed". From a step before them all (such as
+// "difficulty-rating"), every step after rating is a candidate.
+export function nextStepAfter(current: ModalStep, events: CompletionResponseData[]): ModalStep {
+  const remaining = STEPS_AFTER_RATING.slice(STEPS_AFTER_RATING.indexOf(current) + 1);
+  return remaining.find((step) => stepApplies(step, events)) ?? "completed";
+}
+
+function stepApplies(step: ModalStep, events: CompletionResponseData[]): boolean {
+  switch (step) {
+    case "concept-unlocked": {
+      const conceptEvent = events.find((item) => item.type === "concept_unlocked");
+      return Boolean(conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept);
+    }
+    case "challenge-unlocked":
+      return Boolean(events.find((item) => item.type === "challenge_unlocked")?.data.challenge);
+    case "ask-jiki-upsell":
+      return events.some((item) => item.type === "ask_jiki_upsell");
+    case "completed":
+    case "success":
+    case "difficulty-rating":
+      return true;
+  }
 }

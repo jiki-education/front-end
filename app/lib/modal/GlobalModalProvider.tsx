@@ -74,6 +74,7 @@ export function GlobalModalProvider() {
   // Check if this modal should not have a close button
   const hideCloseButton =
     modalName === "confirmation-modal" ||
+    modalName === "premium-checkout-modal" ||
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "walkthrough-confirm-modal" ||

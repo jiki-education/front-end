@@ -41,15 +41,28 @@ import exerciseIntroVideoStyles from "./modals/ExerciseIntroVideoModal.module.cs
 import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 import { showModal } from "./store";
 
+export type CheckoutBackdrop = "light" | "dark";
+
 // Convenience function for the Premium purchase checkout modal
-export const showPremiumCheckout = (props: {
+// Checkout matches the backdrop of the modal it replaces: "dark" after the
+// upgrade modal, "light" (the default) everywhere else.
+export const showPremiumCheckout = ({
+  backdrop = "light",
+  ...props
+}: {
   clientSecret: string;
   selectedTier: MembershipTier;
   priorError?: string | null;
   onCancel?: () => void;
   onSuccess?: () => void;
+  backdrop?: CheckoutBackdrop;
 }) => {
-  showModal("premium-checkout-modal", props, undefined, premiumCheckoutStyles.modal);
+  showModal(
+    "premium-checkout-modal",
+    props,
+    backdrop === "dark" ? premiumCheckoutStyles.darkOverlay : undefined,
+    premiumCheckoutStyles.modal
+  );
 };
 
 // Convenience function for payment processing modal

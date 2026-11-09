@@ -97,6 +97,17 @@ showModal("exercise-success-modal", {
 
 **Note**: This modal is typically triggered automatically by the orchestrator and doesn't require manual invocation.
 
+#### Exercise Completion Modal
+
+`exercise-completion-modal` walks the student through a series of steps, rendered from `lib/modal/modals/steps/` and driven by `lib/modal/modals/hooks/useExerciseCompletionModal.ts`:
+
+1. `success`. Clicking "Complete exercise" sends the completion request, which is what marks the lesson complete in the database.
+2. `difficulty-rating` (lessons only). The completion request runs while the student rates.
+3. The optional steps, in order: `concept-unlocked`, `challenge-unlocked` and `ask-jiki-upsell`. Each appears only when the completion response's `meta.events` carries its event (`concept_unlocked`, `challenge_unlocked`, `ask_jiki_upsell`). `nextStepAfter()` picks the next one.
+4. `completed`.
+
+The API decides when to send an upsell event, so the front-end never works out eligibility itself. Upsell steps come after the unlock steps because upgrading replaces the completion modal with the checkout modal, and any later steps will never be shown. A failed completion request returns no events, so a student can never reach checkout on an unsaved exercise.
+
 ## Adding New Modals
 
 1. Create component in `lib/modal/modals/YourModal.tsx`

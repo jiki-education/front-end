@@ -1,6 +1,18 @@
+/* Matches the upgrade modal's darker backdrop, used when checkout replaces it */
+.darkOverlay {
+    background: rgba(15, 23, 42, 0.9) !important;
+}
+
 .modal {
     max-width: 520px;
     padding: 40px;
+}
+
+/* A faint glow in place of the base modal's bright white one, which stands out on the darker backdrop */
+.darkOverlay .modal {
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 40px 80px rgba(255, 255, 255, 0.1) !important;
 }
 
 .orderHeader {
@@ -16,7 +28,7 @@
 .orderTitle {
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     line-height: 1.2;
     background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
     -webkit-background-clip: text;
@@ -25,7 +37,7 @@
 }
 
 .orderBilling {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-gray-500);
 }
 

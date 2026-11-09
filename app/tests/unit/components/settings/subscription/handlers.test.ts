@@ -57,8 +57,19 @@ describe("Subscription handlers", () => {
       expect(mockShowPremiumCheckout).toHaveBeenCalledWith({
         clientSecret: "cs_test_123",
         selectedTier: "premium",
-        onCancel: expect.any(Function)
+        priorError: undefined,
+        onCancel: undefined,
+        backdrop: undefined
       });
+    });
+
+    it("passes onCancel to the checkout modal so the caller can reopen its own modal", async () => {
+      mockPurchaseApi.createPurchaseCheckoutSession.mockResolvedValue({ client_secret: "cs_test_123" });
+      const onCancel = jest.fn();
+
+      await handlers.handlePurchasePremium({ onCancel });
+
+      expect(mockShowPremiumCheckout).toHaveBeenCalledWith(expect.objectContaining({ onCancel }));
     });
 
     it("shows the generic failure for an unexpected error", async () => {

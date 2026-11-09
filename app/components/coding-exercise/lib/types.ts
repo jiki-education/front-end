@@ -18,7 +18,7 @@ export interface UnlockedChallenge {
 }
 
 export interface CompletionResponseData {
-  type: "concept_unlocked" | "challenge_unlocked";
+  type: "concept_unlocked" | "challenge_unlocked" | "ask_jiki_upsell";
   data: {
     concept_slug?: string;
     concept?: UnlockedConcept;

@@ -1,0 +1,176 @@
+/* The completion modal's padding (48px 50px 32px) suits its centred steps. This
+   step cancels it and sets its own, so the testimonial strip can sit flush with
+   the modal's sides and foot. */
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: -48px -50px -32px;
+    padding: 24px 24px 0;
+    text-align: start;
+}
+
+/* Jiki beside a left-aligned heading, so this doesn't open like a badge modal */
+.headingRow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.jiki {
+    flex: none;
+    width: 72px;
+    height: 72px;
+}
+
+.heading {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-gray-900);
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.body {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+}
+
+.body strong {
+    font-weight: 600;
+    color: var(--color-purple-600);
+}
+
+.plus {
+    margin: 0 0 20px;
+    padding: 16px 20px;
+    background: var(--color-purple-50);
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+}
+
+.plus strong {
+    font-weight: 600;
+}
+
+/* The line is always bold. Its colours deepen one letter at a time, left to right, then stay. */
+.price {
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+}
+
+.priceWord {
+    white-space: nowrap;
+}
+
+.priceChar {
+    --start-color: var(--color-gray-400);
+    animation: price-sweep 0.15s ease-out both;
+    animation-delay: calc(0.6s + var(--i) * 40ms);
+}
+
+.priceAmount {
+    --start-color: var(--color-purple-300);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-purple-600);
+}
+
+/* Only a start state, so each letter settles into its own final colour */
+@keyframes price-sweep {
+    from {
+        color: var(--start-color);
+    }
+}
+
+.pendingNote {
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    background: var(--color-purple-50);
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--color-gray-700);
+}
+
+/* Stacked on the smallest screens, with the upgrade button first */
+.buttons {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+}
+
+/* Each button sizes to its label so both stay on one line */
+.button {
+    flex: 1 1 auto;
+    padding-inline: 12px;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+/* Starts as the colour sweep across the price line finishes. The component sets the delay from the line's length. */
+.upgradeButton {
+    animation: upgrade-pulse 0.8s ease-out var(--pulse-delay, 2.1s);
+}
+
+@keyframes upgrade-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.55);
+    }
+    40% {
+        transform: scale(1.04);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 5px rgba(168, 85, 247, 0);
+    }
+}
+
+/* One grey bar along the foot of the modal */
+.testimonials {
+    margin: 20px -24px 0;
+    border-radius: 0 0 20px 20px;
+}
+
+@media (min-width: 601px) {
+    .buttons {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 701px) {
+    .content {
+        padding: 42px 42px 0;
+    }
+
+    .heading {
+        font-size: 28px;
+    }
+
+    .testimonials {
+        margin-inline: -42px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .priceChar,
+    .upgradeButton {
+        animation: none;
+    }
+}

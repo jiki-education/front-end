@@ -1,13 +1,14 @@
 "use client";
 
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
-import { useExerciseCompletionModal } from "./hooks/useExerciseCompletionModal";
+import { useExerciseCompletionModal, type ModalStep } from "./hooks/useExerciseCompletionModal";
 
 import { SuccessStep } from "./steps/SuccessStep";
 import { DifficultyRatingStep } from "./steps/DifficultyRatingStep";
 import { CompletedStep } from "./steps/CompletedStep";
 import { ConceptUnlockedStep } from "./steps/ConceptUnlockedStep";
 import { ChallengeUnlockedStep } from "./steps/ChallengeUnlockedStep";
+import { AskJikiUpsellStep } from "./steps/AskJikiUpsellStep";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
@@ -21,7 +22,7 @@ interface ExerciseCompletionModalProps {
   unlockedChallenge?: {
     slug: string;
   };
-  initialStep?: "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "challenge-unlocked";
+  initialStep?: ModalStep;
   completionResponse?: CompletionResponseData[];
 }
 
@@ -71,6 +72,15 @@ export function ExerciseCompletionModal({
           completionResponse={liveCompletionResponse}
           unlockedChallenge={unlockedChallenge}
           onContinue={handlers.handleContinueFromChallenge}
+        />
+      );
+
+    case "ask-jiki-upsell":
+      return (
+        <AskJikiUpsellStep
+          exerciseSlug={exerciseSlug}
+          onContinue={handlers.handleContinueFromUpsell}
+          onCheckoutCancel={handlers.handleCheckoutCancel}
         />
       );
 

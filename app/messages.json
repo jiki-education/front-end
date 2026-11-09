@@ -1460,6 +1460,15 @@
         "message": "Congratulations! All that practice means you're ready to take on a tougher challenge.",
         "newLabel": "New",
         "premiumInfo": "<strong>Exclusively for Premium members.</strong> <link>Upgrade your account</link> to access Challenges as you unlock them."
+      },
+      "askJikiUpsell": {
+        "heading": "Never get stuck with unlimited <highlight>Ask Jiki</highlight> support!",
+        "body": "You've now used your free Ask Jiki session. Upgrade to Premium to unlock <strong>unlimited Ask Jiki</strong> and never get stuck!",
+        "plus": "<strong>Premium also unlocks:</strong> Premium Challenges, Unlimited Deep Dives, an Official Certificate, Ad-free learning, Regular livestreams, early access to features, and more!",
+        "price": "Only {price}. One-off payment. No subscription.",
+        "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
+        "noThanks": "No thanks",
+        "upgrade": "Upgrade to Premium"
       }
     },
     "premiumUpgrade": {
@@ -1532,8 +1541,8 @@
       "paymentFailedTitle": "Payment failed",
       "paymentInfoAriaLabel": "Payment information",
       "pay": "Pay",
-      "orderTitle": "Jiki {tier}",
-      "orderBilling": "One-off payment. Premium for life.",
+      "orderTitle": "Upgrade to {tier}",
+      "orderBilling": "One-off payment. No subscription.",
       "securedBy": "Secured by <stripe>stripe</stripe>",
       "error": "Error: {message}"
     },

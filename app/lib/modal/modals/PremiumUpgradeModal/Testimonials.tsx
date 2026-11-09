@@ -1,16 +1,16 @@
 import { useTranslations } from "next-intl";
-import styles from "./PremiumUpgradeModal.module.css";
+import styles from "./Testimonials.module.css";
 
 const QUOTE_KEYS = ["challenge", "master", "community", "supportive", "confidence", "value", "investment"] as const;
 
-// A strip of short learner quotes that scrolls along the foot of the modal.
+// A strip of short learner quotes that scrolls along the foot of a modal.
 // The list is rendered twice so the loop has no visible jump; the copy is
-// hidden from screen readers.
-export function Testimonials() {
+// hidden from screen readers. The caller's className places the strip.
+export function Testimonials({ className = "" }: { className?: string }) {
   const t = useTranslations("modals.premiumUpgrade");
 
   return (
-    <section className={styles.testimonials} aria-label={t("testimonialsLabel")}>
+    <section className={`${styles.testimonials} ${className}`} aria-label={t("testimonialsLabel")}>
       {/* The strip scrolls leftward in every locale, so it keeps its own direction in RTL */}
       <div className={styles.testimonialsViewport} dir="ltr">
         <div className={styles.testimonialsTrack}>
