@@ -70,8 +70,6 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
 function UpgradeButton({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
   const t = useTranslations("modals.premiumUpgrade");
   const tCommon = useTranslations("common");
-  // The button shows the user's picture only when they have one. The generic
-  // placeholder adds nothing to the call to action.
   const hasAvatar = Boolean(user?.avatar_url);
 
   return (
