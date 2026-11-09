@@ -227,6 +227,20 @@ export default function TestGlobalModals() {
             >
               Challenge Unlocked Step
             </button>
+
+            <button
+              onClick={() =>
+                showModal("exercise-completion-modal", {
+                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
+                  exerciseTitle: "Test Exercise",
+                  initialStep: "ask-jiki-upsell"
+                })
+              }
+              className={styles.modalButton}
+              data-color="purple"
+            >
+              Ask Jiki Upsell Step
+            </button>
           </div>
           <p className={styles.groupNote}>
             🆕 Test the new combined rating step! Click through the full flow: Success → Confirmation → Rate Experience

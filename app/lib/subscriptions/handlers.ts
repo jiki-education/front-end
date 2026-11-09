@@ -11,7 +11,7 @@ import { getApiUrl } from "@/lib/api/config";
 import { getApiErrorType } from "@/lib/api/client";
 import { toastApiError } from "@/lib/api/apiErrors";
 import { hideModal } from "@/lib/modal";
-import { showPremiumCheckout } from "@/lib/modal/app";
+import { showPremiumCheckout, type CheckoutBackdrop } from "@/lib/modal/app";
 import toast from "react-hot-toast";
 import { toastError, toastSuccess } from "@/lib/toast";
 
@@ -19,6 +19,8 @@ import { toastError, toastSuccess } from "@/lib/toast";
 export interface PurchaseParams {
   returnPath?: string; // Optional return path, defaults to current location
   priorError?: string | null; // A previous attempt's failure, shown in the checkout error banner
+  onCancel?: () => void; // Called after the checkout modal is dismissed, e.g. to reopen the modal it replaced
+  backdrop?: CheckoutBackdrop; // The backdrop of the modal checkout replaces, so it doesn't change underneath
 }
 
 export interface CheckoutCancelParams {
@@ -37,7 +39,7 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Buying Premium (a one-off lifetime purchase)
-export async function handlePurchasePremium({ returnPath, priorError }: PurchaseParams = {}) {
+export async function handlePurchasePremium({ returnPath, priorError, onCancel, backdrop }: PurchaseParams = {}) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createPurchaseCheckoutSession(returnUrl);
@@ -50,9 +52,8 @@ export async function handlePurchasePremium({ returnPath, priorError }: Purchase
       clientSecret: response.client_secret,
       selectedTier: "premium",
       priorError,
-      onCancel: () => {
-        // Modal cancelled - no need to do anything as modal state is managed internally
-      }
+      onCancel,
+      backdrop
     });
   } catch (error) {
     // `already_premium` and `purchase_pending` have their own copy. Anything

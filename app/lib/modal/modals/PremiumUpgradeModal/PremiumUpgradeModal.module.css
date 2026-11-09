@@ -369,79 +369,11 @@
     width: 100%;
 }
 
-/* Scrolling testimonials: one grey bar, flush with the foot of the modal,
-   with the text fading out at both ends */
+/* Places the shared testimonial strip flush with the foot of the modal */
 .testimonials {
     align-self: stretch;
     margin: 0 -32px -16px;
-    padding: 11px 0;
-    background: var(--color-gray-100);
     border-radius: 0 0 20px 20px;
-}
-
-.testimonialsViewport {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
-}
-
-.testimonialsTrack {
-    display: flex;
-    width: max-content;
-    animation: testimonials-scroll 50s linear infinite;
-}
-
-.testimonialsViewport:hover .testimonialsTrack {
-    animation-play-state: paused;
-}
-
-@keyframes testimonials-scroll {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-.testimonialItem {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-inline-end: 40px;
-    margin: 0;
-    white-space: nowrap;
-}
-
-.testimonialStars {
-    display: flex;
-    gap: 1px;
-    color: var(--color-amber-500);
-}
-
-.testimonialStars svg {
-    display: block;
-    width: 15px;
-    height: 15px;
-    fill: currentColor;
-}
-
-.testimonialQuote {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.5;
-    color: var(--color-gray-700);
-}
-
-/* Quotation marks come from the page language, so each locale gets its own */
-.testimonialQuote::before {
-    content: open-quote;
-}
-
-.testimonialQuote::after {
-    content: close-quote;
 }
 
 /* Sits on the dimmed overlay below the modal, so it is white to stay visible */
@@ -475,13 +407,8 @@
 @media (prefers-reduced-motion: reduce) {
     .premiumModalWidth,
     .sweepChar,
-    .upgradeButtonLayout,
-    .testimonialsTrack {
+    .upgradeButtonLayout {
         animation: none;
-    }
-
-    .testimonialsViewport {
-        overflow-x: auto;
     }
 }
 

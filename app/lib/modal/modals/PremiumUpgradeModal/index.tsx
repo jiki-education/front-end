@@ -69,7 +69,7 @@ export function PremiumUpgradeModal({
         <PremiumPlanSection user={user} isLoading={isLoading} onUpgrade={handleUpgrade} />
       </div>
 
-      <Testimonials />
+      <Testimonials className={styles.testimonials} />
 
       <button className={styles.skipLink} onClick={handleClose}>
         {t("skipLink")}

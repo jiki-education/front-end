@@ -1,6 +1,18 @@
+/* Matches the upgrade modal's darker backdrop, used when checkout replaces it */
+.darkOverlay {
+    background: rgba(15, 23, 42, 0.9) !important;
+}
+
 .modal {
     max-width: 520px;
     padding: 40px;
+}
+
+/* A faint glow in place of the base modal's bright white one, which stands out on the darker backdrop */
+.darkOverlay .modal {
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 40px 80px rgba(255, 255, 255, 0.1) !important;
 }
 
 .orderHeader {

@@ -20,7 +20,7 @@ export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: 
     setIsLoading(true);
     try {
       // handlePurchasePremium shows the checkout modal, hiding this one first
-      await handlePurchasePremium({ returnPath: window.location.pathname });
+      await handlePurchasePremium({ returnPath: window.location.pathname, backdrop: "dark" });
     } catch (error) {
       // handlePurchasePremium has already toasted the reason
       console.error("Purchase error:", error);

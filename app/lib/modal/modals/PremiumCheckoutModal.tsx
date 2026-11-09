@@ -1,11 +1,13 @@
 "use client";
 
 import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
+import { CloseButton } from "@/components/ui-kit";
 import { stripePromise } from "@/lib/stripe";
 import { staticAsset } from "@/lib/static-asset";
 import type { MembershipTier } from "@/lib/pricing";
 import { hideModal } from "../store";
 import { ModalBody } from "./PremiumCheckoutModal/ModalBody";
+import modalStyles from "@/app/styles/components/modals.module.css";
 
 interface PremiumCheckoutModalProps {
   clientSecret: string;
@@ -15,9 +17,10 @@ interface PremiumCheckoutModalProps {
 }
 
 export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, onCancel }: PremiumCheckoutModalProps) {
+  // Hides first, so onCancel can open the modal this one replaced
   const handleCancel = () => {
-    onCancel?.();
     hideModal();
+    onCancel?.();
   };
 
   const appearance = {
@@ -63,6 +66,10 @@ export function PremiumCheckoutModal({ clientSecret, selectedTier, priorError, o
   return (
     <CheckoutProvider stripe={stripePromise} options={options}>
       <ModalBody selectedTier={selectedTier} priorError={priorError} onCancel={handleCancel} />
+      {/* Our own close button, as BaseModal's would hide the modal without calling onCancel */}
+      <div className={modalStyles.modalCloseButton}>
+        <CloseButton onClick={handleCancel} variant="light" />
+      </div>
     </CheckoutProvider>
   );
 }
