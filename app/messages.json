@@ -1541,8 +1541,8 @@
       "paymentFailedTitle": "Payment failed",
       "paymentInfoAriaLabel": "Payment information",
       "pay": "Pay",
-      "orderTitle": "Jiki {tier}",
-      "orderBilling": "One-off payment. Premium for life.",
+      "orderTitle": "Upgrade to {tier}",
+      "orderBilling": "One-off payment. No subscription.",
       "securedBy": "Secured by <stripe>stripe</stripe>",
       "error": "Error: {message}"
     },

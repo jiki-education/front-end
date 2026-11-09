@@ -28,7 +28,7 @@
 .orderTitle {
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     line-height: 1.2;
     background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
     -webkit-background-clip: text;
@@ -37,7 +37,7 @@
 }
 
 .orderBilling {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-gray-500);
 }
 
