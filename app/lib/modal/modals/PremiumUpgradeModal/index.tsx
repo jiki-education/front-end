@@ -20,7 +20,6 @@ interface PremiumUpgradeModalProps {
   // backend's integer PK — materialised server-side, never sent here.
   contextSlug?: string;
   contextUuid?: string;
-  onSuccess?: () => void;
   onCancel?: () => void;
 }
 
@@ -29,7 +28,6 @@ export function PremiumUpgradeModal({
   contextType,
   contextSlug,
   contextUuid,
-  onSuccess,
   onCancel
 }: PremiumUpgradeModalProps) {
   const t = useTranslations("modals.premiumUpgrade");
@@ -51,12 +49,7 @@ export function PremiumUpgradeModal({
     // unmount case.
   }, [trigger, contextType, contextSlug, contextUuid]);
 
-  const { handleUpgrade } = useUpgradeFlow({
-    trigger,
-    setIsLoading,
-    onSuccess,
-    onCancel
-  });
+  const { handleUpgrade } = useUpgradeFlow({ trigger, setIsLoading });
 
   const handleClose = () => {
     onCancel?.();

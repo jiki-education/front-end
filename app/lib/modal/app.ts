@@ -98,7 +98,6 @@ export const showPremiumUpgradeModal = (
     contextType?: string;
     contextSlug?: string;
     contextUuid?: string;
-    onSuccess?: () => void;
     onCancel?: () => void;
   }
 ) => {

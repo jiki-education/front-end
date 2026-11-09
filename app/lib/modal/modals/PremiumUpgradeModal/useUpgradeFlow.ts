@@ -6,16 +6,9 @@ import { toastError } from "@/lib/toast";
 interface UseUpgradeFlowProps {
   trigger?: ModalTrigger;
   setIsLoading: (loading: boolean) => void;
-  onSuccess?: () => void;
-  onCancel?: () => void;
 }
 
-export function useUpgradeFlow({
-  trigger,
-  setIsLoading,
-  onSuccess: _onSuccess,
-  onCancel: _onCancel
-}: UseUpgradeFlowProps) {
+export function useUpgradeFlow({ trigger, setIsLoading }: UseUpgradeFlowProps) {
   const user = useAuthStore((state: any) => state.user);
 
   const handleUpgrade = async () => {
