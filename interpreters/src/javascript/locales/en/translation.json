@@ -139,6 +139,9 @@
       "InvalidNumberOfArguments_exact": "This function has $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
       "InvalidNumberOfArguments_atLeast": "This function needs at least $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
       "InvalidNumberOfArguments_range": "This function has between {{min}} and {{max}} input slots but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
+      "TestedFunctionHasWrongNumberOfParameters": "Your `{{function}}` function needs to take $t(phrases.inputCount, {\"count\": {{expected}} }), but it currently takes $t(phrases.takenInputCount, {\"count\": {{got}} }).",
+      "TestedFunctionHasWrongName": "Jiki expects a function called `{{expected}}` but your function is called `{{actual}}`.",
+      "TestedFunctionNotDefined": "Jiki's tests need a function called `{{name}}`, but your code doesn't define one.",
       "FunctionNotFound": "Jiki could not find a function called `{{name}}`.",
       "FunctionNotFoundWithSimilarNameSuggestion": "Jiki could not find a function called `{{name}}`. Did you mean `{{suggestion}}`?",
       "LogicErrorInExecution": "{{message}}",
@@ -178,7 +181,13 @@
     "inputCount_two": "∅",
     "inputCount_few": "∅",
     "inputCount_many": "∅",
-    "inputCount_other": "{{count}} inputs"
+    "inputCount_other": "{{count}} inputs",
+    "takenInputCount_zero": "none",
+    "takenInputCount_one": "1",
+    "takenInputCount_two": "∅",
+    "takenInputCount_few": "∅",
+    "takenInputCount_many": "∅",
+    "takenInputCount_other": "{{count}}"
   },
   "description": {
     "assignmentExpression": {

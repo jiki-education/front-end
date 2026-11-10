@@ -47,9 +47,9 @@ describe("did you mean suggestions", () => {
       expect(frames[0].error!.message).toBe("FunctionNotFound: name: jump");
     });
 
-    test("suggests the student's function when a test calls a misnamed one", () => {
+    test("tells the student to rename their function when a test calls a misnamed one", () => {
       const { frames } = evaluateFunction("function m0ve() {}", {}, "move");
-      expect(frames[0].error!.message).toBe("FunctionNotFoundWithSimilarNameSuggestion: name: move: suggestion: m0ve");
+      expect(frames[0].error!.message).toBe("TestedFunctionHasWrongName: expected: move: actual: m0ve");
     });
   });
 

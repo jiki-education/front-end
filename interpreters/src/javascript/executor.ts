@@ -48,7 +48,7 @@ import { createBaseExecutionContext } from "../shared/executionContext";
 import type { EvaluationContext } from "./interpreter";
 import { describeFrame } from "./frameDescribers";
 import cloneDeep from "lodash.clonedeep";
-import { JSCallable, ReturnValue, isCallable } from "./functions";
+import { JSCallable, JSUserDefinedFunction, ReturnValue, isCallable } from "./functions";
 
 // Import individual executors
 import { executeAssignmentExpression } from "./executor/executeAssignmentExpression";
@@ -142,6 +142,9 @@ export type RuntimeErrorType =
   | "FunctionNotFound"
   | "FunctionNotFoundWithSimilarNameSuggestion"
   | "InvalidNumberOfArguments"
+  | "TestedFunctionHasWrongNumberOfParameters"
+  | "TestedFunctionHasWrongName"
+  | "TestedFunctionNotDefined"
   | "FunctionExecutionError"
   | "LogicErrorInExecution"
   | "ReturnOutsideFunction"
@@ -1001,6 +1004,14 @@ export class Executor {
         );
       }
 
+      // Errors about the student's function itself (a different name, or the
+      // wrong number of parameters) are reported before the synthetic call runs.
+      const testedFunctionError = this.testedFunctionError(statement.expression);
+      if (testedFunctionError) {
+        this.addErrorFrame(testedFunctionError.location, testedFunctionError, statement);
+        return this.failedSingleExpressionResult(statement);
+      }
+
       // Temporarily disable allowedNodes - the synthetic calling code contains nodes
       // (like LiteralExpression for args) that may not be in the student's allowed set,
       // and the student's code was already validated during parsing in Phase 1.
@@ -1044,21 +1055,81 @@ export class Executor {
           this.addErrorFrame(error.location, error, statement);
         }
 
-        return {
-          value: undefined,
-          frames: this.frames,
-          logLines: this.logLines,
-          success: false,
-          error: null,
-          meta: {
-            functionCallLog: this.functionCallLog,
-            statements: [statement],
-            sourceCode: this.sourceCode,
-          },
-        };
+        return this.failedSingleExpressionResult(statement);
       }
 
       throw error;
     }
   }
+
+  // Checks the student's function against the call made by an IO test, before
+  // that call runs. The call is written by the test, never by the student, so
+  // any mismatch is reported in terms of what their function needs to be, and
+  // placed on `function name` in their declaration where there is one.
+  private testedFunctionError(call: CallExpression): RuntimeError | null {
+    if (!(call.callee instanceof IdentifierExpression)) {
+      return null;
+    }
+
+    const name = call.callee.name.lexeme;
+    const callable = this.environment.get(name);
+
+    if (callable === undefined) {
+      const suggestion = this.suggestSimilarName(name, "function");
+      const similar = suggestion === null ? undefined : this.environment.get(suggestion);
+      if (similar instanceof JSUserDefinedFunction) {
+        const declaration = similar.getDeclaration();
+        return this.testedFunctionRuntimeError("TestedFunctionHasWrongName", declarationLocation(declaration), {
+          expected: name,
+          actual: declaration.name.lexeme,
+        });
+      }
+      return this.testedFunctionRuntimeError("TestedFunctionNotDefined", call.location, { name });
+    }
+
+    if (!(callable instanceof JSUserDefinedFunction)) {
+      return null;
+    }
+
+    const declaration = callable.getDeclaration();
+    const expected = call.args.length;
+    const got = declaration.parameters.length;
+    if (expected === got) {
+      return null;
+    }
+
+    return this.testedFunctionRuntimeError(
+      "TestedFunctionHasWrongNumberOfParameters",
+      declarationLocation(declaration),
+      {
+        function: name,
+        expected,
+        got,
+      }
+    );
+  }
+
+  private testedFunctionRuntimeError(type: RuntimeErrorType, location: Location, context: Record<string, unknown>) {
+    return new RuntimeError(this.translate(`error.runtime.${type}`, context), location, type, context);
+  }
+
+  private failedSingleExpressionResult(statement: Statement) {
+    return {
+      value: undefined,
+      frames: this.frames,
+      logLines: this.logLines,
+      success: false,
+      error: null,
+      meta: {
+        functionCallLog: this.functionCallLog,
+        statements: [statement],
+        sourceCode: this.sourceCode,
+      },
+    };
+  }
+}
+
+// The span covering `function name` at the start of a declaration.
+function declarationLocation(declaration: FunctionDeclaration): Location {
+  return Location.between(declaration, declaration.name);
 }
