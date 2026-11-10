@@ -1,24 +1,27 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import styles from "./Hero.module.css";
 import { SignupButton } from "./SignupButton";
 import { AudienceChecks } from "./hero/AudienceChecks";
 import { HeroVideo } from "./hero/HeroVideo";
 import { WatchPrompt } from "./hero/WatchPrompt";
 import { ScrollingTestimonials } from "./hero/ScrollingTestimonials";
+import { headlineScaleFor } from "./hero/headlineFit";
 
 export function Hero({ marquee }: { marquee: string[] }) {
   const t = useTranslations("landing.hero");
+  const headlineScale = headlineScaleFor(useLocale());
 
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
         <div className={styles.lhs}>
           {/* The headline sizes off its own column rather than the viewport, so it stays
-              proportional to the copy beside it instead of to the window. */}
+              proportional to the copy beside it instead of to the window. headlineScaleFor shrinks
+              it for translations too long to fit (see hero/headlineFit.ts). */}
           <div className={styles.headlineBox}>
-            <h1>
+            <h1 style={{ "--headline-scale": headlineScale } as React.CSSProperties}>
               {t.rich("headline", {
                 highlight: (chunks) => <span className={styles.headlineHighlight}>{chunks}</span>
               })}

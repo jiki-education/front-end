@@ -107,3 +107,8 @@
         display: none;
     }
 }
+
+/* The arrow curls in from the video's end side towards the prompt, so it mirrors in RTL. */
+:global([dir="rtl"]) .spiral {
+    transform: scaleX(-1);
+}
