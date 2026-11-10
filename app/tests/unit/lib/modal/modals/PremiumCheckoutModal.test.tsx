@@ -39,7 +39,12 @@ describe("PremiumCheckoutModal funnel events", () => {
   it("tracks checkout_closed with the trigger when the modal is closed", () => {
     const onCancel = jest.fn();
     render(
-      <PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="challenges_page_locked_challenge" onCancel={onCancel} />
+      <PremiumCheckoutModal
+        clientSecret="cs"
+        selectedTier="premium"
+        trigger="challenges_page_locked_challenge"
+        onCancel={onCancel}
+      />
     );
 
     fireEvent.click(screen.getByRole("button", { name: CLOSE_LABEL }));
