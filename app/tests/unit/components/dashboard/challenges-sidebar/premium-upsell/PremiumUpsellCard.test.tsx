@@ -23,7 +23,7 @@ describe("PremiumUpsellCard", () => {
     render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
 
     expect(screen.getByRole("heading", { name: "Accelerate your learning!" })).toBeInTheDocument();
-    expect(screen.getByText(/With Premium:/)).toBeInTheDocument();
+    expect(screen.getByText(/Get:/)).toBeInTheDocument();
   });
 
   it.each(CARD_VARIANTS)("calls onUpgradeClick from the %s card's button", (variant) => {

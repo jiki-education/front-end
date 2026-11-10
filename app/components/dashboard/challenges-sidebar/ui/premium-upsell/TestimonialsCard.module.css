@@ -44,6 +44,9 @@
 }
 
 .dots {
+    /* Above the card's full-size button, so a dot shows its quote instead of upgrading. */
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     gap: 6px;

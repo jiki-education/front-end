@@ -5,8 +5,9 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { formatPremiumPrice } from "@/lib/pricing";
 import styles from "./UpsellCard.module.css";
 
-// The price line and the upgrade button that end every upsell card. While an
-// earlier purchase is still clearing, a note replaces the button.
+// The price line that ends every upsell card, and the invisible button laid over
+// the whole card that makes all of it clickable. While an earlier purchase is
+// still clearing, a note replaces both.
 export function UpsellFooter({ onUpgradeClick }: { onUpgradeClick: () => void }) {
   const t = useTranslations("dashboard.challengesSidebar.premiumUpsell");
   const user = useAuthStore((state) => state.user);
@@ -31,13 +32,7 @@ export function UpsellFooter({ onUpgradeClick }: { onUpgradeClick: () => void })
           })}
         </p>
       )}
-      <button
-        type="button"
-        onClick={onUpgradeClick}
-        className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${styles.button}`}
-      >
-        {t("upgrade")}
-      </button>
+      <button type="button" onClick={onUpgradeClick} className={styles.cardLink} aria-label={t("upgrade")} />
     </>
   );
 }

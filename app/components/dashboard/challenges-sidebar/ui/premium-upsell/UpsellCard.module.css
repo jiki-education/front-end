@@ -1,12 +1,39 @@
 /* Shared frame for every Premium upsell card in the dashboard sidebar. */
 .card {
+    position: relative;
     width: 100%;
     padding: 24px 22px 22px;
     background: #fff;
-    border: 1px solid var(--color-gray-200);
+    border: 1px solid var(--color-purple-300);
     border-radius: 16px;
     box-shadow: 0 4px 16px rgb(15 23 42 / 6%);
     text-align: center;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover,
+    &:focus-within {
+        border-color: var(--color-purple-400);
+        box-shadow: 0 0 24px rgb(168 85 247 / 30%);
+    }
+}
+
+/* Covers the whole card, so a click anywhere on it upgrades. Anything that must
+   stay clickable on its own (the testimonial dots) sits above it. */
+.cardLink {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: none;
+    }
 }
 
 .avatar {
@@ -63,7 +90,6 @@
 }
 
 .priceLine {
-    margin-bottom: 14px;
     font-size: 15px;
     font-weight: 600;
     color: var(--color-gray-900);
@@ -76,10 +102,6 @@
 .muted {
     font-weight: 500;
     color: var(--color-gray-500);
-}
-
-.button {
-    width: 100%;
 }
 
 .pendingNote {

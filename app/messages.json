@@ -1444,7 +1444,7 @@
         "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
         "accelerate": {
           "heading": "<highlight>Accelerate</highlight> your learning!",
-          "benefits": "<strong>With Premium:</strong> Premium Challenges, Unlimited Ask Jiki, Unlimited Deep Dives, an Official Certificate, Ad-free learning, Regular livestreams, and more!"
+          "benefits": "<strong>Get:</strong> Premium Challenges, Unlimited Ask Jiki, Unlimited Deep Dives, an Official Certificate, No Ads, and more!"
         },
         "testimonials": {
           "intro": "Learners say Premium keeps them moving.",
@@ -1453,8 +1453,7 @@
         "neverGetStuck": {
           "heading": "<highlight>Never</highlight> get stuck again",
           "text": "With Premium, Jiki is there on every exercise to nudge you in the right direction.",
-          "statNumber": "26x",
-          "plus": "<strong>Plus:</strong> Premium Challenges, Unlimited Deep Dives, an Official Certificate, Ad-free learning, Regular livestreams, and more!"
+          "statNumber": "26x"
         }
       },
       "userProfile": {
