@@ -1432,10 +1432,6 @@
         "title": "Challenges await!",
         "description": "Complete exercises to unlock real coding challenges. Build games, apps, and tools that bring your skills to life."
       },
-      "upsell": {
-        "title": "New Challenges Await!",
-        "description": "Combine your skills and challenge yourself with Premium Challenges."
-      },
       "premiumUpsell": {
         "label": "Jiki Premium",
         "completionStat": "Premium users are <strong>26 times more likely to complete the course</strong>.",

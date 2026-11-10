@@ -13,7 +13,6 @@ export type ModalTrigger =
   | "dashboard_sidebar_accelerate"
   | "dashboard_sidebar_testimonials"
   | "dashboard_sidebar_never_get_stuck"
-  | "dashboard_sidebar_challenges"
   | "challenges_page_locked_challenge"
   | "guide_page_unlock_button"
   | "guide_card_locked_guide"
