@@ -21,12 +21,7 @@ describe("PremiumUpsellCard", () => {
   });
 
   it("shows the next card in the rotation on each visit", () => {
-    const headings = [
-      "Accelerate your learning!",
-      "Join the Premium team",
-      "Never get stuck again",
-      "New Challenges Await!"
-    ];
+    const headings = ["Accelerate your learning!", "Join the Premium team", "Never get stuck again"];
 
     for (const heading of [...headings, headings[0]]) {
       const { unmount } = render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);

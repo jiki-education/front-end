@@ -120,8 +120,7 @@ export default function ChallengesSidebarDevPage() {
 
       case "free-accelerate":
       case "free-testimonials":
-      case "free-neverGetStuck":
-      case "free-challenges": {
+      case "free-neverGetStuck": {
         const UpsellCard = PREMIUM_UPSELL_VARIANTS[selectedState.slice("free-".length) as PremiumUpsellVariant];
         return (
           <>
