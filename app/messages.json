@@ -1447,8 +1447,23 @@
           "benefits": "<strong>Get:</strong> Premium Challenges, Unlimited Ask Jiki, Unlimited Deep Dives, an Official Certificate, No Ads, and more!"
         },
         "testimonials": {
-          "intro": "Learners say Premium keeps them moving.",
-          "show": "Show testimonial {number}"
+          "heading": "Join the <highlight>Premium team</highlight>",
+          "show": "Show testimonial {number}",
+          "quotes": {
+            "veronika": "The affordability was unbelievable, and now, halfway through, I can proudly say I've been almost three months ChatGPT-free! 🙂",
+            "abhinav": "The purchasing power parity discount made it even more affordable. Thank you for making it accessible.",
+            "laura": "The community, exercises, mentors, and Jeremy have all been great to interact with.",
+            "kazzybits": "How I think about thinking, and about problem solving in general, has changed dramatically.",
+            "nilophars": "The visual representation, creating mental models, mentor feedback, and the interactive exercises have been incredibly valuable.",
+            "jj": "From the fun and sleek interface, to the live classes and labs or the discord discussions, it all comes together to make a superb learning experience."
+          },
+          "roles": {
+            "veronika": "Junior Developer",
+            "abhinav": "Beginner",
+            "laura": "Was in Tutorial Hell",
+            "kazzybits": "Beginner",
+            "jj": "Junior Developer"
+          }
         },
         "neverGetStuck": {
           "heading": "<highlight>Never</highlight> get stuck again",

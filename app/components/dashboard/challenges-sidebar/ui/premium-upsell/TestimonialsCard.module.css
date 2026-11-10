@@ -35,12 +35,34 @@
     }
 }
 
+/* Curly quotes in the reader's own convention (“…” in English, « … » in French and
+   so on), taken from the page's lang. */
 .quote {
+    quotes: auto;
     margin: 0;
     font-size: 15px;
     font-style: italic;
     line-height: 1.5;
     color: var(--color-gray-800);
+}
+
+.quote::before {
+    content: open-quote;
+}
+
+.quote::after {
+    content: close-quote;
+}
+
+.by {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+
+    strong {
+        font-weight: 600;
+        color: var(--color-gray-700);
+    }
 }
 
 .dots {

@@ -19,11 +19,11 @@ describe("PremiumUpsellCard", () => {
     mockUser = createMockUser();
   });
 
-  it("shows the Accelerate card", () => {
+  it("shows the Never get stuck card", () => {
     render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
 
-    expect(screen.getByRole("heading", { name: "Accelerate your learning!" })).toBeInTheDocument();
-    expect(screen.getByText(/Get:/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Never get stuck again" })).toBeInTheDocument();
+    expect(screen.getByText("26x")).toBeInTheDocument();
   });
 
   it.each(CARD_VARIANTS)("calls onUpgradeClick from the %s card's button", (variant) => {
@@ -84,6 +84,6 @@ describe("PremiumUpsellCard trigger", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Upgrade to Premium" }));
 
-    expect(onUpgradeClick).toHaveBeenCalledWith("dashboard_sidebar_accelerate");
+    expect(onUpgradeClick).toHaveBeenCalledWith("dashboard_sidebar_never_get_stuck");
   });
 });

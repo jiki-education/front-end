@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import type { PremiumUpsellCardProps } from "./PremiumUpsellCard";
 import { UpsellFooter } from "./UpsellFooter";
 import styles from "./UpsellCard.module.css";
@@ -12,6 +14,7 @@ export function NeverGetStuckCard({ onUpgradeClick }: PremiumUpsellCardProps) {
 
   return (
     <section className={styles.card} aria-label={t("label")}>
+      <Image className={styles.avatar} src={staticAsset("images/misc/jiki-ask.webp")} alt="" width={84} height={84} />
       <h2 className={styles.title}>{t.rich("neverGetStuck.heading", { highlight })}</h2>
       <p className={styles.message}>{t("neverGetStuck.text")}</p>
       <div className={ownStyles.statRow}>

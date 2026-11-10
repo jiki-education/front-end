@@ -39,7 +39,7 @@ export function PremiumUpsellCard({ onUpgradeClick }: PremiumUpsellPickerProps) 
 }
 
 // Rotation between the variants is not switched on yet, so every visit gets
-// the Accelerate card.
+// the Never get stuck card.
 function pickVariant(): PremiumUpsellVariant {
-  return "accelerate";
+  return "neverGetStuck";
 }

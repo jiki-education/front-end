@@ -2,13 +2,27 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { QUOTE_KEYS } from "@/lib/modal/modals/PremiumUpgradeModal/Testimonials";
 import type { PremiumUpsellCardProps } from "./PremiumUpsellCard";
 import { UpsellFooter } from "./UpsellFooter";
 import styles from "./UpsellCard.module.css";
 import ownStyles from "./TestimonialsCard.module.css";
 
 const SLIDE_INTERVAL_MS = 5000;
+
+// Extracts from the learner quotes on the testimonials page. Names are handles,
+// so they stay out of the translated copy. A learner the page gives no role for
+// is shown by name alone.
+const QUOTES: { key: QuoteKey; name: string; role?: RoleKey }[] = [
+  { key: "veronika", name: "Veronika", role: "veronika" },
+  { key: "abhinav", name: "@abhinav", role: "abhinav" },
+  { key: "laura", name: "Laura", role: "laura" },
+  { key: "kazzybits", name: "@Kazzybits", role: "kazzybits" },
+  { key: "nilophars", name: "@nilophars" },
+  { key: "jj", name: "@JJ", role: "jj" }
+];
+
+type QuoteKey = "veronika" | "abhinav" | "laura" | "kazzybits" | "nilophars" | "jj";
+type RoleKey = Exclude<QuoteKey, "nilophars">;
 
 // Learner quotes do the selling. They slide on every few seconds and hold
 // while the pointer or focus is on them.
@@ -23,14 +37,14 @@ export function TestimonialsCard({ onUpgradeClick }: PremiumUpsellCardProps) {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
-    const id = window.setInterval(() => setCurrent((i) => (i + 1) % QUOTE_KEYS.length), SLIDE_INTERVAL_MS);
+    const id = window.setInterval(() => setCurrent((i) => (i + 1) % QUOTES.length), SLIDE_INTERVAL_MS);
     return () => window.clearInterval(id);
   }, [paused]);
 
   return (
     <section className={styles.card} aria-label={t("label")}>
-      <h2 className={styles.title}>{t.rich("accelerate.heading", { highlight })}</h2>
-      <p className={styles.message}>{t("testimonials.intro")}</p>
+      <h2 className={styles.title}>{t.rich("testimonials.heading", { highlight })}</h2>
+      <p className={styles.message}>{t.rich("completionStat", { strong: (chunks) => chunks })}</p>
 
       <div
         className={ownStyles.carousel}
@@ -44,7 +58,7 @@ export function TestimonialsCard({ onUpgradeClick }: PremiumUpsellCardProps) {
         {/* Slides move along a physical axis, so the track keeps its own direction in RTL. */}
         <div className={ownStyles.viewport} dir="ltr">
           <div className={ownStyles.track} style={{ transform: `translateX(-${current * 100}%)` }}>
-            {QUOTE_KEYS.map((key, i) => (
+            {QUOTES.map(({ key, name, role }, i) => (
               <figure
                 key={key}
                 className={ownStyles.slide}
@@ -56,14 +70,18 @@ export function TestimonialsCard({ onUpgradeClick }: PremiumUpsellCardProps) {
                     <StarIcon key={star} />
                   ))}
                 </div>
-                <blockquote className={ownStyles.quote}>{tQuotes(`testimonials.${key}`)}</blockquote>
+                <blockquote className={ownStyles.quote}>{t(`testimonials.quotes.${key}`)}</blockquote>
+                <figcaption className={ownStyles.by}>
+                  <strong>{name}</strong>
+                  {role && <>, {t(`testimonials.roles.${role}`)}</>}
+                </figcaption>
               </figure>
             ))}
           </div>
         </div>
 
         <div className={ownStyles.dots}>
-          {QUOTE_KEYS.map((key, i) => (
+          {QUOTES.map(({ key }, i) => (
             <button
               key={key}
               type="button"
