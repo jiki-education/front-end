@@ -552,16 +552,6 @@
       "audienceRepeatBeginners": "<name>Repeat Starters</name> who wish it would <u>just make sense</u>.",
       "audienceJuniors": "<name>Junior Devs</name> who want to <u>reinforce the fundamentals</u>."
     },
-    "twoHalves": {
-      "eyebrow": "Your two core skills",
-      "heading": "The two halves of being a developer",
-      "intro": "Jiki teaches you <strong>how to code</strong> (in the most fun and effective way!) and how to <strong>build real things</strong> using the same technologies the pros use. <strong>From day one.</strong>",
-      "codeHeading": "Learn to <word>Code</word>",
-      "codeBody": "Every core concept, with detailed video explanations, and hundreds of exercises and projects to practice on",
-      "buildHeading": "Learn to <word>Build</word>",
-      "buildBody": "Learn the technologies pros use from day one: Databases, auth, frontends, backends and more!",
-      "techLabel": "Learn technologies including:"
-    },
     "learnToCode": {
       "heading": "Master Coding Fundamentals",
       "intro": "Learning should feel like <highlight>play, not work</highlight>. At Jiki, you'll solve puzzles, make games, and learn through practice.",
