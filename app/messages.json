@@ -336,10 +336,6 @@
       "title": "Cancel your subscription?",
       "message": "We'd hate to see you go! If you cancel, you'll lose access to Premium at the end of your current billing period.",
       "benefitsTitle": "You're currently enjoying:",
-      "benefit1": "Unlimited AI help from Jiki",
-      "benefit2": "All projects and learning paths",
-      "benefit3": "Completion certificates",
-      "benefit4": "Ad-free experience",
       "keep": "Keep my subscription",
       "cancel": "Cancel subscription",
       "defaultBillingPeriodEnd": "your billing period end"
@@ -797,20 +793,6 @@
     },
     "publicPrice": {
       "unavailable": "—"
-    },
-    "benefits": {
-      "unlimitedAiTitle": "Unlimited AI help",
-      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
-      "unlimitedContentTitle": "Unlimited content",
-      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
-      "certificatesTitle": "Certificates",
-      "certificatesDescription": "Earn shareable certificates when you complete courses",
-      "adFreeTitle": "Ad-free",
-      "adFreeDescription": "Enjoy a distraction-free learning experience",
-      "prioritySupportTitle": "Priority support",
-      "prioritySupportDescription": "Get faster responses when you need help",
-      "earlyAccessTitle": "Early access",
-      "earlyAccessDescription": "Be the first to try new features and content"
     }
   },
   "misc": {

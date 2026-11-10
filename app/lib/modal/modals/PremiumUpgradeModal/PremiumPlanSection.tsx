@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { usePremiumFeatures } from "@/components/premium/usePremiumFeatures";
 import Image from "next/image";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import UserAvatar from "@/components/common/UserAvatar";
@@ -16,16 +17,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
   const isPending = user?.premium_purchase_pending === true;
   const promise = t("lifetimeNote");
 
-  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
-  const premiumFeatures: React.ReactNode[] = [
-    t.rich("featureAi", { strong }),
-    t.rich("featureChallenges", { strong }),
-    t.rich("featureLivestreams", { strong }),
-    t.rich("featureDeepDives", { strong }),
-    t.rich("featureCertificates", { strong }),
-    t.rich("featureAdFree", { strong }),
-    t.rich("featureEarlyAccess", { strong })
-  ];
+  const premiumFeatures = usePremiumFeatures().map((feature) => feature.content);
 
   return (
     <div className={styles.rightSide} style={{ "--pulse-delay": pulseDelay(promise) } as React.CSSProperties}>
