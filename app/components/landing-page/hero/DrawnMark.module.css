@@ -1,0 +1,22 @@
+.underline {
+    display: inline;
+    background-image: linear-gradient(#fff, #fff);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 1.5px;
+    animation: wipe 0.6s ease-out forwards;
+    animation-delay: var(--mark-delay, 0s);
+}
+
+@keyframes wipe {
+    to {
+        background-size: 100% 1.5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .underline {
+        animation: none;
+        background-size: 100% 1.5px;
+    }
+}

@@ -12,31 +12,20 @@
  *   public/static/content/{type}/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
- *   public/static/content/projects/{slug}/{uuid}/{locale}/content-{hash}.html
- *     - Episode content files: pre-rendered HTML from markdown
- *
  *   public/static/content/search/{type}/{locale}/index-{hash}.json
  *     - Lunr search indexes for articles + guides
  *
  *   public/static/content/structure-{hash}.json
  *     - Locale-invariant post metadata: date, author, cover image, and the
  *       featured/listed/premium/order flags, all from English config, plus the
- *       projects' structure (order, image, livestream, upcoming streams), every
- *       episode's (uuid, slug, project, order, date, author, video, duration,
- *       premium, image, guides) keyed by "{project}/{uuid}", and the
  *       testimonials' (who said each quote, which avatar, and the order the
  *       landing grid and the /testimonials page show them in)
  *
  *   public/static/content/copy/{locale}/copy-{hash}.json
- *     - Translated post and episode metadata: title, excerpt, seo, tags, reading
- *       time and that locale's content hash, under `blog`, `articles`, `guides`
- *       and `project-episodes`. Published by the i18n repo for every
- *       non-English locale; the app merges it with the structure above.
- *
- *   public/static/content/projects/{locale}/meta-{hash}.json
- *     - Translated project copy: title, description, tags. Only the English one
- *       is written here (from projects/messages.json); the i18n repo publishes
- *       every other locale to the same path shape.
+ *     - Translated post metadata: title, excerpt, seo, tags, reading time and
+ *       that locale's content hash, under `blog`, `articles` and `guides`.
+ *       Published by the i18n repo for every non-English locale; the app
+ *       merges it with the structure above.
  *
  *   public/static/content/testimonials/{locale}/meta-{hash}.json
  *     - Translated testimonial copy: headings, roles, quote text, marquee lines,
@@ -46,8 +35,7 @@
  *
  *   lib/generated/content-hashes.ts
  *     - Hash manifests for the search indexes, the per-locale post copy, the
- *       English project and testimonial copy catalogs, and the locale-invariant
- *       structure
+ *       English testimonial copy catalog, and the locale-invariant structure
  *
  * Used by:
  * - Server-side content functions (lib/content/)
@@ -283,391 +271,6 @@ function processContentDir(type, requiredFields, extraFields) {
 }
 
 /**
- * Process the projects/ directory.
- *
- * Structure:
- *   projects/
- *     config.json                 — { projects: ["slug1", "slug2", ...] } (ordered)
- *     messages.json               — English copy catalog: { slug: { title, description, tags } }
- *     {project-slug}/
- *       config.json               — project structure + episodes: [uuid, ...] (ordered)
- *       {uuid}/
- *         config.json             — episode metadata (no project, no order)
- *         {locale}.md             — episode content per locale (body is the transcript)
- *
- * A project with an empty episodes array is "coming soon".
- *
- * Returns: { projectsData, episodes: [{ uuid, projectSlug, order, config, locales }] }
- *   where projectsData.projects is an ordered array of { slug, ...details }
- */
-function processProjects() {
-  const projectsDir = path.join(CONTENT_DIR, "projects");
-  if (!fs.existsSync(projectsDir)) {
-    return null;
-  }
-
-  const topConfigPath = path.join(projectsDir, "config.json");
-  if (!fs.existsSync(topConfigPath)) {
-    throw new Error(`Missing projects/config.json at ${topConfigPath}`);
-  }
-
-  let topConfig;
-  try {
-    topConfig = JSON.parse(fs.readFileSync(topConfigPath, "utf-8"));
-  } catch (error) {
-    throw new Error(`Invalid JSON in ${topConfigPath}: ${error.message}`);
-  }
-
-  if (!Array.isArray(topConfig.projects)) {
-    throw new Error(`projects/config.json must have a "projects" array of slugs`);
-  }
-
-  // The English copy catalog. Every project's title, description and tags live
-  // here and nowhere else: translations of them are published by the i18n repo,
-  // so a locale map in a project's config.json would make this repo a second
-  // home for translated content.
-  const messagesPath = path.join(projectsDir, "messages.json");
-  if (!fs.existsSync(messagesPath)) {
-    throw new Error(`Missing projects/messages.json at ${messagesPath}`);
-  }
-  let projectCopy;
-  try {
-    projectCopy = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
-  } catch (error) {
-    throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
-  }
-
-  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  const requiredEpisodeFields = ["slug", "date", "author", "videoProvider", "videoKey", "durationSeconds", "image"];
-
-  const projectsList = [];
-  const episodes = [];
-  const seenUuids = new Set();
-  const seenProjectSlugs = new Set();
-
-  for (const projectSlug of topConfig.projects) {
-    if (typeof projectSlug !== "string" || !projectSlug) {
-      throw new Error(`projects/config.json "projects" entries must be non-empty slug strings`);
-    }
-    if (seenProjectSlugs.has(projectSlug)) {
-      throw new Error(`Duplicate project slug in projects/config.json: "${projectSlug}"`);
-    }
-    seenProjectSlugs.add(projectSlug);
-
-    const projectDir = path.join(projectsDir, projectSlug);
-    if (!fs.existsSync(projectDir) || !fs.statSync(projectDir).isDirectory()) {
-      throw new Error(`Project "${projectSlug}" listed in projects/config.json has no directory at ${projectDir}`);
-    }
-
-    const projectConfigPath = path.join(projectDir, "config.json");
-    if (!fs.existsSync(projectConfigPath)) {
-      throw new Error(`Missing config.json for project "${projectSlug}" at ${projectConfigPath}`);
-    }
-
-    let projectConfig;
-    try {
-      projectConfig = JSON.parse(fs.readFileSync(projectConfigPath, "utf-8"));
-    } catch (error) {
-      throw new Error(`Invalid JSON in ${projectConfigPath}: ${error.message}`);
-    }
-
-    if (!Array.isArray(projectConfig.episodes)) {
-      throw new Error(`Project "${projectSlug}" config.json must have an "episodes" array of UUIDs`);
-    }
-    if (typeof projectConfig.image !== "string" || !projectConfig.image) {
-      throw new Error(`Project "${projectSlug}" is missing required "image" field`);
-    }
-    for (const field of ["title", "description", "tags"]) {
-      if (field in projectConfig) {
-        throw new Error(
-          `Project "${projectSlug}" config.json must not contain "${field}". Learner-facing copy lives in projects/messages.json; config.json holds structure only.`
-        );
-      }
-    }
-    const copy = projectCopy[projectSlug];
-    if (!copy || typeof copy !== "object" || Array.isArray(copy)) {
-      throw new Error(`Project "${projectSlug}" has no entry in projects/messages.json`);
-    }
-    for (const field of ["title", "description"]) {
-      if (typeof copy[field] !== "string" || !copy[field]) {
-        throw new Error(`Project "${projectSlug}" messages.json "${field}" must be a non-empty string`);
-      }
-    }
-    if (!Array.isArray(copy.tags) || copy.tags.some((t) => typeof t !== "string" || !t)) {
-      throw new Error(`Project "${projectSlug}" messages.json "tags" must be an array of non-empty strings`);
-    }
-
-    projectsList.push({ slug: projectSlug, ...projectConfig });
-
-    const slugsInProject = new Set();
-    for (let i = 0; i < projectConfig.episodes.length; i++) {
-      const uuid = projectConfig.episodes[i];
-      if (typeof uuid !== "string" || !uuidPattern.test(uuid)) {
-        throw new Error(`Project "${projectSlug}" episodes[${i}] is not a valid UUID: ${uuid}`);
-      }
-      const uuidLower = uuid.toLowerCase();
-      if (seenUuids.has(uuidLower)) {
-        throw new Error(`Duplicate episode UUID across projects: ${uuid}`);
-      }
-      seenUuids.add(uuidLower);
-
-      const dirPath = path.join(projectDir, uuid);
-      if (!fs.existsSync(dirPath) || !fs.statSync(dirPath).isDirectory()) {
-        throw new Error(`Project "${projectSlug}" references missing episode directory: ${dirPath}`);
-      }
-
-      const configPath = path.join(dirPath, "config.json");
-      if (!fs.existsSync(configPath)) {
-        throw new Error(`Missing config.json for episode ${uuid}`);
-      }
-
-      let config;
-      try {
-        config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-      } catch (error) {
-        throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
-      }
-
-      for (const field of requiredEpisodeFields) {
-        if (config[field] === undefined) {
-          throw new Error(`Missing required field "${field}" in ${configPath}`);
-        }
-      }
-
-      if (config.guides !== undefined) {
-        if (!Array.isArray(config.guides) || config.guides.some((g) => typeof g !== "string" || !g)) {
-          throw new Error(`Episode "${config.slug}" "guides" must be an array of guide slug strings`);
-        }
-      }
-
-      if (slugsInProject.has(config.slug)) {
-        throw new Error(`Duplicate episode slug "${config.slug}" in project "${projectSlug}"`);
-      }
-      slugsInProject.add(config.slug);
-
-      const order = i + 1;
-      const configJson = JSON.stringify({ ...config, project: projectSlug, order });
-
-      const rawAuthor = authorsData[config.author];
-      if (!rawAuthor) {
-        throw new Error(`Author not found: ${config.author} in ${configPath}`);
-      }
-      const author = fixAuthorAvatar(rawAuthor);
-
-      const mdFiles = fs
-        .readdirSync(dirPath, { withFileTypes: true })
-        .filter((f) => f.isFile() && f.name.endsWith(".md"));
-
-      const localesOut = {};
-
-      for (const file of mdFiles) {
-        // English is authored in source.md (the source of truth); map that file
-        // to the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
-        const baseName = path.basename(file.name, ".md");
-        const locale = baseName === "source" ? "en" : baseName;
-        const filePath = path.join(dirPath, file.name);
-
-        try {
-          const fileContent = fs.readFileSync(filePath, "utf-8");
-          const parsed = parseFrontmatter(fileContent);
-          const frontmatter = parsed.data;
-          // renderPost applies the /images/ rewrite itself, and the resolver
-          // copies each referenced image into the cache as it goes.
-          const html = renderPost(parsed.body, { resolveImage: hashAndCopyImage });
-
-          const summary = normalizeEpisodeSummary(frontmatter.summary, `${filePath}`);
-
-          const hashInput = crypto.createHash("sha256");
-          hashInput.update(fileContent);
-          hashInput.update(configJson);
-          hashInput.update(authorsJson);
-          const contentHash = hashInput.digest("hex").slice(0, 12);
-
-          const meta = {
-            uuid,
-            slug: config.slug,
-            project: projectSlug,
-            order,
-            title: frontmatter.title,
-            excerpt: frontmatter.excerpt,
-            date: config.date,
-            author,
-            videoProvider: config.videoProvider,
-            videoKey: config.videoKey,
-            durationSeconds: config.durationSeconds,
-            premium: Boolean(config.premium),
-            image: config.image,
-            guides: config.guides || [],
-            summary,
-            tags: frontmatter.tags || [],
-            seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
-            readingTime: estimateReadingTime(parsed.body),
-            contentHash,
-            locale
-          };
-
-          localesOut[locale] = { meta, html };
-        } catch (error) {
-          console.error(`Error processing ${filePath}:`, error.message);
-          throw error;
-        }
-      }
-
-      episodes.push({ uuid, projectSlug, order, config, locales: localesOut });
-    }
-  }
-
-  const unknownCopySlugs = Object.keys(projectCopy).filter((slug) => !seenProjectSlugs.has(slug));
-  if (unknownCopySlugs.length > 0) {
-    throw new Error(`projects/messages.json has entries for unknown projects: ${unknownCopySlugs.join(", ")}`);
-  }
-
-  return { projectsData: { projects: projectsList }, episodes, projectCopy };
-}
-
-/**
- * Validate and normalize an episode's frontmatter `summary` block
- * ({ from, to, keyConcepts }). All fields are freeform localized prose.
- * Returns null when no summary is authored.
- */
-function normalizeEpisodeSummary(summary, sourcePath) {
-  if (summary === undefined || summary === null) {
-    return null;
-  }
-  if (typeof summary !== "object" || Array.isArray(summary)) {
-    throw new Error(`"summary" must be a mapping with from/to/keyConcepts in ${sourcePath}`);
-  }
-  const { from, to } = summary;
-  if (typeof from !== "string" || !from || typeof to !== "string" || !to) {
-    throw new Error(`"summary" requires non-empty "from" and "to" strings in ${sourcePath}`);
-  }
-  const keyConcepts = summary.keyConcepts ?? [];
-  if (!Array.isArray(keyConcepts) || keyConcepts.some((c) => typeof c !== "string" || !c)) {
-    throw new Error(`"summary.keyConcepts" must be an array of strings in ${sourcePath}`);
-  }
-  return { from, to, keyConcepts };
-}
-
-/**
- * The structural half of an episode: everything that is identical in every
- * language because it comes from the episode's config.json, not its prose.
- */
-const EPISODE_STRUCTURAL = [
-  "uuid",
-  "slug",
-  "project",
-  "order",
-  "date",
-  "author",
-  "videoProvider",
-  "videoKey",
-  "durationSeconds",
-  "premium",
-  "image",
-  "guides"
-];
-
-/**
- * The translated half. The first six are the shape every post type's copy
- * entry has. `summary` is the seventh and is episodes' alone: the from/to
- * promise and the concept chips a learner reads before pressing play, which is
- * prose, so it can no more sit in the locale-invariant half than the title can.
- */
-const EPISODE_COPY = ["title", "excerpt", "seo", "tags", "readingTime", "contentHash", "summary"];
-
-/**
- * Build static files for the projects/ section, and split what they carry.
- *
- * Emits:
- *   - public/static/content/projects/{projectSlug}/{uuid}/{locale}/content-{htmlHash}.html
- *   - public/static/content/projects/en/meta-{hash}.json  (the English project copy catalog)
- *
- * Returns: { projectsStructure, episodeStructure, episodeCopyByLocale, projectCopyHash }.
- *
- * `projectsStructure[slug]` is the LOCALE-INVARIANT half of a project: order,
- * image, livestream and upcomingStreams. The translatable half (title,
- * description, tags) is not here at all: it is a catalog, English authored in
- * content/src/posts/projects/messages.json and every other locale published by
- * the i18n repo.
- *
- * Episodes split the same way, and are keyed by the TWO-PART slug
- * `<project>/<uuid>`. A UUID is unique on its own, but the pair is the honest
- * key: it is the coordinate the i18n repo publishes an episode's copy under, and
- * it is a project's episode list read straight off the key. Their structure
- * rides in the locale-invariant object here; their title, excerpt, seo, tags,
- * reading time, content hash and summary ride in each locale's copy artifact,
- * English written here and every other locale published by the i18n repo.
- */
-function buildProjectStaticFiles(processed) {
-  if (!processed) {
-    return { projectsStructure: {}, episodeStructure: {}, episodeCopyByLocale: {}, projectCopyHash: null };
-  }
-
-  const { projectsData, episodes, projectCopy } = processed;
-
-  const pickFields = (entry, keys) =>
-    Object.fromEntries(keys.filter((k) => entry[k] !== undefined).map((k) => [k, entry[k]]));
-
-  const episodeStructure = {};
-  const episodeCopyByLocale = {};
-
-  for (const episode of episodes) {
-    for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
-      const htmlHash = computeHash(html);
-      const htmlPath = path.join(
-        STATIC_DIR,
-        "projects",
-        meta.project,
-        episode.uuid,
-        locale,
-        `content-${htmlHash}.html`
-      );
-      writeFile(htmlPath, html);
-
-      const key = `${meta.project}/${episode.uuid}`;
-
-      // Structure is written from whichever locale reaches it first; it is
-      // identical across all of them because every field comes from the one
-      // config.json they share.
-      episodeStructure[key] ??= pickFields(meta, EPISODE_STRUCTURAL);
-
-      episodeCopyByLocale[locale] ??= {};
-      episodeCopyByLocale[locale][key] = pickFields({ ...meta, contentHash: htmlHash }, EPISODE_COPY);
-    }
-  }
-
-  const projectsStructure = {};
-
-  let order = 0;
-  for (const project of projectsData.projects) {
-    order += 1;
-    const upcomingStreams = Array.isArray(project.upcoming_streams) ? project.upcoming_streams : [];
-    if (typeof project.image !== "string" || !project.image) {
-      throw new Error(`Project "${project.slug}" is missing required "image" field`);
-    }
-    if (typeof project.livestream !== "boolean") {
-      throw new Error(`Project "${project.slug}" is missing required boolean "livestream" field`);
-    }
-
-    projectsStructure[project.slug] = {
-      order,
-      image: project.image,
-      livestream: project.livestream,
-      upcomingStreams
-    };
-  }
-
-  // The English copy catalog, published to the same R2 path shape the i18n repo
-  // publishes every other locale to. English ships with the deploy and its hash
-  // is compiled in, so it needs no pointer; see lib/i18n/catalogPointer.ts.
-  const projectCopyJson = JSON.stringify(projectCopy);
-  const projectCopyHash = computeHash(projectCopyJson);
-  writeFile(path.join(STATIC_DIR, "projects", DEFAULT_LOCALE, `meta-${projectCopyHash}.json`), projectCopyJson);
-
-  return { projectsStructure, episodeStructure, episodeCopyByLocale, projectCopyHash };
-}
-
-/**
  * Build static files for a content type (blog or articles).
  * Returns { indexHashes, byLocale } where byLocale maps locale -> [meta entries]
  */
@@ -747,15 +350,11 @@ function generateSearchIndexes(type, byLocale, filterFn) {
  * Write the TypeScript hash manifest.
  *
  * Four kinds of hash: the search indexes, the per-locale post copy this repo
- * writes for local dev, the English project and testimonial copy catalogs, and
- * the one locale-invariant structure hash. Only the default locale is ever read
+ * writes for local dev, the English testimonial copy catalog, and the one
+ * locale-invariant structure hash. Only the default locale is ever read
  * from the per-locale maps at runtime; the rest resolve through their pointers.
  */
-function writeHashManifest(
-  searchHashes,
-  guideSearchHashes,
-  { copyHashes, structureHash, projectCopyHash, testimonialsCopyHash }
-) {
+function writeHashManifest(searchHashes, guideSearchHashes, { copyHashes, structureHash, testimonialsCopyHash }) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
@@ -772,7 +371,6 @@ function writeHashManifest(
 export const contentIndexHashes: {
   search: { articles: Record<string, string>; guides: Record<string, string> };
   copy: Record<string, string>;
-  projects: Record<string, string>;
   testimonials: Record<string, string>;
 } = {
   search: {
@@ -785,9 +383,6 @@ ${formatEntries(guideSearchHashes)},
   },
   copy: {
 ${formatEntries(copyHashes)},
-  },
-  projects: {
-${formatEntries(projectCopyHash ? { [DEFAULT_LOCALE]: projectCopyHash } : {})},
   },
   testimonials: {
 ${formatEntries({ [DEFAULT_LOCALE]: testimonialsCopyHash })},
@@ -822,7 +417,7 @@ export const contentStructureHash = ${JSON.stringify(structureHash)};
  *   content/src/testimonials/messages.json — the English COPY catalog: heading,
  *     subheading, `roles` keyed by person, `quotes` keyed by quote key, and the
  *     marquee lines. Every other locale's is published by the i18n repo to the
- *     same R2 path shape, exactly as project copy is.
+ *     same R2 path shape.
  *
  * A quote key is a person's slug, or that slug with a `-short` suffix where the
  * landing grid shows a trimmed form of the same testimonial the /testimonials
@@ -864,26 +459,17 @@ function processTestimonials() {
  *
  * Returns { [locale]: hash }.
  */
-function writeContentMeta(
-  blogByLocale,
-  articlesByLocale,
-  guidesByLocale,
-  { projectsStructure, episodeStructure, episodeCopyByLocale },
-  testimonials
-) {
-  // Post metadata splits three ways, along what each part actually is.
+function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, testimonials) {
+  // Post metadata splits two ways, along what each part actually is.
   //
   //   1. STRUCTURE, locale-invariant. Date, author, cover image, featured,
-  //      listed, premium, order, the projects' structure and every episode's.
-  //      All of it comes from English config.json and authors.json, none of it
-  //      varies by language, and the i18n repo does not hold any of it. One
-  //      object serves every locale.
+  //      listed, premium and order. All of it comes from English config.json
+  //      and authors.json, none of it varies by language, and the i18n repo
+  //      does not hold any of it. One object serves every locale.
   //   2. COPY, per locale. Title, excerpt, seo, tags, reading time, and the hash
-  //      of that locale's rendered HTML, for posts and for project episodes
-  //      alike. Every one of those is produced by translating, so the i18n repo
-  //      publishes them and a locale it adds needs no front-end build to appear
-  //      in a listing. Projects themselves have their own copy catalog, at its
-  //      own path; see buildProjectStaticFiles.
+  //      of that locale's rendered HTML. Every one of those is produced by
+  //      translating, so the i18n repo publishes them and a locale it adds
+  //      needs no front-end build to appear in a listing.
   //
   // Testimonials split the same way and are in the same two halves: their
   // structure rides here, their copy is a per-locale catalog the i18n repo
@@ -893,17 +479,10 @@ function writeContentMeta(
     blog: {},
     articles: {},
     guides: {},
-    projects: projectsStructure,
-    "project-episodes": episodeStructure,
     testimonials
   };
-  const emptyCopy = () => ({ blog: {}, articles: {}, guides: {}, "project-episodes": {} });
+  const emptyCopy = () => ({ blog: {}, articles: {}, guides: {} });
   const copyByLocale = {};
-
-  for (const [locale, entries] of Object.entries(episodeCopyByLocale)) {
-    copyByLocale[locale] ??= emptyCopy();
-    copyByLocale[locale]["project-episodes"] = entries;
-  }
 
   const STRUCTURAL = {
     blog: ["date", "author", "featured", "coverImage"],
@@ -1018,9 +597,6 @@ function generateContentCache() {
     order: typeof config.order === "number" ? config.order : 1000
   }));
 
-  // Process projects + episodes
-  const projectsProcessed = processProjects();
-
   // Process testimonials (locale-invariant structure + the English copy catalog)
   const testimonials = processTestimonials();
 
@@ -1028,7 +604,6 @@ function generateContentCache() {
   const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
   const { byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
-  const { projectCopyHash, ...projectArtifacts } = buildProjectStaticFiles(projectsProcessed);
 
   // Generate search indexes. Articles index only `listed` ones; guides index all
   // (including premium guides, which stay searchable but are kept out of the sitemap).
@@ -1036,19 +611,9 @@ function generateContentCache() {
   const guideSearchHashes = generateSearchIndexes("guides", guidesByLocale, () => true);
 
   // Write the per-locale metadata artifacts, then the hash manifest naming them
-  const contentMeta = writeContentMeta(
-    blogByLocale,
-    articlesByLocale,
-    guidesByLocale,
-    projectArtifacts,
-    testimonials.structure
-  );
+  const contentMeta = writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, testimonials.structure);
   const testimonialsCopyHash = writeTestimonialCopy(testimonials.copy);
-  writeHashManifest(searchHashes, guideSearchHashes, {
-    ...contentMeta,
-    projectCopyHash,
-    testimonialsCopyHash
-  });
+  writeHashManifest(searchHashes, guideSearchHashes, { ...contentMeta, testimonialsCopyHash });
 
   // Count totals
   let contentFileCount = 0;
@@ -1062,18 +627,11 @@ function generateContentCache() {
     contentFileCount += Object.keys(locales).length;
   }
 
-  const episodeCount = projectsProcessed
-    ? projectsProcessed.episodes.reduce((acc, ep) => acc + Object.keys(ep.locales).length, 0)
-    : 0;
-  const projectCount = projectsProcessed ? projectsProcessed.projectsData.projects.length : 0;
-
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
   console.log(`   Guides: ${Object.keys(guides).length} slugs`);
-  console.log(`   Projects: ${projectCount}`);
   console.log(`   Testimonials: ${Object.keys(testimonials.copy.quotes).length} quotes (en)`);
-  console.log(`   Project episodes: ${episodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
     `   Locales: ${[

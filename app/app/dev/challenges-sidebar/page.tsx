@@ -1,6 +1,9 @@
 "use client";
 
-import { ChallengesUpsellCard } from "@/components/dashboard/challenges-sidebar/ui/ChallengesUpsellCard";
+import {
+  PREMIUM_UPSELL_VARIANTS,
+  type PremiumUpsellVariant
+} from "@/components/dashboard/challenges-sidebar/ui/premium-upsell/PremiumUpsellCard";
 import { EmptyChallengesState } from "@/components/dashboard/challenges-sidebar/ui/EmptyChallengesState";
 import { RecentChallenges } from "@/components/dashboard/challenges-sidebar/ui/RecentChallenges";
 import { RecentChallengesSkeleton } from "@/components/dashboard/challenges-sidebar/ui/RecentChallengesSkeleton";
@@ -15,7 +18,7 @@ import { useState } from "react";
 
 type StateId =
   | "loading"
-  | "free-user"
+  | `free-${PremiumUpsellVariant}`
   | "premium-empty"
   | "premium-1-challenge"
   | "premium-2-challenges"
@@ -23,7 +26,10 @@ type StateId =
 
 const states: { id: StateId; label: string }[] = [
   { id: "loading", label: "Loading (Skeleton)" },
-  { id: "free-user", label: "Free User" },
+  ...(Object.keys(PREMIUM_UPSELL_VARIANTS) as PremiumUpsellVariant[]).map((variant) => ({
+    id: `free-${variant}` as const,
+    label: `Free User — ${variant}`
+  })),
   { id: "premium-empty", label: "Premium — No Challenges" },
   { id: "premium-1-challenge", label: "Premium — 1 Challenge" },
   { id: "premium-2-challenges", label: "Premium — 2 Challenges" },
@@ -112,13 +118,18 @@ export default function ChallengesSidebarDevPage() {
           </>
         );
 
-      case "free-user":
+      case "free-accelerate":
+      case "free-testimonials":
+      case "free-neverGetStuck":
+      case "free-challenges": {
+        const UpsellCard = PREMIUM_UPSELL_VARIANTS[selectedState.slice("free-".length) as PremiumUpsellVariant];
         return (
           <>
             <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={false} />
-            <ChallengesUpsellCard onUpgradeClick={() => console.debug("Upgrade clicked")} />
+            <UpsellCard onUpgradeClick={() => console.debug("Upgrade clicked")} />
           </>
         );
+      }
 
       case "premium-empty":
         return (

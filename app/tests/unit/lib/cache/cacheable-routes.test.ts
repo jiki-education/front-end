@@ -31,16 +31,16 @@ describe("cacheable-routes", () => {
 
       it("returns true for single-page marketing routes (naked and localized)", () => {
         expect(isCacheableRoute("/premium")).toBe(true);
-        expect(isCacheableRoute("/roadmap")).toBe(true);
+        expect(isCacheableRoute("/testimonials")).toBe(true);
         expect(isCacheableRoute("/testimonials")).toBe(true);
         expect(isCacheableRoute("/hu/premium")).toBe(true);
-        expect(isCacheableRoute("/hu/roadmap")).toBe(true);
+        expect(isCacheableRoute("/hu/testimonials")).toBe(true);
         expect(isCacheableRoute("/hu/testimonials")).toBe(true);
       });
 
       it("does not treat marketing sub-paths as the cacheable single page", () => {
         expect(isCacheableRoute("/premium/checkout")).toBe(false);
-        expect(isCacheableRoute("/hu/roadmap/2026")).toBe(false);
+        expect(isCacheableRoute("/hu/testimonials/2026")).toBe(false);
       });
     });
 

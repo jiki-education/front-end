@@ -19,7 +19,7 @@ export function LockedFooter({ variant }: LockedFooterProps) {
   const t = useTranslations("codingExercise.lockedFooter");
   const routes = useLocaleRoutes();
   const handleUpgradeClick = () => {
-    showPremiumUpgradeModal("assistant_limit_reached");
+    showPremiumUpgradeModal("exercise_chat_locked_footer");
   };
 
   return (

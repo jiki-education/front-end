@@ -34,7 +34,6 @@ export function FAQs() {
             })}
           </p>
           <ul>
-            <li>{t.rich("q1Item1", { strong })}</li>
             <li>{t.rich("q1Item2", { strong })}</li>
             <li>{t.rich("q1Item3", { strong })}</li>
             <li>{t.rich("q1Item4", { strong })}</li>
@@ -55,7 +54,6 @@ export function FAQs() {
 
         <FAQItem question={t("q4")}>
           <p>{t("q4a1")}</p>
-          <p>{t.rich("q4a2", { strong })}</p>
         </FAQItem>
 
         <FAQItem question={t("q5")}>

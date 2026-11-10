@@ -1,0 +1,129 @@
+/* Shared frame for every Premium upsell card in the dashboard sidebar. */
+.card {
+    position: relative;
+    width: 100%;
+    padding: 24px 22px 22px;
+    background: #fff;
+    border: 1px solid var(--color-purple-300);
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgb(168 85 247 / 12%);
+    text-align: center;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    animation: softPulse 3s linear infinite;
+
+    /* The pulse stops on hover and focus, and the card holds its full glow instead. */
+    &:hover,
+    &:focus-within {
+        border-color: var(--color-purple-400);
+        box-shadow: 0 0 24px rgb(168 85 247 / 30%);
+        animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@keyframes softPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgb(168 85 247 / 12%);
+    }
+
+    50% {
+        box-shadow: 0 0 22px rgb(168 85 247 / 28%);
+    }
+}
+
+/* Covers the whole card, so a click anywhere on it upgrades. Anything that must
+   stay clickable on its own (the testimonial dots) sits above it. */
+.cardLink {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.avatar {
+    display: block;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: var(--color-purple-100);
+    object-fit: contain;
+}
+
+.title {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-gray-900);
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.message {
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-gray-600);
+    text-wrap: balance;
+
+    strong {
+        font-weight: 600;
+        color: var(--color-purple-600);
+    }
+}
+
+.benefits {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--color-purple-50);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-gray-600);
+
+    strong {
+        font-weight: 600;
+        color: var(--color-gray-700);
+    }
+}
+
+.priceLine {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.price {
+    color: var(--color-purple-600);
+}
+
+.muted {
+    font-weight: 500;
+    color: var(--color-gray-500);
+}
+
+.pendingNote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-gray-600);
+}

@@ -11,7 +11,7 @@
     text-align: center;
 }
 
-/* Matches the two-halves section heading, so the page's section headings read as a set. */
+/* Sized like the other landing section headings, so they read as a set. */
 .heading {
     position: relative;
     overflow: visible;

@@ -27,7 +27,6 @@ export function Hero({ marquee }: { marquee: string[] }) {
 
           <p className={styles.tagline}>
             {t.rich("tagline", {
-              year: new Date().getFullYear(),
               strong: (chunks) => <strong>{chunks}</strong>
             })}
           </p>

@@ -12,10 +12,6 @@ interface ConfirmationModalProps {
   onConfirm?: () => void;
   onCancel?: () => void;
   variant?: "default" | "danger";
-  // When false, the modal does not call hideModal after onConfirm/onCancel —
-  // the caller owns dismissal. Used by nested dialogs (e.g. WelcomeModal) that
-  // need to stay mounted on cancel.
-  closeOnAction?: boolean;
 }
 
 export function ConfirmationModal({
@@ -25,19 +21,18 @@ export function ConfirmationModal({
   cancelText,
   onConfirm,
   onCancel,
-  variant: _variant = "default",
-  closeOnAction = true
+  variant: _variant = "default"
 }: ConfirmationModalProps) {
   const t = useTranslations("modals.confirmation");
   const tCommon = useTranslations("common");
   const handleConfirm = () => {
     onConfirm?.();
-    if (closeOnAction) hideModal();
+    hideModal();
   };
 
   const handleCancel = () => {
     onCancel?.();
-    if (closeOnAction) hideModal();
+    hideModal();
   };
 
   return (

@@ -31,29 +31,6 @@ export const FEATURE_CATEGORIES: FeatureCategoryData[] = [
     ]
   },
   {
-    labelKey: "buildWithJeremy",
-    features: [
-      {
-        titleKey: "buildingFundamentalsTitle",
-        descKey: "buildingFundamentalsDesc",
-        free: "firstEpisodes",
-        premium: "fullAccess"
-      },
-      {
-        titleKey: "howThingsWorkTitle",
-        descKey: "howThingsWorkDesc",
-        free: "sampleEpisode",
-        premium: "fullAccess"
-      },
-      {
-        titleKey: "earlyAccessTitle",
-        descKey: "earlyAccessDesc",
-        free: false,
-        premium: true
-      }
-    ]
-  },
-  {
     labelKey: "support",
     features: [
       {
@@ -65,6 +42,12 @@ export const FEATURE_CATEGORIES: FeatureCategoryData[] = [
       {
         titleKey: "livestreamsTitle",
         descKey: "livestreamsDesc",
+        free: false,
+        premium: true
+      },
+      {
+        titleKey: "earlyAccessTitle",
+        descKey: "earlyAccessDesc",
         free: false,
         premium: true
       }

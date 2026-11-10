@@ -25,12 +25,6 @@ export { getGuides } from "./getGuides";
 export { getRelatedGuides } from "./getRelatedGuides";
 export type { GetGuidesOptions, GetGuidesResult } from "./getGuides";
 
-// Project loaders
-export { getAllProjects } from "./getAllProjects";
-export { getProject } from "./getProject";
-export type { ProjectWithEpisodes } from "./getProject";
-export { getProjectEpisode } from "./getProjectEpisode";
-
 // Testimonials (landing page + /testimonials)
 export { getTestimonials } from "./getTestimonials";
 
@@ -49,11 +43,6 @@ export type {
   ProcessedArticle,
   ProcessedGuide,
   SearchIndexData,
-  ProjectMeta,
-  EpisodeMeta,
-  EpisodeSummary,
-  ProcessedEpisode,
-  VideoProvider,
   Testimonial,
   TestimonialsData
 } from "./types";

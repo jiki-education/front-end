@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {
-    showPremiumUpgradeModal("upgrade_cta_nav", {
+    showPremiumUpgradeModal("nav_upgrade_button", {
       onCancel: () => {
         console.debug("Upgrade cancelled");
       }

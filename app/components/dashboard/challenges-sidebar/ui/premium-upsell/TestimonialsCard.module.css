@@ -1,0 +1,101 @@
+.carousel {
+    margin-bottom: 16px;
+    padding: 16px 16px 14px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 14px;
+    background: var(--color-gray-50);
+}
+
+.viewport {
+    overflow: hidden;
+}
+
+.track {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    margin-bottom: 6px;
+    color: var(--color-amber-500);
+
+    svg {
+        width: 15px;
+        height: 15px;
+        fill: currentColor;
+    }
+}
+
+/* Curly quotes in the reader's own convention (“…” in English, « … » in French and
+   so on), taken from the page's lang. */
+.quote {
+    quotes: auto;
+    margin: 0;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--color-gray-800);
+}
+
+.quote::before {
+    content: open-quote;
+}
+
+.quote::after {
+    content: close-quote;
+}
+
+.by {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+
+    strong {
+        font-weight: 600;
+        color: var(--color-gray-700);
+    }
+}
+
+.dots {
+    /* Above the card's full-size button, so a dot shows its quote instead of upgrading. */
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-gray-300);
+    cursor: pointer;
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
+
+    &[aria-current="true"] {
+        width: 20px;
+        background: var(--color-purple-500);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .track,
+    .dot {
+        transition: none;
+    }
+}

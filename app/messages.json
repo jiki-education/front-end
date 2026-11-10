@@ -6,8 +6,7 @@
         "aboutJiki": "About Jiki",
         "testimonials": "Testimonials",
         "ourTeam": "Our team",
-        "premium": "Jiki Premium",
-        "roadmap": "Roadmap"
+        "premium": "Jiki Premium"
       },
       "legal": {
         "heading": "Legal",
@@ -60,13 +59,11 @@
     "sidebar": {
       "groups": {
         "learnToCode": "Learn to Code",
-        "learnToBuild": "Learn to Build",
         "community": "Community",
         "more": "More"
       },
       "nav": {
         "learn": "Coding Fundamentals",
-        "build": "Projects",
         "challenges": "Challenges",
         "concepts": "Coding Concepts",
         "achievements": "Achievements",
@@ -170,17 +167,6 @@
       "shareOn": "Share on {network}",
       "copyLink": "Copy link",
       "copied": "Link copied"
-    }
-  },
-  "build": {
-    "upcomingStreams": {
-      "heading": "Upcoming Live Sessions",
-      "toBeAnnounced": "To be announced",
-      "subscribeButton": "Subscribe to Calendar"
-    },
-    "hub": {
-      "title": "Learn to Build - Projects",
-      "description": "Build real projects from scratch with Jeremy. Learn everything he knows!"
     }
   },
   "auth": {
@@ -350,10 +336,6 @@
       "title": "Cancel your subscription?",
       "message": "We'd hate to see you go! If you cancel, you'll lose access to Premium at the end of your current billing period.",
       "benefitsTitle": "You're currently enjoying:",
-      "benefit1": "Unlimited AI help from Jiki",
-      "benefit2": "All projects and learning paths",
-      "benefit3": "Completion certificates",
-      "benefit4": "Ad-free experience",
       "keep": "Keep my subscription",
       "cancel": "Cancel subscription",
       "defaultBillingPeriodEnd": "your billing period end"
@@ -557,28 +539,18 @@
   },
   "landing": {
     "hero": {
-      "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
+      "tagline": "Tutorials you'll actually watch. Exercises you'll actually enjoy. <strong>Zero to competent in 3 months.</strong> And it's free!",
       "loadingVideo": "Loading video",
       "playVideo": "Play video",
       "watchPrompt": "Reading not your thing? <strong>Hit play</strong> and I'll tell you everything you need to know!",
-      "headline": "The modern way to learn to <highlight>code & build</highlight>",
-      "audienceBeginners": "<name>Beginners</name> trying to find the best and fastest way to learn",
-      "audienceJuniors": "<name>Junior Devs</name> who want to accelerate their knowledge",
-      "audienceEntrepreneurs": "<name>Entrepreneurs & Vibe Coders</name> who want to build before they hire"
-    },
-    "twoHalves": {
-      "eyebrow": "Your two core skills",
-      "heading": "The two halves of being a developer",
-      "intro": "Jiki teaches you <strong>how to code</strong> (in the most fun and effective way!) and how to <strong>build real things</strong> using the same technologies the pros use. <strong>From day one.</strong>",
-      "codeHeading": "Learn to <word>Code</word>",
-      "codeBody": "Every core concept, with detailed video explanations, and hundreds of exercises and projects to practice on",
-      "buildHeading": "Learn to <word>Build</word>",
-      "buildBody": "Learn the technologies pros use from day one: Databases, auth, frontends, backends and more!",
-      "techLabel": "Learn technologies including:"
+      "headline": "The fun way to <highlight>learn to code!</highlight>",
+      "audienceAbsoluteBeginners": "<name>Absolute Beginners</name> who want to <u>get started fast</u>.",
+      "audienceRepeatBeginners": "<name>Repeat Starters</name> who wish it would <u>just make sense</u>.",
+      "audienceJuniors": "<name>Junior Devs</name> who want to <u>reinforce the fundamentals</u>."
     },
     "learnToCode": {
-      "heading": "Learn to <word>Code</word>",
-      "intro": "Master coding, the core skill we use to communicate our desires to a computer. We'll help you <highlight>build rock solid coding foundations</highlight>.",
+      "heading": "Master Coding Fundamentals",
+      "intro": "Learning should feel like <highlight>play, not work</highlight>. At Jiki, you'll solve puzzles, make games, and learn through practice.",
       "demo": {
         "stageDescription": "An animation of the Jiki app: a learner runs a space-invaders exercise, the code moves the laser cannon off the edge of the grid, they ask Jiki for help, correct the boundary from 20 to 11, and the exercise passes.",
         "run": "Run Code",
@@ -651,32 +623,6 @@
       "flowerFlipbook": "Flower flipbook",
       "footnote": "…and that's just the first few weeks!"
     },
-    "learnToBuild": {
-      "heading": "Learn to <word>Build</word>",
-      "intro": "Quickly learn core technologies like databases, auth, frontends, backends, and more using modern agentic coding.",
-      "livestreamsLead": "Interactive teaching livestreams",
-      "livestreamsDetail": "Stuck on a concept or your own project? Get it answered on the <strong>regular livestreams</strong>, with real questions from the community.",
-      "technologiesLead": "Real projects, not fake ones.",
-      "technologiesDetail": "Learn as Jeremy builds real projects from scratch, explaining every decision, and follow along with your own ideas.",
-      "portfolioLead": "Learn a wide range of technologies",
-      "portfolioDetail": "Building a modern app involves interacting with a lot of different systems: auth, APIs, backend, frontend. We'll teach you all of it.",
-      "liveQaAlt": "Jeremy hosting a live Jiki Q&A session",
-      "topicsLabel": "Get hands on with:",
-      "databases": "Databases",
-      "auth": "Auth",
-      "frontendBackend": "Frontend vs backend",
-      "apis": "APIs",
-      "deployment": "Deployment",
-      "llmIntegration": "LLM integration",
-      "liveQa_fred": "Finally got it working. Took me three attempts but I got there.",
-      "liveQa_oleksandra": "Can someone explain closures again? I get the syntax, I just don't see why you'd ever want one.",
-      "liveQa_shaun": "Ah, that actually makes sense now.",
-      "liveQa_lukas": "Just deployed my first project. Genuinely didn't think I'd get this far.",
-      "joinLive": "Join live discussion",
-      "catchUp": "Catch-up later",
-      "getSupport": "Get support",
-      "liveQa_drac": "Clearest explanation of this I've found anywhere 🙌"
-    },
     "outcomes": {
       "bubble": "At the end of the course",
       "heading": "What you'll walk away with",
@@ -685,13 +631,13 @@
       "certificateBody": "You'll receive a verifiable certificate you can add to your resume and the Certifications section of your LinkedIn profile. And you'll know you've earned it!",
       "certificateAlt": "Jiki course completion certificate",
       "shareOnLinkedIn": "Share on LinkedIn",
-      "portfolioTitle": "A diverse portfolio of real projects",
-      "portfolioBody": "Build real projects that match your interests. Not a generic todo list app, but actual apps that showcase your creativity, ingenuity, and knowledge.",
+      "thinkingTitle": "Improved critical thinking skills",
+      "thinkingBody": "This is a hands-on course that forces you to wrestle with problems. It will improve your problem solving & critical thinking skills. Useful across all of life.",
       "habitTracker": "Personal Habit Tracker",
       "homepage": "Digital homebase",
       "recipeBox": "Recipe Planner",
       "dashboard": "Data Dashboard",
-      "understandingTitle": "Understanding of how it all works",
+      "understandingTitle": "Rock-solid coding fundamentals",
       "understandingBody": "Jiki will give you real, solid foundations to build a career on. Read unfamiliar code, reason about how it works, and be able to spot bugs fast.",
       "codeNote": "You'll know how to build games like Wordle from scratch"
     },
@@ -716,9 +662,9 @@
     },
     "printRow": {
       "joinNote": "Get in on the action!",
-      "spaceInvaders": "space invaders",
-      "breakout": "breakout",
-      "maze": "maze",
+      "spaceInvaders": "Space invaders",
+      "breakout": "Breakout",
+      "maze": "Maze",
       "heading": "Ready to make your first one?",
       "body": "Learn to code and build real projects from day one, with Jeremy guiding you every step of the way.",
       "free": "100+ Hours of Free Content",
@@ -744,21 +690,19 @@
       "heading": "Frequently Asked Questions",
       "q1": "How much does it cost?",
       "q1a1": "The <strong>Learn to Code</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
-      "q1Item1": "Full access to <strong>Learn to Build</strong>",
-      "q1Item2": "Combine your skills in <strong>Jiki Projects</strong>",
+      "q1Item2": "Unlock Premium <strong>Challenges</strong>",
       "q1Item3": "Unlimited <strong>Ask Jiki</strong> AI support",
       "q1Item4": "Regular <strong>Q&A livestreams</strong> you can join",
       "q1Item5": "Earn <strong>certificates</strong> for courses",
       "q1Item6": "An <strong>ad-free</strong> learning experience",
       "q1Item7": "<strong>Early access</strong> to new features",
       "q2": "How much time will I need to spend each week on the course?",
-      "q2a": "You can spend as long or as little as you like. Most people get through <strong>Learn to Code</strong> in 12–20 weeks at around 5–10 hours a week. <strong>Learn to Build</strong> is ongoing — you can dip in and out as new episodes go up, and join livestreams when it suits you.",
+      "q2a": "You can spend as long or as little as you like. Most people get through <strong>Learn to Code</strong> in around 3 months at 5–10 hours a week.",
       "q3": "How hard is the course? How smart do I need to be?",
       "q3a1": "The course is designed to be accessible to everyone, regardless of your background. We don't believe you need to be \"smart\" to learn to code. But you do need to put in the effort and be willing to be challenged.",
       "q3a2": "But if you put in the effort, ask for help when you get stuck, and embrace the challenge, you'll be amazed at how far you can go in a short time.",
       "q4": "Is Jiki available now?",
       "q4a1": "Yes — you can sign up and start the free Learn to Code curriculum today.",
-      "q4a2": "The first <strong>Learn to Build</strong> session will be in <strong>mid-June</strong>. You can sign up for a reminder once you're inside.",
       "q5": "I already signed up to the Bootcamp - is this different?",
       "q5a1": "Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!",
       "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Learn to Code course and future courses.",
@@ -794,13 +738,10 @@
     "values": {
       "oneConversation": "1 conversation",
       "unlimited": "Unlimited",
-      "firstEpisodes": "First episodes",
-      "fullAccess": "Full access",
-      "sampleEpisode": "Sample Episode"
+      "fullAccess": "Full access"
     },
     "categories": {
       "codingFundamentals": "Learn to Code",
-      "buildWithJeremy": "Learn to Build",
       "support": "Support",
       "certificates": "Certificates",
       "experience": "Experience"
@@ -814,16 +755,12 @@
       "jikiChallengesDesc": "Take on harder challenges that push your skills further.",
       "askJikiTitle": "Ask Jiki",
       "askJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
-      "buildingFundamentalsTitle": "Building Fundamentals series",
-      "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
-      "howThingsWorkTitle": "How Things Work series",
-      "howThingsWorkDesc": "Deep dives into the trickier bits of Exercism and Jiki, and why they're built that way.",
       "earlyAccessTitle": "Early access to new features",
       "earlyAccessDesc": "Try out new features before everyone else.",
       "communityForumsTitle": "Community forums",
       "communityForumsDesc": "Ask questions and learn alongside other Jiki students.",
       "livestreamsTitle": "Q&A livestreams with Jeremy",
-      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding and building questions.",
+      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding questions.",
       "certificatesTitle": "Earn certificates for courses",
       "certificatesDesc": "Show off what you've learned with shareable certificates.",
       "adFreeTitle": "Ad-free learning",
@@ -856,108 +793,6 @@
     },
     "publicPrice": {
       "unavailable": "—"
-    },
-    "benefits": {
-      "unlimitedAiTitle": "Unlimited AI help",
-      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
-      "unlimitedContentTitle": "Unlimited content",
-      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
-      "certificatesTitle": "Certificates",
-      "certificatesDescription": "Earn shareable certificates when you complete courses",
-      "adFreeTitle": "Ad-free",
-      "adFreeDescription": "Enjoy a distraction-free learning experience",
-      "prioritySupportTitle": "Priority support",
-      "prioritySupportDescription": "Get faster responses when you need help",
-      "earlyAccessTitle": "Early access",
-      "earlyAccessDescription": "Be the first to try new features and content"
-    }
-  },
-  "roadmap": {
-    "page": {
-      "heading": "Roadmap",
-      "subheading": "Where Jiki is heading. A quarter-by-quarter view of what we're shipping, what's next, and what we're still dreaming up.",
-      "disclaimer": "This roadmap is a snapshot of our current plans. Priorities shift as we learn from our community, so dates and scope may change."
-    },
-    "status": {
-      "shipped": "Shipped",
-      "inProgress": "In progress",
-      "planned": "Planned"
-    },
-    "changelog": {
-      "title": "Changelog",
-      "subtitle": "Recent improvements we've shipped to Jiki.",
-      "learnToBuildLaunch": {
-        "date": "July 11, 2026",
-        "title": "Launched Learn to Build",
-        "description": "Jeremy's new series, where he builds real, useful projects from scratch alongside learners, is now live."
-      },
-      "milestones6To10": {
-        "date": "July 2026",
-        "title": "Launched Milestones 6-10 on Learn to Code",
-        "description": "Five new milestones are now live on the Learn to Code track, extending the journey well beyond the fundamentals."
-      },
-      "jikiLaunch": {
-        "date": "June 7, 2026",
-        "title": "Launched Jiki!",
-        "description": "Jiki is officially live (albeit in beta!)"
-      }
-    },
-    "phases": {
-      "now": {
-        "label": "Now",
-        "timeframe": "July 2026",
-        "summary": "What we're focused on this month.",
-        "learnToBuild": {
-          "title": "Launched Learn to Build",
-          "description": "Jeremy's brand new series is now live, where he builds real, useful projects from scratch alongside learners. Each project is broken into bite-sized lessons that show not just the code, but the thinking, mistakes, and decisions that go into shipping software."
-        },
-        "launchBugs": {
-          "title": "Ironing out launch bugs",
-          "description": "Now that Jiki is live, we're squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app."
-        },
-        "earlyFeedback": {
-          "title": "Responding to early feedback",
-          "description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week."
-        },
-        "foundations": {
-          "title": "Stabilising the foundations",
-          "description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now."
-        }
-      },
-      "next": {
-        "label": "Next",
-        "timeframe": "Q3 2026",
-        "summary": "Designed and queued up.",
-        "betaToLive": {
-          "title": "Move from Beta to Fully Live",
-          "description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners."
-        },
-        "deepDiveVideos": {
-          "title": "Add Deep Dive Videos",
-          "description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming."
-        },
-        "newLanguages": {
-          "title": "Launch multiple new languages",
-          "description": "Starting in August, we're bringing Jiki to learners in their own language, translating the whole interface and curriculum, not just the marketing pages. It kicks off with our <link>community translatathon</link> over the weekend of July 31st to August 2nd."
-        },
-        "pythonVersion": {
-          "title": "Launch Python version",
-          "description": "Arriving in September, a fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction."
-        }
-      },
-      "future": {
-        "label": "Future",
-        "timeframe": "Q4 2026",
-        "summary": "On the horizon. Subject to change as we learn.",
-        "moreLanguages": {
-          "title": "Add more languages",
-          "description": "Building on August's first wave, we'll keep translating Jiki into more spoken languages through the rest of the year, so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
-        },
-        "sql": {
-          "title": "Launch SQL",
-          "description": "Later in the year, we'll add SQL to Jiki, giving learners a hands-on way to understand databases and querying with the same step-through, learn-by-doing approach as the rest of the curriculum."
-        }
-      }
     }
   },
   "misc": {
@@ -1058,10 +893,6 @@
       "title": "Achievements - Jiki",
       "description": "Track your progress and unlock achievements as you learn to code."
     },
-    "build": {
-      "title": "Learn to Build - Jiki",
-      "description": "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
-    },
     "dashboard": {
       "title": "Dashboard - Jiki",
       "description": "Track your learning progress, continue coding exercises, and view your achievements."
@@ -1108,15 +939,11 @@
     },
     "home": {
       "title": "Jiki - Learn to Code the Fun Way",
-      "description": "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
+      "description": "The best way to learn to code in the LLM-era! By the team behind Exercism"
     },
     "premium": {
       "title": "Premium - Jiki",
       "description": "Accelerate your road to job-ready with Jiki Premium. Full access to courses, projects, AI support, and more."
-    },
-    "roadmap": {
-      "title": "Roadmap - Jiki",
-      "description": "What we're building next on Jiki. A quarter-by-quarter look at upcoming courses, projects, and features."
     },
     "testimonials": {
       "title": "Testimonials - Jiki",
@@ -1319,7 +1146,7 @@
   "modals": {
     "welcomeToPremium": {
       "badge": "Premium Member",
-      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!",
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki and every Challenge.",
       "title": "Welcome to <highlight>Premium!</highlight>"
     },
     "confirmation": {
@@ -1373,14 +1200,6 @@
     "exerciseSuccess": {
       "defaultTitle": "Congratulations!",
       "defaultMessage": "All tests passed! You've successfully completed this exercise."
-    },
-    "welcome": {
-      "title": "Welcome to Jiki!",
-      "subtitle": "Watch this short video to get started.",
-      "skipTitle": "Skip the welcome video?",
-      "skipMessage": "This video helps you get the most out of Jiki. Are you sure you want to skip it?",
-      "skipConfirm": "Skip video",
-      "skipCancel": "Keep watching"
     },
     "walkthroughConfirm": {
       "title": "Try solving it yourself first?",
@@ -1546,15 +1365,6 @@
       "securedBy": "Secured by <stripe>stripe</stripe>",
       "error": "Error: {message}"
     },
-    "calendarSubscribe": {
-      "title": "Subscribe to Calendar",
-      "description": "Add Jiki's live sessions to your calendar. New sessions appear automatically as they're scheduled.",
-      "apple": "Subscribe on Apple",
-      "google": "Subscribe on Google",
-      "otherLabel": "Outlook & other calendars",
-      "otherHelp": "Copy this link and add it as a subscribed calendar.",
-      "copied": "Copied"
-    },
     "exerciseIntroVideo": {
       "title": "Welcome to your First Drawing Exercise",
       "intro": "Watch this quick introduction to how drawing exercises work and how to solve them. You can also see this at the bottom of the instructions.",
@@ -1625,6 +1435,41 @@
       "upsell": {
         "title": "New Challenges Await!",
         "description": "Combine your skills and challenge yourself with Premium Challenges."
+      },
+      "premiumUpsell": {
+        "label": "Jiki Premium",
+        "completionStat": "Premium users are <strong>26 times more likely to complete the course</strong>.",
+        "price": "Only <price></price>. <muted>One-off, no subscription.</muted>",
+        "upgrade": "Upgrade to Premium",
+        "pendingNote": "Your payment is still being processed. We'll unlock Premium and email you as soon as it clears.",
+        "accelerate": {
+          "heading": "<highlight>Accelerate</highlight> your learning!",
+          "benefits": "<strong>Get:</strong> Premium Challenges, Unlimited Ask Jiki, Unlimited Deep Dives, an Official Certificate, No Ads, and more!"
+        },
+        "testimonials": {
+          "heading": "Join the <highlight>Premium team</highlight>",
+          "show": "Show testimonial {number}",
+          "quotes": {
+            "veronika": "The affordability was unbelievable, and now, halfway through, I can proudly say I've been almost three months ChatGPT-free! 🙂",
+            "abhinav": "The purchasing power parity discount made it even more affordable. Thank you for making it accessible.",
+            "laura": "The community, exercises, mentors, and Jeremy have all been great to interact with.",
+            "kazzybits": "How I think about thinking, and about problem solving in general, has changed dramatically.",
+            "nilophars": "The visual representation, creating mental models, mentor feedback, and the interactive exercises have been incredibly valuable.",
+            "jj": "From the fun and sleek interface, to the live classes and labs or the discord discussions, it all comes together to make a superb learning experience."
+          },
+          "roles": {
+            "veronika": "Junior Developer",
+            "abhinav": "Beginner",
+            "laura": "Was in Tutorial Hell",
+            "kazzybits": "Beginner",
+            "jj": "Junior Developer"
+          }
+        },
+        "neverGetStuck": {
+          "heading": "<highlight>Never</highlight> get stuck again",
+          "text": "With Premium, Jiki is there on every exercise to nudge you in the right direction.",
+          "statNumber": "26x"
+        }
       },
       "userProfile": {
         "premiumMember": "Premium Member"
@@ -1922,31 +1767,6 @@
       "finishTooltip": "Finish watching to continue"
     }
   },
-  "projects": {
-    "projectCard": {
-      "comingSoon": "Coming Soon",
-      "comingSoonLabel": "Coming soon"
-    },
-    "episodeCard": {
-      "premium": "Premium"
-    },
-    "episodeSummary": {
-      "heading": "Episode in Brief",
-      "whereWeStart": "Where we start",
-      "whereWeEnd": "Where we end up",
-      "whatWeCover": "What we cover"
-    },
-    "projectPage": {
-      "backToAllProjects": "← Back to <strong>All Projects</strong>"
-    },
-    "episodePage": {
-      "backToProject": "← Back to <strong>{title}</strong>",
-      "relevantGuidesDescription": "Guides that might be useful to you when solving this step in the process."
-    },
-    "relevantGuides": {
-      "heading": "Relevant Guides"
-    }
-  },
   "guides": {
     "guidesContent": {
       "pageHeading": "Guides and how-tos",
@@ -1974,9 +1794,6 @@
     },
     "relatedGuides": {
       "heading": "Related Guides"
-    },
-    "featuredInProjects": {
-      "heading": "Featured in Projects"
     },
     "metadata": {
       "notFoundTitle": "Guide Not Found"

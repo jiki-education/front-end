@@ -386,6 +386,14 @@
    than reset below it because the logical margins lower to a `:not(:lang(…))` LTR guard, whose extra
    pseudo-class outweighs any same-selector override. */
 @media (min-width: 1181px) and (prefers-reduced-motion: no-preference) {
+    /* The video alone sets the row height. When the finale stacks a rail's cards they can run
+       taller than the video, and without this the row grew and pushed the rest of the page down
+       mid-loop. With size containment the rail still stretches to the row, and a taller stack
+       overflows it evenly above and below. */
+    .rail {
+        contain: size;
+    }
+
     .finale .railLeft .callout {
         margin-inline-start: auto;
         margin-inline-end: 15px;
@@ -424,6 +432,8 @@
     position: absolute;
     bottom: calc(100% + 20px);
     inset-inline: 0;
+    width: 70%;
+    margin-inline: auto;
     height: 4px;
     border-radius: 2px;
     background: var(--color-gray-200);

@@ -7,6 +7,7 @@ import { staticAsset } from "@/lib/static-asset";
 import type { SubscriptionDetails } from "@/types/subscription";
 import { useSubscriptionPrice } from "./useSubscriptionPrice";
 import styles from "./BenefitSection.module.css";
+import { usePremiumFeatures } from "@/components/premium/usePremiumFeatures";
 
 interface BenefitSectionProps {
   isCancelling?: boolean;
@@ -116,23 +117,13 @@ function CancellingBenefitSection({
 }
 
 function BenefitsList() {
-  const tBenefits = useTranslations("premium.benefits");
-  const benefits = [
-    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
-    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
-    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
-    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") },
-    { title: tBenefits("prioritySupportTitle"), description: tBenefits("prioritySupportDescription") },
-    { title: tBenefits("earlyAccessTitle"), description: tBenefits("earlyAccessDescription") }
-  ];
+  const benefits = usePremiumFeatures();
   return (
     <div className={styles.premiumBenefits}>
       {benefits.map((benefit) => (
-        <div key={benefit.title} className={styles.premiumBenefit}>
+        <div key={benefit.key} className={styles.premiumBenefit}>
           <CheckmarkCircle />
-          <div>
-            <strong>{benefit.title}:</strong> {benefit.description}
-          </div>
+          <div>{benefit.content}</div>
         </div>
       ))}
     </div>

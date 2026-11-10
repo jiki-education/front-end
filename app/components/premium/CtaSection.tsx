@@ -42,7 +42,7 @@ export default function CtaSection() {
           <p className={styles["cta-desc"]}>{t("upgradeDesc")}</p>
           <button
             className={`ui-btn ui-btn-large ui-btn-white ${styles.upgradeButton}`}
-            onClick={() => showPremiumUpgradeModal("upgrade_cta_premium_page")}
+            onClick={() => showPremiumUpgradeModal("premium_page_upgrade_button")}
           >
             {t("upgradeButton")}
           </button>

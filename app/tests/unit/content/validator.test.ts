@@ -6,9 +6,6 @@ import {
   validateNoDuplicateSlugs,
   validateTestimonials,
   validateEnglishSource,
-  validateProjectConfigIsStructural,
-  validateProjectCopyCatalog,
-  validateEpisodeSummary,
   ValidationError
 } from "@/lib/content/validator";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -310,83 +307,5 @@ describe("validateEnglishSource", () => {
   it("should not require any other locale", () => {
     // Translations live in the i18n repo, so English alone is complete here.
     expect(() => validateEnglishSource("guide", "my-guide", "/posts/my-guide", ["en"])).not.toThrow();
-  });
-});
-
-describe("validateProjectConfigIsStructural", () => {
-  const validConfig = {
-    image: "cover.webp",
-    livestream: true,
-    upcoming_streams: [],
-    episodes: []
-  };
-
-  it("should accept a config holding structure only", () => {
-    expect(() => validateProjectConfigIsStructural("my-project", validConfig)).not.toThrow();
-  });
-
-  it("should reject copy left behind in config.json", () => {
-    const invalid = { ...validConfig, title: { en: "A project" } };
-    expect(() => validateProjectConfigIsStructural("my-project", invalid)).toThrow(/messages\.json/);
-  });
-
-  it("should reject a config that is not an object", () => {
-    expect(() => validateProjectConfigIsStructural("my-project", [])).toThrow(/not an object/);
-  });
-});
-
-describe("validateProjectCopyCatalog", () => {
-  const slugs = ["my-project"];
-  const validCatalog = {
-    "my-project": {
-      title: "A project",
-      description: "About the project",
-      tags: ["web"]
-    }
-  };
-
-  it("should accept a well-formed catalog", () => {
-    expect(() => validateProjectCopyCatalog(validCatalog, slugs)).not.toThrow();
-  });
-
-  it("should reject a project with no entry", () => {
-    expect(() => validateProjectCopyCatalog({}, slugs)).toThrow(/missing an entry/);
-  });
-
-  it("should reject an empty title", () => {
-    const invalid = { "my-project": { ...validCatalog["my-project"], title: "  " } };
-    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/'title'/);
-  });
-
-  it("should reject tags that are not an array of strings", () => {
-    const invalid = { "my-project": { ...validCatalog["my-project"], tags: { "0": "web" } } };
-    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/'tags'/);
-  });
-
-  it("should reject an entry for a project that does not exist", () => {
-    const invalid = { ...validCatalog, "ghost-project": validCatalog["my-project"] };
-    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/unknown projects/);
-  });
-});
-
-describe("validateEpisodeSummary", () => {
-  const validSummary = { from: "Nothing", to: "A homepage", keyConcepts: ["html"] };
-
-  it("should accept an absent summary", () => {
-    expect(() => validateEpisodeSummary("episode-1", undefined)).not.toThrow();
-  });
-
-  it("should accept a well-formed summary", () => {
-    expect(() => validateEpisodeSummary("episode-1", validSummary)).not.toThrow();
-  });
-
-  it("should reject a summary with an empty from", () => {
-    expect(() => validateEpisodeSummary("episode-1", { ...validSummary, from: "  " })).toThrow(/summary\.from/);
-  });
-
-  it("should reject a summary with no keyConcepts", () => {
-    expect(() => validateEpisodeSummary("episode-1", { ...validSummary, keyConcepts: [] })).toThrow(
-      /summary\.keyConcepts/
-    );
   });
 });

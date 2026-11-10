@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "./helpers/test";
-import { mockAPIBadgeReveal, mockAPIBadges, mockAPIInternalMe, mockAPIFlag } from "./helpers/api-mocks";
+import { mockAPIBadgeReveal, mockAPIBadges, mockAPIInternalMe } from "./helpers/api-mocks";
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { createMockUser } from "../mocks/user";
 
@@ -71,7 +71,6 @@ test.describe("Badge Reveal E2E", () => {
   test("reveals an unrevealed badge when clicked", async ({ page }) => {
     await setupAuthentication(page);
     await mockAPIInternalMe(page, createMockUser());
-    await mockAPIFlag(page, "welcome_modal", true);
     await mockAPIBadges(page, BADGES_FIXTURE);
     await mockAPIBadgeReveal(page, 2, {
       id: 2,

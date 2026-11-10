@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
+import { usePremiumFeatures } from "@/components/premium/usePremiumFeatures";
 import styles from "./PremiumUpsell.module.css";
 
 interface PremiumUpsellProps {
@@ -17,13 +18,7 @@ export default function PremiumUpsell({
 }: PremiumUpsellProps) {
   const t = useTranslations("settings.premiumUpsell");
   const tCommon = useTranslations("common");
-  const tBenefits = useTranslations("premium.benefits");
-  const features = [
-    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
-    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
-    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
-    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") }
-  ];
+  const features = usePremiumFeatures();
   const [internalLoading, setInternalLoading] = useState(false);
   const isLoading = externalLoading || internalLoading;
 
@@ -44,12 +39,10 @@ export default function PremiumUpsell({
       <p className={styles.premiumUpsellSubtitle}>{t("subtitle")}</p>
 
       <div className={styles.premiumUpsellFeatures}>
-        {features.map((feature, index) => (
-          <div key={index} className={styles.premiumFeature}>
+        {features.map((feature) => (
+          <div key={feature.key} className={styles.premiumFeature}>
             <CheckmarkCircle />
-            <div>
-              <strong>{feature.title}:</strong> {feature.description}
-            </div>
+            <div>{feature.content}</div>
           </div>
         ))}
       </div>

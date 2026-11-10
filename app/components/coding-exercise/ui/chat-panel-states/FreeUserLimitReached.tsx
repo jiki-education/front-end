@@ -11,7 +11,7 @@ import StuckHeader from "./StuckHeader";
 export default function FreeUserLimitReached() {
   const t = useTranslations("codingExercise.freeUserLimitReached");
   const handleUpgradeClick = () => {
-    showPremiumUpgradeModal("assistant_limit_reached");
+    showPremiumUpgradeModal("exercise_chat_limit_reached");
   };
 
   return (

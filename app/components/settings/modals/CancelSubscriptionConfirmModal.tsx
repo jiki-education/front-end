@@ -5,6 +5,7 @@ import { hideModal, showModal } from "@/lib/modal/store";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import TickCircleIcon from "@/icons/tick-circle.svg";
 import styles from "./CancelSubscriptionModal.module.css";
+import { usePremiumFeatures } from "@/components/premium/usePremiumFeatures";
 
 interface CancelSubscriptionConfirmModalProps {
   onConfirmCancel: () => Promise<void>;
@@ -49,14 +50,14 @@ export function CancelSubscriptionConfirmModal({
 
 function BenefitsPanel() {
   const t = useTranslations("settings.cancelConfirm");
-  const benefits = [t("benefit1"), t("benefit2"), t("benefit3"), t("benefit4")];
+  const benefits = usePremiumFeatures();
   return (
     <div className={styles.benefitsPanel}>
       <h4 className={styles.benefitsTitle}>{t("benefitsTitle")}</h4>
       {benefits.map((benefit) => (
-        <div key={benefit} className={styles.benefitItem}>
+        <div key={benefit.key} className={styles.benefitItem}>
           <TickCircleIcon />
-          <span>{benefit}</span>
+          <span>{benefit.content}</span>
         </div>
       ))}
     </div>

@@ -329,7 +329,7 @@ export function validateNoDuplicateSlugs(slugs: string[]): void {
  * provide, with source.md counting as "en".
  */
 export function validateEnglishSource(
-  type: "blog" | "article" | "guide" | "episode",
+  type: "blog" | "article" | "guide",
   slug: string,
   slugDir: string,
   existingLocales: string[]
@@ -337,115 +337,11 @@ export function validateEnglishSource(
   const typeLabels: Record<typeof type, string> = {
     blog: "Blog post",
     article: "Article",
-    guide: "Guide",
-    episode: "Episode"
+    guide: "Guide"
   };
   if (!existingLocales.includes("en")) {
     const expectedFile = path.join(slugDir, "source.md");
     throw new ValidationError(`${typeLabels[type]} '${slug}' is missing its English source file: ${expectedFile}`);
-  }
-}
-
-// A project's learner-facing copy: the fields projects/messages.json carries and
-// the i18n repo translates. `tags` is an ARRAY of strings; everything else is a
-// string.
-export const PROJECT_COPY_FIELDS = ["title", "description", "tags"] as const;
-
-/**
- * Validate a project's config.json holds structure ONLY.
- *
- * The copy fields do not belong here, and are not merely absent: they are
- * rejected. A locale-keyed `title` map in a project's config.json would make
- * this repo a second home for translated content, and it would be read by
- * nothing while quietly looking like the place to translate.
- */
-export function validateProjectConfigIsStructural(slug: string, config: unknown): void {
-  if (config === null || typeof config !== "object" || Array.isArray(config)) {
-    throw new ValidationError(`Project '${slug}' has invalid config.json: not an object`);
-  }
-
-  const cfg = config as Record<string, unknown>;
-
-  for (const field of PROJECT_COPY_FIELDS) {
-    if (field in cfg) {
-      throw new ValidationError(
-        `Project '${slug}' config.json must not contain '${field}': learner-facing copy lives in projects/messages.json`
-      );
-    }
-  }
-}
-
-/**
- * Validate the English project copy catalog (posts/projects/messages.json).
- *
- * English is the only locale authored in this repo; every translation of this
- * catalog is published by the i18n repo. `slugs` is the project list from
- * projects/config.json, so an entry either side of it is an error: a project
- * with no copy renders a slug, and copy for no project is dead weight nothing
- * will ever validate against.
- */
-export function validateProjectCopyCatalog(catalog: unknown, slugs: string[]): void {
-  if (catalog === null || typeof catalog !== "object" || Array.isArray(catalog)) {
-    throw new ValidationError(`Invalid projects/messages.json: not an object`);
-  }
-
-  const entries = catalog as Record<string, unknown>;
-
-  for (const slug of slugs) {
-    const entry = entries[slug];
-    if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
-      throw new ValidationError(`projects/messages.json is missing an entry for project '${slug}'`);
-    }
-
-    const copy = entry as Record<string, unknown>;
-
-    for (const field of ["title", "description"] as const) {
-      const value = copy[field];
-      if (typeof value !== "string" || value.trim() === "") {
-        throw new ValidationError(`Project '${slug}' messages.json field '${field}' must be a non-empty string`);
-      }
-    }
-
-    const tags = copy.tags;
-    if (!Array.isArray(tags) || tags.some((tag) => typeof tag !== "string" || tag.trim() === "")) {
-      throw new ValidationError(`Project '${slug}' messages.json field 'tags' must be an array of non-empty strings`);
-    }
-  }
-
-  const unknown = Object.keys(entries).filter((slug) => !slugs.includes(slug));
-  if (unknown.length > 0) {
-    throw new ValidationError(`projects/messages.json has entries for unknown projects: ${unknown.join(", ")}`);
-  }
-}
-
-/**
- * Validate an episode's summary block.
- *
- * The `summary` frontmatter block (from/to/keyConcepts) is optional, but when
- * source.md defines one it must be well formed. `summary` is the parsed
- * frontmatter value, or undefined when absent.
- */
-export function validateEpisodeSummary(slug: string, summary: unknown): void {
-  if (summary === undefined) {
-    return;
-  }
-
-  if (summary === null || typeof summary !== "object" || Array.isArray(summary)) {
-    throw new ValidationError(`Episode '${slug}' has invalid summary: must be an object`);
-  }
-
-  const s = summary as Record<string, unknown>;
-
-  if (typeof s.from !== "string" || s.from.trim() === "") {
-    throw new ValidationError(`Episode '${slug}' has invalid summary.from: must be non-empty string`);
-  }
-
-  if (typeof s.to !== "string" || s.to.trim() === "") {
-    throw new ValidationError(`Episode '${slug}' has invalid summary.to: must be non-empty string`);
-  }
-
-  if (!Array.isArray(s.keyConcepts) || s.keyConcepts.length === 0) {
-    throw new ValidationError(`Episode '${slug}' has invalid summary.keyConcepts: must be non-empty array`);
   }
 }
 

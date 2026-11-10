@@ -1,0 +1,29 @@
+/* The big number, then its line underneath, both centred. */
+.statRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-blue-50) 100%);
+}
+
+.statNumber {
+    flex: none;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.statText {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--color-gray-700);
+
+    strong {
+        font-weight: 600;
+        color: var(--color-gray-900);
+    }
+}

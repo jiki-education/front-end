@@ -77,7 +77,11 @@
 
         &[data-nav-id="upgrade"] {
             color: var(--color-purple-600);
-            font-weight: 600;
+            font-weight: 500;
+
+            .nav-icon {
+                filter: brightness(1.6);
+            }
         }
 
         span {

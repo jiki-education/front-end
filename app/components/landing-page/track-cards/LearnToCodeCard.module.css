@@ -2,12 +2,11 @@
    100vw/translateX full-bleed trick, which overflows whenever a scrollbar is present. */
 .card {
     width: 100%;
-    margin-block-end: 72px;
     background: linear-gradient(180deg, var(--color-gray-100), #fff 40%);
     padding-block: 32px;
 
     @media (min-width: 768px) {
-        padding-block: 48px;
+        padding-block: 48px 60px;
     }
 }
 
@@ -19,21 +18,11 @@
 }
 
 .heading {
-    font-size: 44px;
-    line-height: 1.05;
-    font-weight: 600;
-    color: var(--color-gray-900);
-    margin-block: 40px 10px;
-
-    @media (min-width: 640px) {
-        font-size: 48px;
-        line-height: 1.15;
-    }
-}
-
-.codeWord {
-    color: var(--color-purple-600);
+    font-size: 34px;
     font-weight: 800;
+    line-height: 1.15;
+    color: var(--color-gray-800);
+    margin-block: 40px 12px;
 }
 
 .intro {

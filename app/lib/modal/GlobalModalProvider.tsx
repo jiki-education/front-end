@@ -82,21 +82,19 @@ export function GlobalModalProvider() {
     modalName === "code-sync-choice-modal";
 
   // Check if this modal should not close on overlay click
+  // The Premium upgrade modal closes like any other, but the Stripe checkout it
+  // hands over to does not, so a payment in progress can't be dismissed by accident.
   const shouldNotCloseOnOverlayClick =
     modalName === "premium-checkout-modal" ||
-    modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal" ||
     modalName === "code-sync-choice-modal";
 
   // Check if this modal should not close on ESC key
   const shouldNotCloseOnEsc =
     modalName === "premium-checkout-modal" ||
-    modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal" ||
     modalName === "code-sync-choice-modal";
 
   // Pass modal props to the modal component

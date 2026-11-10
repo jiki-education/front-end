@@ -8,16 +8,18 @@ import { getApiUrl } from "@/lib/api/config";
  * data permanently, so any new trigger must be added here first.
  */
 export type ModalTrigger =
-  | "locked_challenge"
-  | "locked_guide"
-  | "locked_episode"
-  | "locked_episode_video"
-  | "assistant_send_message"
-  | "assistant_tab_opened"
-  | "assistant_limit_reached"
-  | "upgrade_cta_nav"
-  | "upgrade_cta_challenges_sidebar"
-  | "upgrade_cta_premium_page"
+  | "nav_upgrade_button"
+  | "premium_page_upgrade_button"
+  | "dashboard_sidebar_accelerate"
+  | "dashboard_sidebar_testimonials"
+  | "dashboard_sidebar_never_get_stuck"
+  | "dashboard_sidebar_challenges"
+  | "challenges_page_locked_challenge"
+  | "guide_page_unlock_button"
+  | "guide_card_locked_guide"
+  | "exercise_chat_send_message"
+  | "exercise_chat_limit_reached"
+  | "exercise_chat_locked_footer"
   | "exercise_completion_ask_jiki_upsell";
 
 /**
@@ -26,13 +28,13 @@ export type ModalTrigger =
  * reuses that modal's trigger so the two funnels join up. The extra values cover
  * the places that open checkout without a modal first.
  */
-export type CheckoutTrigger = ModalTrigger | "upgrade_cta_settings" | "checkout_retry";
+export type CheckoutTrigger = ModalTrigger | "settings_upgrade_button" | "checkout_retry";
 
 /**
  * Feature values for `premium_feature_blocked` — fired when a locked
  * surface renders (passive view, no click required).
  */
-export type BlockedFeature = "challenges_page" | "assistant_tab" | "project_page_all_locked";
+export type BlockedFeature = "challenges_page" | "assistant_tab";
 
 /**
  * Fire-and-forget event tracking. Analytics failures must never break

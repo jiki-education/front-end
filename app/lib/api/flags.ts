@@ -3,7 +3,7 @@
 /**
  * Flags API
  *
- * Tracks per-user flags (welcome modal dismissed, tour completed, etc).
+ * Tracks per-user flags (e.g. a tour completed or a notice dismissed).
  * Backed by the API at /internal/settings/flags/:key with a localStorage
  * cache so repeat checks are instant and survive transient API failures.
  *

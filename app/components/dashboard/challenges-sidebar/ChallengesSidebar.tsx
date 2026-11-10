@@ -7,18 +7,19 @@ import { useLocale } from "next-intl";
 import { RequestAbortedError } from "@/lib/api/client";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { useAuthStore } from "@/lib/auth/authStore";
+import type { ModalTrigger } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./ChallengesSidebar.module.css";
-import { ChallengesUpsellCard } from "./ui/ChallengesUpsellCard";
+import { PremiumUpsellCard } from "./ui/premium-upsell/PremiumUpsellCard";
 import { RecentChallenges } from "./ui/RecentChallenges";
 import { UserProfile, type UserProfileData } from "./ui/UserProfile";
 
 interface ChallengesSidebarProps {
   onChallengeClick?: (challengeId: string) => void;
   onViewAllChallengesClick?: () => void;
-  onUpgradeClick?: () => void;
+  onUpgradeClick?: (trigger: ModalTrigger) => void;
 }
 
 function ChallengesSidebar({
@@ -110,11 +111,11 @@ function ChallengesSidebar({
     return challenges.filter((p) => p.status !== "locked").length;
   }, [isPremium, challenges]);
 
-  const handleUpgradeClick = () => {
+  const handleUpgradeClick = (trigger: ModalTrigger) => {
     if (onUpgradeClick) {
-      onUpgradeClick();
+      onUpgradeClick(trigger);
     } else {
-      showPremiumUpgradeModal("upgrade_cta_challenges_sidebar");
+      showPremiumUpgradeModal(trigger);
     }
   };
 
@@ -142,7 +143,7 @@ function ChallengesSidebar({
             loading={challengesLoading}
           />
         ) : (
-          <ChallengesUpsellCard onUpgradeClick={handleUpgradeClick} />
+          <PremiumUpsellCard onUpgradeClick={handleUpgradeClick} />
         )}
       </div>
     </aside>

@@ -49,7 +49,6 @@ const VideoWalkthroughModal = dynamic(() => import("./VideoWalkthroughModal").th
 const WalkthroughConfirmModal = dynamic(() =>
   import("./WalkthroughConfirmModal").then((m) => m.WalkthroughConfirmModal)
 );
-const WelcomeModal = dynamic(() => import("./WelcomeModal").then((m) => m.WelcomeModal));
 const CodeSyncChoiceModal = dynamic(() => import("./CodeSyncChoiceModal").then((m) => m.CodeSyncChoiceModal));
 
 export const appModals = {
@@ -74,6 +73,5 @@ export const appModals = {
   "video-walkthrough-modal": VideoWalkthroughModal,
   "exercise-intro-video-modal": ExerciseIntroVideoModal,
   "walkthrough-confirm-modal": WalkthroughConfirmModal,
-  "welcome-modal": WelcomeModal,
   "code-sync-choice-modal": CodeSyncChoiceModal
 };
