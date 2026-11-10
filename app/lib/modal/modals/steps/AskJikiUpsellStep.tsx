@@ -28,7 +28,7 @@ export function AskJikiUpsellStep({ exerciseSlug, onContinue, onCheckoutCancel }
 
   useEffect(() => {
     trackEvent("premium_modal_shown", {
-      trigger: "exercise_completion",
+      trigger: "exercise_completion_ask_jiki_upsell",
       context_type: "lesson",
       context_slug: exerciseSlug
     });
@@ -47,7 +47,7 @@ export function AskJikiUpsellStep({ exerciseSlug, onContinue, onCheckoutCancel }
       // Replaces the completion modal with the checkout modal. The lesson was
       // already saved before this step could appear.
       await handlePurchasePremium({
-        trigger: "exercise_completion",
+        trigger: "exercise_completion_ask_jiki_upsell",
         returnPath: window.location.pathname,
         onCancel: onCheckoutCancel
       });
