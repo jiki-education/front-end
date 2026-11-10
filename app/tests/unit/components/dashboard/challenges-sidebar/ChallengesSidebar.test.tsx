@@ -27,8 +27,8 @@ jest.mock("@/components/dashboard/challenges-sidebar/ui/UserProfile", () => ({
   )
 }));
 
-jest.mock("@/components/dashboard/challenges-sidebar/ui/ChallengesUpsellCard", () => ({
-  ChallengesUpsellCard: () => <div data-testid="upsell-card">upsell</div>
+jest.mock("@/components/dashboard/challenges-sidebar/ui/premium-upsell/PremiumUpsellCard", () => ({
+  PremiumUpsellCard: () => <div data-testid="upsell-card">upsell</div>
 }));
 
 jest.mock("@/components/dashboard/challenges-sidebar/ui/RecentChallenges", () => ({

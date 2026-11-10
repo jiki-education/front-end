@@ -15,7 +15,7 @@ interface PremiumChallengeCardProps {
 export function PremiumChallengeCard({ challenge }: PremiumChallengeCardProps) {
   const t = useTranslations("challenges");
   const handleClick = () => {
-    showPremiumUpgradeModal("locked_challenge", {
+    showPremiumUpgradeModal("challenges_page_locked_challenge", {
       contextType: "challenge",
       contextSlug: challenge.slug
     });

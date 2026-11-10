@@ -11,7 +11,7 @@ import { CodeVisual } from "./outcomes/CodeVisual";
 
 const OUTCOMES = [
   { key: "certificate", visual: <CertificateVisual /> },
-  { key: "portfolio", visual: <ProjectsVisual /> },
+  { key: "thinking", visual: <ProjectsVisual /> },
   { key: "understanding", visual: <CodeVisual /> }
 ] as const satisfies readonly { key: string; visual: ReactNode }[];
 

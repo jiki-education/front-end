@@ -176,7 +176,7 @@ export async function handleDeleteStripeHistory({
 // Convenience functions for specific contexts
 export const settingsHandlers = {
   purchase: (params: Omit<PurchaseParams, "returnPath"> = {}) =>
-    handlePurchasePremium({ ...params, trigger: "upgrade_cta_settings", returnPath: "/settings" }),
+    handlePurchasePremium({ ...params, trigger: "settings_upgrade_button", returnPath: "/settings" }),
   openPortal: handleOpenPortal,
   cancel: handleCancelSubscription,
   reactivate: handleReactivateSubscription,

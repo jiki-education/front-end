@@ -34,7 +34,6 @@ import premiumChallengesStyles from "./modals/PremiumUpsellModals/PremiumChallen
 import deepDivesStyles from "./modals/PremiumUpsellModals/DeepDivesModal.module.css";
 import premiumCheckoutStyles from "./modals/PremiumCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
-import welcomeStyles from "./modals/WelcomeModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
 import codeSyncChoiceStyles from "./modals/CodeSyncChoiceModal.module.css";
 import exerciseIntroVideoStyles from "./modals/ExerciseIntroVideoModal.module.css";
@@ -154,9 +153,4 @@ export const showCodeSyncChoice = (props: {
 // Convenience function for avatar edit modal
 export const showAvatarEditModal = () => {
   showModal("avatar-edit-modal", {}, undefined, avatarEditStyles.modal);
-};
-
-// Convenience function for welcome modal (shown once on first signup)
-export const showWelcomeModal = () => {
-  showModal("welcome-modal", {}, welcomeStyles.overlay, welcomeStyles.modal);
 };

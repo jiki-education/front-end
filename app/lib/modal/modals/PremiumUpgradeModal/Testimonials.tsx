@@ -1,7 +1,15 @@
 import { useTranslations } from "next-intl";
 import styles from "./Testimonials.module.css";
 
-const QUOTE_KEYS = ["challenge", "master", "community", "supportive", "confidence", "value", "investment"] as const;
+export const QUOTE_KEYS = [
+  "challenge",
+  "master",
+  "community",
+  "supportive",
+  "confidence",
+  "value",
+  "investment"
+] as const;
 
 // A strip of short learner quotes that scrolls along the foot of a modal.
 // The list is rendered twice so the loop has no visible jump; the copy is

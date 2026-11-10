@@ -26,11 +26,7 @@ export function AudienceChecks() {
           <span className={styles.text}>
             {t.rich(key, {
               name: (chunks) => <strong className={styles.name}>{chunks}</strong>,
-              u: (chunks) => (
-                <DrawnMark type="underline" delay={UNDERLINE_STAGGER_SECONDS * (index + 1)}>
-                  {chunks}
-                </DrawnMark>
-              )
+              u: (chunks) => <DrawnMark delay={UNDERLINE_STAGGER_SECONDS * (index + 1)}>{chunks}</DrawnMark>
             })}
           </span>
         </li>

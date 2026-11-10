@@ -42,7 +42,9 @@ export default function GuideCard({ guide, locale, premiumLocked = false, compac
     return (
       <button
         type="button"
-        onClick={() => showPremiumUpgradeModal("locked_guide", { contextType: "guide", contextSlug: guide.slug })}
+        onClick={() =>
+          showPremiumUpgradeModal("guide_card_locked_guide", { contextType: "guide", contextSlug: guide.slug })
+        }
         className={styles.card}
         data-state="premium-locked"
       >

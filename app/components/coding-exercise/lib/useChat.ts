@@ -149,7 +149,7 @@ export function useChat(orchestrator: Orchestrator) {
         // open the upgrade modal. invalid_captcha is an infra failure and
         // must NOT fire the analytics event (would pollute the funnel).
         if (error instanceof ChatTokenAccessDeniedError) {
-          showPremiumUpgradeModal("assistant_send_message", {
+          showPremiumUpgradeModal("exercise_chat_send_message", {
             contextType: context.context.type,
             contextSlug: context.context.slug
           });

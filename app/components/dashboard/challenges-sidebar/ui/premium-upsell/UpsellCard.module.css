@@ -1,0 +1,89 @@
+/* Shared frame for every Premium upsell card in the dashboard sidebar. */
+.card {
+    width: 100%;
+    padding: 24px 22px 22px;
+    background: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 6%);
+    text-align: center;
+}
+
+.avatar {
+    display: block;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: var(--color-purple-100);
+    object-fit: contain;
+}
+
+.title {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-gray-900);
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.message {
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-gray-600);
+    text-wrap: balance;
+
+    strong {
+        font-weight: 600;
+        color: var(--color-purple-600);
+    }
+}
+
+.benefits {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--color-purple-50);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-gray-600);
+
+    strong {
+        font-weight: 600;
+        color: var(--color-gray-700);
+    }
+}
+
+.priceLine {
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.price {
+    color: var(--color-purple-600);
+}
+
+.muted {
+    font-weight: 500;
+    color: var(--color-gray-500);
+}
+
+.button {
+    width: 100%;
+}
+
+.pendingNote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-gray-600);
+}

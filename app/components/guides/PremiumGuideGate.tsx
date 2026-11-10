@@ -54,7 +54,9 @@ export default function PremiumGuideGate({ slug, content }: PremiumGuideGateProp
         <button
           type="button"
           className={styles.lockedButton}
-          onClick={() => showPremiumUpgradeModal("locked_guide", { contextType: "guide", contextSlug: slug })}
+          onClick={() =>
+            showPremiumUpgradeModal("guide_page_unlock_button", { contextType: "guide", contextSlug: slug })
+          }
         >
           {t("unlockButton")}
         </button>

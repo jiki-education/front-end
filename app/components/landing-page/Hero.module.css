@@ -98,7 +98,7 @@
 
 @media (min-width: 768px) {
     .container {
-        padding-block-start: 54px;
+        padding-block-start: 32px;
     }
 
     .tagline {

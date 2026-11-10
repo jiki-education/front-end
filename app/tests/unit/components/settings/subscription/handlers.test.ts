@@ -53,12 +53,12 @@ describe("Subscription handlers", () => {
       expect(mockCheckoutUtils.createCheckoutReturnUrl).toHaveBeenCalledWith("/settings");
       expect(mockPurchaseApi.createPurchaseCheckoutSession).toHaveBeenCalledWith(
         "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}",
-        "upgrade_cta_settings"
+        "settings_upgrade_button"
       );
       expect(mockShowPremiumCheckout).toHaveBeenCalledWith({
         clientSecret: "cs_test_123",
         selectedTier: "premium",
-        trigger: "upgrade_cta_settings",
+        trigger: "settings_upgrade_button",
         priorError: undefined,
         onCancel: undefined,
         backdrop: undefined

@@ -3,7 +3,12 @@
        rather than exactly. */
     overflow: clip;
     overflow-clip-margin: 420px;
-    margin-block-end: 72px;
+    background: linear-gradient(180deg, var(--color-blue-50), #fff 40%);
+    padding-block-start: 24px;
+
+    @media (min-width: 768px) {
+        padding-block-start: 60px;
+    }
 }
 
 .inner {
@@ -40,7 +45,7 @@
    the corner the head sits in, so resizing keeps the point landing in the same place. */
 .headingArrow {
     position: absolute;
-    inset-inline-end: calc(100% + 24px);
+    inset-inline-end: calc(100% - 16px);
     inset-block-end: -44px;
     width: 230px;
     height: auto;

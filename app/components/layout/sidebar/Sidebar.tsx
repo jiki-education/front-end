@@ -122,7 +122,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
                       label={t("nav.upgrade")}
                       isActive={false}
                       icon={PremiumStarIcon}
-                      onClick={() => showPremiumUpgradeModal("upgrade_cta_nav")}
+                      onClick={() => showPremiumUpgradeModal("nav_upgrade_button")}
                     />
                   )}
                   <NavigationItem

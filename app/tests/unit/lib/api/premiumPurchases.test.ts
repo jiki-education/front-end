@@ -34,11 +34,11 @@ describe("createPurchaseCheckoutSession", () => {
   it("sends the trigger when there is one", async () => {
     mockedApiPost.mockResolvedValue({ data: { client_secret: "cs_test_secret_123" }, status: 200, headers: {} } as any);
 
-    await createPurchaseCheckoutSession("https://example.com", "assistant_limit_reached");
+    await createPurchaseCheckoutSession("https://example.com", "exercise_chat_limit_reached");
 
     expect(mockedApiPost).toHaveBeenCalledWith("/internal/premium_purchases/checkout_session", {
       return_url: "https://example.com",
-      trigger: "assistant_limit_reached"
+      trigger: "exercise_chat_limit_reached"
     });
   });
 

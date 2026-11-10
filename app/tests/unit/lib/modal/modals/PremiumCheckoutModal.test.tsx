@@ -39,12 +39,12 @@ describe("PremiumCheckoutModal funnel events", () => {
   it("tracks checkout_closed with the trigger when the modal is closed", () => {
     const onCancel = jest.fn();
     render(
-      <PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="locked_challenge" onCancel={onCancel} />
+      <PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="challenges_page_locked_challenge" onCancel={onCancel} />
     );
 
     fireEvent.click(screen.getByRole("button", { name: CLOSE_LABEL }));
 
-    expect(mockTrackEvent).toHaveBeenCalledWith("checkout_closed", { trigger: "locked_challenge" });
+    expect(mockTrackEvent).toHaveBeenCalledWith("checkout_closed", { trigger: "challenges_page_locked_challenge" });
     expect(hideModal).toHaveBeenCalled();
     expect(onCancel).toHaveBeenCalled();
   });
@@ -59,11 +59,11 @@ describe("PremiumCheckoutModal funnel events", () => {
 
   it("tracks checkout_submitted when the form is submitted", async () => {
     confirm.mockReturnValue(new Promise(() => {}));
-    render(<PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="upgrade_cta_nav" />);
+    render(<PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="nav_upgrade_button" />);
 
     fireEvent.submit(screen.getByRole("form"));
 
-    expect(mockTrackEvent).toHaveBeenCalledWith("checkout_submitted", { trigger: "upgrade_cta_nav" });
+    expect(mockTrackEvent).toHaveBeenCalledWith("checkout_submitted", { trigger: "nav_upgrade_button" });
     await waitFor(() => expect(confirm).toHaveBeenCalled());
     expect(mockTrackEvent).not.toHaveBeenCalledWith("checkout_failed", expect.anything());
   });
@@ -73,13 +73,13 @@ describe("PremiumCheckoutModal funnel events", () => {
       type: "error",
       error: { message: "Declined", code: "paymentFailed", paymentFailed: { declineCode: "insufficient_funds" } }
     });
-    render(<PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="upgrade_cta_nav" />);
+    render(<PremiumCheckoutModal clientSecret="cs" selectedTier="premium" trigger="nav_upgrade_button" />);
 
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() =>
       expect(mockTrackEvent).toHaveBeenCalledWith("checkout_failed", {
-        trigger: "upgrade_cta_nav",
+        trigger: "nav_upgrade_button",
         error_code: "paymentFailed",
         decline_code: "insufficient_funds"
       })

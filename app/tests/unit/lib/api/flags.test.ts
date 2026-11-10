@@ -11,7 +11,7 @@ import { api } from "@/lib/api/client";
 
 const mockApi = api as jest.Mocked<typeof api>;
 
-const KEY = "welcome_modal";
+const KEY = "example_flag";
 const STORAGE_KEY = `jiki_flag_${KEY}`;
 
 describe("flags API", () => {

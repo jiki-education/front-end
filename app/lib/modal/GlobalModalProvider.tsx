@@ -87,7 +87,6 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal" ||
     modalName === "code-sync-choice-modal";
 
   // Check if this modal should not close on ESC key
@@ -96,7 +95,6 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal" ||
     modalName === "payment-confirming-modal" ||
-    modalName === "welcome-modal" ||
     modalName === "code-sync-choice-modal";
 
   // Pass modal props to the modal component

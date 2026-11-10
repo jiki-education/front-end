@@ -17,7 +17,7 @@ test.describe("Home Page E2E", () => {
 
   test("should display the marketing headline", async ({ page }) => {
     const headingText = await page.locator("h1").textContent();
-    expect(headingText).toContain("The modern way to learn to code & build");
+    expect(headingText).toContain("The fun way to learn to code!");
   });
 
   test("should have login and signup links", async ({ page }) => {
