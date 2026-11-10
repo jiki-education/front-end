@@ -17,13 +17,29 @@ const CARD_VARIANTS: PremiumUpsellVariant[] = ["accelerate", "testimonials", "ne
 describe("PremiumUpsellCard", () => {
   beforeEach(() => {
     mockUser = createMockUser();
+    localStorage.clear();
   });
 
-  it("shows the Never get stuck card", () => {
-    render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
+  it("shows the next card in the rotation on each visit", () => {
+    const headings = [
+      "Accelerate your learning!",
+      "Join the Premium team",
+      "Never get stuck again",
+      "New Challenges Await!"
+    ];
 
-    expect(screen.getByRole("heading", { name: "Never get stuck again" })).toBeInTheDocument();
-    expect(screen.getByText("26x")).toBeInTheDocument();
+    for (const heading of [...headings, headings[0]]) {
+      const { unmount } = render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
+      expect(document.body).toHaveTextContent(heading);
+      unmount();
+    }
+  });
+
+  it("keeps the same card while the page stays open", () => {
+    const { rerender } = render(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
+    rerender(<PremiumUpsellCard onUpgradeClick={jest.fn()} />);
+
+    expect(document.body).toHaveTextContent("Accelerate your learning!");
   });
 
   it.each(CARD_VARIANTS)("calls onUpgradeClick from the %s card's button", (variant) => {
@@ -78,12 +94,16 @@ describe("PremiumUpsellCard", () => {
 });
 
 describe("PremiumUpsellCard trigger", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("passes the shown variant's trigger to onUpgradeClick", () => {
     const onUpgradeClick = jest.fn();
     render(<PremiumUpsellCard onUpgradeClick={onUpgradeClick} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Upgrade to Premium" }));
 
-    expect(onUpgradeClick).toHaveBeenCalledWith("dashboard_sidebar_never_get_stuck");
+    expect(onUpgradeClick).toHaveBeenCalledWith("dashboard_sidebar_accelerate");
   });
 });
