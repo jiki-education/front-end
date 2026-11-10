@@ -14,7 +14,7 @@
 - `TestedFunctionHasWrongName` ("Jiki expects a function called `raindrops` but your function is called `rainDrops`.") applies only when the similar name belongs to a function the student declared. An external or stdlib function is never offered as theirs.
 - `TestedFunctionNotDefined` ("Jiki's tests need a function called `leap`, but your code doesn't define one.") covers everything else.
 
-The first two are placed on `function name` in the student's declaration. Their frames are added directly, so the line-1 remap in the `catch` block never moves them, even when the declaration is on line 1. `TestedFunctionNotDefined` has no declaration to point at and keeps the synthetic call's location. Arity errors raised inside the student's own code are unchanged and still use `InvalidNumberOfArguments`.
+The first two are placed on `function name` in the student's declaration. Their frames are added directly, so the line-1 remap in the `catch` block never moves them, even when the declaration is on line 1. `TestedFunctionNotDefined` has no declaration to point at, so it gets an empty location at the start of line 1. The editor attaches the message to line 1 and underlines nothing. Arity errors raised inside the student's own code are unchanged and still use `InvalidNumberOfArguments`.
 
 ## 2026-11-04: Call errors name methods instead of saying "null"
 

@@ -165,6 +165,12 @@ function rainDrops(num) {
       );
     });
 
+    test("points at no code when the function is missing", () => {
+      const frame = errorFrame(code, "leap");
+      expect(frame.line).toBe(1);
+      expect(frame.error!.location.absolute).toEqual({ begin: 1, end: 1 });
+    });
+
     test("doesn't suggest a function the student didn't write", () => {
       const external = { name: "raindrop", func: () => undefined, description: "", arity: 1 };
       const { frames } = evaluateFunction(

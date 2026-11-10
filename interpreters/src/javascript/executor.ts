@@ -19,7 +19,7 @@ import {
   CallExpression,
   NewExpression,
 } from "./expression";
-import { Location } from "../shared/location";
+import { Location, Span } from "../shared/location";
 import { suggestSimilarName } from "../shared/suggestSimilarName";
 import type { Statement } from "./statement";
 import {
@@ -1084,7 +1084,7 @@ export class Executor {
           actual: declaration.name.lexeme,
         });
       }
-      return this.testedFunctionRuntimeError("TestedFunctionNotDefined", call.location, { name });
+      return this.testedFunctionRuntimeError("TestedFunctionNotDefined", startOfCode(), { name });
     }
 
     if (!(callable instanceof JSUserDefinedFunction)) {
@@ -1132,4 +1132,10 @@ export class Executor {
 // The span covering `function name` at the start of a declaration.
 function declarationLocation(declaration: FunctionDeclaration): Location {
   return Location.between(declaration, declaration.name);
+}
+
+// An empty location at the start of line 1, for errors with no student code to
+// point at. The editor still attaches the message to line 1 but underlines nothing.
+function startOfCode(): Location {
+  return new Location(1, new Span(1, 1), new Span(1, 1));
 }
