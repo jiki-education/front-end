@@ -18,7 +18,6 @@ export type ModalTrigger =
   | "upgrade_cta_nav"
   | "upgrade_cta_challenges_sidebar"
   | "upgrade_cta_premium_page"
-  | "exercise_completion"
   | "exercise_completion_ask_jiki_upsell";
 
 /**

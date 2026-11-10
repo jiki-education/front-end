@@ -129,25 +129,13 @@ export default function TestGlobalModals() {
         <div className={styles.card}>
           <h2 className={styles.cardTitle}>Premium Upsell Modals</h2>
           <div className={styles.buttonGroup}>
-            <button
-              onClick={() => showNeverGetStuckUpsell({ trigger: "exercise_completion" })}
-              className={styles.modalButton}
-              data-color="purple"
-            >
+            <button onClick={() => showNeverGetStuckUpsell()} className={styles.modalButton} data-color="purple">
               Never Get Stuck
             </button>
-            <button
-              onClick={() => showPremiumChallengesUpsell({ trigger: "exercise_completion" })}
-              className={styles.modalButton}
-              data-color="purple"
-            >
+            <button onClick={() => showPremiumChallengesUpsell()} className={styles.modalButton} data-color="purple">
               Premium Challenges
             </button>
-            <button
-              onClick={() => showDeepDivesUpsell({ trigger: "exercise_completion" })}
-              className={styles.modalButton}
-              data-color="purple"
-            >
+            <button onClick={() => showDeepDivesUpsell()} className={styles.modalButton} data-color="purple">
               Deep Dives
             </button>
           </div>
