@@ -1,5 +1,21 @@
 # JavaScript Interpreter Evolution
 
+## 2026-11-10: IO tests report problems with the student's function, not with the test's call
+
+`evaluateFunction` runs the student's function through a synthetic call such as `twoFer("Alice")`, parsed as its own one-line program. When the student's function had the wrong name or the wrong number of parameters, the error came from that call, which the student never sees. A forum report on two-fer and raindrops showed three problems:
+
+- The messages addressed the caller. `function twoFer()` got "you can't put `e the t` there. Try just writing `twoFer()`.", because `InvalidNumberOfArguments_none` quotes the call's arguments by slicing their offsets out of the student's source.
+- `function rainDrops` got "Did you mean `rainDrops`?", which suggests the name the student already wrote.
+- Every one of these errors was pinned to line 1 of the student's code, with the start of that line as the frame's code.
+
+`evaluateSingleExpression` now calls `testedFunctionError` before running the synthetic call. It reports three new error types, each in terms of what the student's function needs to be:
+
+- `TestedFunctionHasWrongNumberOfParameters` ("Your `twoFer` function needs to take 1 input, but it currently takes none.") uses `phrases.inputCount` and a new `phrases.takenInputCount`, whose zero form is "none".
+- `TestedFunctionHasWrongName` ("Jiki expects a function called `raindrops` but your function is called `rainDrops`.") applies only when the similar name belongs to a function the student declared. An external or stdlib function is never offered as theirs.
+- `TestedFunctionNotDefined` ("Jiki's tests need a function called `leap`, but your code doesn't define one.") covers everything else.
+
+The first two are placed on `function name` in the student's declaration. Their frames are added directly, so the line-1 remap in the `catch` block never moves them, even when the declaration is on line 1. `TestedFunctionNotDefined` has no declaration to point at and keeps the synthetic call's location. Arity errors raised inside the student's own code are unchanged and still use `InvalidNumberOfArguments`.
+
 ## 2026-11-04: Call errors name methods instead of saying "null"
 
 `finishCallExpression` only took a function name from an `IdentifierExpression` callee and passed `null` for everything else, so `console.log(1` read "Did you forget the closing parenthesis `)` when calling the null function?".

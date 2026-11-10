@@ -1,5 +1,6 @@
 import { compile, evaluateFunction } from "@javascript/interpreter";
 import { unwrapJSObject } from "@javascript/jikiObjects";
+import enMessages from "@javascript/locales/en/translation.json";
 
 describe("evaluateFunction", () => {
   test("compile errors throw (matches JikiScript behavior)", () => {
@@ -57,7 +58,7 @@ describe("evaluateFunction", () => {
     expect(frames[0].status).toBe("ERROR");
     expect(frames[0].error).not.toBeNull();
     expect(frames[0].error!.category).toBe("RuntimeError");
-    expect(frames[0].error!.type).toBe("FunctionNotFound");
+    expect(frames[0].error!.type).toBe("TestedFunctionNotDefined");
     expect(error).toBeNull();
   });
 
@@ -73,8 +74,107 @@ describe("evaluateFunction", () => {
     expect(frames[0].status).toBe("ERROR");
     expect(frames[0].error).not.toBeNull();
     expect(frames[0].error!.category).toBe("RuntimeError");
-    expect(frames[0].error!.type).toBe("InvalidNumberOfArguments");
+    expect(frames[0].error!.type).toBe("TestedFunctionHasWrongNumberOfParameters");
+    expect(frames[0].line).toBe(2);
     expect(error).toBeNull();
+  });
+
+  describe("tested function takes the wrong number of inputs", () => {
+    const stub = `// Write the twoFer function
+
+function twoFer() {
+  return ""
+}`;
+
+    function errorFrame(code: string, ...args: any[]) {
+      const { frames } = evaluateFunction(code, { localeMessages: enMessages }, "twoFer", ...args);
+      return frames.find(f => f.status === "ERROR")!;
+    }
+
+    test("explains that the student's function needs an input", () => {
+      expect(errorFrame(stub, "Alice").error!.message).toBe(
+        "Your `twoFer` function needs to take 1 input, but it currently takes none."
+      );
+    });
+
+    test("counts both sides when the function takes some inputs", () => {
+      const code = `function twoFer(a, b) {
+  return ""
+}`;
+      expect(errorFrame(code, "Alice").error!.message).toBe(
+        "Your `twoFer` function needs to take 1 input, but it currently takes 2."
+      );
+    });
+
+    test("pluralises the inputs the test passes", () => {
+      expect(errorFrame(stub, "Alice", "Bob").error!.message).toBe(
+        "Your `twoFer` function needs to take 2 inputs, but it currently takes none."
+      );
+    });
+
+    test("is placed on the student's function declaration", () => {
+      const frame = errorFrame(stub, "Alice");
+      expect(frame.line).toBe(3);
+      expect(frame.error!.location.toCode(stub)).toBe("function twoFer");
+    });
+
+    test("keeps its location when the function is declared on line 1", () => {
+      const code = `function twoFer() {
+  return ""
+}`;
+      const frame = errorFrame(code, "Alice");
+      expect(frame.error!.type).toBe("TestedFunctionHasWrongNumberOfParameters");
+      expect(frame.error!.location.toCode(code)).toBe("function twoFer");
+    });
+
+    test("system format", () => {
+      const { frames } = evaluateFunction(stub, {}, "twoFer", "Alice");
+      expect(frames.find(f => f.status === "ERROR")!.error!.message).toBe(
+        "TestedFunctionHasWrongNumberOfParameters: function: twoFer: expected: 1: got: 0"
+      );
+    });
+  });
+
+  describe("tested function has a different name", () => {
+    function errorFrame(code: string, functionName: string) {
+      const { frames } = evaluateFunction(code, { localeMessages: enMessages }, functionName, 15);
+      return frames.find(f => f.status === "ERROR")!;
+    }
+
+    const code = `// Write the raindrops function
+
+function rainDrops(num) {
+  return "Pling"
+}`;
+
+    test("names both the expected function and the student's one", () => {
+      expect(errorFrame(code, "raindrops").error!.message).toBe(
+        "Jiki expects a function called `raindrops` but your function is called `rainDrops`."
+      );
+    });
+
+    test("is placed on the student's function declaration", () => {
+      const frame = errorFrame(code, "raindrops");
+      expect(frame.line).toBe(3);
+      expect(frame.error!.location.toCode(code)).toBe("function rainDrops");
+    });
+
+    test("says the function is missing when nothing is close", () => {
+      expect(errorFrame(code, "leap").error!.message).toBe(
+        "Jiki's tests need a function called `leap`, but your code doesn't define one."
+      );
+    });
+
+    test("doesn't suggest a function the student didn't write", () => {
+      const external = { name: "raindrop", func: () => undefined, description: "", arity: 1 };
+      const { frames } = evaluateFunction(
+        "function other() {}",
+        { localeMessages: enMessages, externalFunctions: [external] },
+        "raindrops",
+        15
+      );
+      expect(frames.find(f => f.status === "ERROR")!.error!.type).toBe("TestedFunctionNotDefined");
+    });
   });
 
   test("incorrect number of arguments inside the function reports the real line", () => {
