@@ -1,18 +1,6 @@
 # LLM Chat Proxy - Agent Instructions
 
-## ⚠️ CRITICAL: First Step for ANY Work
-
-**Before starting ANY task, you MUST create a feature branch:**
-
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
-
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
-
----
+The repo root's `CLAUDE.md` also applies. Read its branch, worktree and commit rules before starting work.
 
 ## Overview
 

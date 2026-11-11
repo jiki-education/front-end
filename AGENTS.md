@@ -1,20 +1,49 @@
 # Instructions for coding assistants
 
-## ⚠️ CRITICAL: First Step for ANY Work
+This file provides guidance to AI agents when working with code in this repository. The rules in this root file apply to every package. Each package's own `CLAUDE.md` (a symlink to its `AGENTS.md`) adds rules for that package.
 
-**Before starting ANY task, you MUST create a feature branch:**
+## ⚠️ CRITICAL: Branches, Worktrees and Commits
 
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
+### Before starting work
 
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
+- **For agreed implementation work, ask the user first whether to use a git worktree or a branch in the main checkout.** Never pick one silently, in either direction. The user's dev server runs from the main checkout, so code built only in a worktree is invisible in the browser. The main checkout often carries the user's own in-flight changes, so branching there can collide with them. Ask this together with the branch question below, in one exchange.
+- **For a quick, direct change**, edit the files on whatever branch is checked out. Don't stash, check out, pull or create branches unless asked.
+- **Before the first commit of a new piece of work**, check `git branch --show-current` and that branch's commits and PR. If the work is unrelated to the branch's purpose, ask whether to commit there or on a new branch off `main`. Unrelated work riding along on a branch muddies its PR.
+- **When the user asks for a PR** and the current branch is unrelated to the work, create a properly named feature branch first (if `git log main..HEAD` is empty, branching from the current position is clean).
+- Never put slashes in branch names (use `name-thing`, not `name/thing`).
+- Before saying a file looks reverted or is missing changes, run `git branch --show-current` and `git log --oneline -3`. The user switches branches often, and a file's contents reflect whichever branch is checked out. When the user says "check out your branch", do it without asking.
+- Before editing files in response to a bug report, confirm each file exists on the branch you will commit to. Files seen in an old diff may have been moved or deleted by parallel branches.
 
----
+### Protecting work in progress
 
-This file provides guidance to AI agents when working with code in this repository.
+- **Never run `git stash`** without explicit permission. This includes stashing "just to check something" against a clean tree. Read `git status` and the diff instead.
+- To move uncommitted changes onto a new branch, run `git checkout -b <new-branch> <base>`. Git carries modified and untracked files across. Don't stash or copy files aside. If the base conflicts with a dirty file, ask.
+- Never discard working-tree changes (`git checkout -- <file>`, `git restore`, `git reset --hard`) without explicit permission, even to revert your own edits. Back changes out by editing them back, or ask.
+- Never run `rm -rf`, `rm -f` or any other destructive delete without explicit permission. Say what will be deleted and ask first, even for files that look like obvious temporary duplicates.
+- Never overwrite an existing file without checking first. Use `cp -n`, or ask.
+
+### Staging and committing
+
+- **Never use `git add -A` or `git add .`.** Stage files by path. The monorepo routinely holds changes that are not yours: generated artifacts, background translation runs writing into `curriculum/`, and edits the user is making in parallel. Check `git status --short` before committing and confirm every staged path belongs to the task.
+- Commit at meaningful milestones or when the user asks. Don't commit after every small tweak, because each commit runs the slow pre-commit hooks (typecheck, format, lint and tests). Never commit on `main`.
+- **Never bypass git hooks** with `--no-verify` or `-n`. If a hook fails, make it pass legitimately. If it cannot pass (for example because of someone else's uncommitted changes, or flaky tests that killing stray `node` processes doesn't fix), stop and describe the situation. Never present or recommend `--no-verify` as an option. Only the user can choose it. The single standing exception is amending a commit from a linked worktree purely to remove phantom index entries (see "Committing from a worktree" below), after the hooks passed on the original commit. Check CI afterwards.
+- Merge PRs with `gh pr merge <n> --squash`, never `--merge`, even for a stack of branches.
+- After pushing and opening a PR from a side branch in the main checkout, switch straight back to the user's original branch. Don't hold the checkout while polling CI. If CI results matter, check them later with a single `gh pr checks` call.
+
+### Working in a worktree
+
+- A fresh worktree has no `node_modules` and none of the gitignored generated files, so `pnpm typecheck` and the pre-commit hook will fail with `tsc: command not found` and `Cannot find module '@/lib/generated/...'`. Before the first commit, run `pnpm install --frozen-lockfile` at the repo root, then run every cache generator from `app/`. The authoritative list of generators is the `--parallel` list in the `build` script in `app/package.json`. A missing `levels-i18n:generate` or `curriculum-copy:generate` shows up as a jest `Cannot find module '../generated/...'` error, not as a typecheck error.
+- A fresh worktree also lacks the gitignored `app/.env.local` and `app/.envrc`. Without them the code commits fine, but the running app breaks in ways that look like product bugs (login fails on the bot check, and non-English pages 404 on their message catalog). Copy both from the main checkout, and set `JIKI_I18N_REPO` in `.envrc` because a worktree sits at a different depth from the `i18n` checkout. The user then runs `direnv allow` and restarts the dev server.
+- **Push the branch before removing a worktree.** Removing a worktree deletes its local branch and the commits on it.
+- Do work in the separate `i18n` repo in a worktree off its `main` (after asking, as above). Its main checkout almost always holds in-flight translation work.
+
+### Committing from a worktree
+
+Running `git commit` inside a linked worktree can corrupt the index for files under `app/`. The app pre-commit hook re-stages formatted files, and phantom index entries appear with one `app/` stripped (`app/lib/x.ts` also shows up as `lib/x.ts`). Sometimes eslint then aborts on the nonexistent path. More often the commit succeeds and quietly adds root-level duplicate copies. It doesn't happen every time.
+
+- **Always run `git show --name-status HEAD` after committing from a worktree.** The phantom paths don't exist on disk, so `ls` tells them apart.
+- To fix it, run `git rm --cached <phantom paths>` and then `git commit --amend --no-edit`. The amend's hook run will not re-add them.
+- To avoid it, commit `app/` source from the main checkout. Don't spend time re-diagnosing the bug.
 
 ## Context Files
 
@@ -60,7 +89,17 @@ When working on the coding exercise component, also read from `.context/coding-e
 ./bin/dev
 ```
 
-Starts the development server on http://localhost:3061. Never start or stop the dev server yourself — ask the human to run it.
+Starts the development server on http://localhost:3061. Never start or stop the dev server yourself — ask the human to run it. This covers killing an existing server (`pkill`, `kill`) and launching a new one, in the foreground or background, and the same applies to other long-running dev processes. If a check needs a running server (curl, Playwright, a screenshot), reuse whatever is already listening on port 3061. If nothing is running, ask the human to start it.
+
+### Dependencies
+
+There is one lockfile, `pnpm-lock.yaml` at the repo root. After changing dependencies in any package, run `pnpm install` from the repo root, or CI's `--frozen-lockfile` install will fail. (`app/.npmrc` sets `lockfile=false` for that package only.)
+
+The JavaScript grammar fork is published to npm as `@jiki.io/lezer-javascript`, and the root `package.json` uses `pnpm.overrides` to resolve `@codemirror/lang-javascript`'s `@lezer/javascript` dependency to it. To change the grammar, bump the version in `jiki-education/lezer-javascript`, publish it, then run `pnpm update @lezer/javascript` here. `@jiki/highlightjs-javascript` is still a `github:` dependency. If it ever gains install-time build scripts, pnpm will refuse to build it (`ERR_PNPM_GIT_DEP_PREPARE_NOT_ALLOWED`), and publishing it under `@jiki.io` will fix that.
+
+### Command output
+
+When a command produces a lot of output, or output that may be swallowed (vitest hides `console.log` from tests), write it to a temporary file and read that file. In throwaway probe scripts, use `writeFileSync` to a temp path, then delete the probe.
 
 ### Build, TypeScript & Lint
 
@@ -155,7 +194,13 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 - **Use semantic HTML** and accessibility attributes
 - **Mobile-first responsive design** via CSS Module media queries (`@media (min-width: …)`)
 - **Path alias** `@/*` maps to project root for clean imports
-- **Commit regularly** to save progress (but never on main branch)
+- **Commit at milestones** to save progress (never on the main branch). See "Staging and committing" above.
+- **Verify before acting** - Before writing, copying, moving or overwriting files, check the path, filename and slug. When the user names something by its title, grep the data for its canonical identifier (for example the slug `sieve`, not `sieve-of-eratosthenes`) before deriving filenames from it. When the user gives a directional hint about where a file goes, work out the exact directory from the code that consumes the file.
+- **Discuss debatable semantic decisions** - Jiki is educational, so matching what real JavaScript does is not always the right answer. When a change involves a judgement call that could go either way (for example whether `let console = 1` may shadow a built-in), raise it with the user before building it in. Mechanical or obvious choices don't need this.
+- **Model the domain in types** - Never make a type field optional just so mocks, fixtures or test pages can omit it. Make fields required wherever the domain guarantees them, and update the mocks to build complete shapes. Optional is only for values the domain genuinely lacks, with a comment saying why.
+- **No re-export aliases** - When centralising a value, update every reference to use the canonical constant and delete the old name. Don't keep `export const OLD = NEW`.
+- **No em dashes in written content** - In hints, instructions, docs and any other prose, use a full stop and a new sentence, or a comma. Check drafts for em dashes before writing files.
+- **Bug-report links** - Students report exercise bugs on the forum at https://jiki.io/r/forum. Use that URL when linking to reports, for example in PR descriptions.
 - **Never add metadata to `/dev` routes** - Development pages under `/dev/` use `"use client"` for interactive testing and cannot export metadata. Next.js does not allow metadata exports from client components.
 
 ### Exercise Content Cache
@@ -244,6 +289,12 @@ See the repo root's `.context/i18n.md` for the full model and the **Adding a New
 
 **RTL languages:** when adding a right-to-left locale (Arabic `ar`, Hebrew `he`, Persian `fa`, Urdu `ur`, etc.), you MUST also add its code to `RTL_LOCALES` in `lib/locales.ts`. That set drives `dir` on `<html>` via `getLocaleDirection()`, so omitting it leaves the whole UI stuck left-to-right for that locale. (LTR-only locales need no direction change - the default is `ltr`.)
 
+**Translation is automatic for production locales.** When a PR that changes English is opened, CI files an issue in the `i18n` repo titled `Translate front-end#<n>`, and a queue commits the production-locale translations straight to i18n `main` within minutes. Before translating anything by hand, check `git log origin/main` in `i18n` and the auto-filed issue. A hand pass then only needs to cover the locales the queue skipped, and must start from current i18n `main` or it will conflict.
+
+**Never translate new content as part of creating it.** The user reviews the English first and triggers translation when ready. Don't invoke translation skills or subagents unless asked.
+
+**Check the register of imported translations.** When taking strings from a third-party set (devise-i18n, stripe-i18n), check the T-V form per locale before using them. Jiki's copy is informal (German uses `du`), but devise is formal in de, fr, pt-PT, ro, ru, uk, sr, tr and el. A correct sentence in the wrong register reads worse to a native speaker than a plainer one, and the i18n repo's `validate` cannot catch it. Only take strings that are impersonal or already in the right register. Languages without a T-V distinction (ar, he, hu) are safe. For ja, ko and zh, check the politeness level. For bn, fa, hi, id, ur and vi, the respectful form is the ordinary product-UI register, so keep it. English left in place as filler is indistinguishable from a real match and never shows in coverage counts, so a later pass has to be pointed at those keys by name.
+
 ## Testing Guidelines
 
 **IMPORTANT: Always read `.context/testing.md` before writing tests**
@@ -278,6 +329,7 @@ See the repo root's `.context/i18n.md` for the full model and the **Adding a New
    ❌ **BAD**: Including entire class definitions or method implementations in context files
 
 3. **Continuous learning** - When you learn something important or make a mistake, immediately update the relevant .context file to prevent future errors
-4. **Regular commits** - Git commit regularly to save progress (always on feature branches, never on main)
-5. **Post-task documentation** - Before committing, always check if any .context files need updating to reflect the new state of the codebase
-6. **Ask, don't guess** - Prefer asking questions over making assumptions. If multiple approaches exist, ask which to use
+4. **Record working rules in files, never in memory** - New learnings about working in this repo go into the `CLAUDE.md` files (public-safe rules: this root file for repo-wide rules, a package's file for rules about that package) or into the gitignored `CLAUDE.local.md` at the repo root (private rules: anything security-sensitive, account details, business figures, or personal preferences). Never record them in Claude's memory folder. This repo is public, so check that nothing private goes into a `CLAUDE.md`.
+5. **Commit at milestones** - Commit at meaningful milestones or when asked (always on feature branches, never on main)
+6. **Post-task documentation** - Before committing, always check if any .context files need updating to reflect the new state of the codebase
+7. **Ask, don't guess** - Prefer asking questions over making assumptions. If multiple approaches exist, ask which to use
