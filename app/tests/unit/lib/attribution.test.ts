@@ -25,7 +25,9 @@ describe("attribution", () => {
   describe("captureAttribution", () => {
     it("stores referrer, landing_path, and UTM params on first call", () => {
       setReferrer("https://twitter.com/some/post");
-      setLocation("https://jiki.io/landing?utm_source=twitter&utm_medium=social&utm_campaign=launch&extra=x");
+      setLocation(
+        "https://jiki.io/landing?utm_source=twitter&utm_medium=social&utm_campaign=launch&utm_content=hero_link&extra=x"
+      );
 
       captureAttribution();
 
@@ -35,7 +37,8 @@ describe("attribution", () => {
         landing_path: "/landing",
         utm_source: "twitter",
         utm_medium: "social",
-        utm_campaign: "launch"
+        utm_campaign: "launch",
+        utm_content: "hero_link"
       });
       expect(typeof stored.captured_at).toBe("string");
     });
@@ -74,7 +77,8 @@ describe("attribution", () => {
         landing_path: "/",
         utm_source: null,
         utm_medium: null,
-        utm_campaign: null
+        utm_campaign: null,
+        utm_content: null
       });
     });
 
@@ -97,6 +101,7 @@ describe("attribution", () => {
         utm_source: "x",
         utm_medium: null,
         utm_campaign: null,
+        utm_content: null,
         captured_at: "2026-01-01T00:00:00.000Z"
       };
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
