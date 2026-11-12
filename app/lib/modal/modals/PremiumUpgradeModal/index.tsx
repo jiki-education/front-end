@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { hideModal } from "../../store";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { trackEvent, type ModalTrigger } from "@/lib/analytics";
+import { preloadStripe } from "@/lib/stripe";
 import { BasicPlanSection } from "./BasicPlanSection";
 import { PremiumPlanSection } from "./PremiumPlanSection";
 import { Testimonials } from "./Testimonials";
@@ -48,6 +49,11 @@ export function PremiumUpgradeModal({
     // stays mounted — keeps the funnel honest in the rare reopen-without-
     // unmount case.
   }, [trigger, contextType, contextSlug, contextUuid]);
+
+  // Checkout needs Stripe.js, so start loading it while the offer is read
+  useEffect(() => {
+    preloadStripe();
+  }, []);
 
   const { handleUpgrade } = useUpgradeFlow({ trigger, setIsLoading });
 

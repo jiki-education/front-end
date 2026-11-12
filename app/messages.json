@@ -1355,15 +1355,18 @@
     },
     "subscriptionCheckout": {
       "connectingToStripe": "Connecting to Stripe",
+      "connectionFailedTitle": "Couldn't connect to Stripe",
+      "connectionFailedMessage": "Check your internet connection and try again.",
       "paymentFailed": "Payment failed",
       "unexpectedError": "An unexpected error occurred. Please try again.",
       "paymentFailedTitle": "Payment failed",
+      "notCompletedTitle": "Payment not completed",
+      "notCompletedMessage": "Choose a payment method and try again.",
       "paymentInfoAriaLabel": "Payment information",
       "pay": "Pay",
       "orderTitle": "Upgrade to {tier}",
       "orderBilling": "One-off payment. No subscription.",
-      "securedBy": "Secured by <stripe>stripe</stripe>",
-      "error": "Error: {message}"
+      "securedBy": "Secured by <stripe>stripe</stripe>"
     },
     "exerciseIntroVideo": {
       "title": "Welcome to your First Drawing Exercise",

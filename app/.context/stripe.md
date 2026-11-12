@@ -32,6 +32,30 @@ The `/internal/me` user object carries everything the UI branches on (see `types
    - A `checkout_payment_incomplete` error becomes a `CheckoutIncompleteError`, and checkout reopens with the decline message from `checkout.declineCodes`.
 5. The user object is refreshed in every case.
 
+### Loading the payment form
+
+`getStripe()` in `lib/stripe.ts` loads Stripe.js on its first call and shares one Stripe instance after that. It imports `@stripe/stripe-js/pure`, so importing the module loads nothing. A failed load is forgotten, so the next call loads Stripe.js again. The upgrade modal and the exercise-completion Ask Jiki upsell call `preloadStripe()` when they appear, so Stripe.js is usually ready by the time someone clicks Upgrade. The preload ignores failures.
+
+`useStripeConnection` (in `lib/modal/modals/PremiumCheckoutModal/`) runs each attempt at showing the payment form. An attempt is ready when the Payment Element fires `onReady`. It fails if Stripe.js fails to load, Stripe can't start the checkout session (`useCheckout()` returns an error), the Payment Element fails to load, or the form isn't ready within `CONNECTION_TIMEOUT_MS` (45 seconds). A failed attempt replaces the form with a "Couldn't connect to Stripe" message and a Retry button. Retry starts a new attempt, which remounts `CheckoutProvider` under a new key, because the provider only initialises the session on mount. The provider is mounted only once Stripe.js has loaded, because it never reports a rejected Stripe promise.
+
+### Failed payments
+
+When `checkout.confirm()` returns an error with a decline code, the banner says "Payment failed" with Stripe's decline message. Any other error (most often a closed WeChat Pay or Alipay popup, or a failed 3D Secure check) gets a calmer "Payment not completed" title over Stripe's own message, which falls back to "Choose a payment method and try again." when it's empty. The form stays ready for another attempt.
+
+### Funnel events
+
+The API records `checkout_started` when it creates the session. `useCheckoutFunnel` sends the rest to `POST /internal/events`, whose allow-list in the API's `Internal::EventsController` must include every event and property. Each event carries the `trigger`.
+
+| Event                 | Extra properties                                                                               |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| `checkout_loaded`     | `load_ms` (from the modal opening to the Payment Element being ready), `attempt`               |
+| `checkout_load_error` | `source` (`stripe_js`, `checkout`, `payment_element` or `timeout`), `attempt`, `error_message` |
+| `checkout_submitted`  | `payment_method`                                                                               |
+| `checkout_failed`     | `payment_method`, `error_code`, `decline_code`, `error_type`, `error_message`                  |
+| `checkout_closed`     | `payment_method`, `stage` (`loading`, `form` or `after_failure`), `seconds_open`               |
+
+`payment_method` is the Payment Element's selected `value.type`, sent once Stripe has reported a change. Absent properties are left out.
+
 `PremiumCheckoutModal` gives Stripe its fonts as URLs, because the payment fields render in iframes on `js.stripe.com` and our `next/font` Poppins doesn't reach them. The files live in `public/static/fonts/poppins-latin-{400,500,600}.woff2`, are fingerprinted by `scripts/generate-asset-cache.js`, and are resolved with `staticAsset()`, so production serves them from `assets.jiki.io`. Development passes no fonts, since Stripe's https iframe would block an http font, and the fields use the system fonts listed after Poppins.
 
 While `premium_purchase_pending` is true, every place that would offer the purchase shows a "payment on its way" notice instead: the upgrade modal, the settings upsell and the premium page CTA. If a purchase is attempted anyway, the API rejects it with `purchase_pending`, and `already_premium` if the user already has Premium. `handlePurchasePremium()` shows the catalog copy for both.

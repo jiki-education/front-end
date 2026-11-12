@@ -3,22 +3,48 @@
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import ShieldIcon from "@/icons/shield.svg";
-import { checkoutEventProperties, trackEvent, type CheckoutTrigger } from "@/lib/analytics";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { ConnectingToStripe } from "./ConnectionStates";
+import { capMessage, type CheckoutFunnel, type CheckoutLoadErrorSource } from "./useCheckoutFunnel";
 import styles from "../PremiumCheckoutModal.module.css";
 
-export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger; priorError?: string | null }) {
+interface PaymentFormProps {
+  funnel: CheckoutFunnel;
+  priorError?: string | null;
+  onReady: () => void;
+  onLoadError: (source: CheckoutLoadErrorSource, message?: string) => void;
+}
+
+// A failed confirm shows a banner above the form. A declined payment is an
+// error. A payment that didn't complete for any other reason (most often a
+// wallet popup such as WeChat Pay or Alipay being closed) gets a calmer notice.
+interface Notice {
+  tone: "error" | "info";
+  title: string;
+  message: string;
+}
+
+interface ConfirmError {
+  message: string;
+  code: string | null;
+  paymentFailed?: { declineCode: string | null };
+}
+
+export function PaymentForm({ funnel, priorError, onReady, onLoadError }: PaymentFormProps) {
   const t = useTranslations("modals.subscriptionCheckout");
   const tCommon = useTranslations("common");
-  // Seed the error banner with a previous attempt's failure (e.g. a declined retry);
+  // Seed the banner with a previous attempt's failure (e.g. a declined retry);
   // it clears on the next submit like any other payment error.
-  const [message, setMessage] = useState<string | null>(priorError ?? null);
+  const [notice, setNotice] = useState<Notice | null>(
+    priorError ? { tone: "error", title: t("paymentFailedTitle"), message: priorError } : null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const checkoutState = useCheckout();
+  const checkoutError = checkoutState.type === "error" ? checkoutState.error.message : null;
 
   // Focus management for form accessibility
   useEffect(() => {
@@ -28,17 +54,17 @@ export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger
     }
   }, []);
 
-  // Show loading state
+  // Stripe couldn't start the checkout session. The modal swaps this form for a retry.
+  useEffect(() => {
+    if (checkoutError !== null) {
+      onLoadError("checkout", checkoutError);
+    }
+  }, [checkoutError, onLoadError]);
+
   if (checkoutState.type === "loading") {
-    return (
-      <div className={styles.loadingWrapper}>
-        <div className={styles.loadingSpinner}></div>
-        <div className={styles.loadingText}>{t("connectingToStripe")}</div>
-      </div>
-    );
+    return <ConnectingToStripe />;
   }
 
-  // This is handled before this.
   if (checkoutState.type === "error") {
     return null;
   }
@@ -50,26 +76,26 @@ export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger
     event.preventDefault();
 
     setIsLoading(true);
-    setMessage(null);
-    trackEvent("checkout_submitted", checkoutEventProperties(trigger));
+    setNotice(null);
+    funnel.trackSubmitted();
 
     try {
       // Confirm the payment - AddressElement data is automatically included
       const confirmResult = await checkout.confirm();
 
       if (confirmResult.type === "error") {
-        trackEvent("checkout_failed", {
-          ...checkoutEventProperties(trigger),
-          ...confirmErrorProperties(confirmResult.error)
-        });
-        setMessage(confirmResult.error.message || t("paymentFailed"));
+        funnel.trackFailed(confirmErrorProperties(confirmResult.error));
+        setNotice(confirmErrorNotice(confirmResult.error, t));
         setIsLoading(false);
       }
       // If successful, Stripe will redirect automatically
     } catch (error) {
       console.error("Payment error:", error);
-      trackEvent("checkout_failed", { ...checkoutEventProperties(trigger), error_code: "exception" });
-      setMessage(t("unexpectedError"));
+      funnel.trackFailed({
+        error_code: "exception",
+        ...(error instanceof Error && error.message && { error_message: capMessage(error.message) })
+      });
+      setNotice({ tone: "error", title: t("paymentFailedTitle"), message: t("unexpectedError") });
       setIsLoading(false);
     }
   };
@@ -82,18 +108,23 @@ export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger
       className={styles.form}
       aria-label={t("paymentInfoAriaLabel")}
     >
-      {message && (
-        <div className={styles.errorBanner}>
+      {notice && (
+        <div className={`${styles.errorBanner} ${notice.tone === "info" ? styles.infoBanner : ""}`} role="alert">
           <ExclamationCircleIcon />
           <div className={styles.errorBannerContent}>
-            <div className={styles.errorBannerTitle}>{t("paymentFailedTitle")}</div>
-            <div className={styles.errorBannerMessage}>{message}</div>
+            <div className={styles.errorBannerTitle}>{notice.title}</div>
+            <div className={styles.errorBannerMessage}>{notice.message}</div>
           </div>
         </div>
       )}
 
       {/* Payment and Billing Section */}
-      <PaymentElement options={{ layout: "tabs", wallets: { link: "never" } }} />
+      <PaymentElement
+        options={{ layout: "tabs", wallets: { link: "never" } }}
+        onReady={onReady}
+        onLoadError={(event) => onLoadError("payment_element", event.error.message)}
+        onChange={(event) => funnel.setPaymentMethod(event.value.type)}
+      />
 
       <button
         type="submit"
@@ -118,13 +149,31 @@ export function PaymentForm({ trigger, priorError }: { trigger?: CheckoutTrigger
   );
 }
 
+// A declined payment is titled "Payment failed". Anything without a decline
+// code (a closed wallet popup, a failed 3D Secure check, a network error) gets
+// the calmer "Payment not completed" title. Both keep Stripe's own message,
+// which explains what happened, and fall back to our copy when it's empty.
+function confirmErrorNotice(
+  error: ConfirmError,
+  t: ReturnType<typeof useTranslations<"modals.subscriptionCheckout">>
+): Notice {
+  if (error.paymentFailed?.declineCode) {
+    return { tone: "error", title: t("paymentFailedTitle"), message: error.message || t("paymentFailed") };
+  }
+  return { tone: "info", title: t("notCompletedTitle"), message: error.message || t("notCompletedMessage") };
+}
+
 // Stripe gives a code and decline reason only for a failed payment. Anything
-// else (an incomplete form, a network error) arrives with a null code, which is
-// recorded as "other".
-function confirmErrorProperties(error: { code: string | null; paymentFailed?: { declineCode: string | null } }) {
+// else (an incomplete form, a network error, a closed wallet popup) arrives
+// with a null code, which is recorded as "other". Stripe's checkout types
+// leave out the error's `type`, so it's read only when present.
+function confirmErrorProperties(error: ConfirmError) {
   const declineCode = error.paymentFailed?.declineCode;
+  const errorType = (error as { type?: unknown }).type;
   return {
     error_code: error.code ?? "other",
-    ...(declineCode && { decline_code: declineCode })
+    ...(declineCode && { decline_code: declineCode }),
+    ...(typeof errorType === "string" && { error_type: errorType }),
+    ...(error.message && { error_message: capMessage(error.message) })
   };
 }

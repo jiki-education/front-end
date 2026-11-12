@@ -59,3 +59,4 @@ The dev server runs on port 3061 by default:
 - **Build Command**: Avoid using `pnpm run build` during development as it can cause the dev server to break with ENOENT errors for buildManifest.js.tmp files
 - **Turbopack**: Currently disabled due to incompatibility with pnpm workspaces and the interpreters package. Using webpack instead
 - **Type Checking**: Always use `pnpm typecheck` (from monorepo root) for type checking instead of the build command
+- **Type checking the app**: `app` has no `typecheck` script, so the root `pnpm typecheck` checks the other packages only. Run `npx tsc --noEmit` in `app/` (the pre-commit hook does). It needs the gitignored files in `lib/generated/`, which `./bin/dev` writes. In a fresh worktree, run the `*:generate` scripts in `package.json` plus `scripts/generate-interpreter-i18n-cache.js` and `scripts/generate-levels-i18n-cache.js` first.

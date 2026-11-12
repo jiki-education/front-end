@@ -131,6 +131,24 @@
     line-height: 1.4;
 }
 
+/* A payment that didn't complete without being declined, e.g. a closed wallet popup */
+.infoBanner {
+    background: var(--color-blue-50);
+    border-color: var(--color-blue-100);
+}
+
+.infoBanner svg {
+    color: var(--color-blue-500);
+}
+
+.infoBanner .errorBannerTitle {
+    color: var(--color-blue-700);
+}
+
+.infoBanner .errorBannerMessage {
+    color: var(--color-blue-600);
+}
+
 /* Loading State */
 .loadingWrapper {
     display: flex;
@@ -162,37 +180,38 @@
     color: var(--color-gray-400);
 }
 
-/* ModalBody error state + wrapper */
-.errorState {
-    background: var(--color-bg-primary);
-    padding: 4px;
+/* Connection failed state, in place of the payment form */
+.connectionFailed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 24px 48px;
+    gap: 8px;
+    text-align: center;
 }
 
-.errorBox {
-    background: var(--color-red-50);
-    border: 1px solid var(--color-red-200);
-    border-radius: 8px;
-    padding: 4px;
-    margin-bottom: 4px;
+.connectionFailedIcon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-red-500);
+    margin-bottom: 8px;
 }
 
-.errorText {
-    font-size: 14px;
-    color: var(--color-red-800);
+.connectionFailedTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-900);
 }
 
-.errorCloseButton {
-    width: 100%;
-    padding-inline: 4px;
-    padding-block: 2px;
-    background: var(--color-gray-300);
-    color: var(--color-gray-700);
-    border-radius: 8px;
-    transition: background-color 0.15s ease;
+.connectionFailedMessage {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
 
-    &:hover {
-        background: var(--color-gray-400);
-    }
+.connectionRetryButton {
+    min-width: 160px;
 }
 
 .bodyWrapper {

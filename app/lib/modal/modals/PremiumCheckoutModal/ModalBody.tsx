@@ -1,42 +1,14 @@
 "use client";
 
-import type { CheckoutTrigger } from "@/lib/analytics";
 import type { MembershipTier } from "@/lib/pricing";
-import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
-import { PaymentForm } from "./PaymentForm";
 import styles from "../PremiumCheckoutModal.module.css";
 
-export function ModalBody({
-  selectedTier,
-  trigger,
-  priorError,
-  onCancel
-}: {
-  selectedTier: MembershipTier;
-  trigger?: CheckoutTrigger;
-  priorError?: string | null;
-  onCancel: () => void;
-}) {
+// The order header, with the payment form (or its loading or error state) below it
+export function ModalBody({ selectedTier, children }: { selectedTier: MembershipTier; children: React.ReactNode }) {
   const t = useTranslations("modals.subscriptionCheckout");
-  const tCommon = useTranslations("common");
   const tTiers = useTranslations("subscription.tiers");
-  const checkoutState = useCheckout();
   const tierName = tTiers(`${selectedTier}.name`);
-
-  // Show error state
-  if (checkoutState.type === "error") {
-    return (
-      <div className={styles.errorState}>
-        <div className={styles.errorBox}>
-          <p className={styles.errorText}>{t("error", { message: checkoutState.error.message })}</p>
-        </div>
-        <button onClick={onCancel} className={styles.errorCloseButton}>
-          {tCommon("close")}
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.bodyWrapper}>
@@ -48,7 +20,7 @@ export function ModalBody({
         </div>
       </div>
 
-      <PaymentForm trigger={trigger} priorError={priorError} />
+      {children}
     </div>
   );
 }

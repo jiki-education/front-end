@@ -22,8 +22,9 @@ export type ModalTrigger =
   | "exercise_completion_ask_jiki_upsell";
 
 /**
- * Trigger values for the checkout funnel (`checkout_started`, `checkout_submitted`,
- * `checkout_failed`, `checkout_closed`). A checkout opened from a Premium modal
+ * Trigger values for the checkout funnel (`checkout_started`, `checkout_loaded`,
+ * `checkout_load_error`, `checkout_submitted`, `checkout_failed`, `checkout_closed`).
+ * A checkout opened from a Premium modal
  * reuses that modal's trigger so the two funnels join up. The extra values cover
  * the places that open checkout without a modal first.
  */

@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { trackEvent } from "@/lib/analytics";
 import { formatPremiumPrice } from "@/lib/pricing";
 import { staticAsset } from "@/lib/static-asset";
+import { preloadStripe } from "@/lib/stripe";
 import { handlePurchasePremium } from "@/lib/subscriptions/handlers";
 import { Testimonials } from "../PremiumUpgradeModal/Testimonials";
 import styles from "./AskJikiUpsellStep.module.css";
@@ -33,6 +34,11 @@ export function AskJikiUpsellStep({ exerciseSlug, onContinue, onCheckoutCancel }
       context_slug: exerciseSlug
     });
   }, [exerciseSlug]);
+
+  // Checkout needs Stripe.js, so start loading it while the offer is read
+  useEffect(() => {
+    preloadStripe();
+  }, []);
 
   const isPending = user?.premium_purchase_pending === true;
   const price = user ? formatPremiumPrice(user.premium_prices) : "";
