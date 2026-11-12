@@ -8,7 +8,7 @@ import type { CheckoutLoadError, CheckoutLoadErrorSource } from "./useCheckoutFu
  * session and the Payment Element) before offering a retry. Stripe.js keeps
  * loading in the background, so a retry after a slow load picks it up.
  */
-export const CONNECTION_TIMEOUT_MS = 15_000;
+export const CONNECTION_TIMEOUT_MS = 45_000;
 
 type ConnectionStatus = "connecting" | "ready" | "failed";
 

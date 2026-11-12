@@ -218,6 +218,10 @@ describe("PremiumCheckoutModal", () => {
       ]);
     });
 
+    it("waits 45 seconds for the payment form", () => {
+      expect(CONNECTION_TIMEOUT_MS).toBe(45_000);
+    });
+
     it("offers a retry when the payment form takes too long to load", () => {
       jest.useFakeTimers();
       mockGetStripe.mockReturnValue(new Promise(() => {}));
@@ -287,7 +291,7 @@ describe("PremiumCheckoutModal", () => {
       expect(screen.getByText("Your card has insufficient funds.")).toBeInTheDocument();
     });
 
-    it("shows a calm notice and keeps the form ready when a payment ends without a decline code", async () => {
+    it("shows a calm notice with Stripe's message and keeps the form ready when a payment ends without a decline code", async () => {
       confirm.mockResolvedValue({ type: "error", error: { message: "The payment was cancelled.", code: null } });
       await renderCheckout();
       selectPaymentMethod("alipay");
@@ -300,9 +304,37 @@ describe("PremiumCheckoutModal", () => {
         ])
       );
       expect(screen.getByText("modals.subscriptionCheckout.notCompletedTitle")).toBeInTheDocument();
-      expect(screen.getByText("modals.subscriptionCheckout.notCompletedMessage")).toBeInTheDocument();
+      expect(screen.getByText("The payment was cancelled.")).toBeInTheDocument();
+      expect(screen.queryByText("modals.subscriptionCheckout.notCompletedMessage")).not.toBeInTheDocument();
       expect(screen.queryByText("modals.subscriptionCheckout.paymentFailedTitle")).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: /modals\.subscriptionCheckout\.pay/ })).toBeEnabled();
+    });
+
+    it("keeps Stripe's explanation for a failed 3D Secure check under the calm title", async () => {
+      confirm.mockResolvedValue({
+        type: "error",
+        error: {
+          message: "We are unable to authenticate your payment method.",
+          code: "paymentFailed",
+          paymentFailed: { declineCode: null }
+        }
+      });
+      await renderCheckout();
+
+      fireEvent.submit(screen.getByRole("form"));
+
+      expect(await screen.findByText("modals.subscriptionCheckout.notCompletedTitle")).toBeInTheDocument();
+      expect(screen.getByText("We are unable to authenticate your payment method.")).toBeInTheDocument();
+    });
+
+    it("falls back to our own copy when a payment without a decline code has no message", async () => {
+      confirm.mockResolvedValue({ type: "error", error: { message: "", code: null } });
+      await renderCheckout();
+
+      fireEvent.submit(screen.getByRole("form"));
+
+      expect(await screen.findByText("modals.subscriptionCheckout.notCompletedTitle")).toBeInTheDocument();
+      expect(screen.getByText("modals.subscriptionCheckout.notCompletedMessage")).toBeInTheDocument();
     });
 
     it("caps long error messages", async () => {

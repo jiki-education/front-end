@@ -149,9 +149,10 @@ export function PaymentForm({ funnel, priorError, onReady, onLoadError }: Paymen
   );
 }
 
-// Only a declined payment keeps Stripe's own message, which says why it was
-// declined. Anything without a decline code (a closed wallet popup, a failed
-// authentication, a network error) asks the person to try again.
+// A declined payment is titled "Payment failed". Anything without a decline
+// code (a closed wallet popup, a failed 3D Secure check, a network error) gets
+// the calmer "Payment not completed" title. Both keep Stripe's own message,
+// which explains what happened, and fall back to our copy when it's empty.
 function confirmErrorNotice(
   error: ConfirmError,
   t: ReturnType<typeof useTranslations<"modals.subscriptionCheckout">>
@@ -159,7 +160,7 @@ function confirmErrorNotice(
   if (error.paymentFailed?.declineCode) {
     return { tone: "error", title: t("paymentFailedTitle"), message: error.message || t("paymentFailed") };
   }
-  return { tone: "info", title: t("notCompletedTitle"), message: t("notCompletedMessage") };
+  return { tone: "info", title: t("notCompletedTitle"), message: error.message || t("notCompletedMessage") };
 }
 
 // Stripe gives a code and decline reason only for a failed payment. Anything

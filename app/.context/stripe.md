@@ -36,11 +36,11 @@ The `/internal/me` user object carries everything the UI branches on (see `types
 
 `getStripe()` in `lib/stripe.ts` loads Stripe.js on its first call and shares one Stripe instance after that. It imports `@stripe/stripe-js/pure`, so importing the module loads nothing. A failed load is forgotten, so the next call loads Stripe.js again. The upgrade modal and the exercise-completion Ask Jiki upsell call `preloadStripe()` when they appear, so Stripe.js is usually ready by the time someone clicks Upgrade. The preload ignores failures.
 
-`useStripeConnection` (in `lib/modal/modals/PremiumCheckoutModal/`) runs each attempt at showing the payment form. An attempt is ready when the Payment Element fires `onReady`. It fails if Stripe.js fails to load, Stripe can't start the checkout session (`useCheckout()` returns an error), the Payment Element fails to load, or the form isn't ready within `CONNECTION_TIMEOUT_MS`. A failed attempt replaces the form with a "Couldn't connect to Stripe" message and a Retry button. Retry starts a new attempt, which remounts `CheckoutProvider` under a new key, because the provider only initialises the session on mount. The provider is mounted only once Stripe.js has loaded, because it never reports a rejected Stripe promise.
+`useStripeConnection` (in `lib/modal/modals/PremiumCheckoutModal/`) runs each attempt at showing the payment form. An attempt is ready when the Payment Element fires `onReady`. It fails if Stripe.js fails to load, Stripe can't start the checkout session (`useCheckout()` returns an error), the Payment Element fails to load, or the form isn't ready within `CONNECTION_TIMEOUT_MS` (45 seconds). A failed attempt replaces the form with a "Couldn't connect to Stripe" message and a Retry button. Retry starts a new attempt, which remounts `CheckoutProvider` under a new key, because the provider only initialises the session on mount. The provider is mounted only once Stripe.js has loaded, because it never reports a rejected Stripe promise.
 
 ### Failed payments
 
-When `checkout.confirm()` returns an error with a decline code, the banner says "Payment failed" with Stripe's decline message. Any other error (most often a closed WeChat Pay or Alipay popup) gets a calmer "Payment not completed" notice, and the form stays ready for another attempt.
+When `checkout.confirm()` returns an error with a decline code, the banner says "Payment failed" with Stripe's decline message. Any other error (most often a closed WeChat Pay or Alipay popup, or a failed 3D Secure check) gets a calmer "Payment not completed" title over Stripe's own message, which falls back to "Choose a payment method and try again." when it's empty. The form stays ready for another attempt.
 
 ### Funnel events
 
