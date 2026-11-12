@@ -2,12 +2,15 @@
 
 import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
 import { CloseButton } from "@/components/ui-kit";
-import { checkoutEventProperties, trackEvent, type CheckoutTrigger } from "@/lib/analytics";
-import { stripePromise } from "@/lib/stripe";
+import type { CheckoutTrigger } from "@/lib/analytics";
 import { staticAsset } from "@/lib/static-asset";
 import type { MembershipTier } from "@/lib/pricing";
 import { hideModal } from "../store";
+import { ConnectingToStripe, ConnectionFailed } from "./PremiumCheckoutModal/ConnectionStates";
 import { ModalBody } from "./PremiumCheckoutModal/ModalBody";
+import { PaymentForm } from "./PremiumCheckoutModal/PaymentForm";
+import { useCheckoutFunnel } from "./PremiumCheckoutModal/useCheckoutFunnel";
+import { useStripeConnection } from "./PremiumCheckoutModal/useStripeConnection";
 import modalStyles from "@/app/styles/components/modals.module.css";
 
 interface PremiumCheckoutModalProps {
@@ -25,10 +28,13 @@ export function PremiumCheckoutModal({
   priorError,
   onCancel
 }: PremiumCheckoutModalProps) {
+  const funnel = useCheckoutFunnel({ trigger, priorError });
+  const connection = useStripeConnection({ onReady: funnel.trackLoaded, onFailure: funnel.trackLoadError });
+
   // Hides first, so onCancel can open the modal this one replaced. The overlay
   // and Escape don't close checkout, so every dismissal comes through here.
   const handleCancel = () => {
-    trackEvent("checkout_closed", checkoutEventProperties(trigger));
+    funnel.trackClosed();
     hideModal();
     onCancel?.();
   };
@@ -74,13 +80,29 @@ export function PremiumCheckoutModal({
   };
 
   return (
-    <CheckoutProvider stripe={stripePromise} options={options}>
-      <ModalBody selectedTier={selectedTier} trigger={trigger} priorError={priorError} onCancel={handleCancel} />
+    <>
+      <ModalBody selectedTier={selectedTier}>
+        {connection.status === "failed" ? (
+          <ConnectionFailed onRetry={connection.retry} />
+        ) : connection.stripe ? (
+          // A new key per attempt remounts the provider, which only initialises the session on mount
+          <CheckoutProvider key={connection.attempt} stripe={connection.stripe} options={options}>
+            <PaymentForm
+              funnel={funnel}
+              priorError={priorError}
+              onReady={connection.markReady}
+              onLoadError={connection.fail}
+            />
+          </CheckoutProvider>
+        ) : (
+          <ConnectingToStripe />
+        )}
+      </ModalBody>
       {/* Our own close button, as BaseModal's would hide the modal without calling onCancel */}
       <div className={modalStyles.modalCloseButton}>
         <CloseButton onClick={handleCancel} variant="light" />
       </div>
-    </CheckoutProvider>
+    </>
   );
 }
 
