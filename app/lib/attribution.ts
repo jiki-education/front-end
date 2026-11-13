@@ -8,6 +8,7 @@ export interface Attribution {
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;
+  utm_content: string | null;
   captured_at: string;
 }
 
@@ -38,6 +39,7 @@ export function captureAttribution(): void {
       utm_source: params.get("utm_source"),
       utm_medium: params.get("utm_medium"),
       utm_campaign: params.get("utm_campaign"),
+      utm_content: params.get("utm_content"),
       captured_at: new Date().toISOString()
     };
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
