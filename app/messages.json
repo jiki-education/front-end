@@ -1415,6 +1415,10 @@
           "locked": "Locked",
           "inProgress": "In Progress"
         },
+        "bonus": {
+          "completed": "Bonus completed",
+          "available": "Bonus available"
+        },
         "type": {
           "video": "Video",
           "quiz": "Quiz",

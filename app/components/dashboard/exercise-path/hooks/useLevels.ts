@@ -7,6 +7,7 @@ import { LAST_PUBLISHED_LEVEL_SLUG } from "@/lib/constants/course";
 import { fetchLevelMessages, resolveLevelTitle, type LevelMessageCatalog } from "@/lib/api/level-meta";
 import { fetchVideoIndex } from "@/lib/api/videos";
 import { EMPTY_VIDEO_INDEX, videoFor, type VideoIndex } from "@/lib/videos/select";
+import { exercisesWithBonus } from "@/lib/generated/exercise-bonuses";
 import type { LevelWithProgress } from "@/types/levels";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 
@@ -76,7 +77,9 @@ export function buildLevelSections(
         // resolves in the index, so an ungated lookup would offer each video
         // lesson its own recording as a "walkthrough".
         deepDiveVideo: lesson.type === "exercise" ? (videoFor(videos, lesson.slug) ?? undefined) : undefined,
-        deepDiveVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
+        deepDiveVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage,
+        hasBonus: lesson.type === "exercise" && exercisesWithBonus.has(lesson.slug),
+        bonusCompleted: lesson.bonus_completed
       };
     });
 

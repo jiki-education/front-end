@@ -8,6 +8,9 @@ export interface LessonResponse {
 
 export interface UserLessonData extends UserConversationData {
   lesson_slug: string;
+  // Whether every bonus task has been passed at some point. Seeds the
+  // orchestrator so a device that didn't do the passing run doesn't re-report it.
+  bonus_completed: boolean;
 }
 
 export interface UserLessonResponse {
@@ -23,11 +26,22 @@ export async function fetchLesson(slug: string): Promise<Lesson> {
 }
 
 /**
- * Mark a lesson as completed
+ * Mark a lesson as completed. `bonusPassed` reports whether every bonus task
+ * was passing at completion; it defaults to false for lessons without one
+ * (video, choose-language) and for exercises the student completes with
+ * bonuses still outstanding.
  */
-export async function markLessonComplete(slug: string): Promise<any> {
-  const response = await api.patch(`/internal/user_lessons/${slug}/complete`);
+export async function markLessonComplete(slug: string, bonusPassed = false): Promise<any> {
+  const response = await api.patch(`/internal/user_lessons/${slug}/complete`, { bonus_passed: bonusPassed });
   return response.data;
+}
+
+/**
+ * Record that every bonus task of a lesson has been passed. Idempotent on
+ * the server, so a repeat send is harmless, just wasted.
+ */
+export async function markLessonBonusCompleted(slug: string): Promise<void> {
+  await api.patch(`/internal/user_lessons/${slug}/bonus_completed`);
 }
 
 /**

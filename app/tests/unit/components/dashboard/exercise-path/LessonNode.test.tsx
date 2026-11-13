@@ -7,6 +7,8 @@ function createMockLessonDisplayData(overrides?: {
   completed?: boolean;
   locked?: boolean;
   route?: string;
+  hasBonus?: boolean;
+  bonusCompleted?: boolean;
 }): LessonDisplayData {
   return {
     lesson: {
@@ -19,7 +21,9 @@ function createMockLessonDisplayData(overrides?: {
     completed: overrides?.completed ?? false,
     locked: overrides?.locked ?? false,
     route: overrides?.route ?? "/test",
-    deepDiveVideoWatchedPercentage: 0
+    deepDiveVideoWatchedPercentage: 0,
+    hasBonus: overrides?.hasBonus ?? false,
+    bonusCompleted: overrides?.bonusCompleted ?? false
   };
 }
 
@@ -113,5 +117,31 @@ describe("LessonNode", () => {
 
     const node = screen.getByText("Test Lesson").closest("div[class*='lessonPart']");
     expect(() => fireEvent.click(node!)).not.toThrow();
+  });
+
+  describe("bonus star", () => {
+    it("is absent for exercises without a bonus task", () => {
+      render(<LessonNode lesson={createMockLessonDisplayData({ hasBonus: false })} />);
+      expect(screen.queryByTestId("bonus-star")).not.toBeInTheDocument();
+    });
+
+    it("shows an outline star when the bonus is available but not passed", () => {
+      render(<LessonNode lesson={createMockLessonDisplayData({ hasBonus: true, bonusCompleted: false })} />);
+      const star = screen.getByTestId("bonus-star");
+      expect(star).toHaveAttribute("data-completed", "false");
+      expect(star).toHaveAttribute("aria-label", "Bonus available");
+    });
+
+    it("shows a filled star once the bonus is passed", () => {
+      render(<LessonNode lesson={createMockLessonDisplayData({ hasBonus: true, bonusCompleted: true })} />);
+      const star = screen.getByTestId("bonus-star");
+      expect(star).toHaveAttribute("data-completed", "true");
+      expect(star).toHaveAttribute("aria-label", "Bonus completed");
+    });
+
+    it("is hidden on locked lessons", () => {
+      render(<LessonNode lesson={createMockLessonDisplayData({ hasBonus: true, locked: true })} />);
+      expect(screen.queryByTestId("bonus-star")).not.toBeInTheDocument();
+    });
   });
 });

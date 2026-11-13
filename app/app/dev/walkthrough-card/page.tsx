@@ -22,6 +22,8 @@ function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplay
     locked: false,
     route: "/lesson/test",
     deepDiveVideoWatchedPercentage: 0,
+    hasBonus: false,
+    bonusCompleted: false,
     ...overrides
   };
 }

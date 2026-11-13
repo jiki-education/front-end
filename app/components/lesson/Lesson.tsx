@@ -27,6 +27,7 @@ export default function Lesson({ slug }: LessonProps) {
   const [videos, setVideos] = useState<VideoIndex | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isBonusCompleted, setIsBonusCompleted] = useState(false);
   const [serverSubmission, setServerSubmission] = useState<LastSubmissionData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,6 +70,7 @@ export default function Lesson({ slug }: LessonProps) {
         setVideos(videoIndex);
         setUserCourse(userCourseData);
         setIsCompleted(userLesson.status === "completed");
+        setIsBonusCompleted(userLesson.bonus_completed);
         setServerSubmission(userLesson.data?.last_submission ?? null);
       } catch (err) {
         if (!cancelled) {
@@ -134,6 +136,7 @@ export default function Lesson({ slug }: LessonProps) {
           introVideo={lesson.type === "exercise" ? introVideo : undefined}
           userCourse={userCourse}
           isCompleted={isCompleted}
+          isBonusCompleted={isBonusCompleted}
           serverSubmission={serverSubmission}
           onReady={handleReady}
         />

@@ -34,7 +34,8 @@ export default function TestButtonsTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

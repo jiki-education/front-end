@@ -84,6 +84,7 @@ describe("nothing locale-varying is bundled", () => {
       // exercise -> level map (which varies by neither locale nor language)
       "asset-hashes.ts",
       "exercise-levels.ts",
+      "exercise-bonuses.ts",
       "concept-icon-hashes.ts",
       "css-asset-hashes.json",
       // locale-varying, but published by this repo alone and so pointer-free.

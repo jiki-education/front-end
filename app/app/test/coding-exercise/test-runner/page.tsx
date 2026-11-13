@@ -47,7 +47,8 @@ export default function TestRunnerTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     });
     setOrchestrator(orch);
 

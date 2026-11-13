@@ -34,6 +34,7 @@ describe("useConversationLoader", () => {
 
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true,
@@ -96,6 +97,7 @@ describe("useConversationLoader", () => {
   it("should fail closed when an existing record has conversation_allowed false", async () => {
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: [],
       conversation_allowed: false,
@@ -114,6 +116,7 @@ describe("useConversationLoader", () => {
   it("should fail closed when an existing record omits conversation_allowed", async () => {
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: []
       // conversation_allowed intentionally omitted (backend may not emit it yet)
@@ -162,6 +165,7 @@ describe("useConversationLoader", () => {
 
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true,
@@ -194,6 +198,7 @@ describe("useConversationLoader", () => {
 
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: lessonConversation,
       conversation_allowed: true,
@@ -231,6 +236,7 @@ describe("useConversationLoader", () => {
     mockFetchUserLesson
       .mockResolvedValueOnce({
         lesson_slug: "maze-solve-basic",
+        bonus_completed: false,
         status: "started",
         conversation: mockConversation1,
         conversation_allowed: true,
@@ -238,6 +244,7 @@ describe("useConversationLoader", () => {
       })
       .mockResolvedValueOnce({
         lesson_slug: "maze-solve-walk",
+        bonus_completed: false,
         status: "started",
         conversation: mockConversation2,
         conversation_allowed: true,
@@ -269,6 +276,7 @@ describe("useConversationLoader", () => {
   it("should retry with force reload", async () => {
     mockFetchUserLesson.mockRejectedValueOnce(new Error("Network error")).mockResolvedValueOnce({
       lesson_slug: "maze-solve-basic",
+      bonus_completed: false,
       status: "started",
       conversation: [{ role: "user", content: "Retry successful" }],
       conversation_allowed: true,

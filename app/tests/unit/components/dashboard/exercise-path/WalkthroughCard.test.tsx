@@ -22,6 +22,8 @@ function createLesson(overrides?: Partial<LessonDisplayData>): LessonDisplayData
     route: "/test",
     deepDiveVideo: { provider: "mux", id: "playback-id", durationSeconds: 120, uploadDate: "2026-01-01" },
     deepDiveVideoWatchedPercentage: 0,
+    hasBonus: false,
+    bonusCompleted: false,
     ...overrides
   };
 }

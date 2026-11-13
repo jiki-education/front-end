@@ -30,6 +30,7 @@ function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithPr
     type: "exercise",
     status: "not_started",
     walkthrough_video_watched_percentage: 0,
+    bonus_completed: false,
     ...overrides
   };
 }

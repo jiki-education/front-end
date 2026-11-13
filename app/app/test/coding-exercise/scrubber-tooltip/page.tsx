@@ -40,7 +40,8 @@ export default function ScrubberTooltipTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

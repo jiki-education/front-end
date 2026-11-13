@@ -83,7 +83,8 @@ export default function IOTestRunnerPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     });
     setOrchestrator(orch);
 

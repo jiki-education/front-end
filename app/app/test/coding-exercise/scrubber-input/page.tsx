@@ -45,7 +45,8 @@ export default function ScrubberInputTestPage() {
       codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
-      isCompleted: false
+      isCompleted: false,
+      isBonusCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

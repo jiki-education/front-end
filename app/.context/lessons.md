@@ -119,11 +119,9 @@ export async function fetchLesson(slug: string): Promise<LessonData> {
 
 ### Marking Completion
 
-```typescript
-export async function markLessonComplete(slug: string): Promise<void> {
-  await api.post(`/lessons/${slug}/complete`);
-}
-```
+`markLessonComplete(slug, bonusPassed)` in `lib/api/lessons.ts` PATCHes `/internal/user_lessons/{slug}/complete` with `bonus_passed`. The coding exercise store derives the flag from the passing run's test results via `allBonusTasksPassed()`; other lesson types leave it at the default of false.
+
+`markLessonBonusCompleted(slug)` PATCHes `/internal/user_lessons/{slug}/bonus_completed` the first time a test run passes every bonus task. See `.context/api.md`.
 
 ## Dashboard Display
 

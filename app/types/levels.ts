@@ -9,12 +9,15 @@ export interface LessonWithProgress {
   type: LessonType;
   status: "not_started" | "started" | "completed" | "locked";
   walkthrough_video_watched_percentage: number;
+  // Every bonus task passed at some point. Only exercises can earn this.
+  bonus_completed: boolean;
 }
 
 export interface UserLesson {
   lesson_slug: LessonSlug;
   status: "not_started" | "started" | "completed";
   walkthrough_video_watched_percentage: number;
+  bonus_completed: boolean;
 }
 
 // Level types
