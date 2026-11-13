@@ -1,18 +1,6 @@
 # Agent Configuration
 
-## ⚠️ CRITICAL: First Step for ANY Work
-
-**Before starting ANY task, you MUST create a feature branch:**
-
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
-
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
-
----
+The repo root's `CLAUDE.md` also applies. Read its branch, worktree and commit rules before starting work.
 
 ## ⚠️ IMPORTANT: Check .context/ Directory FIRST
 
@@ -58,6 +46,8 @@ There are two distinct error channels. Do not confuse them:
 
 - **Student-facing errors** (`RuntimeError` via `executor.error(type, location, context)`, parser/scanner `this.error(...)`, `StdlibError`, and `logicError`/`ctx.logicError(...)`). These become error frames or parse errors and are shown to students. **ALWAYS use i18n: all of their English MUST live in the i18n translation JSON** (`en/translation.json`), keyed by error type. NEVER pass a hardcoded English string into `executor.error(...)` OR `ctx.logicError(...)` (e.g. `{ message: "Array indices must be numbers" }`, or `ctx.logicError("Jiki tried to convert ...")`) — promote it to a real error key with its own `en` + `system` entry and pass only structured context (interpolation values like `{{value}}`). The only English that reaches a student comes from a translation file. This holds even where existing stdlib code (e.g. `repeat.ts`, `push.ts`) still hardcodes English — match the rule, not the legacy calls.
 
+- **`LogicError` text is pre-translated by the curriculum.** The exercise layer translates the message itself and passes the finished string into the `LogicError`. The interpreter's `error.runtime.LogicErrorInExecution` entry is just `"{{message}}"` and relays it verbatim. Don't add i18n keys or translation for `LogicError` text inside this package. `FunctionExecutionError` wraps arbitrary native `Error.message` text, so it cannot be translated (a known limitation).
+
 - **Internal invariant violations** (`InterpreterInternalError`, in `src/javascript/error.ts`). Thrown for "this should never happen" cases — an unreachable `default:`/dispatcher fall-through, or a broken interpreter/external-function contract. These are **bugs in Jiki, not in the student's code**. They are intentionally NOT turned into nice error frames and NOT translated: `interpret()` re-throws them so they explode loudly at the top level and get noticed and fixed. **Their messages are developer-facing English literals and are deliberately EXEMPT from the i18n rule** — do not move them into the translation files, and do not add locale keys for them. Any `catch` that wraps arbitrary errors (e.g. external-function or class-instantiation `catch` blocks) MUST re-throw `InterpreterInternalError` first so it is never swallowed into a student-facing frame.
 
 ## 🚨 ESSENTIAL DEVELOPMENT REMINDERS
@@ -80,11 +70,9 @@ There are two distinct error channels. Do not confuse them:
 
 ## Version Control Guidelines
 
-**IMPORTANT: Always commit your changes when you complete an instruction or task.**
+Commit at meaningful milestones or when asked, following the root `CLAUDE.md` rules.
 
 - Create descriptive commit messages that explain what was changed and why
-- Commit after finishing each discrete task or instruction
-- This ensures work is saved and provides clear history of changes
 - Use conventional commit format when appropriate
 - Include context about the implementation in commit messages
 - Push your feature branch and create a pull request when ready for review
@@ -173,6 +161,14 @@ All workflows run on pushes to `main` and pull requests targeting `main`. The pa
 - If tests are failing, identify and resolve the root cause rather than masking the problem
 - **ABSOLUTELY NEVER use `--no-verify` flag when committing without explicit permission from the user**
 - **ALL tests MUST pass before considering a task complete - failing tests mean the work is NOT done**
+
+### The pre-commit hook
+
+Committing interpreter changes runs a heavy hook: a full build of interpreters and curriculum, then the whole vitest suite (about 3,500 tests) and the jikiscript benchmark tests.
+
+- **Cross-validation and benchmark tests flake under CPU load.** `tests/cross-validation/**` spawns a fresh `node -e` or `python3 -c` subprocess per test with a hard timeout of about 6 seconds, and the benchmark tests assert wall-clock timing. On a loaded machine random tests time out, a different set each run, and they all pass in isolation. A timeout in a test that does no relevant work points to the machine, not the change.
+- **The usual cause is stray `node` processes** left behind by earlier vitest or dev runs. `ps aux | grep vitest` can show nothing while orphaned `node` workers still burn CPU. Check `ps aux | grep -i node` and kill the orphans before retrying. Never kill the dev server or anything else the user is running. Waiting for the load average to drop or retrying repeatedly does not help.
+- **lint-staged can drop modified files from a commit** after earlier failed hook runs, committing only the newly added files. Always run `git show --stat HEAD` after committing interpreter changes. If files are missing, `git add` them and run `git commit --amend --no-edit`.
 
 ## Notes
 

@@ -36,6 +36,7 @@ curriculum/pnpm-lock.yaml
 interpreters/pnpm-lock.yaml
 
 .claude/settings.local.json
+CLAUDE.local.md
 exercise-status.html
 
 # Generated build artifacts

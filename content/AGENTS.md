@@ -1,20 +1,6 @@
 # Instructions for AI Assistants - Jiki Content
 
-## ⚠️ CRITICAL: First Step for ANY Work
-
-**Before starting ANY task, you MUST create a feature branch:**
-
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
-
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
-
----
-
-This file provides guidance to AI agents when working with the Jiki content repository.
+This file provides guidance to AI agents when working with the Jiki content repository. The repo root's `CLAUDE.md` also applies. Read its branch, worktree and commit rules before starting work.
 
 ## Repository Overview
 
@@ -33,6 +19,8 @@ The content repository:
 ### Translation Workflow
 
 **IMPORTANT**: When asked to translate content, ALWAYS use the `translate` subagent. Do not translate manually.
+
+**Never translate content while creating it.** When writing a new guide, blog post, article or episode, write the English only. The user reviews and finalises the English first, then triggers translation. Don't invoke the translate subagent or skill unless asked.
 
 The `translate` subagent orchestrates parallel translations into all supported languages by delegating to specialized language-specific translation agents. Simply invoke it with the post slug and type.
 
@@ -62,7 +50,7 @@ After completing work:
 
 ```bash
 # Make changes
-git add .
+git add src/posts/blog/[slug]/ images/blog/[image]  # name your files explicitly, never `git add -A` or `git add .`
 git commit -m "Add blog post: [name]"
 git push -u origin branch-name
 gh pr create --title "Add blog post: [name]" --body "Description of the post"
@@ -350,6 +338,9 @@ export interface ProcessedPost {
 
 ### Content Writing
 
+- **Read the tone of voice first** - Before writing anything, read `.context/tone-of-voice.md` and the frontmatter and architecture docs. Sampling one existing post is not enough. When the content accompanies a video episode, re-read the relevant part of the transcript and reuse its framing, examples and characteristic phrases.
+- **No em dashes and no semicolons** - Use short, plain sentences. Write "X is one thing. Y is another." and never "X is one thing; Y is another". Sweep drafts for `—` and for `;` in prose (code and HTML attributes excepted) before presenting them.
+- **"brain" in quotes** - When describing an AI model as a brain, always write "brain" in quotes (the model is the "brain"). The quotes mark it as a metaphor.
 - **Clear titles** - Descriptive and concise
 - **Start with an h2** - Every post (blog, article, and guide) must open with an `## ` heading, not a paragraph or an `# ` heading. The title comes from frontmatter, so the body's first heading is an h2 (for example `## Introduction`).
 - **Useful excerpts** - Summarize key value (1-2 sentences)

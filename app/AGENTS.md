@@ -1,20 +1,8 @@
 # Instructions for coding assistants
 
-## ⚠️ CRITICAL: First Step for ANY Work
+This file provides guidance to AI agents when working with code in this repository. The repo root's `CLAUDE.md` also applies. Read its branch, worktree and commit rules before starting work.
 
-**Before starting ANY task, you MUST create a feature branch:**
-
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
-
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
-
----
-
-This file provides guidance to AI agents when working with code in this repository.
+**Committing app work:** when the user asks to commit or open a PR for work in `app/`, include every modified file under `app/`, not only the files related to the task just discussed. The user works on several things between commits and expects all of `app/` to go in together. Stage with `git add app/` or explicit paths, never `git add -A`, because other packages (especially `curriculum/`) often hold in-flight work from a separate process.
 
 ## Context Files
 
@@ -91,9 +79,23 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 **Note**: React Compiler is enabled, so manual memoization (`useMemo`, `useCallback`, `memo()`) is generally not needed.
 
+**Next.js 16 upgrade notes**: the app stays on Next 15 for now. Most Next 16 breaking changes are already handled (async `params`/`searchParams`, no `route.ts` handlers, `images.unoptimized: true`, `lint` calls `eslint` directly). When upgrading:
+
+- Target Next ≥ 16.4.5, because `@opennextjs/cloudflare` excludes earlier 16.x releases. Keep OpenNext current too, since old `@opennextjs/aws` versions refuse to deploy once a Next major passes its support window.
+- Keep `next build --webpack`. Turbopack becomes the default for `next build`, and the build will fail without the flag because the app has a `webpack()` config.
+- Keep `middleware.ts`. Don't rename it to `proxy.ts` or run the middleware-to-proxy codemod, because `proxy.ts` is Node-runtime-only and OpenNext on Cloudflare needs Edge middleware. If the build complains that Node.js middleware is unsupported, add `export const runtime = "edge"`.
+- Don't enable `cacheComponents` (it crashes in production on OpenNext).
+- Smoke-test a real `opennextjs-cloudflare build` plus `wrangler dev` of the middleware path before merging.
+
 **Staging**: `staging.jiki.io` (`jiki-app-staging` Worker) must be deployed via the Deploy Staging GitHub Action **before** the Terraform custom-domain apply — the domain can't attach to a Worker service that doesn't exist yet.
 
 **Deploying a branch/PR to staging**: run the `Deploy Staging` workflow (`gh workflow run deploy-staging.yml --ref <branch>`) — the dispatched ref is what deploys to `staging.jiki.io` (there is no separate `ref` input). **Only ever do this if the user explicitly asks, and treat each run as needing its own fresh explicit request** — it publishes real, working code to a live environment against the production API.
+
+**Never deploy from your own shell.** Don't run `pnpm run deploy`, `deploy:staging`, `static:upload` or `wrangler deploy` locally. The GitHub Actions runners hold the deploy credentials and environment. Staging deploys go through the workflow above, and production deploys happen when a PR merges to `main` (`deploy.yml`). This rule applies when working from any package, not only `app/`.
+
+**Verify runtime behaviour on staging.** When a check needs a real production build (SSR output, metadata, CSP, CORS, caching), don't build and serve a local production server. Propose deploying the branch to staging and verify against `staging.jiki.io`, and wait for the user's go-ahead for each deploy.
+
+**Run the test plan for third-party integrations.** When a PR adds an integration (analytics, auth, payments, an external SDK), execute its test plan in the deployed environment before saying it works: load the page, watch the network tab for the expected requests and watch the console for CSP, COEP and CORS violations. A bundle grep or a passing unit test proves nothing about runtime. When adding any new external host, check the CSP in `middleware.ts` and cover the host in `script-src`, `connect-src` and any other directive it needs, as part of the same PR. If you cannot load the page yourself, say so and ask the user to run the check.
 
 ### Organizational Patterns
 
@@ -114,6 +116,16 @@ Components follow a hierarchical pattern:
   - Clear separation: read via hooks, write via orchestrator methods
 - **Local state** with useState/useReducer for simple components
 - **No global stores** - all state is scoped to component trees
+
+#### Reading Login State
+
+To decide whether a visitor is logged in, read `isAuthenticated` from `useAuthStore` in a client component. Don't call `hasAuthenticationCookie()` (or anything else that calls `cookies()`) in a page or route to branch on auth, because reading cookies server-side opts the whole route out of static rendering. Render the same markup for everyone and gate the auth-dependent part in a small client component (see `components/ui/SignupCta/LoggedOutSignupCta.tsx`, and `components/layout/SidebarLayout.tsx` for a whole layout). Don't thread an `authenticated` prop down from the route. `authStore.isLoading` is only true during explicit auth actions such as login, so it is not a hydration guard. The existing server-side cookie reads (`ServerAuthProvider`, `ServerAuthGuard`, the locale landing page) are for redirects and auth plumbing only.
+
+#### Components for New Contexts
+
+When a component needs a visibly different treatment in a new context (for example a text-only guide card in a sidebar alongside the full `GuideCard` on the guides page), create a separate component with its own CSS module, copying the base styles, and let the two diverge. Don't add a `compact` or variant prop to the existing component.
+
+When asked to add an item to a component with several plausible homes (a footer with columns, grouped nav, sidebar sections), pick a section only if one fits unambiguously. Otherwise ask which section. Don't add supporting CSS for a placement you guessed at.
 
 #### Testing Patterns
 
@@ -157,7 +169,7 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 - **Use semantic HTML** and accessibility attributes
 - **Mobile-first responsive design** via CSS Module media queries (`@media (min-width: …)`)
 - **Path alias** `@/*` maps to project root for clean imports
-- **Commit regularly** to save progress (but never on main branch)
+- **Commit at milestones** to save progress (never on the main branch)
 - **Never add metadata to `/dev` routes** - Development pages under `/dev/` use `"use client"` for interactive testing and cannot export metadata. Next.js does not allow metadata exports from client components.
 
 ### Exercise Content Cache
@@ -180,6 +192,10 @@ Exercise content is served as static files, separate from the exercise modules i
 - **Exercise loading**: `useExerciseLoader` loads the exercise module (ExerciseCore) and static content in parallel, then assembles into `ExerciseDefinition`
 - **Dev/build commands**: `exercise-cache:generate` and `exercise-cache:watch` (wired into `dev` and `build`)
 - **Generated files are gitignored**: `public/static/exercises/` and `lib/generated/`
+
+#### Publishing More Levels
+
+The dashboard hides every level after `LAST_PUBLISHED_LEVEL_SLUG` in `lib/constants/course.ts` and shows a "More Lessons Coming Soon" card instead (`null` publishes everything and shows the completion certificate). The filter is `filterToPublishedLevels()` in `components/dashboard/exercise-path/hooks/useLevels.ts`. To publish the next milestone, set the constant to the next level slug in the API's seeds file (`api/db/seeds/curriculum.json`, `.levels[].slug`), because the dashboard matches the slugs served by `GET /internal/levels`. Don't take slugs from `curriculum/src/levels/index.ts`, which diverges from the served slugs.
 
 ### Translated Content in Development
 
@@ -220,9 +236,17 @@ import SettingsIcon from "@/icons/settings.svg";
 
 See `.context/images.md` for detailed icon usage guidelines.
 
+**SVGs referenced from CSS:** reference them by absolute `/static/...` URL in `url()`, never by a relative path into `icons/`. SVGR runs over every `.svg` the bundler resolves, so a bundled CSS-referenced SVG would compile into a JavaScript module emitted with a `.svg` name and render as nothing. Turbopack has no issuer condition to exclude CSS imports (vercel/next.js#71275, not fixed in Next 16), so bundling them would also behave differently in dev and production. The deploy syncs `public/static` to the assets bucket, so absolute `/static/` references resolve even though CSS is served from the assets domain.
+
+**Verify assets by their bytes.** When checking that an asset or URL works, inspect the response body (for example that it starts with `<svg` or the PNG magic bytes), not just a 200 status and content type. A file with a `.svg` name gets `image/svg+xml` whatever its body is. Apply the same check to build output.
+
+**Lesson icons** come from `curriculum/images/lesson-icons/{slug}.svg` (through the `app/icons/lessons` symlink), and the filename must equal the exercise slug exactly. For classic exercises, Exercism's `website-icons` repo (`exercises/{slug}.svg`) already has icons in the 160×160 circle-clipped Jiki style, so no `/tidy-svg` pass is needed. Lesson icons are different from `curriculum/images/exercise-assets/{slug}/`, which holds in-view scene images used via `setupBackground`.
+
 ## Internationalization (i18n)
 
 See the repo root's `.context/i18n.md` for the full model and the **Adding a New Locale** checklist.
+
+**UI catalog keys:** all app chrome lives in `messages/{locale}.json` as ICU messages. Use semantic keys (positional keys like `entry2Title` are banned), share repeated strings through `common.*`, fire toasts by key through `lib/toast.tsx`, and derive key types from the catalog instead of hand-writing unions.
 
 **RTL languages:** when adding a right-to-left locale (Arabic `ar`, Hebrew `he`, Persian `fa`, Urdu `ur`, etc.), you MUST also add its code to `RTL_LOCALES` in `lib/locales.ts`. That set drives `dir` on `<html>` via `getLocaleDirection()`, so omitting it leaves the whole UI stuck left-to-right for that locale. (LTR-only locales need no direction change - the default is `ltr`.)
 
@@ -235,6 +259,8 @@ See the repo root's `.context/i18n.md` for the full model and the **Adding a New
 - E2E tests go in `tests/e2e/` directory
 - Never place test files alongside source files
 - **ALWAYS run `pnpm typecheck` after running tests to check for TypeScript errors**
+- **Query by property, never by CSS class** - When a test asserts structure or variant, query on `data-testid`, a `data-*` attribute such as `data-variant`, or `role`. Don't query on a CSS class, including the hashed CSS-module class via `[class*="..."]`, because that couples the test to styling. Add a small `data-testid` or `data-*` attribute to the component where needed. This supersedes the `[class*=...]` pattern in `.context/css-styles.md`.
+- **Run e2e tests locally before pushing** - After editing e2e tests, run them with `npx playwright test <test-file>` before committing. E2e tests have subtle timing and state dependencies, so don't assume a fix is correct.
 
 ## Important Rules
 
@@ -260,6 +286,6 @@ See the repo root's `.context/i18n.md` for the full model and the **Adding a New
    ❌ **BAD**: Including entire class definitions or method implementations in context files
 
 3. **Continuous learning** - When you learn something important or make a mistake, immediately update the relevant .context file to prevent future errors
-4. **Regular commits** - Git commit regularly to save progress (always on feature branches, never on main)
+4. **Commit at milestones** - Commit at meaningful milestones or when asked (always on feature branches, never on main)
 5. **Post-task documentation** - Before committing, always check if any .context files need updating to reflect the new state of the codebase
 6. **Ask, don't guess** - Prefer asking questions over making assumptions. If multiple approaches exist, ask which to use

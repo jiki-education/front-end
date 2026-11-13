@@ -2,21 +2,7 @@
 
 > **Note:** `CLAUDE.md` is a symlink to this file (`AGENTS.md`). They are the same file.
 
-## ⚠️ CRITICAL: First Step for ANY Work
-
-**Before starting ANY task, you MUST create a feature branch:**
-
-```bash
-# 1. Ensure you're on main and up-to-date
-git checkout main && git pull
-
-# 2. Create a new feature branch
-git checkout -b feature-branch-name
-```
-
----
-
-This file provides guidance to AI agents when working with the Jiki curriculum repository.
+This file provides guidance to AI agents when working with the Jiki curriculum repository. The repo root's `CLAUDE.md` also applies. Read its branch, worktree and commit rules before starting work.
 
 ## ⚠️ JavaScript-First Launch
 
@@ -28,12 +14,15 @@ All **user-facing text** must use JavaScript conventions:
 - **Code examples**: JavaScript syntax (e.g., `let age = getAge()`, `for` loops, `if` statements)
 - **No Jikiscript syntax or references**: Do not use `set ... to`, `change ... to`, `repeat N times do ... end`, `for each ... indexed by`, or refer to "Jikiscript" as a language. ("Jiki" the character is fine.)
 - **No Python references**: Do not use Python syntax in user-facing text
+- **"array", never "list"**: JavaScript calls them arrays, and "list" is a Jikiscript and Python habit that teaches the wrong mental model. Internal snake_case identifiers (such as the `push(list, element)` stdlib signature) are not user-facing and can stay.
 
 This applies to: `metadata.json` (instructions, hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (`FunctionInfo` name/signature/examples), and `llm-metadata.ts`.
 
 **Exception**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** — the exercise base classes (`getExternalFunctions(language)`) and test runners handle conversion to the target language's convention (e.g., camelCase for JavaScript).
 
 Use `/audit-instructions` to verify an exercise's text content follows these conventions.
+
+Only JavaScript matters at this stage. When authoring or reviewing exercises, target and verify JavaScript only (`tests/exercises/all-exercises.test.ts` runs only JavaScript solutions). Don't spend effort on, or report, broken Python or Jikiscript solutions, Python interpreter or level gaps, or Jikiscript assertor gaps unless asked.
 
 ## Repository Overview
 
@@ -57,7 +46,7 @@ The curriculum repository:
 For detailed information about specific aspects of the curriculum:
 
 - **[README.md](README.md)** - Repo overview, and where to find the canonical curriculum structure (which the API owns, not this repo)
-- **[PLAN.md](PLAN.md)** - Work-in-progress plan for completing the curriculum (status tracking, API alignment issues)
+- **[PLAN.md](PLAN.md)** - Work-in-progress plan for completing the curriculum (status tracking, API alignment issues). When going through exercises with the user, record them in the **Implemented** section by default. Move an exercise to **Fully Checked** only when the user explicitly says so.
 - **[Exercises](.context/exercises.md)** - Creating and structuring exercises
 - **[Levels](.context/levels.md)** - Language features and AST node restrictions per level
 - **[Animations](.context/animations.md)** - Visual feedback system and animation patterns
@@ -240,9 +229,10 @@ pnpm run format       # Format with Prettier
    - Implement `getState()` method
    - Create animations in response to function calls
 3. **Define scenarios** in `scenarios.ts` (test cases with different states)
-4. **Export from** `src/exercises/index.ts`
-5. **Add `conceptSlugs`** to the exercise definition in `index.ts` — an array of concept slugs (from `src/concepts/`) that the exercise teaches or practices (e.g., `conceptSlugs: ["using-functions-with-inputs"]`). The exercise-to-concept mapping is generated automatically at build time from these slugs.
-6. **Test integration** with both JavaScript and Python
+4. **Write the exercise's `index.ts`** by copying a working exercise's `index.ts` (for example `golf-rolling-ball-loop/index.ts`) as the template. A visual exercise is typed as `VisualExerciseDefinition` with `type: "visual"`, uses the key `ExerciseClass`, imports the solution and stub files for all three languages into `solutions` and `stubs`, and has a `functions: FunctionInfo[]` array. See `.context/exercises.md`.
+5. **Export from** `src/exercises/index.ts`
+6. **Add `conceptSlugs`** to the exercise definition in `index.ts` — an array of concept slugs (from `src/concepts/`) that the exercise teaches or practices (e.g., `conceptSlugs: ["using-functions-with-inputs"]`). The exercise-to-concept mapping is generated automatically at build time from these slugs.
+7. **Test integration** with JavaScript (see "JavaScript-First Launch" above)
 
 ### Example Exercise Structure
 
@@ -298,6 +288,17 @@ The interpreter automatically converts function names:
 
 - **Python**: `move_right()` (as defined)
 - **JavaScript**: `moveRight()` (auto-converted to camelCase)
+
+### External Function Parameters
+
+The interpreters pass `Shared.JikiObject` values to external functions, not raw JavaScript values. For a function that receives student-provided arguments (for example `display_time(hour, minutes, indicator)`):
+
+- Import `type Shared, isNumber, isString` from `@jiki/interpreters`
+- Type the parameters as `Shared.JikiObject`
+- Validate with the `isNumber(x)` / `isString(x)` guards
+- Unwrap with `.value` (`hour.value`, `indicator.value`)
+
+Functions that only return values (for example `get_age()`) return raw JavaScript types. See `src/exercises/digital-clock/Exercise.ts` for an example.
 
 ## Type Architecture
 
@@ -364,6 +365,20 @@ Do NOT hand-write bracketed English glosses in the source; only `<define>` trigg
 - **Minimal state** - Keep exercise state simple and focused
 - **Language parity** - Functions should work naturally in both JS and Python
 - **Exercise-specific functions** - Each exercise defines its own unique functions
+
+### Student-Facing Text
+
+- **State the goal, never the technique.** Error messages (`errorHtml` and code-check errors) and scenario or task descriptions say what success looks like, and never tell the student which method, operator or approach to use. "See if you can solve the whole exercise in 42 lines of code or fewer." is enough, without "try using `.includes()`". The hints array is the place for graduated help.
+- **Name the line limit.** Any scenario whose `codeChecks` use `assertMaxLinesOfCode` must state the actual (JavaScript) limit in its `name` or `description` in `messages.json`, for example "fits in 16 lines". Without it the student is guessing at an invisible target. Naming the number is fine. The technique still stays hidden.
+- **Keep worked examples neutral.** Examples in instructions, hints and `FunctionInfo` must use data unrelated to the exercise (team names, `"a-b-c"`), so they don't leak the answer. Listing the available methods is fine.
+- **Write `llm-metadata.ts` as a progression.** Give a numbered sequence of the natural sub-steps (for example draw the border, then the grid, then alternate colours, then place pieces), followed by a short list mapping each visible symptom to the step that is wrong. The LLM should work out where the student is and nudge them towards the next piece only. Keep the non-obvious testing internals (what the checks accept or ignore), and don't re-derive the full solution.
+
+### Changing Existing Exercises
+
+- **Never change `solution.*` files without asking.** Solutions are the canonical reference the level, hints, instructions and audited language features are built around. If a refactor or level change makes a solution stop parsing under its level's allowed nodes, stop and present the options (rewrite the solution, change the level's allowed nodes, or move the exercise) and let the user choose.
+- **Sweep everything after a semantics change.** When a fix changes an exercise's model (for example what counts as a floor, or a new logic error), check `metadata.json` hints, the task hints, descriptions and `errorHtml` in `scenarios.ts`, the instructions, and `llm-metadata.ts` (model and common mistakes). Also check sibling exercises that share the same base class in `exercise-categories/`, since new guards affect every consumer.
+- **Don't emulate interpreter rounding.** The interpreters no longer round each arithmetic operation to 5 decimal places. Scenario expectation models should use plain float arithmetic in the reference solution's operation order, with a rounded comparison (such as `toFixed(2)`) as tolerance. `checkerboard/scenarios.ts` and `structured-house/scenarios.ts` still carry stale "round5" helpers (geometry only, so low risk). This is known deferred work, so raise it only when touching those exercises.
+- **`stock-market` hardcodes the year.** Its `solution.javascript` sets `let year = 2026` while the scenario uses `currentYear()`, so solution validation will fail from 1 January 2027. Raise this when touching that exercise or near the end of the year.
 
 ### Code Organization
 
