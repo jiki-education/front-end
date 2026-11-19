@@ -54,16 +54,16 @@ describe("PremiumPrice", () => {
     expect(container.textContent).toMatch(/7\.99/);
   });
 
-  it("disambiguates SGD with S$ prefix instead of bare $", () => {
+  it("adds the ISO code after a SGD dollar price", () => {
     mockUser = { premium_prices: { currency: "sgd", lifetime: 599, country_code: "SG" } };
     const { container } = render(<PremiumPrice />);
-    expect(container.textContent).toMatch(/S\$/);
+    expect(container.textContent).toBe("$5.99 SGD");
   });
 
-  it("disambiguates CAD with CA$ prefix instead of bare $", () => {
+  it("adds the ISO code after a CAD dollar price", () => {
     mockUser = { premium_prices: { currency: "cad", lifetime: 599, country_code: "CA" } };
     const { container } = render(<PremiumPrice />);
-    expect(container.textContent).toMatch(/CA\$/);
+    expect(container.textContent).toBe("$5.99 CAD");
   });
 
   it("keeps USD as bare $ (no US$ prefix)", () => {

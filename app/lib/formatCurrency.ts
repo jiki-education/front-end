@@ -1,16 +1,3 @@
-// Dollar-family currencies where "narrowSymbol" collapses to "$" and loses
-// the disambiguating prefix. Intl's "symbol" form is locale-dependent
-// (en-US renders SGD as "SGD 1.99", not "S$1.99"), so we prepend the
-// prefix ourselves to guarantee disambiguation in every locale.
-const DOLLAR_PREFIX: Record<string, string> = {
-  SGD: "S",
-  CAD: "CA",
-  AUD: "A",
-  HKD: "HK",
-  NZD: "NZ",
-  MXN: "MX"
-};
-
 // Stripe special-case currencies: displayed as zero-decimal, but the `amount`
 // field is still multiplied by 100. See https://docs.stripe.com/currencies#special-cases
 const STRIPE_HUNDREDFOLD_ZERO_DECIMAL = new Set(["HUF", "TWD", "UGX"]);
@@ -72,16 +59,17 @@ export function currencyNumberFormat(options: Intl.NumberFormatOptions): Intl.Nu
   }
 }
 
+// Many currencies share the "$" symbol (UYU, MXN, ARS, CAD, AUD...). Any
+// non-USD amount that renders with a "$" gets its ISO code after the amount,
+// e.g. "$899 UYU", so it can't be read as US dollars. USD and currencies
+// with their own symbol (EUR, GBP, JPY...) are left alone.
 function disambiguate(currency: string, formatted: string): string {
-  const prefix = DOLLAR_PREFIX[currency];
-  if (!prefix) return formatted;
-  // Only prepend if the formatter rendered a bare "$" — if Intl already
-  // produced "S$" / "CA$" for the user's locale, leave it alone.
+  if (currency === "USD") return formatted;
   const idx = formatted.indexOf("$");
   if (idx === -1) return formatted;
-  const charBefore = idx > 0 ? formatted[idx - 1] : "";
-  if (/[A-Z]/.test(charBefore)) return formatted;
-  return formatted.slice(0, idx) + prefix + formatted.slice(idx);
+  // A letter before the "$" (e.g. "CA$", "US$") already names the currency.
+  if (idx > 0 && /[A-Za-z]/.test(formatted[idx - 1])) return formatted;
+  return `${formatted} ${currency}`;
 }
 
 export function formatCurrency(

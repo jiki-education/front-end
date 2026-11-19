@@ -56,9 +56,32 @@ describe("formatCurrency", () => {
     expect(formatCurrency(1050, "eur", PRICE_OPTIONS)).toContain("10.5");
   });
 
-  it("disambiguates dollar-family currencies", () => {
-    expect(formatCurrency(599, "sgd", PRICE_OPTIONS)).toMatch(/S\$/);
-    expect(formatCurrency(599, "usd", PRICE_OPTIONS)).not.toMatch(/US\$/);
+  it("leaves USD as a bare dollar amount", () => {
+    expect(formatCurrency(2999, "usd", PRICE_OPTIONS)).toBe("$29.99");
+  });
+
+  it.each([
+    ["uyu", 89900, "$899 UYU"],
+    ["mxn", 59900, "$599 MXN"],
+    ["ars", 199900, "$1,999 ARS"],
+    ["clp", 11990, "$11,990 CLP"],
+    ["cop", 4990000, "$49,900 COP"],
+    ["cad", 3999, "$39.99 CAD"],
+    ["aud", 3999, "$39.99 AUD"],
+    ["nzd", 3999, "$39.99 NZD"],
+    ["sgd", 3999, "$39.99 SGD"],
+    ["hkd", 14800, "$148 HKD"]
+  ])("adds the ISO code after a non-USD dollar amount (%s)", (currency, amount, expected) => {
+    expect(formatCurrency(amount, currency, PRICE_OPTIONS)).toBe(expected);
+  });
+
+  it.each([
+    ["eur", 1999],
+    ["gbp", 2499],
+    ["jpy", 4800],
+    ["brl", 5990]
+  ])("does not add an ISO code to a currency with its own symbol (%s)", (currency, amount) => {
+    expect(formatCurrency(amount, currency, PRICE_OPTIONS)).not.toMatch(/[A-Z]{3}$/);
   });
 });
 
