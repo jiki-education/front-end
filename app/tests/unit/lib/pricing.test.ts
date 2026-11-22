@@ -92,4 +92,11 @@ describe("formatPremiumPrice", () => {
     expect(result).toContain("$");
     expect(result).not.toContain("USD");
   });
+
+  it("adds the ISO code to a non-USD dollar price", () => {
+    expect(formatPremiumPrice(prices({ currency: "uyu", lifetime: 89900, country_code: "UY" }))).toBe("$899 UYU");
+    expect(formatPremiumPrice(prices({ currency: "mxn", lifetime: 59900, country_code: "MX" }))).toBe("$599 MXN");
+    expect(formatPremiumPrice(prices({ currency: "usd", lifetime: 2999 }))).toBe("$29.99");
+    expect(formatPremiumPrice(prices({ currency: "eur", lifetime: 1999, country_code: "DE" }))).toBe("€19.99");
+  });
 });
