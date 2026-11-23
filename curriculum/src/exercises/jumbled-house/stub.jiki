@@ -10,10 +10,10 @@ rectangle(10,20,55,30, "brown")
 // The roof
 triangle(26,90, 60,60, 100,90, "brick")
 
-// The left window
+// The window on the left
 rectangle(10,15,6,7, "white")
 
-// The second window
+// The window on the right
 rectangle(18,55,22,23, "white")
 
 // The door
