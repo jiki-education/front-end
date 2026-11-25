@@ -67,10 +67,10 @@ rectangle(houseLeft, houseTop, houseWidth, houseHeight, houseColor)
 // The roof
 triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY, roofColor)
 
-// The left window
+// The window on the left
 rectangle(window1Left, windowTop, windowWidth, windowHeight, windowColor)
 
-// The right window
+// The window on the right
 rectangle(window2Left, windowTop, windowWidth, windowHeight, windowColor)
 
 // The door
