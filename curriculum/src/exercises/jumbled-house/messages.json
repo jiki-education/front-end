@@ -2,8 +2,8 @@
   "checks": {
     "frame": "The frame of the house is not correct.",
     "roof": "The roof of the house is not at the correct position.",
-    "leftWindow": "The left window frame isn't positioned correctly.",
-    "rightWindow": "The right window frame isn't positioned correctly.",
+    "leftWindow": "The window on the left isn't positioned correctly.",
+    "rightWindow": "The window on the right isn't positioned correctly.",
     "door": "The door frame isn't positioned correctly.",
     "doorKnob": "The door knob isn't positioned correctly."
   },

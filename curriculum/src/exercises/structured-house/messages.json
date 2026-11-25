@@ -2,8 +2,8 @@
   "checks": {
     "frameWrong": "The frame of the house is not at the correct position.",
     "roofWrong": "The roof of the house is not at the correct position.",
-    "leftWindowWrong": "The left window isn't positioned correctly.",
-    "rightWindowWrong": "The right window isn't positioned correctly.",
+    "leftWindowWrong": "The window on the left isn't positioned correctly.",
+    "rightWindowWrong": "The window on the right isn't positioned correctly.",
     "doorWrong": "The door isn't positioned correctly.",
     "knobWrong": "The door knob isn't positioned correctly.",
     "doesNotScale": "Your house doesn't scale correctly when houseWidth={{houseWidth}} and houseHeight={{houseHeight}}. Every position and size should be derived from houseWidth and houseHeight, not hardcoded numbers."
