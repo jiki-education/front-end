@@ -13,13 +13,54 @@ export const tasks = [
   }
 ] as const satisfies readonly Task[];
 
-function findRandomIntCall(result: InterpretResult, expectedMin: number, expectedMax: number) {
-  return result.meta.functionCallLog.find(
-    (entry) =>
-      entry.name === "Math.randomInt" &&
-      Math.floor(entry.args[0]) === Math.floor(expectedMin) &&
-      Math.floor(entry.args[1]) === Math.floor(expectedMax)
-  );
+// Returns the arguments of the student's makeSalad() call (leaves, tomatoes, croutons, olives).
+function saladArgs(result: InterpretResult): number[] | undefined {
+  const call = result.meta.functionCallLog.find((entry) => entry.name === "makeSalad" || entry.name === "make_salad");
+  if (!call || call.args.length !== 4 || !call.args.every((arg) => typeof arg === "number")) return undefined;
+  return call.args;
+}
+
+interface RandomIntRule {
+  min: number;
+  max: number;
+  value: number;
+}
+
+// The Math.randomInt call each ingredient should come from, given the values
+// the student passed to makeSalad().
+function rulesFor([leaves, tomatoes, croutons, olives]: number[]) {
+  return {
+    leaves: { min: 40, max: 100, value: leaves },
+    tomatoes: { min: 5, max: Math.floor(leaves / 5), value: tomatoes },
+    croutons: { min: tomatoes, max: tomatoes * 2, value: croutons },
+    olives: { min: 1, max: Math.floor(tomatoes / 2), value: olives }
+  };
+}
+
+// True if every rule has its own Math.randomInt call in the log, with the
+// rule's arguments and returning the value the student passed to makeSalad().
+// Each log entry can satisfy only one rule, so one call can't stand in for two
+// ingredients when their rules happen to have the same arguments and value.
+function allRulesMet(result: InterpretResult, rules: RandomIntRule[]) {
+  const unused = result.meta.functionCallLog.filter((entry) => entry.name === "Math.randomInt");
+  return rules.every((rule) => {
+    const index = unused.findIndex(
+      (entry) =>
+        entry.return === rule.value &&
+        Math.floor(entry.args[0]) === Math.floor(rule.min) &&
+        Math.floor(entry.args[1]) === Math.floor(rule.max)
+    );
+    if (index === -1) return false;
+    unused.splice(index, 1);
+    return true;
+  });
+}
+
+// Each check also needs the rules before it to be met, because later ranges
+// depend on earlier values.
+function checkRules(result: InterpretResult, pick: (rules: ReturnType<typeof rulesFor>) => RandomIntRule[]) {
+  const args = saladArgs(result);
+  return args !== undefined && allRulesMet(result, pick(rulesFor(args)));
 }
 
 export const scenarios: VisualScenario[] = [
@@ -35,36 +76,19 @@ export const scenarios: VisualScenario[] = [
     },
     codeChecks: [
       {
-        pass: (result) => findRandomIntCall(result, 40, 100) !== undefined,
+        pass: (result) => checkRules(result, (r) => [r.leaves]),
         errorKey: "checks.needLeavesRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          return findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5)) !== undefined;
-        },
+        pass: (result) => checkRules(result, (r) => [r.leaves, r.tomatoes]),
         errorKey: "checks.needTomatoesRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          const tomatoesCall = findRandomIntCall(result, 5, leavesCall.return / 5);
-          if (!tomatoesCall) return false;
-          const tomatoes = tomatoesCall.return;
-          return findRandomIntCall(result, tomatoes, tomatoes * 2) !== undefined;
-        },
+        pass: (result) => checkRules(result, (r) => [r.leaves, r.tomatoes, r.croutons]),
         errorKey: "checks.needCroutonsRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          const tomatoesCall = findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5));
-          if (!tomatoesCall) return false;
-          return findRandomIntCall(result, 1, Math.floor(tomatoesCall.return / 2)) !== undefined;
-        },
+        pass: (result) => checkRules(result, (r) => [r.leaves, r.tomatoes, r.olives]),
         errorKey: "checks.needOlivesRandomInt"
       }
     ],
