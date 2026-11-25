@@ -1,6 +1,7 @@
 import type { InterpretResult } from "@jiki/interpreters";
 import type { ProgressionMetrics } from "../types";
 import type RandomSaladExercise from "./Exercise";
+import { allRulesMet, rulesFor, saladArgs, type RandomIntRule } from "./randomIntRules";
 
 type FunctionCallLogEntry = InterpretResult["meta"]["functionCallLog"][number];
 
@@ -16,46 +17,28 @@ function isRandomCall(entry: FunctionCallLogEntry): boolean {
   return /rand/.test(entry.name.toLowerCase());
 }
 
-// Mirrors the scenario codeChecks' lookup: a random call with these bounds.
-function findRandomIntCall(
-  result: InterpretResult,
-  expectedMin: number,
-  expectedMax: number
-): FunctionCallLogEntry | undefined {
-  return result.meta.functionCallLog.find(
-    (entry) =>
-      isRandomCall(entry) &&
-      Math.floor(entry.args[0] as number) === Math.floor(expectedMin) &&
-      Math.floor(entry.args[1] as number) === Math.floor(expectedMax)
-  );
-}
-
 // How many links of the leaves -> tomatoes -> croutons/olives chain the
-// student has built, each fed by the previous random result.
+// student has built. Each ingredient passed to makeSalad() must come from its
+// own random call with the right bounds (see randomIntRules.ts).
 function chainedIngredients(result: InterpretResult): number {
-  let count = 0;
-
-  const leaves = findRandomIntCall(result, 40, 100);
-  if (!leaves) {
-    return count;
+  const args = saladArgs(result);
+  if (!args) {
+    return 0;
   }
-  count++;
+  const rules = rulesFor(args);
+  const met = (...chain: RandomIntRule[]) => allRulesMet(result, isRandomCall, chain);
 
-  const tomatoes = findRandomIntCall(result, 5, Math.floor((leaves.return as number) / 5));
-  if (!tomatoes) {
-    return count;
+  if (!met(rules.leaves)) {
+    return 0;
   }
-  count++;
-
-  const tomatoCount = tomatoes.return as number;
-  if (findRandomIntCall(result, tomatoCount, tomatoCount * 2)) {
-    count++;
+  if (!met(rules.leaves, rules.tomatoes)) {
+    return 1;
   }
-  if (findRandomIntCall(result, 1, Math.floor(tomatoCount / 2))) {
-    count++;
-  }
-
-  return count;
+  return (
+    2 +
+    (met(rules.leaves, rules.tomatoes, rules.croutons) ? 1 : 0) +
+    (met(rules.leaves, rules.tomatoes, rules.olives) ? 1 : 0)
+  );
 }
 
 export const progressionMetrics: ProgressionMetrics = {
