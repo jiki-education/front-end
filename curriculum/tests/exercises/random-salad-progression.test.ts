@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import type { InterpretResult } from "@jiki/interpreters";
 import randomSaladExercise from "../../src/exercises/random-salad";
 import { progressionMetrics } from "../../src/exercises/random-salad/progressionMetrics";
 import solutionJavascript from "../../src/exercises/random-salad/solution.javascript?raw";
@@ -58,6 +59,45 @@ describe("random-salad progression", () => {
     expect(scores).toEqual({
       score: 5,
       metrics: { scenarios: 0, random_ingredients: 2, salad_made: 3 }
+    });
+  });
+
+  describe("random_ingredients on a hand-written call log", () => {
+    function chained(log: Array<{ name: string; args: number[]; return?: number }>) {
+      const result = { meta: { functionCallLog: log } } as unknown as InterpretResult;
+      const metric = progressionMetrics.metrics.find((m) => m.name === "random_ingredients")!;
+      return metric.score({ bySlug: () => ({ result }) } as never, "javascript");
+    }
+    const call = (min: number, max: number, value: number) => ({
+      name: "Math.randomInt",
+      args: [min, max],
+      return: value
+    });
+
+    it("counts all four links when each value comes from its own matching call", () => {
+      expect(
+        chained([
+          call(40, 100, 52),
+          call(5, 10, 7),
+          call(7, 14, 9),
+          call(1, 3, 2),
+          { name: "makeSalad", args: [52, 7, 9, 2] }
+        ])
+      ).toBe(4);
+    });
+
+    it("does not let one call count for two ingredients (the reported coincidental case)", () => {
+      // leaves 52, tomatoes 5, croutons 5, olives 1. Math.randomInt(5, 10) returning 5
+      // is the only call that fits the tomatoes rule, so it can't also be the croutons call.
+      expect(
+        chained([
+          call(40, 100, 52),
+          call(5, 52, 5),
+          call(1, 2, 1),
+          call(5, 10, 5),
+          { name: "makeSalad", args: [52, 5, 5, 1] }
+        ])
+      ).toBe(3);
     });
   });
 });

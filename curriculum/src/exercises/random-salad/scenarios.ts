@@ -1,5 +1,5 @@
 import type { Task, VisualScenario } from "../types";
-import type { InterpretResult } from "@jiki/interpreters";
+import { checkRules } from "./randomIntRules";
 import type RandomSaladExercise from "./Exercise";
 
 export const tasks = [
@@ -13,13 +13,8 @@ export const tasks = [
   }
 ] as const satisfies readonly Task[];
 
-function findRandomIntCall(result: InterpretResult, expectedMin: number, expectedMax: number) {
-  return result.meta.functionCallLog.find(
-    (entry) =>
-      entry.name === "Math.randomInt" &&
-      Math.floor(entry.args[0]) === Math.floor(expectedMin) &&
-      Math.floor(entry.args[1]) === Math.floor(expectedMax)
-  );
+function isMathRandomInt(entry: { name: string }) {
+  return entry.name === "Math.randomInt";
 }
 
 export const scenarios: VisualScenario[] = [
@@ -35,36 +30,19 @@ export const scenarios: VisualScenario[] = [
     },
     codeChecks: [
       {
-        pass: (result) => findRandomIntCall(result, 40, 100) !== undefined,
+        pass: (result) => checkRules(result, isMathRandomInt, (r) => [r.leaves]),
         errorKey: "checks.needLeavesRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          return findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5)) !== undefined;
-        },
+        pass: (result) => checkRules(result, isMathRandomInt, (r) => [r.leaves, r.tomatoes]),
         errorKey: "checks.needTomatoesRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          const tomatoesCall = findRandomIntCall(result, 5, leavesCall.return / 5);
-          if (!tomatoesCall) return false;
-          const tomatoes = tomatoesCall.return;
-          return findRandomIntCall(result, tomatoes, tomatoes * 2) !== undefined;
-        },
+        pass: (result) => checkRules(result, isMathRandomInt, (r) => [r.leaves, r.tomatoes, r.croutons]),
         errorKey: "checks.needCroutonsRandomInt"
       },
       {
-        pass: (result) => {
-          const leavesCall = findRandomIntCall(result, 40, 100);
-          if (!leavesCall) return false;
-          const tomatoesCall = findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5));
-          if (!tomatoesCall) return false;
-          return findRandomIntCall(result, 1, Math.floor(tomatoesCall.return / 2)) !== undefined;
-        },
+        pass: (result) => checkRules(result, isMathRandomInt, (r) => [r.leaves, r.tomatoes, r.olives]),
         errorKey: "checks.needOlivesRandomInt"
       }
     ],
